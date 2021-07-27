@@ -1,0 +1,67 @@
+it:
+  sp: solido pulv.
+  snp: solido non pulv.
+  liq: liquido
+  activerecord:
+    models:
+      organization: Struttura
+      supplier: Fornitore
+      barcode: Codice a barre
+      disposal: Rifiuto
+
+    attributes:
+      admin:
+        user_upn: Indirizzo mail
+        organization: Struttura
+      organization:
+        name: Codice Struttura (A.xx)
+        description: Descrizione (per esempio Dipartimento di Matematica)
+        booking: Abilitazione prenotazione materiale
+        ordering: Abilitazione richiesta acquisti
+        pricing: Abilitazione inserimento prezzi acquisti
+        division: Abilitazione Gruppi di spesa / Reparti
+      admin:
+        authlevel: Permessi
+      supplier:
+        name: Nome fornitore
+        pi: Partita IVA
+      organization:
+        name: Nome
+        description: Descrizione
+        adminmail: Indirizzo mail responsabili
+        sendmail: Modalità invio mail
+        booking: Prenotazione materiale
+        ordering: Richiesta acquisti 
+        pricing: Prezzi
+        division: Reparti
+      barcode:
+        name: Codice a barre
+      disposal_type:
+        notes: Note
+        physical_state: Stato
+      disposal:
+        kgs: Peso
+        liters: Volume 
+        physical_state: Stato
+
+  simple_form:
+    hints:
+      disposal_type:
+        notes: Descrizione visibile a chi deve creare il carico del rifiuto
+      disposal:
+        kgs: Quanti Kg? (numero decimale)
+        liters: Quanti litri? (numero decimale)
+
+  can_read:   può leggere
+  can_order:  può ordinare
+  can_book:   può prenotare
+  can_unload: può scaricare
+  can_give:   può scaricare a nome di altri
+  can_admin:  può amministrare
+  can_edit:   responsabile struttura (Direttore amministrativo)
+  is_cesia:   Amministratore Cesia
+
+  date:
+    formats:
+      in_list: ! '%d/%m/%y'
+
