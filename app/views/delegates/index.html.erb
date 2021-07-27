@@ -1,0 +1,9 @@
+<h1>Delegati allo smaltimento</h1>
+
+<%= link_to 'Nuovo delegato', new_delegate_path, class: 'btn btn-primary' %>  
+
+<ul>
+  <% @delegates.each do |d| %>  
+    <li><%= d %></li>
+  <% end %>
+</ul>

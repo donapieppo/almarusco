@@ -1,0 +1,8 @@
+<h1>Nuovo delegato allo smaltimento</h1>
+
+<h2><%= current_organization %></h2>
+
+<%= form_with url: delegates_path do |f| %>  
+  <%= f.label :upn %>  
+  <%= f.text_field :upn %>  
+<% end %>
