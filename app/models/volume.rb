@@ -1,4 +1,4 @@
 class Volume < ApplicationRecord
-  belongs_to :disposals
+  belongs_to :disposal
 
 end
