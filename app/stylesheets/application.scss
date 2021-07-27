@@ -36,7 +36,7 @@ a {
 }
 .actual-number {
   @extend .badge;
-  @extend .float-end;
+  @extend .float-right;
   font-size: 100%;
   &.empty { @extend .bg-danger; }
   &.full  { @extend .bg-success; }

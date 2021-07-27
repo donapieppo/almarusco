@@ -4,7 +4,7 @@ ul.bordered {
   li { @extend .list-group-item; }
 }
 span.actions {
-  @extend .float-end;
+  @extend .float-right;
 }
 
 dl.dl-horizontal {

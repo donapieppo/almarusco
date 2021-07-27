@@ -2,7 +2,7 @@
   <%= dm_header %>
   <% if current_user && current_organization %>  
     <div class="collapse navbar-collapse" id="bs-navbar-collapse">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav mr-auto">
         <%= dropdown_menu :disposal, big_dmicon('radiation-alt') + ' Rifiuti.' do  %>
           <%= link_to fwdmicon('plus') + ' nuova rifiuto', choose_disposal_type_disposals_path %>
           <%= link_to fwdmicon('list') + ' tipologie di rifiuti', disposal_types_path %>
