@@ -1,0 +1,13 @@
+<h1>Tipologie di rifiuti</h1>
+
+<div class="centered">
+  <%= link_to 'NUOVA TIPOLOGIA', new_disposal_type_path, class: 'button' %>  
+</div>
+
+<div class="row">
+<% @disposal_types.each do |disposal_type| %>  
+  <div class="col-6 col-md-4 col-xl-3">
+    <%= render disposal_type, editable: true %>
+  </div>
+<% end %>
+</div>

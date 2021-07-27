@@ -1,0 +1,32 @@
+<%= simple_form_for [@disposal_type, @disposal] do |f| %>  
+  <% if @disposal.solid? %>  
+    <div id="kilos">
+      <%= f.input :kgs %>  
+      <div class="form-group row">
+        <% Disposal.available_liters[:solid].each do |l| %>  
+          <label class="col-sm-3 col-form-label">x <%= l %>L</label>
+          <div class="col-sm-9">
+            <input class="form-control numeric integer" type="number" name="solid[<%= l %>]" value="<%= @volumes[l] %>"/>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+
+    <div id="liters">
+      <%= f.input :liters %>  
+      <div class="form-group row">
+        <% Disposal.available_liters[:liquid].each do |l| %>  
+          <label class="col-sm-3 col-form-label">x <%= l %>L</label>
+          <div class="col-sm-9">
+            <input class="form-control numeric integer" type="number" name="liquid[<%= l %>]" value="<%= @volumes[l] %>"/>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div class="my-4">
+    <%= f.submit %>  
+  </div>
+<% end %>
+

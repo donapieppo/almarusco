@@ -1,0 +1,30 @@
+<%= dm_card title: disposal.disposal_type.to_s do %>  
+  <div>
+    Richiedente : <%= disposal.user %>  
+  </div>
+  <div class="text-info">
+    <%= disposal.disposal_type.un_code.name.upcase %><br/>  
+    <%= disposal.disposal_type.cer_code.description.upcase %><br/>
+    <%= t disposal.disposal_type.physical_state %>
+  </div>
+  <hr/>
+  <div class="">
+    <% if disposal.liquid? %>  
+      <%= disposal.liters %> litri
+    <% else %>  
+      <%= disposal.kgs %> Kg 
+    <% end %>
+  </div>
+  <div>
+    <% disposal.volumes.each do |v| %>
+      <div style="font-size: 140%">
+        <div class="badge badge-info">
+          <strong><%= v.num %></strong> x <%= v.liters %>L
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="text-right">
+    <%= link_to_edit [:edit, disposal] %>  
+  </div>
+<% end %>

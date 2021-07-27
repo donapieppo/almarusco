@@ -1,0 +1,46 @@
+document.querySelectorAll(".choosable-disposal-type").forEach((x) => x.style.display = 'none');
+
+const showDisposalType = (t) => {
+  console.log(t);
+
+  document.querySelectorAll(".btn").forEach((x) => x.classList.remove('btn-success'));
+  document.getElementById(t).classList.add('btn-success');
+
+  document.querySelectorAll(".choosable-disposal-type").forEach((x) => {
+    if (x.classList.contains(t)) {
+      x.style.display = 'block';
+    } else {
+      x.style.display = 'none';
+    }
+  });
+}
+
+// const solid_selector = document.getElementById('solid-liquid');
+
+// document.getElementById('liters').style.display = 'none';
+// document.getElementById('kilos').style.display = 'none';
+
+// const physical_state = () => { 
+//   return(document.getElementById('solid-liquid').querySelectorAll("[name='disposal[physical_state]']:checked")[0].value);
+// }
+
+// const hide_not_selected = () => {
+//   var ps = physical_state();
+//   console.log(ps);
+//   if (ps === 'liq') {
+//     console.log("choose liquid");
+//     document.getElementById('liters').style.display = 'block';
+//     document.getElementById('kilos').style.display = 'none';
+//   } else {
+//     console.log("choose solid");
+//     document.getElementById('kilos').style.display = 'block';
+//     document.getElementById('liters').style.display = 'none';
+//   }
+// };
+
+// solid_selector.addEventListener('change', () => {
+//   hide_not_selected();
+// });
+
+// hide_not_selected();
+

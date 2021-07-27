@@ -1,0 +1,14 @@
+<h1>Rifiuti</h1>
+
+<div class="centered">
+  <%= link_to 'NUOVO RIFIUTO', choose_disposal_type_disposals_path, class: 'button' %>  
+  <%= link_to 'NUOVA TIPOLOGIA', new_disposal_type_path, class: 'button' %>  
+</div>
+
+<div class="row">
+<% @disposals.each do |disposal| %>  
+  <div class="col-md-6">
+    <%= render disposal %>
+  </div>
+<% end %>
+</div>

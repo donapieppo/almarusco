@@ -1,0 +1,22 @@
+<h1>Scegli la tipologia di rifiuto</h1>
+<h2 class="centered"><%= current_organization %></h2>
+
+<div class="centered">
+  <div role="group" class="btn-group mx-auto">
+    <a id="sp" onclick="showDisposalType('sp')" class="btn btn-primary btn-lg">Solido</a>
+    <a id="snp" onclick="showDisposalType('snp')" class="btn btn-primary btn-lg">Solido non pulv.</a>
+    <a id="liq" onclick="showDisposalType('liq')" class="btn btn-primary btn-lg">Liquido</a>
+  </div>
+</div>
+
+<% @disposal_types.each do |disposal_type| %>
+  <div class="choosable-disposal-type <%= disposal_type.physical_state %>">
+    <%= link_to new_disposal_type_disposal_path(disposal_type), class: 'href-card' do %>  
+      <%= render disposal_type, editable: false %>  
+    <% end %>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>  
+  <%= render partial: 'helpers.js' %>  
+<% end %>
