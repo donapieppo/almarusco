@@ -54,7 +54,7 @@ class DisposalsController < ApplicationController
     params[:disposal].permit(:kgs, :liters)
   end
 
-  # "solid"=>{"40"=>"1", "60"=>"2", "120"=>"3"}
+  # "solid"=>{"40"=>"1", "60"=>"2", "120"=>""}
   # "liquid"=>{"10"=>"1", "20"=>"2"}
   def fix_volumes
     @disposal.volumes.destroy_all
@@ -62,7 +62,7 @@ class DisposalsController < ApplicationController
     h = @disposal.liquid? ? params["liquid"] : params["solid"]
     h.each do |vol, num|
       if num.to_i > 0
-        @disposal.volumes.create(liters: vol, num: num)
+        @disposal.volumes.create(liters: vol.to_i, num: num.to_i)
       end
     end
   end
