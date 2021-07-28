@@ -1,16 +1,16 @@
 <%= dm_card title: disposal.disposal_type.to_s do %>  
   <div>
-    Richiedente : <%= disposal.user %>  
+    Richiedente : <%= link_to disposal.user, disposals_path(u: disposal.user_id) %>  
   </div>
-  <div class="text-info">
-    <%= disposal.disposal_type.un_code.name.upcase %><br/>  
-    <%= disposal.disposal_type.cer_code.description.upcase %><br/>
-    <%= t disposal.disposal_type.physical_state %>
+  <div class="small text-info">
+    <strong>UN:</strong> <%= disposal.disposal_type.un_code.name.upcase %><br/>  
+    <strong>CER:</strong> <%= disposal.disposal_type.cer_code.description.upcase %><br/>
+    <strong>STATO:</strong> <%= t disposal.disposal_type.physical_state %>
   </div>
   <hr/>
-  <div class="">
+  <div class="font-weight-bold">
     <% if disposal.liquid? %>  
-      <%= disposal.liters %> litri
+      <%= disposal.liters %> Litri
     <% else %>  
       <%= disposal.kgs %> Kg 
     <% end %>
@@ -18,7 +18,7 @@
   <div>
     <% disposal.volumes.each do |v| %>
       <div style="font-size: 140%">
-        <div class="badge badge-info">
+        <div class="badge badge-warning px-3">
           <strong><%= v.num %></strong> x <%= v.liters %>L
         </div>
       </div>

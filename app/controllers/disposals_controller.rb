@@ -3,7 +3,15 @@ class DisposalsController < ApplicationController
   before_action :set_disposal_and_check_permission, only: %i(edit update destroy)
 
   def index
-    @disposals = current_user.disposals
+    if policy(current_organization).manage?
+      @disposals = current_organization.disposals
+      if params[:u]
+        @user = User.find(params[:u].to_i)
+        @disposals = @disposals.where(user_id: @user.id)
+      end
+    else
+      @disposals = current_user.disposals
+    end
     authorize :disposal
   end
 

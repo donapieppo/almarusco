@@ -1,4 +1,4 @@
-<%= simple_form_for [@disposal_type, @disposal] do |f| %>  
+<%= simple_form_for [@disposal_type, @disposal], wrapper: :horizontal_form do |f| %>  
   <% if @disposal.solid? %>  
     <div id="kilos">
       <%= f.input :kgs %>  
