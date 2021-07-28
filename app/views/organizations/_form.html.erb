@@ -6,6 +6,6 @@
     <%= o.input :description, as: :text %>
   <% end %>
 
-  <%= o.input :adminmail, hint: t(:sottoscorta_message).html_safe %>
+  <%= o.input :adminmail %>
   <%= o.submit 'Salva configurazione' %> - <%= link_to_back root_path %>  
 <% end %>
