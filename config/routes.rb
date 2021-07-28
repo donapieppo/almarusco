@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     get  'helps',               to: 'helps#index'
     get  'helps/contacts',      to: 'helps#contacts', as: 'contacts'
 
-    get '/', to: 'groups#index', as: 'current_organization_root'
+    get '/', to: 'disposals#index', as: 'current_organization_root'
 
     resources :delegates 
 
