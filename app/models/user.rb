@@ -1,15 +1,7 @@
 class User < ApplicationRecord
   include DmUniboCommon::User
 
-  has_many :operations
-  has_many :unloads
-  has_many :loads
-  has_many :bookings
-  has_many :orders
-  has_many :images
   has_many :disposals
-  has_and_belongs_to_many :delegates,  class_name: 'User', foreign_key: :delegator_id, association_foreign_key: :delegate_id, join_table: :delegations
-  has_and_belongs_to_many :delegators, class_name: 'User', foreign_key: :delegate_id, association_foreign_key: :delegator_id, join_table: :delegations
 
   # Ritorna tutti gli utenti che sono stati in qualche modo associati ad una certa struttura in passato
   # Di solito sono gli utenti che hanno fatto s/carichi o a cui sono stati associati scarichi 
@@ -50,13 +42,4 @@ class User < ApplicationRecord
                                   AND operations.date > DATE_SUB(CURDATE(), INTERVAL #{interval} DAY)
                              ORDER BY surname"
   end
-
-  def get_delegators(organization_id)
-    self.delegators.where('delegations.organization_id = ?', organization_id)
-  end
-
-  def get_delegates(organization_id)
-    self.delegates.where('delegations.organization_id = ?', organization_id)
-  end
 end
-
