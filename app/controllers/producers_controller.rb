@@ -1,7 +1,7 @@
 class ProducersController < ApplicationController
   def index
     authorize :producer
-    @producers = current_organization.permissions.where(authlevel: 20)
+    @producers = current_organization.permissions.where(authlevel: 20).includes(:user).order('users.surname')
   end
 
   def new
