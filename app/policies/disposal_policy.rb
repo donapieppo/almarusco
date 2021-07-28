@@ -3,6 +3,10 @@ class DisposalPolicy < ApplicationPolicy
     @user
   end
 
+  def show?
+    @user
+  end
+
   def choose_disposal_type?
     @user
   end
