@@ -1,6 +1,6 @@
 class DisposalsController < ApplicationController
   before_action :set_disposal_type, only: %i(new create)
-  before_action :set_disposal_and_check_permission, only: %i(edit update destroy)
+  before_action :set_disposal_and_check_permission, only: %i(show edit update destroy)
 
   def index
     if policy(current_organization).manage?
@@ -13,6 +13,9 @@ class DisposalsController < ApplicationController
       @disposals = current_user.disposals
     end
     authorize :disposal
+  end
+
+  def show
   end
 
   def choose_disposal_type
