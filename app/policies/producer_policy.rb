@@ -1,4 +1,4 @@
-class DelegatePolicy < ApplicationPolicy
+class ProducerPolicy < ApplicationPolicy
   def index?
     @user
   end

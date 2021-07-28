@@ -52,14 +52,12 @@ it:
         kgs: Quanti Kg? (numero decimale)
         liters: Quanti litri? (numero decimale)
 
-  can_read:   può leggere
-  can_order:  può ordinare
-  can_book:   può prenotare
-  can_unload: può scaricare
-  can_give:   può scaricare a nome di altri
-  can_admin:  può amministrare
-  can_edit:   responsabile struttura (Direttore amministrativo)
-  is_cesia:   Amministratore Cesia
+  can_read:    può leggere
+  can_admin:   può amministrare
+  can_dispose: produttore rifiuti
+  can_manage:  può amministrare
+  can_edit:    responsabile struttura (Direttore amministrativo)
+  is_cesia:    Amministratore Cesia
 
   date:
     formats:

@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
     get '/', to: 'disposals#index', as: 'current_organization_root'
 
-    resources :delegates 
+    resources :producers 
 
     resources :disposals do
       get 'choose_disposal_type', as: :choose_disposal_type, on: :collection

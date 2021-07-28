@@ -1,0 +1,15 @@
+<h1>
+  Nuovo produttore di rifiuto<br/>
+  <small><%= current_organization %></small>
+</h1>
+
+<div class="centered">
+  <div class="info">
+    Inserire la mail del collega "Produttore del Rifiuto"
+  </div>
+  <%= form_with url: producers_path do |f| %>  
+    <%= f.label :upn %>  
+    <%= f.text_field :upn %>  
+    <%= f.submit "Invia" %>  
+  <% end %>
+</div>
