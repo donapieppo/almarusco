@@ -6,6 +6,9 @@ gem 'dm_unibo_common',      path: '/home/rails/gems/dm_unibo_common/'
 
 gem 'puma', '~> 5.0'
 
+gem 'rqrcode'
+gem 'image_processing', '~> 1.2'
+
 gem 'webpacker', '~> 5.0'
 gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.4', require: false

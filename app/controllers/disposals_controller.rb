@@ -1,4 +1,6 @@
 class DisposalsController < ApplicationController
+  helper DisposalHelper
+
   before_action :set_disposal_type, only: %i(new create)
   before_action :set_disposal_and_check_permission, only: %i(show edit update destroy)
 
