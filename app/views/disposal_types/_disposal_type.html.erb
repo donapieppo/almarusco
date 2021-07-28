@@ -1,13 +1,13 @@
 <%= dm_card title: disposal_type.to_s do %>  
   <div class="my-2">
     <% disposal_type.hp_codes.each do |hp| %>
-      <span class="badge rounded-pill bg-warning text-dark"><%= hp.code %></span>
+      <span class="badge rounded-pill bg-warning text-dark p-2"><%= hp.code %></span>
     <% end %>
   </div>
   <div class="small text-info">
-    UN: <%= disposal_type.un_code.name.upcase %><br/>
-    CER: <%= disposal_type.cer_code.description.upcase %><br/>
-    <%= t(disposal_type.physical_state).upcase %> 
+    <strong>UN:</strong> <%= disposal_type.un_code.name.upcase %><br/>
+    <strong>CER:</strong> <%= disposal_type.cer_code.description.upcase %><br/>
+    <strong>STATO:</strong> <%= t(disposal_type.physical_state).upcase %> 
   </div>
   <% unless disposal_type.notes.blank? %>  
     <div class="text-secondary">
@@ -15,6 +15,6 @@
     </div>
   <% end %>
   <% if defined?(editable) && editable %>  
-    <%= link_to_edit [:edit, disposal_type] %>  
+    <span class="float-right"><%= link_to_edit [:edit, disposal_type] %></span>
   <% end %>
 <% end %>
