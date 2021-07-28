@@ -3,10 +3,6 @@ class OrganizationsController < ApplicationController
   def index
     authorize Organization
     @organizations    = Organization.order(:code)
-    @counts           = Operation.group(:organization_id).count
-    @this_year_counts = Operation.where('YEAR(date) = YEAR(NOW())').group(:organization_id).count
-    @last_year_counts = Operation.where('YEAR(date) = YEAR(NOW()) - 1 ').group(:organization_id).count
-    @arch_counts      = ArchOperation.group(:organization_id).count
   end
 
   def edit
