@@ -7,8 +7,21 @@
   <%= link_to 'Nuovo produttore di rifiuti', new_producer_path, class: 'btn btn-primary btn-lg' %>  
 </div>
 
-<ul>
+<div class="info my-2">
+  <strong>Produttore:</strong> soggetto la cui attività produce rifiuti; per produttore/detentore di rifiuti,
+nell’organizzazione dell’Università di Bologna, deve intendersi non soltanto il soggetto (Responsabile di
+didattica e di ricerca in laboratorio, RDRL) dalla cui attività materiale sia derivata la produzione di rifiuti,
+ma qualora questa figura non fosse identificabile, anche il soggetto (Responsabile di Struttura) al quale
+sia giuridicamente riferibile detta produzione ed a carico del quale sia quindi configurabile, quale
+titolare di una posizione definibile come di garanzia, l’obbligo di provvedere allo smaltimento di detti
+rifiuti nei modi prescritti per legge.
+</div>
+
+<ul class="list-group my-4">
   <% @producers.each do |p| %>  
-    <li><%= p.user %> <%= link_to_delete producer_path(p) %>  </li>
+    <li class="list-group-item">
+      <%= p.user.cn_militar %> 
+      <span class="float-right"><%= link_to_delete producer_path(p) %></span>
+    </li>
   <% end %>
 </ul>
