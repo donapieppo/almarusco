@@ -69,12 +69,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "code"
     t.string "name"
     t.string "description"
-    t.string "sendmail", limit: 1
     t.string "adminmail", limit: 200
-    t.boolean "booking"
-    t.boolean "ordering"
-    t.boolean "pricing"
-    t.boolean "disposal"
     t.datetime "updated_at"
     t.datetime "created_at"
   end
@@ -105,7 +100,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "name", limit: 50
     t.string "surname", limit: 50
     t.string "email"
-    t.integer "emplyeeid"
+    t.integer "employee_id"
     t.timestamp "updated_at", default: -> { "current_timestamp()" }, null: false
     t.index ["upn"], name: "index_dsacaches_on_upn", unique: true
   end
