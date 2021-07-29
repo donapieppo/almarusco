@@ -1,12 +1,13 @@
 require 'csv'
 
+CONN = DmUniboUserSearch::Client.new
+
 namespace :almarusco do
 
   desc "Import ULS"
   task import_uls: :environment do
-    #conn = DmUniboUserSearch::Client.new
 
-    # ["1", " via Guaccimanni 42 (RA)", "34402", "Chiapponi", "Gianluca", nil, "dal 01/01/2019", "-", nil], 
+    # ["1", " via Guaccimanni 42 (RA)", "34402", "Chiai", "Giaa", nil, "dal 01/01/2019", "-", nil], 
     CSV.read("doc/uls.csv", col_sep: ";").each do |line|
       id = line[0].to_i
       address = line[1]
@@ -17,34 +18,36 @@ namespace :almarusco do
 
       next unless id > 0 
 
-      # finito
+      # non più responsabile/delegato
       resp = '-' if resp =~ /dal\w+al/
       dele = '-' if dele =~ /dal\w+al/
 
       resp = get_date(resp)
       dele = get_date(dele)
 
-      p resp
-      p dele
-      next
-
       o = Organization.find_or_create_by(id: id) do |o|
         o.code = "UL#{id}"
         o.name = address
       end
 
-      conn.find_user(id).users.each do |dsauser|
-        if same_employeeid?(dsauser.employee_id, id)
-          puts("Creating #{dsauser.inspect}")
-          user = User.create!(id: dsauser.id_anagrafica_unica.to_i,
-                              upn: dsauser.upn,
-                              name: dsauser.name,
-                              surname: dsauser.sn,
-                              employeeNumber: dsauser.employee_id,
-                              email: dsauser.upn.downcase)
+      p o
+      p user_emplyeid
+
+      if user = find_or_create_user_by_employee_id(user_emplyeid)
+        p user
+        p = o.permissions.build(user_id: user.id)
+        if resp
+          p.created_at = resp
+          p.authlevel = 60
+          p.save
+        elsif dele
+          p.created_at = dele
+          p.authlevel = 40
+          p.save
         end
       end
     end
+    exit
   end
 end
 
@@ -54,6 +57,25 @@ def self.same_employeeid?(a, b)
 end
 
 DATE_REGEX = %r{dal\s+(?<day>\d{1,2})\/(?<month>\d{1,2})\/(?<year>\d{2,4})}
+
+def find_or_create_user_by_employee_id(user_emplyeid)
+  if user = User.find_by(employee_id: user_emplyeid)
+    return user
+  else
+    CONN.find_user(user_emplyeid).users.each do |dsauser|
+      if same_employeeid?(dsauser.employee_id, user_emplyeid)
+        puts("Creating #{dsauser.inspect}")
+        return User.create!(id: dsauser.id_anagrafica_unica.to_i,
+                            upn: dsauser.upn,
+                            name: dsauser.name,
+                            surname: dsauser.sn,
+                            employee_id: dsauser.employee_id,
+                            email: dsauser.upn.downcase)
+      end
+    end
+    return nil
+  end
+end
 
 def get_date(str)
   if str && m = str.match(DATE_REGEX)
