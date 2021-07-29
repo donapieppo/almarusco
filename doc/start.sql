@@ -3,17 +3,6 @@ create database `almarusco`;
 
 use `almarusco`;
 
-/* DROP TABLE IF EXISTS `disposals`; */
-/* DROP TABLE IF EXISTS `hp_codes`; */
-/* DROP TABLE IF EXISTS `permissions`; */
-/* DROP TABLE IF EXISTS `un_codes`; */
-/* DROP TABLE IF EXISTS `users`; */
-/* DROP TABLE IF EXISTS `volumes`; */
-/* DROP TABLE IF EXISTS `cer_codes_suppliers`; */
-/* DROP TABLE IF EXISTS `cer_codes`; */
-/* DROP TABLE IF EXISTS `organizations`; */
-/* DROP TABLE IF EXISTS `suppliers`; */
-
 CREATE TABLE `organizations` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) DEFAULT NULL,
@@ -25,10 +14,6 @@ CREATE TABLE `organizations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `organizations` VALUES (24,'a63','A.63','DIPARTIMENTO DI CHIMICA INDUSTRIALE E DEI MATERIALI', NULL, NULL, NULL),
-                                   (26,'fabit','A.N4','DIPARTIMENTO DI FARMACIA E BIOTECNOLOGIE', NULL, NULL, NULL),
-                                   (27,'a66','A.66','DIPARTIMENTO DI CHIMICA APPLICATA E SCIENZA DEI MATERIALI', NULL, NULL, NULL),
-                                   (28,'ciamician','A.67','DIPARTIMENTO DI CHIMICA \"G.CIAMICIAN\"', NULL, NULL, NULL);
 
 CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
