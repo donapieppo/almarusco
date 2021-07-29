@@ -12,18 +12,26 @@ namespace :almarusco do
       id = line[0].to_i
       address = line[1]
       user_emplyeid = line[2].to_i
-      resp = line[6]
-      dele = line[7]
+      resp_str = line[6].strip
+      dele_str = line[7].strip
       note = line[8]
 
       next unless id > 0 
 
       # non più responsabile/delegato
-      resp = '-' if resp =~ /dal\w+al/
-      dele = '-' if dele =~ /dal\w+al/
+      resp_str = nil if resp_str =~ /dal.+al/ || resp_str == '-'
+      dele_str = nil if dele_str =~ /dal.+al/ || dele_str == '-'
 
-      resp = get_date(resp)
-      dele = get_date(dele)
+      p resp_str
+      p dele_str
+
+      resp_date = get_date(resp_str)
+      dele_date = get_date(dele_str)
+
+      p resp_date
+      p dele_date
+
+      next unless (resp_date || dele_date)
 
       o = Organization.find_or_create_by(id: id) do |o|
         o.code = "UL#{id}"
@@ -36,18 +44,18 @@ namespace :almarusco do
       if user = find_or_create_user_by_employee_id(user_emplyeid)
         p user
         p = o.permissions.build(user_id: user.id)
-        if resp
-          p.created_at = resp
+        if resp_date
+          p.created_at = resp_date
           p.authlevel = 60
           p.save
-        elsif dele
-          p.created_at = dele
+        elsif dele_date
+          p.created_at = dele_date
           p.authlevel = 40
           p.save
         end
       end
+      pippo = STDIN.gets
     end
-    exit
   end
 end
 
@@ -78,7 +86,7 @@ def find_or_create_user_by_employee_id(user_emplyeid)
 end
 
 def get_date(str)
-  if str && m = str.match(DATE_REGEX)
+  if str && (m = str.match(DATE_REGEX))
     y = m[:year].to_i
     y = (y + 2000) if y < 1900
     Date.new(y, m[:month].to_i, m[:day].to_i)
