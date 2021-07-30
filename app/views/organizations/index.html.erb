@@ -9,7 +9,7 @@
     <%= content_tag :tr do %>
       <th><%= organization.code.upcase %></th>
       <th><%= organization.id %></th>
-      <td><%= link_to organization.description.upcase, current_organization_edit_path(__org__: organization.code) %></td>
+      <td><%= link_to organization.description, current_organization_edit_path(__org__: organization.code) %></td>
       <td class="number" nowrap>
     <% end %>
   <% end %>
