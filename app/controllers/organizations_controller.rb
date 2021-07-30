@@ -2,7 +2,7 @@ class OrganizationsController < ApplicationController
   # only cesia from _menu
   def index
     authorize Organization
-    @organizations    = Organization.order(:code)
+    @organizations = Organization.order(:id).includes(permissions: :user)
   end
 
   def edit
