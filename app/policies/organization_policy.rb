@@ -2,7 +2,7 @@ class OrganizationPolicy < DmUniboCommon::OrganizationPolicy
   configure_authlevels
 
   def index?
-    @user.is_cesia?
+    @user
   end
 
   # user in organizations with booking can read
