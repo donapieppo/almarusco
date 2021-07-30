@@ -4,14 +4,16 @@
   INFO
 </div>
 
-<table class="table table-sm">
+<dl>
   <% @organizations.each do |organization| %>
     <%= content_tag :tr do %>
-      <th><%= organization.code.upcase %></th>
-      <th><%= organization.id %></th>
-      <td><%= link_to organization.description.upcase, current_organization_edit_path(__org__: organization.code) %></td>
-      <td class="number" nowrap>
+      <dt>
+        <%= link_to organization.code.upcase, current_organization_edit_path(__org__: organization.code) %>
+        <span class="text-sm font-light"><%= organization.name %></span>
+      </dt>
+      <% organization.permissions.each do |p| %>  
+        <dd class="ml-4"><%= p %></dd>
+      <% end %>
     <% end %>
   <% end %>
-</table>
-
+</dl>
