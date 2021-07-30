@@ -25,7 +25,7 @@
             <% end %>
           <% end %>
           <%= dropdown_menu :institution, big_dmicon('building') + " " + current_organization.name do  %>
-            <%= link_to fwdmicon('home') + current_organization.short_description, current_organization_edit_path %>
+            <%= link_to fwdmicon('home') + current_organization.to_s, current_organization_edit_path %>
             <% if current_user.multi_organizations? %>
               <%= link_to fwdmicon('exchange-alt') + ' cambia struttura', choose_organization_path %>
             <% end %>

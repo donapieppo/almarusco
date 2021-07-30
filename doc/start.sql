@@ -22,7 +22,7 @@ CREATE TABLE `users` (
   `name` varchar(50) DEFAULT NULL,
   `surname` varchar(50) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `emplyeeid` int(10) DEFAULT NULL,
+  `employee_id` int(10) DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_dsacaches_on_upn` (`upn`)

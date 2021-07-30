@@ -53,9 +53,9 @@ it:
         liters: Quanti litri? (numero decimale)
 
   can_read:    può leggere
-  can_admin:   può amministrare
+  can_admin:   resposabile u.l.
+  can_manage:  delegato
   can_dispose: produttore rifiuti
-  can_manage:  può amministrare
   can_edit:    responsabile struttura (Direttore amministrativo)
   is_cesia:    Amministratore Cesia
 
