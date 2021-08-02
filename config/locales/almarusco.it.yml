@@ -8,32 +8,21 @@ it:
       supplier: Fornitore
       barcode: Codice a barre
       disposal: Rifiuto
+      disposal_type: Tipologia
 
     attributes:
       admin:
         user_upn: Indirizzo mail
         organization: Struttura
       organization:
-        name: Codice Struttura (A.xx)
-        description: Descrizione (per esempio Dipartimento di Matematica)
-        booking: Abilitazione prenotazione materiale
-        ordering: Abilitazione richiesta acquisti
-        pricing: Abilitazione inserimento prezzi acquisti
-        division: Abilitazione Gruppi di spesa / Reparti
+        code: Codice 
+        name: Nome
+        description: Descrizione 
       admin:
         authlevel: Permessi
       supplier:
         name: Nome fornitore
         pi: Partita IVA
-      organization:
-        name: Nome
-        description: Descrizione
-        adminmail: Indirizzo mail responsabili
-        sendmail: Modalità invio mail
-        booking: Prenotazione materiale
-        ordering: Richiesta acquisti 
-        pricing: Prezzi
-        division: Reparti
       barcode:
         name: Codice a barre
       disposal_type:
