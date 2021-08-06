@@ -27,7 +27,7 @@ class ProducersController < ApplicationController
 
   def destroy
     @producer = current_organization.permissions.find(params[:id])
-    authorize @producer
+    authorize :producer
     @producer.destroy
     redirect_to producers_path, notice: "È stato eliminata la delega come richiesto."
   end
