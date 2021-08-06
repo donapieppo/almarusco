@@ -36,6 +36,7 @@ it:
   simple_form:
     hints:
       disposal_type:
+        adr: Rifiuto assimilabile alle merci pericolose contenute nell’Accordo ADR.
         notes: Descrizione visibile a chi deve creare il carico del rifiuto (opzionale)
       disposal:
         kgs: Quanti Kg? (numero decimale)
