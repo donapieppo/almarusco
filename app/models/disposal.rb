@@ -53,4 +53,16 @@ class Disposal < ApplicationRecord
     end
     c
   end
+
+  def approved?
+    approved_at
+  end
+
+  def approve!
+    self.update(approved_at: Time.now)
+  end
+
+  def status
+    approved_at ? 'approvato' : 'da approvare'
+  end
 end

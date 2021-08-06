@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
     resources :disposals do
       get 'choose_disposal_type', as: :choose_disposal_type, on: :collection
+      post 'approve', on: :member
     end
     resources :disposal_types do
       resources :disposals, only: [:new, :create]
