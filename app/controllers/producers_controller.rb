@@ -12,7 +12,7 @@ class ProducersController < ApplicationController
     begin
       @user = User.syncronize(params[:upn])
       @permission = current_organization.permissions.new(authlevel: 20, user_id: @user.id)
-      authorize @permission
+      authorize :producer
       if @permission.save
         redirect_to producers_path, notice: "È stato aggiunta la delega a #{@user}."
       else
