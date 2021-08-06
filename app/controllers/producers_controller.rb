@@ -14,7 +14,7 @@ class ProducersController < ApplicationController
       @permission = current_organization.permissions.new(authlevel: 20, user_id: @user.id)
       authorize @permission
       if @permission.save
-        redirect_to producers_path, notice: "È stato aggiunto l'utente #{@user}."
+        redirect_to producers_path, notice: "È stato aggiunta la delega a #{@user}."
       else
         redirect_to new_producer_path, alert: "Non è stato possibile salvare l'utente."
       end
