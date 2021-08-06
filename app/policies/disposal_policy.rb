@@ -18,4 +18,8 @@ class DisposalPolicy < ApplicationPolicy
   def update?
     @user
   end
+
+  def approve?
+    @user
+  end
 end
