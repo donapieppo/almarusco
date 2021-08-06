@@ -1,13 +1,18 @@
 class ProducerPolicy < ApplicationPolicy
   def index?
-    @user
+    current_organization_manager?
   end
 
+  def new?
+    current_organization_manager?
+  end
+
+  # FIXME actually are permissions...
   def create?
-    @user
+    current_organization_manager?
   end
 
   def destroy?
-    @user
+    current_organization_manager?
   end
 end

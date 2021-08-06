@@ -4,10 +4,10 @@ class DisposalTypePolicy < ApplicationPolicy
   end
 
   def create?
-    @user
+    @user && current_organization_manager?
   end
 
   def update?
-    @user
+    @user && OrganizationPolicy.new(@user, @record.organization_id).admin?
   end
 end
