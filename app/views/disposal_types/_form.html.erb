@@ -1,23 +1,27 @@
 <%= simple_form_for @disposal_type do |f| %>  
-  <div class="row">
-    <div class="col-md-4">
-      <%= f.association :cer_code, as: :radio_buttons, include_blank: false, label_method: :to_s, label: false %>
-    </div>
-    <div class="col-md-4">
-      <%= f.association :un_code,  as: :radio_buttons, include_blank: false, label_method: :to_s, label: false %>  
-    </div>
-    <div class="col-md-4">
-      <%= f.association :hp_codes, as: :check_boxes, label_method: :code, label: false %>  
-    </div>
+  <div class="">
+    <%= f.input :adr %>  
   </div>
-
-  <%= f.input :adr %>  
 
   <div id="solid-liquid">  
     <%= f.input :physical_state, collection: [['solido SNP (NON polverulento)', 'snp'], 
                                               ['solido SP  (polverulento)', 'sp'], 
                                               ['liquido', 'liq']], 
     as: :radio_buttons %>  
+  </div>
+
+  <div class="border p-4 my-4 bg-light">
+    <div class="row">
+      <div class="col-md-4">
+        <%= f.association :cer_code, as: :radio_buttons, include_blank: false, label_method: :to_s, label: false %>
+      </div>
+      <div class="col-md-4">
+        <%= f.association :un_code,  as: :radio_buttons, include_blank: false, label_method: :to_s, label: false %>  
+      </div>
+      <div class="col-md-4">
+        <%= f.association :hp_codes, as: :check_boxes, label_method: :code, label: false %>  
+      </div>
+    </div>
   </div>
 
   <%= f.input :notes %>  
