@@ -1,6 +1,7 @@
-<%= dm_card title: disposal.disposal_type.to_s do %>  
+<%= dm_card title: disposal.disposal_type.to_s, add_class: (disposal.approved? ? 'border-success' : '') do %>  
   <div>
-    Richiedente : <%= link_to disposal.user, disposals_path(u: disposal.user_id) %>  
+    Richiedente: <%= link_to disposal.user, disposals_path(u: disposal.user_id) %>  <br/>
+    Stato: <%= disposal.status %>  
   </div>
   <div class="small text-info">
     <strong>UN:</strong> <%= disposal.disposal_type.un_code.name.upcase %><br/>  
