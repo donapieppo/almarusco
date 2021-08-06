@@ -1,8 +1,11 @@
 <h1>Tipologie rifiuti <br/><small><%= current_organization %></small></h1>
 
-<div class="centered">
-  <%= link_to 'NUOVA TIPOLOGIA', new_disposal_type_path, class: 'button' %>  
-</div>
+<% if policy(current_organization).manage? %>  
+  <div class="centered">
+    <%= link_to 'NUOVA TIPOLOGIA', new_disposal_type_path, class: 'button' %>  
+  </div>
+<% end %>
+
 
 <div class="row">
   <% @disposal_types.each do |disposal_type| %>  
