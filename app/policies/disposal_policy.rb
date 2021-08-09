@@ -8,15 +8,20 @@ class DisposalPolicy < ApplicationPolicy
   end
 
   def choose_disposal_type?
-    current_organization_reader?
+    current_organization_disposer?
   end
 
   def create?
-    @user && OrganizationPolicy.new(@user, @user.current_organization).dispose?
+    current_organization_disposer?
   end
 
   def update?
     @user && (@user.owns?(@record) || OrganizationPolicy.new(@user, @record.organization_id).manage?)
+  end
+
+  # ONLY MANAGER
+  def destroy?
+    OrganizationPolicy.new(@user, @record.organization_id).manage?
   end
 
   def approve?
