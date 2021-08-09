@@ -12,7 +12,7 @@ class DisposalsController < ApplicationController
         @disposals = @disposals.where(user_id: @user.id)
       end
     else
-      @disposals = current_user.disposals
+      @disposals = current_user.disposals.where(organization: current_organization)
     end
     authorize :disposal
   end
@@ -90,8 +90,7 @@ class DisposalsController < ApplicationController
   end
 
   def set_disposal_and_check_permission
-    @disposal = Disposal.find(params[:id])
-    # check organization
+    @disposal = current_organization.disposals.find(params[:id])
     authorize @disposal
   end
 end
