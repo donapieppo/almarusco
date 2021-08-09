@@ -21,6 +21,10 @@
       <%= bootstrap_modal_div %>
       <%= bootstrap_flash %>
 
+      <% if current_organization %>  
+        <h2 class="centered"><%= current_organization %></h2>
+      <% end %>
+
       <% begin %>  
         <%= yield %>
       <% rescue => errore %>
