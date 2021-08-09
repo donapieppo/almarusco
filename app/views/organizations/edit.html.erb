@@ -1,12 +1,12 @@
 <h1>
-  <%= current_organization.code %> - <small><%= current_organization.name %></small>
+  <%= current_organization.code %> 
 </h1>
 
 <% if current_user.is_cesia? %>  
   <%= render partial: 'form' %>
 <% end %>
 
-<%= dm_card title: "Utenti" do %>
+<%= dm_card title: "Permessi" do %>
   <dl>
     <% @permissions_hash.each do |authlevel, permissions| %>
       <dt><%= Authorization.level_description(authlevel).upcase %></dt>
