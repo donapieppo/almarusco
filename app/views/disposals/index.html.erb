@@ -8,10 +8,10 @@
 
 <div class="centered">
   <% if policy(current_organization).dispose? %>  
-    <%= link_to 'NUOVO RIFIUTO', choose_disposal_type_disposals_path, class: 'button' %>  
+    <%= link_to 'NUOVO RIFIUTO', choose_disposal_type_disposals_path, class: 'btn btn-primary btn-lg' %>  
   <% end %>
   <% if policy(current_organization).manage? %>  
-    <%= link_to 'NUOVA TIPOLOGIA', new_disposal_type_path, class: 'button' %>  
+    <%= link_to 'NUOVA TIPOLOGIA', new_disposal_type_path, class: 'btn btn-primary btn-lg' %>  
   <% end %>
 </div>
 
