@@ -5,9 +5,8 @@ class OrganizationPolicy < DmUniboCommon::OrganizationPolicy
     @user
   end
 
-  # user in organizations with booking can read
   def read?
-    @user && @user.current_organization && (@user.authorization.can_read?(@user.current_organization) || @user.current_organization.booking)
+    @user && @user.current_organization && @user.authorization.can_read?(@user.current_organization)
   end
 
   def show?
@@ -28,6 +27,10 @@ class OrganizationPolicy < DmUniboCommon::OrganizationPolicy
 
   def choose_organization?
     true
+  end
+
+  def dispose?
+    @user && @user.authorization.can_dispose?(@record)
   end
 end
 
