@@ -1,7 +1,7 @@
 <%= dm_card title: disposal.disposal_type.to_s, add_class: (disposal.approved? ? 'border-success' : '') do %>  
   <div>
     Richiedente: <%= link_to disposal.user, disposals_path(u: disposal.user_id) %>  <br/>
-    Stato: <%= disposal.status %>  
+    Stato: <%= disposal.status %> <%= '<i class="fas fa-check text-success"></i>'.html_safe if disposal.approved? %>    
   </div>
   <div class="small text-info">
     <strong>UN:</strong> <%= disposal.disposal_type.un_code.name.upcase %><br/>  
@@ -26,7 +26,7 @@
     <% end %>
   </div>
   <div class="text-right">
-    <%= link_to_edit [:edit, disposal] %>  
+    <%= link_to_edit([:edit, disposal]) if policy(disposal).edit? %>  
     <%= link_to fwdmicon('eye'), disposal %>
   </div>
 <% end %>
