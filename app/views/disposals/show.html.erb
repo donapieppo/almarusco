@@ -3,9 +3,11 @@
 <%= render @disposal %>  
 
 <div class="centered my-2">
-  <%= link_to 'Conferma', approve_disposal_path(@disposal), method: :post, class: 'btn btn-success btn-lg' %>  
-  <%= link_to 'Stampa', '#', class: 'btn btn-primary btn-lg' %>  
-  <%= link_to 'Rifiuta', '#', class: 'btn btn-danger btn-lg' %>  
+  <%= link_to 'Stampa TODO', '#', class: 'btn btn-primary btn-lg' %>  
+  <% if policy(current_organization).manage? %>  
+    <%= link_to 'Conferma', approve_disposal_path(@disposal), method: :post, class: 'btn btn-success btn-lg' %>  
+    <%= link_to 'Rifiuta', '#', class: 'btn btn-danger btn-lg' %>  
+  <% end %>
 </div>
 
 <%= qrcode(@disposal) %>  
