@@ -16,7 +16,7 @@ class DisposalPolicy < ApplicationPolicy
   end
 
   def update?
-    @user && (@user.owns?(@record) || OrganizationPolicy.new(@user, @record.organization_id).manage?)
+    @user && ((! @record.approved? && @user.owns?(@record)) || OrganizationPolicy.new(@user, @record.organization_id).manage?)
   end
 
   # ONLY MANAGER
@@ -25,6 +25,6 @@ class DisposalPolicy < ApplicationPolicy
   end
 
   def approve?
-    @user && OrganizationPolicy.new(@user, @record.organization_id).manage?
+    OrganizationPolicy.new(@user, @record.organization_id).manage?
   end
 end
