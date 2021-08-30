@@ -1,30 +1,12 @@
-<%= simple_form_for [@disposal_type, @disposal], wrapper: :horizontal_form do |f| %>  
-  <% if @disposal.solid? %>  
-    <div id="kilos">
-      <%= f.input :kgs %>  
-      <div class="form-group row">
-        <% Disposal.available_liters[:solid].each do |l| %>  
-          <label class="col-sm-3 col-form-label">x <%= l %>L</label>
-          <div class="col-sm-9">
-            <input class="form-control numeric integer" type="number" name="solid[<%= l %>]" value="<%= @volumes[l] %>"/>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  <% else %>
+<% 
+  volumes_collection = Disposal.available_volumes[@disposal.solid? ? :solid : :liquid].map do |v|
+    ["#{v} litri", v]
+  end
+%>  
 
-    <div id="liters">
-      <%= f.input :liters %>  
-      <div class="form-group row">
-        <% Disposal.available_liters[:liquid].each do |l| %>  
-          <label class="col-sm-3 col-form-label">x <%= l %>L</label>
-          <div class="col-sm-9">
-            <input class="form-control numeric integer" type="number" name="liquid[<%= l %>]" value="<%= @volumes[l] %>"/>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
+<%= simple_form_for [@disposal_type, @disposal], wrapper: :horizontal_form do |f| %>  
+  <%= f.input :volume, as: :radio_buttons, collection: volumes_collection, wrapper: :horizontal_collection %>  
+  <%= f.input :kgs, as: :float, input_html: { step: 0.1 } %>  
   <div class="my-4">
     <%= f.submit %>  
   </div>

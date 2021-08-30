@@ -1,6 +1,7 @@
 <%= dm_card title: disposal.disposal_type.to_s, add_class: (disposal.approved? ? 'border-success' : '') do %>  
   <div>
-    Richiedente: <%= link_to disposal.user, disposals_path(u: disposal.user_id) %>  <br/>
+    Richiedente: <%= link_to disposal.user, disposals_path(u: disposal.user_id) %> <br/>
+    Data richiesta: <%= l disposal.created_at %> <br/>
     Stato: <%= disposal.status %> <%= '<i class="fas fa-check text-success"></i>'.html_safe if disposal.approved? %>    
   </div>
   <div class="small text-info">
@@ -10,23 +11,12 @@
   </div>
   <hr/>
   <div class="font-weight-bold">
-    <% if disposal.liquid? %>  
-      <%= disposal.liters %> Litri
-    <% else %>  
-      <%= disposal.kgs %> Kg 
-    <% end %>
-  </div>
-  <div>
-    <% disposal.volumes.each do |v| %>
-      <div style="font-size: 140%">
-        <div class="badge badge-warning px-3">
-          <strong><%= v.num %></strong> x <%= v.liters %>L
-        </div>
-      </div>
-    <% end %>
+    <%= disposal.volume %> Litri <br/>
+    <%= disposal.kgs %> Kg 
   </div>
   <div class="text-right">
-    <%= link_to_edit([:edit, disposal]) if policy(disposal).edit? %>  
     <%= link_to fwdmicon('eye'), disposal %>
+    <%= link_to_edit([:edit, disposal]) if policy(disposal).edit? %>  
+    <%= link_to_delete(disposal) if policy(disposal).destroy? %>  
   </div>
 <% end %>

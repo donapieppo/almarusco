@@ -1,10 +1,10 @@
 <%= dm_card title: disposal_type.to_s do %>  
-  <div class="my-2">
+  <div class="">
     <% disposal_type.hp_codes.each do |hp| %>
-      <span class="badge rounded-pill bg-warning text-dark p-2"><%= hp.code %></span>
+      <span class="badge rounded-pill bg-warning text-dark" title="<%= hp.description %>"><%= hp.code %></span>
     <% end %>
   </div>
-  <div class="small text-info">
+  <div class="small text-info my-2">
     <strong>UN:</strong> <%= disposal_type.un_code.name.upcase %><br/>
     <strong>CER:</strong> <%= disposal_type.cer_code.description.upcase %><br/>
     <strong>STATO:</strong> <%= t(disposal_type.physical_state).upcase %> 
