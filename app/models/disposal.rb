@@ -2,12 +2,9 @@ class Disposal < ApplicationRecord
   belongs_to :organization
   belongs_to :user
   belongs_to :disposal_type
-  has_many :volumes
   #belongs_to :un_code
   #belongs_to :cer_code
   #has_and_belongs_to_many :hp_codes
-
-  before_save :fix_physical_state
 
   def liquid?
     self.disposal_type.liquid?
@@ -17,16 +14,8 @@ class Disposal < ApplicationRecord
     self.disposal_type.solid?
   end
 
-  def self.available_liters
+  def self.available_volumes
     { liquid: [10, 20], solid: [40, 60, 120] }
-  end
-
-  def fix_physical_state
-    if self.liquid?
-      self.kgs = 0
-    else
-      self.liters = 0
-    end
   end
 
   def adr_classes
@@ -60,6 +49,10 @@ class Disposal < ApplicationRecord
 
   def approve!
     self.update(approved_at: Time.now)
+  end
+
+  def unapprove!
+    self.update(approved_at: nil)
   end
 
   def status
