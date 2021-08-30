@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     get 'dsausers/popup_find', to: 'dsausers#popup_find', as: 'popup_find_user'
     get 'dsausers/find',       to: 'dsausers#find',       as: 'find_user'
 
+    resources :prints
+
     post 'search', to: 'search#search', as: 'admin_search'
     get  'search', to: 'groups#index'
 
@@ -32,6 +34,7 @@ Rails.application.routes.draw do
     resources :disposals do
       get 'choose_disposal_type', as: :choose_disposal_type, on: :collection
       post 'approve', on: :member
+      post 'unapprove', on: :member
     end
     resources :disposal_types do
       resources :disposals, only: [:new, :create]
