@@ -1,0 +1,20 @@
+<h1>Configurazione stampa</h1>
+
+<%= form_for :print do |f| %>  
+  <% @disposals.each do |disposal| %>  
+    <div class="row">
+      <div class="col-md-4">
+        <label>
+          <input type="checkbox" name="disposal_ids[]" value="<%= disposal.id %>"></input>
+          <%= l disposal.created_at %>  
+          <%= disposal.volume %> litri - 
+          <%= disposal.kgs %> Kg
+        </label>
+      </div>
+      <div class="col-md-8">
+        <strong><%= disposal.disposal_type %> </strong>
+      </div>
+    </div>
+  <% end %>
+  <%= f.submit %>  
+<% end %>

@@ -1,0 +1,25 @@
+<h1>Scegli formato</h1>
+
+<%= form_for :print, url: prints_path do |f| %>  
+  <% @disposals.each do |disposal| %>  
+    <div>
+      <label>
+        <input type="checkbox" name="disposal_ids[]" value="<%= disposal.id %>"/>
+        <%= disposal %>
+      </label>
+    </div>
+  <% end %>
+
+  <div class="centered">
+    <table style="margin: auto; max-width: 300px">
+      <% [1,2,3].each do |row| %>  
+        <tr>
+          <% [1,2,3].each do |col| %>
+            <td><input type="checkbox" name="paper_boxes[]" value="<%= row %>-<%= col %>"/></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <%= f.submit %>  
+<% end %>
