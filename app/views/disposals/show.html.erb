@@ -3,7 +3,6 @@
 <%= render @disposal %>  
 
 <div class="centered my-2">
-  <%= link_to 'Stampa TODO', '#', class: 'btn btn-primary btn-lg' %>  
   <% if policy(current_organization).manage? %>  
     <% if @disposal.approved? %>  
       <%= link_to 'Disconferma', unapprove_disposal_path(@disposal), method: :post, class: 'btn btn-success btn-lg' %>  
