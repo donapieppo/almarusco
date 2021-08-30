@@ -10,7 +10,7 @@
 <div class="row">
   <% @disposal_types.each do |disposal_type| %>  
     <div class="col-6 col-md-4">
-      <%= render disposal_type, editable: true %>
+      <%= render disposal_type, editable: policy(disposal_type).edit? %>
     </div>
   <% end %>
 </div>
