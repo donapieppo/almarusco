@@ -8,7 +8,6 @@ class DisposalTypesController < ApplicationController
 
   def new
     @disposal_type = current_organization.disposal_types.new
-    @volumes = {}
     authorize @disposal_type
   end
 
