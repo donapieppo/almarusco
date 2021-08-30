@@ -21,10 +21,14 @@ class DisposalPolicy < ApplicationPolicy
 
   # ONLY MANAGER
   def destroy?
-    OrganizationPolicy.new(@user, @record.organization_id).manage?
+    update?
   end
 
   def approve?
     OrganizationPolicy.new(@user, @record.organization_id).manage?
+  end
+
+  def unapprove?
+    approve?
   end
 end
