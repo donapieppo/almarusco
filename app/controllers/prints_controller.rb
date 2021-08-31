@@ -14,13 +14,44 @@ class PrintsController < ApplicationController
 
   # "paper_boxes"=>["1-1", "2-2"]
   def create
+    authorize :print
+
     if policy(current_organization).manage?
       @disposals = current_organization.disposals.where(id: params[:disposal_ids]).to_a
     else
       @disposals = current_user.disposals.where(organization: current_organization).where(id: params[:disposal_ids]).to_a
     end
 
-    pdf = Prawn::Document.new
+    pdf = Prawn::Document.new(page_size: 'A4') # 595.28 x 841.89
+                                               # :margin Sets the margin on all sides in points [0.5 inch]
+                                               # :left_margin :right_margin
+    pdf.font_size 8
+    pdf.stroke_axis
+    pdf.define_grid(columns: 3, rows: 3, gutter: 10)
+
+    params['paper_boxes'].each do |rc|
+      row, col = rc.split('-')
+      disposal = @disposals.pop
+      dt = disposal.disposal_type
+      pdf.grid(col.to_i - 1, row.to_i - 1).show
+      pdf.grid(col.to_i - 1, row.to_i - 1).bounding_box do
+        qr = RQRCode::QRCode.new(disposal_url(disposal))
+        IO.binwrite("/tmp/pippo#{disposal.id}.png", qr.as_png.to_s)
+        pdf.text "#{row} - #{col}"
+        pdf.text disposal.id.to_s, size: 16
+        pdf.text dt.un_code.to_s, style: 'bold'
+        pdf.text dt.cer_code.to_s
+        pdf.text dt.adr ? 'ADR' : ''
+        pdf.text dt.hp_codes.map(&:code).join(', ')
+        pdf.text dt.physical_state_to_s
+        pdf.text dt.notes
+        pdf.image "/tmp/pippo#{disposal.id}.png", width: 100, height: 100
+      end
+    end
+    send_data pdf.render, filename: "print.pdf", type: :pdf
+
+    return
+
     cells = []
     [1,2,3].each do |row|
       rows = []
@@ -45,15 +76,6 @@ class PrintsController < ApplicationController
     pdf.table(cells, cell_style: { width: 90, height: 180, border_width: 1, size: 8 })
 
     send_data pdf.render, filename: "print.pdf", type: :pdf
-
-    authorize :print
-  end
-
-  private
-
-  def disposal_cell_content(disposal)
-    dt = disposal.disposal_type
-    res = "#{disposal.id} - #{dt.un_code} - #{dt.cer_code} #{dt.adr ? ' - ADR' : ''} (#{dt.physical_state})" 
   end
 end
 
