@@ -1,5 +1,6 @@
 <%= dm_card title: disposal.disposal_type.to_s, add_class: (disposal.approved? ? 'border-success' : '') do %>  
   <div>
+    Identificativo: <%= disposal.id %> <br/> 
     Richiedente: <%= link_to disposal.user, disposals_path(u: disposal.user_id) %> <br/>
     Data richiesta: <%= l disposal.created_at %> <br/>
     Stato: <%= disposal.status %> <%= '<i class="fas fa-check text-success"></i>'.html_safe if disposal.approved? %>    
