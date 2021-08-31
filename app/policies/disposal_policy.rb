@@ -31,4 +31,8 @@ class DisposalPolicy < ApplicationPolicy
   def unapprove?
     approve?
   end
+
+  def search?
+    @user
+  end
 end
