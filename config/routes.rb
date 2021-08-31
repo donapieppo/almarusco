@@ -43,6 +43,8 @@ Rails.application.routes.draw do
       post :find, on: :collection
       get  :find, on: :collection
     end
+
+    get 'infos', to: 'infos#index', as: :infos
   end
 
   root to: 'disposals#index'
