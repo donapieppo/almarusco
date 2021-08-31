@@ -9,12 +9,11 @@
           <input type="checkbox" name="disposal_ids[]" value="<%= disposal.id %>"/>
           <span class="badge badge-primary"><%= disposal.id %></span>
           <%= disposal.disposal_type %> <br/>
-          <%= disposal.kgs %> Kg. -
-          <%= disposal.volume %> Litri del <%= l disposal.created_at %>  
+          <small><%= disposal.kgs %> Kg. - <%= disposal.volume %> Litri del <%= l disposal.created_at %></small>
         </label>
     <% end %>
 
-    <h2 class="my-4">Scegli il formato del foglio</h2>
+    <h2 class="my-4">Scegli le etichette da stampare</h2>
     <table style="margin: auto; max-width: 300px">
       <% [1,2,3].each do |col| %>  
         <tr>
@@ -24,6 +23,6 @@
         </tr>
       <% end %>
     </table>
-    <%= f.submit %>  
+    <%= f.submit "Crea pdf", class: "my-4" %>  
   <% end %>
 </div>
