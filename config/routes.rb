@@ -21,8 +21,7 @@ Rails.application.routes.draw do
 
     resources :prints
 
-    post 'search', to: 'search#search', as: 'admin_search'
-    get  'search', to: 'groups#index'
+    post 'search', to: 'disposals#search', as: 'search'
 
     get  'helps',               to: 'helps#index'
     get  'helps/contacts',      to: 'helps#contacts', as: 'contacts'
