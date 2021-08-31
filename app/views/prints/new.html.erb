@@ -5,14 +5,13 @@
 
     <h2 class="my-4">Scegli gli scarichi che vuoi stampare</h2>
     <% @disposals.each do |disposal| %>  
-      <div>
-        <label>
+        <label class="border p-2">
           <input type="checkbox" name="disposal_ids[]" value="<%= disposal.id %>"/>
-          <%= disposal.disposal_type %> - 
+          <span class="badge badge-primary"><%= disposal.id %></span>
+          <%= disposal.disposal_type %> <br/>
           <%= disposal.kgs %> Kg. -
-          <%= disposal.volume %> Litri
+          <%= disposal.volume %> Litri del <%= l disposal.created_at %>  
         </label>
-      </div>
     <% end %>
 
     <h2 class="my-4">Scegli il formato del foglio</h2>
