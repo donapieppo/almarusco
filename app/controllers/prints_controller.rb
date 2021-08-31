@@ -8,7 +8,7 @@ class PrintsController < ApplicationController
     else
       @disposals = current_user.disposals.where(organization: current_organization)
     end
-    @disposals = @disposals.order(:user_id, :created_at)
+    @disposals = @disposals.order(:user_id).order('created_at desc')
     authorize :print
   end
 
@@ -53,7 +53,7 @@ class PrintsController < ApplicationController
 
   def disposal_cell_content(disposal)
     dt = disposal.disposal_type
-    res = "#{dt.un_code} - #{dt.cer_code} #{dt.adr ? ' - ADR' : ''} (#{dt.physical_state})" 
+    res = "#{disposal.id} - #{dt.un_code} - #{dt.cer_code} #{dt.adr ? ' - ADR' : ''} (#{dt.physical_state})" 
   end
 end
 
