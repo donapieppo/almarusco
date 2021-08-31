@@ -27,15 +27,8 @@
             <%= link_to fwdmicon('users')    + ' Permessi', producers_path %>
           <% end %>
         <% end %>
-        <% if current_organization %>
-          <%= dropdown_menu :institution, big_dmicon('building') + " " + current_organization.name do  %>
-            <% if policy(current_organization).manage? %>
-              <%= link_to fwdmicon('home') + current_organization.to_s, current_organization_edit_path %>
-            <% end %>
-            <% if current_user.multi_organizations? %>
-              <%= link_to fwdmicon('exchange-alt') + ' cambia struttura', choose_organization_path %>
-            <% end %>
-          <% end %>
+        <% if current_organization && current_user.multi_organizations? %>
+          <%= link_to fwdmicon('exchange-alt') + ' cambia struttura', choose_organization_path %>
         <% end %>
 
         <% if current_user.is_cesia? %>  
