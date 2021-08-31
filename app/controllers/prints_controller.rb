@@ -26,18 +26,15 @@ class PrintsController < ApplicationController
                                                # :margin Sets the margin on all sides in points [0.5 inch]
                                                # :left_margin :right_margin
     pdf.font_size 8
-    pdf.stroke_axis
     pdf.define_grid(columns: 3, rows: 3, gutter: 10)
 
     params['paper_boxes'].each do |rc|
       row, col = rc.split('-')
       disposal = @disposals.pop
       dt = disposal.disposal_type
-      pdf.grid(col.to_i - 1, row.to_i - 1).show
       pdf.grid(col.to_i - 1, row.to_i - 1).bounding_box do
         qr = RQRCode::QRCode.new(disposal_url(disposal))
         IO.binwrite("/tmp/pippo#{disposal.id}.png", qr.as_png.to_s)
-        pdf.text "#{row} - #{col}"
         pdf.text disposal.id.to_s, size: 16
         pdf.text dt.un_code.to_s, style: 'bold'
         pdf.text dt.cer_code.to_s
