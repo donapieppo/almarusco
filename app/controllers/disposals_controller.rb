@@ -38,7 +38,7 @@ class DisposalsController < ApplicationController
     @disposal.disposal_type_id = @disposal_type.id
     authorize @disposal
     if @disposal.save
-      redirect_to disposals_path
+      redirect_to disposals_path, notice: "Salvata la richiesta di scarico con identificativo #{@disposal.id}. Consigliamo di scrivere il numero identificativo sul collo."
     else
       render action: :new
     end
@@ -68,6 +68,19 @@ class DisposalsController < ApplicationController
   def destroy
     @disposal.destroy
     redirect_to disposals_path
+  end
+
+  def search
+    authorize :disposal
+    requested_disposal_id = params[:search_string].to_i
+    @disposal = current_organization.disposals.find_by_id(requested_disposal_id)
+
+    if @disposal
+      @disposal = current_organization.disposals.find_by_id(requested_disposal_id)
+      redirect_to @disposal
+    else
+      redirect_to root_path, alert: "Manca l'identificativo dell rifiuto."
+    end
   end
 
   private
