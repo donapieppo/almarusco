@@ -16,9 +16,9 @@
 
     <h2 class="my-4">Scegli il formato del foglio</h2>
     <table style="margin: auto; max-width: 300px">
-      <% [1,2,3].each do |row| %>  
+      <% [1,2,3].each do |col| %>  
         <tr>
-          <% [1,2,3].each do |col| %>
+          <% [1,2,3].each do |row| %>
             <td><input type="checkbox" name="paper_boxes[]" value="<%= row %>-<%= col %>"/></td>
           <% end %>
         </tr>
