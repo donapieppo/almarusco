@@ -21,4 +21,8 @@ class DisposalType < ApplicationRecord
   def physical_state_to_s
     I18n.t(self.physical_state)
   end
+
+  def hp_codes_to_s
+    hp_codes.map(&:code).join(', ')
+  end
 end

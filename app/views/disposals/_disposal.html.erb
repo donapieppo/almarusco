@@ -8,6 +8,7 @@
   <div class="small text-info">
     <strong>UN:</strong> <%= disposal.disposal_type.un_code.name.upcase %><br/>  
     <strong>CER:</strong> <%= disposal.disposal_type.cer_code.description.upcase %><br/>
+    <strong>HP:</strong> <%= disposal.disposal_type.hp_codes_to_s %><br/>
     <strong>STATO:</strong> <%= t disposal.disposal_type.physical_state %>
   </div>
   <hr/>
