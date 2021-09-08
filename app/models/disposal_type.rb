@@ -15,7 +15,7 @@ class DisposalType < ApplicationRecord
   end
 
   def to_s
-    "#{self.un_code} - #{self.cer_code} #{self.adr ? ' - ADR' : ''} (#{self.physical_state})" 
+    "#{self.un_code} - #{self.cer_code} #{self.adr ? ' - ADR' : ''} (#{self.physical_state_to_s})" 
   end
 
   def physical_state_to_s
