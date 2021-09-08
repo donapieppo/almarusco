@@ -1,4 +1,49 @@
 <h1>Situazione magazzino</h1>
 
+<% tot_num = tot_kgs = tot_volume = 0 %>  
+<% @infos.each do |dt, disposals| %>  
+  <div class="dm-card">
+    <% num = kgs = volume = 0 %>  
+    <div class="dm-card-title">
+      <%= dt %>
+      <div class="small"><%= dt.hp_codes_to_s %></div>
+    </div>
+    <div class="dm-card-body">
+      <% disposals.each do |disposal| %>  
+        <% num += 1  %>  
+        <div>
+          <%= link_to disposal do %>  
+            <span class="badge badge-warning">id <%= disposal.id %> </span>
+          <% end %>
+          <%= disposal.volume %> L. - 
+          <%= disposal.kgs %> Kg. - 
+          <%= disposal.user %>  
+          <%= '<i class="fas fa-check text-success"></i>'.html_safe if disposal.approved? %>    
+
+          <% kgs += disposal.kgs %>  
+          <% volume += disposal.volume %>  
+        </div>
+      <% end %>
+    </div>
+    <div class="dm-card-footer">
+      <span class="font-weight-bold"><%= num %> coll<%= num > 1 ? "i" : "o" %></span>: 
+      <span class="mx-1"><%= volume %> L. totale</span>
+      <span class="mx-1"><%= kgs %> Kg. totale</span>
+    </div>
+    <% tot_num += num %>  
+    <% tot_kgs += kgs %>  
+    <% tot_volume += volume %>  
+  </div>
+<% end %>
+
+<div class="my-4">
+  <span class="alert alert-warning font-weight-bold">
+    Totale: 
+    <%= tot_num %> colli per 
+    <%= tot_volume %> Litri e
+    <%= tot_kgs %> Kg. 
+  </span>
+</div>
+
 
 
