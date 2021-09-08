@@ -16,6 +16,9 @@
     <%= disposal.volume %> Litri <br/>
     <%= disposal.kgs %> Kg 
   </div>
+  <div class="font-italic text-gray-500 p-2">
+    <%= disposal.notes %>  
+  </div>
   <div class="text-right">
     <%= link_to fwdmicon('eye'), disposal %>
     <%= link_to_edit([:edit, disposal]) if policy(disposal).edit? %>  

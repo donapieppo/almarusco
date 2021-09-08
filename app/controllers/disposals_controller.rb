@@ -86,7 +86,7 @@ class DisposalsController < ApplicationController
   private
 
   def disposal_params
-    params[:disposal].permit(:volume, :kgs)
+    params[:disposal].permit(:volume, :kgs, :notes)
   end
 
   def set_disposal_type

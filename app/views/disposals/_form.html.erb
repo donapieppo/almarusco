@@ -7,6 +7,7 @@
 <%= simple_form_for [@disposal_type, @disposal], wrapper: :horizontal_form do |f| %>  
   <%= f.input :volume, as: :radio_buttons, collection: volumes_collection, wrapper: :horizontal_collection %>  
   <%= f.input :kgs, as: :float, input_html: { step: 0.1 } %>  
+  <%= f.input :notes %>  
   <div class="my-4">
     <%= f.submit %>  
   </div>

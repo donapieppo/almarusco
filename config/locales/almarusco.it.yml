@@ -30,7 +30,8 @@ it:
         physical_state: Stato
       disposal:
         kgs: Peso
-        liters: Volume 
+        volume: Volume
+        notes: Note
         physical_state: Stato
 
   simple_form:
