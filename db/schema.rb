@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "disposal_type_id", unsigned: true
     t.text "notes"
     t.decimal "kgs", precision: 10, scale: 3
-    t.decimal "liters", precision: 10, scale: 3
+    t.integer "volume"
     t.date "created_at"
     t.date "approved_at"
     t.index ["disposal_type_id"], name: "fk_disposals_disposal_type"
@@ -105,13 +105,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["upn"], name: "index_dsacaches_on_upn", unique: true
   end
 
-  create_table "volumes", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
-    t.integer "num", unsigned: true
-    t.integer "liters", unsigned: true
-    t.integer "disposal_id", unsigned: true
-    t.index ["disposal_id"], name: "fk_dv_disposal"
-  end
-
   add_foreign_key "cer_codes_suppliers", "cer_codes", name: "fk_ccs_cer_code"
   add_foreign_key "cer_codes_suppliers", "suppliers", name: "fk_ccs_supplier"
   add_foreign_key "disposal_types", "cer_codes", name: "fk_disposal_types_cer"
@@ -124,5 +117,4 @@ ActiveRecord::Schema.define(version: 0) do
   add_foreign_key "disposals", "users", name: "fk_disposals_users"
   add_foreign_key "permissions", "organizations", name: "fk_organization_permission"
   add_foreign_key "permissions", "users", name: "fk_user_permission"
-  add_foreign_key "volumes", "disposals", name: "fk_dv_disposal"
 end
