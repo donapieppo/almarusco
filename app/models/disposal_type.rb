@@ -6,6 +6,8 @@ class DisposalType < ApplicationRecord
 
   has_many :disposals
 
+  validates :physical_state, presence: true
+
   def liquid?
     self.physical_state == 'liq'
   end
