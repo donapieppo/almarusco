@@ -29,7 +29,7 @@
           <% end %>
         <% end %>
         <% if current_organization && current_user.multi_organizations? %>
-          <%= link_to fwdmicon('exchange-alt') + ' cambia struttura', choose_organization_path %>
+          <li><%= link_to fwdmicon('exchange-alt') + ' cambia struttura', choose_organization_path %></li>
         <% end %>
 
         <% if current_user.is_cesia? %>  
