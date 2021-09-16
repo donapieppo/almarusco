@@ -2,9 +2,9 @@ class Disposal < ApplicationRecord
   belongs_to :organization
   belongs_to :user
   belongs_to :disposal_type
-  #belongs_to :un_code
-  #belongs_to :cer_code
-  #has_and_belongs_to_many :hp_codes
+
+  validates :volume, numericality: { greater_than: 0 }
+  validates :kgs, numericality: { greater_than: 0 }
 
   def liquid?
     self.disposal_type.liquid?
