@@ -23,8 +23,8 @@ class PrintsController < ApplicationController
     end
 
     pdf = Prawn::Document.new(page_size: 'A4') # 595.28 x 841.89
-                                               # :margin Sets the margin on all sides in points [0.5 inch]
-                                               # :left_margin :right_margin
+    # :margin Sets the margin on all sides in points [0.5 inch]
+    # :left_margin :right_margin
     pdf.font_size 8
     pdf.define_grid(columns: 3, rows: 3, gutter: 10)
 
@@ -43,6 +43,9 @@ class PrintsController < ApplicationController
           pdf.text dt.physical_state_to_s
           pdf.text dt.notes
           pdf.image "/tmp/pippo#{disposal.id}.png", width: 100, height: 100
+          disposal.adr_classes.each_with_index do |adrc, i|
+            pdf.svg IO.read(Rails.root.join('app', 'javascript', 'images', 'labels', "adr_#{adrc}.svg")), width: 50, at: [52*i, 60]
+          end
         end
       end
     end
