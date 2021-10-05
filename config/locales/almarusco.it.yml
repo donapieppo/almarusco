@@ -29,6 +29,7 @@ it:
         notes: Note
         physical_state: Stato
       disposal:
+        producer: Produttore
         kgs: Peso
         volume: Volume
         notes: Note
