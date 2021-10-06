@@ -1,25 +1,34 @@
 <h1>Produttori rifiuti</h1>
 
 <div class="centered">
-  <%= link_to 'Nuovo produttore di rifiuti', new_producer_path, class: 'btn btn-primary btn-lg' %>  
+  <%= link_to 'Nuovo produttore di rifiuti', new_producer_path, class: 'btn btn-primary' %>  
 </div>
 
-<ul class="list-group my-4">
-  <% @producers.each do |p| %>  
-    <li class="list-group-item">
-      <%= p.user.cn_militar %> 
-      <span class="float-right"><%= link_to_delete producer_path(p) %></span>
-    </li>
+<% @producers.each do |producer| %>  
+  <%= dm_card title: producer.user.cn_militar do %>  
+    <% producer %>  
+    <% current_organization.permissions.where(producer_id: producer.user_id).includes(:user).each do |permission| %>  
+      operatore: <%= permission.user %>  
+    <% end %>
+    <hr/>
+    <div style="text-align: right">
+      <%= link_to dmicon('plus') + ' aggiungi operatore', new_producer_operator_path(producer.user_id) %>  
+      <%= link_to_delete producer_path(producer) %>
+    </div>
   <% end %>
-</ul>
+<% end %>
 
 <div class="info my-2">
+  <p>
   <strong>Produttore:</strong> soggetto la cui attività produce rifiuti; per produttore/detentore di rifiuti,
-nell’organizzazione dell’Università di Bologna, deve intendersi non soltanto il soggetto (Responsabile di
-didattica e di ricerca in laboratorio, RDRL) dalla cui attività materiale sia derivata la produzione di rifiuti,
-ma qualora questa figura non fosse identificabile, anche il soggetto (Responsabile di Struttura) al quale
-sia giuridicamente riferibile detta produzione ed a carico del quale sia quindi configurabile, quale
-titolare di una posizione definibile come di garanzia, l’obbligo di provvedere allo smaltimento di detti
-rifiuti nei modi prescritti per legge.
+  nell’organizzazione dell’Università di Bologna, deve intendersi non soltanto il soggetto (Responsabile di
+  didattica e di ricerca in laboratorio, RDRL) dalla cui attività materiale sia derivata la produzione di rifiuti,
+  ma qualora questa figura non fosse identificabile, anche il soggetto (Responsabile di Struttura) al quale
+  sia giuridicamente riferibile detta produzione ed a carico del quale sia quindi configurabile, quale
+  titolare di una posizione definibile come di garanzia, l’obbligo di provvedere allo smaltimento di detti
+  rifiuti nei modi prescritti per legge.
+  </p>
+  <p>
+  <strong>Operatore:</strong> soggetto che può operare sul software in vece di uno o più produttori
+  </p>
 </div>
-
