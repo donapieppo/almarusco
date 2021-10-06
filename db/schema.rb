@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 0) do
 
   create_table "disposals", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.integer "user_id", unsigned: true
+    t.integer "lab_id", unsigned: true
+    t.integer "producer_id", unsigned: true
     t.integer "organization_id"
     t.integer "disposal_type_id", unsigned: true
     t.text "notes"
@@ -55,7 +57,9 @@ ActiveRecord::Schema.define(version: 0) do
     t.date "created_at"
     t.date "approved_at"
     t.index ["disposal_type_id"], name: "fk_disposals_disposal_type"
+    t.index ["lab_id"], name: "fk_disposals_labs"
     t.index ["organization_id"], name: "fk_disposals_organizations"
+    t.index ["producer_id"], name: "fk_disposals_producers"
     t.index ["user_id"], name: "fk_disposals_users"
   end
 
@@ -63,6 +67,12 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "name"
     t.text "description"
     t.index ["name"], name: "name"
+  end
+
+  create_table "labs", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+    t.integer "organization_id"
+    t.string "name"
+    t.index ["organization_id"], name: "fk_labs_organizations"
   end
 
   create_table "organizations", id: :integer, charset: "utf8mb4", force: :cascade do |t|
@@ -81,7 +91,9 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "authlevel"
     t.datetime "updated_at"
     t.datetime "created_at"
+    t.integer "producer_id", unsigned: true
     t.index ["organization_id"], name: "fk_organization_permission"
+    t.index ["producer_id"], name: "fk_permission_producer"
     t.index ["user_id"], name: "fk_user_permission"
   end
 
@@ -113,8 +125,12 @@ ActiveRecord::Schema.define(version: 0) do
   add_foreign_key "disposal_types_hp_codes", "disposal_types", name: "fk_dthc_disposal"
   add_foreign_key "disposal_types_hp_codes", "hp_codes", name: "fk_dthc_hp_code"
   add_foreign_key "disposals", "disposal_types", name: "fk_disposals_disposal_type"
+  add_foreign_key "disposals", "labs", name: "fk_disposals_labs"
   add_foreign_key "disposals", "organizations", name: "fk_disposals_organizations"
+  add_foreign_key "disposals", "users", column: "producer_id", name: "fk_disposals_producers"
   add_foreign_key "disposals", "users", name: "fk_disposals_users"
+  add_foreign_key "labs", "organizations", name: "fk_labs_organizations"
   add_foreign_key "permissions", "organizations", name: "fk_organization_permission"
+  add_foreign_key "permissions", "users", column: "producer_id", name: "fk_permission_producer"
   add_foreign_key "permissions", "users", name: "fk_user_permission"
 end
