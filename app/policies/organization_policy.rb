@@ -30,7 +30,7 @@ class OrganizationPolicy < DmUniboCommon::OrganizationPolicy
   end
 
   def dispose?
-    @user && @user.authorization.can_dispose?(@record)
+    @user && @user.authorization.can_operate?(@record)
   end
 end
 
