@@ -25,7 +25,8 @@
               <%= link_to fwdmicon('building') + ' Strutture',      dm_unibo_common.organizations_path %>
               <%= link_to fwdmicon('user')     + ' Autorizzazioni', dm_unibo_common.permissions_path %>
             <% end %>
-            <%= link_to fwdmicon('users')    + ' Permessi', producers_path %>
+            <%= link_to fwdmicon('flask')  + ' Laboratori', labs_path %>
+            <%= link_to fwdmicon('users') + ' Permessi', producers_path %>
           <% end %>
         <% end %>
         <% if current_organization && current_user.multi_organizations? %>
