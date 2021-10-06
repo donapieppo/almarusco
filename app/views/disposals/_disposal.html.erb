@@ -2,6 +2,8 @@
   <div>
     Identificativo: <%= disposal.id %> <br/> 
     Richiedente: <%= link_to disposal.user, disposals_path(u: disposal.user_id) %> <br/>
+    <% producer = disposal.producer ? disposal.producer : disposal.user %>  
+    Produttore: <%= link_to producer, disposals_path(u: producer.id) %> <br/>
     Data richiesta: <%= l disposal.created_at %> <br/>
     Stato: <%= disposal.status %> <%= '<i class="fas fa-check text-success"></i>'.html_safe if disposal.approved? %>    
   </div>
