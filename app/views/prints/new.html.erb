@@ -2,23 +2,29 @@
 
 <div class="centered">
   <%= form_for :print, url: prints_path do |f| %>  
-
     <h2 class="my-4">Scegli gli scarichi che vuoi stampare</h2>
     <% @disposals.each do |disposal| %>  
-        <label class="border p-2">
-          <input type="checkbox" name="disposal_ids[]" value="<%= disposal.id %>"/>
-          <span class="badge badge-primary"><%= disposal.id %></span>
-          <%= disposal.disposal_type %> <br/>
-          <small><%= disposal.kgs %> Kg. - <%= disposal.volume %> Litri del <%= l disposal.created_at %></small>
-        </label>
+      <label class="border p-2">
+        <input type="checkbox" name="disposal_ids[]" value="<%= disposal.id %>"/>
+        <span class="badge badge-primary"><%= disposal.id %></span>
+        <%= disposal.disposal_type %> <br/>
+        <small><%= disposal.kgs %> Kg. - <%= disposal.volume %> Litri del <%= l disposal.created_at %></small>
+      </label>
     <% end %>
 
     <h2 class="my-4">Scegli le etichette da stampare</h2>
-    <table style="margin: auto; max-width: 300px">
+    <p class="info">
+    Immagina che questo sotto sia un foglio A4 di etichette da stampare <br/> e scegli su quali etichette vuoi che si trovino
+    gli scarichi che hai selezionato sopra.
+    </p>
+
+    <table style="margin: auto; max-width: 300px; border: 2px solid black">
       <% [1,2,3].each do |col| %>  
         <tr>
           <% [1,2,3].each do |row| %>
-            <td><input type="checkbox" name="paper_boxes[]" value="<%= row %>-<%= col %>"/></td>
+            <td>
+              <input type="checkbox" name="paper_boxes[]" value="<%= row %>-<%= col %>" style="transform: scale(2);"/>
+            </td>
           <% end %>
         </tr>
       <% end %>
