@@ -1,29 +1,21 @@
-alter table `disposals` add column `volume` int(2) after `kgs`;
-alter table `disposals` drop column `liters`;
+alter table `permissions` add column `producer_id` int(10) unsigned DEFAULT NULL;
+alter table `permissions` add key `fk_permission_producer` (`producer_id`);
+alter table `permissions` add constraint `fk_permission_producer` FOREIGN KEY (`producer_id`) REFERENCES `users` (`id`);
 
-drop table `volumes`;
-
--- tutti dati via, esaurito deposito
-alter table `disposals` add column `completed_at` date unsigned after `approved_at`;
-
-create table `withdraws` (
+create table `labs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `organization_id` int(10) DEFAULT NULL,
-  `supplier_id` int(11) DEFAULT NULL,
-  `disposal_type_id` int(10) unsigned, 
-  `withdraw_date` date,
-  `kgs` decimal(10,3) DEFAULT NULL,
-  `kgs_confirmed` decimal(10,3) DEFAULT NULL,
+  `name` varchar(255),
   PRIMARY KEY (`id`),
-  KEY `fk_withdraws_organizations` (`organization_id`),
-  CONSTRAINT `fk_withdraws_organizations` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`id`),
-  KEY `fk_withdraws_suppliers` (`supplier_id`),
-  CONSTRAINT `fk_withdraws_suppliers` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`),
-  KEY `fk_withdraws_types` (`disposal_type_id`),
-  CONSTRAINT `fk_withdraws_types` FOREIGN KEY (`disposal_type_id`) REFERENCES `disposal_types` (`id`)
+  KEY `fk_labs_organizations` (`organization_id`),
+  CONSTRAINT `fk_labs_organizations` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`id`)
 ) CHARSET=utf8mb4;
 
+alter table `disposals` add column `producer_id`  int(10) unsigned DEFAULT NULL after `user_id`;
+alter table `disposals` add KEY `fk_disposals_producers` (`producer_id`);
+alter table `disposals` add CONSTRAINT `fk_disposals_producers` FOREIGN KEY (`producer_id`) REFERENCES `users` (`id`);
 
-
-
+alter table `disposals` add column `lab_id`  int(10) unsigned DEFAULT NULL after `user_id`;
+alter table `disposals` add KEY `fk_disposals_labs` (`lab_id`);
+alter table `disposals` add CONSTRAINT `fk_disposals_labs` FOREIGN KEY (`lab_id`) REFERENCES `labs` (`id`);
 
