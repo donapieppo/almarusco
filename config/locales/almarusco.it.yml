@@ -9,6 +9,7 @@ it:
       barcode: Codice a barre
       disposal: Rifiuto
       disposal_type: Tipologia
+      lab: Laboratorio
 
     attributes:
       admin:
@@ -34,6 +35,8 @@ it:
         volume: Volume
         notes: Note
         physical_state: Stato
+      lab:
+        name: Nome
 
   simple_form:
     hints:
