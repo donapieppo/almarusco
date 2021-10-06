@@ -28,7 +28,10 @@ Rails.application.routes.draw do
 
     get '/', to: 'disposals#index', as: 'current_organization_root'
 
-    resources :producers 
+    resources :producers do 
+      resources :operators, only: [:new, :create]
+    end
+    resources :operators, only: :delete
 
     resources :disposals do
       get 'choose_disposal_type', as: :choose_disposal_type, on: :collection
@@ -43,6 +46,8 @@ Rails.application.routes.draw do
       post :find, on: :collection
       get  :find, on: :collection
     end
+
+    resources :labs
 
     get 'infos', to: 'infos#index', as: :infos
   end
