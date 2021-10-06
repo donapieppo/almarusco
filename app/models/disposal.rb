@@ -1,10 +1,12 @@
 class Disposal < ApplicationRecord
   belongs_to :organization
   belongs_to :user
+  belongs_to :producer, class_name: 'User', optional: true
   belongs_to :disposal_type
+  belongs_to :lab
 
-  validates :volume, numericality: { greater_than: 0 }
-  validates :kgs, numericality: { greater_than: 0 }
+  validates :volume, presence: true, numericality: { greater_than: 0 }
+  validates :kgs, presence: true, numericality: { greater_than: 0 }
 
   def liquid?
     self.disposal_type.liquid?
