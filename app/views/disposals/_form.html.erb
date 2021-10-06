@@ -5,8 +5,12 @@
 %>  
 
 <%= simple_form_for [@disposal_type, @disposal], wrapper: :horizontal_form do |f| %>  
+  <% if @producers && @producers.any? %>  
+    <%= f.association :producer, collection: @producers, include_blank: false, label_method: :cn_militar %>  
+  <% end %>
   <%= f.input :volume, as: :radio_buttons, collection: volumes_collection, wrapper: :horizontal_collection %>  
   <%= f.input :kgs, as: :float, input_html: { step: 0.1 } %>  
+  <%= f.association :lab, collection: current_organization.labs, include_blank: false %>  
   <%= f.input :notes %>  
   <div class="my-4">
     <%= f.submit %>  
