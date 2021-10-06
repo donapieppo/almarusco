@@ -32,7 +32,7 @@ class OperatorsController < ApplicationController
   end
 
   def check_producer(p)
-    ok = current_organization.permissions.where(authlevel: Rails.configuration.authlevels[:produce],
+    ok = current_organization.permissions.where(authlevel: Rails.configuration.authlevels[:dispose],
                                                 user_id: p.id).any?
     ok or raise DmUniboCommon::NoUser, "Utente no amministratore"
   end
