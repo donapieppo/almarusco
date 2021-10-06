@@ -1,7 +1,8 @@
+# Producer for almarusco is the person who can dispose.
 class ProducersController < ApplicationController
   def index
     authorize :producer
-    @producers = current_organization.permissions.where(authlevel: 20).includes(:user).order('users.surname')
+    @producers = current_organization.permissions.where(authlevel: Rails.configuration.authlevels[:dispose]).includes(:user).order('users.surname')
   end
 
   def new
@@ -11,7 +12,7 @@ class ProducersController < ApplicationController
   def create
     begin
       @user = User.syncronize(params[:upn])
-      @permission = current_organization.permissions.new(authlevel: 20, user_id: @user.id)
+      @permission = current_organization.permissions.new(authlevel: Rails.configuration.authlevels[:dispose], user_id: @user.id)
       authorize :producer
       if @permission.save
         redirect_to producers_path, notice: "È stato aggiunta la delega a #{@user}."
@@ -27,7 +28,7 @@ class ProducersController < ApplicationController
 
   def destroy
     @producer = current_organization.permissions.find(params[:id])
-    authorize :producer
+    authorize @producer
     @producer.destroy
     redirect_to producers_path, notice: "È stato eliminata la delega come richiesto."
   end
