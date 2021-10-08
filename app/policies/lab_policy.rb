@@ -3,6 +3,10 @@ class LabPolicy < ApplicationPolicy
     current_organization_manager?
   end
 
+  def show?
+    current_organization_manager?
+  end
+
   def new?
     current_organization_manager?
   end
