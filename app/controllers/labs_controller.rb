@@ -1,7 +1,13 @@
 class LabsController < ApplicationController
+  before_action :set_lab_and_check_permission, only: [:show, :edit, :update, :delete]
+
   def index
     authorize :lab
     @labs = current_organization.labs
+  end
+
+  def show
+    @disposals = @lab.disposals
   end
 
   def new
@@ -17,6 +23,13 @@ class LabsController < ApplicationController
     else
       render action: :new
     end
+  end
+
+  private
+
+  def set_lab_and_check_permission
+    @lab = Lab.find(params[:id])
+    authorize @lab
   end
 end
 
