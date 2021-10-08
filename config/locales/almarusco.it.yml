@@ -35,6 +35,7 @@ it:
         volume: Volume
         notes: Note
         physical_state: Stato
+        lab: Laboratorio
       lab:
         name: Nome
 
@@ -45,7 +46,7 @@ it:
         notes: Descrizione visibile a chi deve creare il carico del rifiuto (opzionale)
       disposal:
         kgs: Quanti Kg? (numero decimale)
-        liters: Quanti litri? (numero decimale)
+        lab: Laboratorio di provenienza del rifiuto
 
   can_read:    può leggere
   can_admin:   resposabile u.l.
