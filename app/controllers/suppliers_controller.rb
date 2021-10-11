@@ -3,25 +3,9 @@ class SuppliersController < ApplicationController
 
   def index
     authorize Supplier
-    # possiamo ricevere con un GET da loads/new il valore remember_thing_id
-    # che dobbiamo ricordarci per tornare dopo l'inserimento del ddt
-    session[:from_thing_id] = params[:remember_thing_id].to_i if params[:remember_thing_id] 
-
-    @initial = params[:in] ? params[:in][0, 1] : 'a'
-
-    @suppliers = Supplier.where(['name REGEXP ?', "^#{@initial}"]).order('name asc').to_a
-
-    # per cosa ci serve vedere i suppliers?
-    @for = params[:for]
-    if @for == 'ddt'
-      @title = 'Registrazione nuovo ddt/fattura: scelta del fornitore'
-    else
-      @title = 'Fornitori'
-    end
-    respond_to do |format|
-      format.html
-      format.js 
-    end
+    # @initial = params[:in] ? params[:in][0, 1] : 'a'
+    # @suppliers = Supplier.where(['name REGEXP ?', "^#{@initial}"]).order('name asc').to_a
+    @suppliers = Supplier.all
   end
 
   def new
@@ -74,7 +58,7 @@ class SuppliersController < ApplicationController
   private
 
   def supplier_params
-    params[:supplier].permit(:name, :pi)
+    params[:supplier].permit(:name, :pi, cer_code_ids: [])
   end
 
   def set_supplier_and_check_permission
