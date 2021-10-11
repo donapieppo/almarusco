@@ -10,6 +10,7 @@
           <% if current_organization && policy(current_organization).manage? %>
             <%= link_to fwdmicon('radiation-alt') + ' richieste', disposals_path %>
             <%= link_to fwdmicon('info-circle') + ' situazione magazzino', infos_path %>
+            <%= link_to fwdmicon('truck') + ' ritiri', pickings_path %>
           <% end %>
         <% end %>
 
@@ -27,6 +28,7 @@
             <% end %>
             <%= link_to fwdmicon('flask')  + ' Laboratori', labs_path %>
             <%= link_to fwdmicon('users') + ' Permessi', producers_path %>
+            <%= link_to fwdmicon('radiation-alt') + ' Codici CER', cer_codes_path %>
           <% end %>
         <% end %>
         <% if current_organization && current_user.multi_organizations? %>

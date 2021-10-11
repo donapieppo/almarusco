@@ -10,6 +10,8 @@ it:
       disposal: Rifiuto
       disposal_type: Tipologia
       lab: Laboratorio
+      cer_code: Codice CER
+      cercode: Codice CER
 
     attributes:
       admin:
@@ -24,6 +26,7 @@ it:
       supplier:
         name: Nome fornitore
         pi: Partita IVA
+        cer_codes: Codici Cer
       barcode:
         name: Codice a barre
       disposal_type:
@@ -38,6 +41,11 @@ it:
         lab: Laboratorio
       lab:
         name: Nome
+      cer_code:
+        name: Nome
+        danger: Pericolo
+      picking:
+        supplier: Fornitore
 
   simple_form:
     hints:
@@ -48,6 +56,7 @@ it:
         kgs: Quanti Kg? (numero decimale)
         lab: Laboratorio di provenienza del rifiuto
 
+  can_operate: può operare
   can_read:    può leggere
   can_admin:   resposabile u.l.
   can_manage:  delegato

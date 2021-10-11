@@ -48,6 +48,8 @@ Rails.application.routes.draw do
     end
 
     resources :labs
+    resources :cer_codes
+    resources :pickings
 
     get 'infos', to: 'infos#index', as: :infos
   end
