@@ -1,0 +1,7 @@
+<h1>Programmazione ritiro</h1>
+
+<p>Scegli il fornitore</p>
+
+<% Supplier.order(:name).each do |supplier| %>  
+  <%= link_to supplier.name, pickings_path(supplier_id: supplier.id), method: :post, class: 'btn btn-primary' %>  
+<% end %>

@@ -1,0 +1,12 @@
+<h1>Ritiri</h1>
+
+<div class="centered">
+  <%= link_to 'Nuovo Ritiro', new_picking_path, class: 'btn btn-primary' %>  
+</div>
+
+<% @pickings.each do |picking| %>  
+  <div>
+    <%= link_to picking.supplier, [:edit, picking] %>  
+    <%= picking.date %>  
+  </div>
+<% end %>

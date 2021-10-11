@@ -1,0 +1,20 @@
+<h1>
+  Programmazione ritiro con <br/>
+  <%= @picking.supplier %>
+</h1>
+
+<%= @picking.supplier.name.upcase %> è in contratto con:
+
+<ul>
+  <% @picking.supplier.contract_disposal_types.each do |disposal_type| %>  
+    <li><%= disposal_type %></li>
+  <% end %>
+</ul>
+
+<h2>Scegli i rifiuti</h2>
+
+<% @picking.supplier.contract_picking_disposals.each do |disposal| %>  
+  <%= link_to "#", remote: true do %>  
+    <%= render disposal, no_actions: true %>  
+  <% end %>
+<% end %>
