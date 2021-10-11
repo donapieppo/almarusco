@@ -20,14 +20,14 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "cer_codes_suppliers", id: false, charset: "utf8mb4", force: :cascade do |t|
-    t.integer "cer_code_id", unsigned: true
-    t.integer "supplier_id"
+    t.integer "cer_code_id", null: false, unsigned: true
+    t.integer "supplier_id", null: false, unsigned: true
     t.index ["cer_code_id"], name: "fk_ccs_cer_code"
     t.index ["supplier_id"], name: "fk_ccs_supplier"
   end
 
   create_table "disposal_types", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
-    t.integer "organization_id"
+    t.integer "organization_id", unsigned: true
     t.integer "cer_code_id", unsigned: true
     t.integer "un_code_id", unsigned: true
     t.boolean "adr"
@@ -48,8 +48,9 @@ ActiveRecord::Schema.define(version: 0) do
   create_table "disposals", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.integer "user_id", unsigned: true
     t.integer "lab_id", unsigned: true
+    t.integer "picking_id", unsigned: true
     t.integer "producer_id", unsigned: true
-    t.integer "organization_id"
+    t.integer "organization_id", unsigned: true
     t.integer "disposal_type_id", unsigned: true
     t.text "notes"
     t.decimal "kgs", precision: 10, scale: 3
@@ -59,6 +60,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["disposal_type_id"], name: "fk_disposals_disposal_type"
     t.index ["lab_id"], name: "fk_disposals_labs"
     t.index ["organization_id"], name: "fk_disposals_organizations"
+    t.index ["picking_id"], name: "fk_disposals_pickings"
     t.index ["producer_id"], name: "fk_disposals_producers"
     t.index ["user_id"], name: "fk_disposals_users"
   end
@@ -70,12 +72,12 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "labs", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
-    t.integer "organization_id"
+    t.integer "organization_id", unsigned: true
     t.string "name"
     t.index ["organization_id"], name: "fk_labs_organizations"
   end
 
-  create_table "organizations", id: :integer, charset: "utf8mb4", force: :cascade do |t|
+  create_table "organizations", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
@@ -84,11 +86,11 @@ ActiveRecord::Schema.define(version: 0) do
     t.datetime "created_at"
   end
 
-  create_table "permissions", id: :integer, charset: "utf8mb4", force: :cascade do |t|
+  create_table "permissions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.integer "user_id", unsigned: true
-    t.integer "organization_id"
+    t.integer "organization_id", unsigned: true
     t.string "network", limit: 20
-    t.integer "authlevel"
+    t.integer "authlevel", unsigned: true
     t.datetime "updated_at"
     t.datetime "created_at"
     t.integer "producer_id", unsigned: true
@@ -97,7 +99,16 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["user_id"], name: "fk_user_permission"
   end
 
-  create_table "suppliers", id: :integer, charset: "utf8mb4", force: :cascade do |t|
+  create_table "pickings", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+    t.integer "organization_id", null: false, unsigned: true
+    t.integer "supplier_id", null: false, unsigned: true
+    t.date "date"
+    t.datetime "created_at"
+    t.index ["organization_id"], name: "fk_pickings_organizations"
+    t.index ["supplier_id"], name: "fk_pickings_suppliers"
+  end
+
+  create_table "suppliers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "pi"
   end
@@ -112,7 +123,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "name", limit: 50
     t.string "surname", limit: 50
     t.string "email"
-    t.integer "employee_id"
+    t.integer "employee_id", unsigned: true
     t.timestamp "updated_at", default: -> { "current_timestamp()" }, null: false
     t.index ["upn"], name: "index_dsacaches_on_upn", unique: true
   end
@@ -127,10 +138,13 @@ ActiveRecord::Schema.define(version: 0) do
   add_foreign_key "disposals", "disposal_types", name: "fk_disposals_disposal_type"
   add_foreign_key "disposals", "labs", name: "fk_disposals_labs"
   add_foreign_key "disposals", "organizations", name: "fk_disposals_organizations"
+  add_foreign_key "disposals", "pickings", name: "fk_disposals_pickings"
   add_foreign_key "disposals", "users", column: "producer_id", name: "fk_disposals_producers"
   add_foreign_key "disposals", "users", name: "fk_disposals_users"
   add_foreign_key "labs", "organizations", name: "fk_labs_organizations"
   add_foreign_key "permissions", "organizations", name: "fk_organization_permission"
   add_foreign_key "permissions", "users", column: "producer_id", name: "fk_permission_producer"
   add_foreign_key "permissions", "users", name: "fk_user_permission"
+  add_foreign_key "pickings", "organizations", name: "fk_pickings_organizations"
+  add_foreign_key "pickings", "suppliers", name: "fk_pickings_suppliers"
 end
