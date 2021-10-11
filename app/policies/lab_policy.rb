@@ -15,6 +15,10 @@ class LabPolicy < ApplicationPolicy
     current_organization_manager?
   end
 
+  def update?
+    current_organization_manager?
+  end
+
   def destroy?
     current_organization_manager?
   end

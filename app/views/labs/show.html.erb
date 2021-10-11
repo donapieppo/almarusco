@@ -1,0 +1,11 @@
+<h1><%= @lab %></h1>
+
+<div class="centered">
+  <%= link_to 'modifica', [:edit, @lab], class: 'btn btn-primary' %>  
+</div>
+
+<ul>
+  <% @disposals.each do |disposal| %>  
+    <li><%= link_to disposal, disposal %></li>  
+  <% end %>
+</ul>

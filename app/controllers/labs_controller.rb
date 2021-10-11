@@ -25,12 +25,24 @@ class LabsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @lab.update(name: params[:lab][:name])
+      redirect_to labs_path, notice: "Il nome del laboratorio è stato modificato."
+    else
+      render action: :edit
+    end
+  end
+
+  def destroy
+  end
+
   private
 
   def set_lab_and_check_permission
-    @lab = Lab.find(params[:id])
+    @lab = current_organization.labs.find(params[:id])
     authorize @lab
   end
 end
-
-
