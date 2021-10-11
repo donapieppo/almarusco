@@ -4,6 +4,7 @@ class Disposal < ApplicationRecord
   belongs_to :producer, class_name: 'User', optional: true
   belongs_to :disposal_type
   belongs_to :lab
+  belongs_to :picking, optional: true 
 
   validates :volume, presence: true, numericality: { greater_than: 0 }
   validates :kgs, presence: true, numericality: { greater_than: 0 }

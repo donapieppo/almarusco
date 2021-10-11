@@ -4,6 +4,7 @@ class Organization < ApplicationRecord
   has_many :disposal_types
   has_many :disposals
   has_many :labs
+  has_many :pickings
 
   validates :name, uniqueness: { message: 'Struttura già presente.', case_sensitive: false }
 
