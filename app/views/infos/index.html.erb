@@ -12,12 +12,15 @@
       <% disposals.each do |disposal| %>  
         <% num += 1  %>  
         <div>
-          <%= link_to disposal do %>  
-            <span class="badge badge-warning">id <%= disposal.id %> </span>
+          <%= link_to disposal, class: "badge badge-warning" do %>  
+            id <%= disposal.id %>
           <% end %>
           <%= disposal.volume %> L. - 
           <%= disposal.kgs %> Kg. - 
-          <%= disposal.user %>  
+          <%= disposal.producer %> 
+          <% if disposal.producer_id != disposal.user_id %>
+            <small>(<%= disposal.user %>)</small>
+          <% end %>
           <%= '<i class="fas fa-check text-success"></i>'.html_safe if disposal.approved? %>    
 
           <% kgs += disposal.kgs %>  
