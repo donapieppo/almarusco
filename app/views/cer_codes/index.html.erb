@@ -1,0 +1,14 @@
+<h1>Codici Cer</h1>
+
+<div class="centered my-4">
+  <%= link_to 'Aggiungi nuovo codice', new_cer_code_path, class: 'btn btn-primary' %>  
+</div>
+
+
+<div class="list-group">
+  <% @cer_codes.each do |cc| %>  
+    <%= link_to [:edit, cc], class: "list-group-item list-group-item-action" do %>
+      <%= cc.name %>  <span class="float-right small"><%= cc.description %></span>
+    <% end %>
+  <% end %>
+</div>
