@@ -2,8 +2,7 @@
   <div>
     Identificativo: <%= disposal.id %> <br/> 
     Richiedente: <%= link_to disposal.user, disposals_path(u: disposal.user_id) %> <br/>
-    <% producer = disposal.producer ? disposal.producer : disposal.user %>  
-    Produttore: <%= link_to producer, disposals_path(u: producer.id) %> <br/>
+    Produttore: <%= link_to disposal.producer, disposals_path(u: disposal.producer.id) %> <br/>
     Laboratorio: <%= disposal.lab %><br/>
     Data richiesta: <%= l disposal.created_at %> <br/>
     Stato: <%= disposal.status %> <%= '<i class="fas fa-check text-success"></i>'.html_safe if disposal.approved? %>    
@@ -22,9 +21,11 @@
   <div class="font-italic text-gray-500 p-2">
     <%= disposal.notes %>  
   </div>
-  <div class="text-right">
-    <%= link_to fwdmicon('eye'), disposal %>
-    <%= link_to_edit([:edit, disposal]) if policy(disposal).edit? %>  
-    <%= link_to_delete(disposal) if policy(disposal).destroy? %>  
-  </div>
+  <% unless defined?(no_actions) %>  
+    <div class="text-right">
+      <%= link_to fwdmicon('eye'), disposal %>
+      <%= link_to_edit([:edit, disposal]) if policy(disposal).edit? %>  
+      <%= link_to_delete(disposal) if policy(disposal).destroy? %>  
+    </div>
+  <% end %>
 <% end %>
