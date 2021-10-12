@@ -12,6 +12,7 @@ it:
       lab: Laboratorio
       cer_code: Codice CER
       cercode: Codice CER
+      picking: Ritiro
 
     attributes:
       admin:
@@ -46,6 +47,7 @@ it:
         danger: Pericolo
       picking:
         supplier: Fornitore
+        date: Data ritiro
 
   simple_form:
     hints:
