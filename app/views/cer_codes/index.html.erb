@@ -8,7 +8,8 @@
 <div class="list-group">
   <% @cer_codes.each do |cc| %>  
     <%= link_to [:edit, cc], class: "list-group-item list-group-item-action" do %>
-      <%= cc.name %>  <span class="float-right small"><%= cc.description %></span>
+      <strong><%= cc %></strong> <br/>
+      <span class="float-right small"><%= cc.description %></span>
     <% end %>
   <% end %>
 </div>
