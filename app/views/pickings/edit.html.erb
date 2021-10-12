@@ -22,13 +22,13 @@
 
   <div class="row">
     <% @picking.supplier.contract_picking_disposals.each do |disposal| %>  
-      <div class="col-md-6 picking-disposal" style="cursor: pointer">
+      <div class="col-md-6 picking-disposal">
         <input type="checkbox" 
                id="d<%= disposal.id %>"
                name="picking[disposal_ids][]" 
                value="<%= disposal.id %>" 
                <%= 'checked="checked"' if ids.include?(disposal.id) %> />
-        <label for="d<%= disposal.id %>">
+        <label for="d<%= disposal.id %>" style="cursor: pointer">
           <%= render disposal, no_actions: true %>  
         </label>
       </div>
