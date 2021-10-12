@@ -3,7 +3,7 @@
   <%= @picking.supplier %>
 </h1>
 
-<%= @picking.supplier.name.upcase %> è in contratto con:
+<%= @picking.supplier.name.upcase %> è in contratto per:
 
 <ul>
   <% @picking.supplier.contract_disposal_types.each do |disposal_type| %>  
@@ -13,8 +13,18 @@
 
 <h2>Scegli i rifiuti</h2>
 
-<% @picking.supplier.contract_picking_disposals.each do |disposal| %>  
-  <%= link_to "#", remote: true do %>  
-    <%= render disposal, no_actions: true %>  
+<% ids = @picking.disposal_ids %>  disposal.id
+
+<%= form_for @picking do |f| %>  
+  <% @picking.supplier.contract_picking_disposals.each do |disposal| %>  
+    <div class="picking-disposal" style="cursor: pointer">
+      <%= render disposal, no_actions: true %>  
+      <input type="checkbox" name="picking[disposal_id][]" value="<%= disposal.id %>" <%= 'checked="checked"' if ids.include?(disposal.id) %>  />
+    </div>
   <% end %>
+  <%= f.submit %>  
+<% end %>
+
+<%= javascript_tag do %>  
+  <%= render partial: 'picking', formats: :js %>  
 <% end %>

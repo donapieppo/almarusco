@@ -26,6 +26,8 @@ class PickingsController < ApplicationController
   end
 
   def update
+    @picking.update(disposal_ids: params[:picking] ? params[:picking][:disposal_id] : [])
+    redirect_to [:edit, @picking]
   end
 
   def destroy
