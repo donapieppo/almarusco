@@ -4,8 +4,10 @@
   <%= link_to 'modifica', [:edit, @lab], class: 'btn btn-primary' %>  
 </div>
 
-<ul>
+<div class="row">
   <% @disposals.each do |disposal| %>  
-    <li><%= link_to disposal, disposal %></li>  
+    <div class="col-md-6">
+      <%= render disposal %>
+    </div>
   <% end %>
-</ul>
+</div>
