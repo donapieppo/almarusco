@@ -5,24 +5,35 @@
 
 <%= @picking.supplier.name.upcase %> è in contratto per:
 
-<ul>
+<ul class="my-2">
   <% @picking.supplier.contract_disposal_types.each do |disposal_type| %>  
-    <li><%= disposal_type %></li>
+    <li class="small"><%= disposal_type %></li>
   <% end %>
 </ul>
 
 <h2>Scegli i rifiuti</h2>
 
-<% ids = @picking.disposal_ids %>  disposal.id
+<% ids = @picking.disposal_ids %>
 
-<%= form_for @picking do |f| %>  
-  <% @picking.supplier.contract_picking_disposals.each do |disposal| %>  
-    <div class="picking-disposal" style="cursor: pointer">
-      <%= render disposal, no_actions: true %>  
-      <input type="checkbox" name="picking[disposal_id][]" value="<%= disposal.id %>" <%= 'checked="checked"' if ids.include?(disposal.id) %>  />
-    </div>
-  <% end %>
-  <%= f.submit %>  
+<%= simple_form_for @picking do |f| %>  
+  <%= f.input :date %>  
+  <%= f.label "Rifiuti" %>
+
+  <div class="row">
+    <% @picking.supplier.contract_picking_disposals.each do |disposal| %>  
+      <div class="col-md-6 picking-disposal" style="cursor: pointer">
+        <input type="checkbox" 
+               id="d<%= disposal.id %>"
+               name="picking[disposal_ids][]" 
+               value="<%= disposal.id %>" 
+               <%= 'checked="checked"' if ids.include?(disposal.id) %> />
+        <label for="d<%= disposal.id %>">
+          <%= render disposal, no_actions: true %>  
+        </label>
+      </div>
+    <% end %>
+  </div>
+  <%= f.submit 'Salva' %>  
 <% end %>
 
 <%= javascript_tag do %>  

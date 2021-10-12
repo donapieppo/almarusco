@@ -26,7 +26,7 @@ class PickingsController < ApplicationController
   end
 
   def update
-    @picking.update(disposal_ids: params[:picking] ? params[:picking][:disposal_id] : [])
+    @picking.update(picking_params)
     redirect_to [:edit, @picking]
   end
 
@@ -38,5 +38,9 @@ class PickingsController < ApplicationController
   def set_picking_and_check_permission
     @picking = current_organization.pickings.find(params[:id])
     authorize @picking
+  end
+
+  def picking_params
+    params[:picking].permit(:date, disposal_ids: [])
   end
 end

@@ -12,11 +12,12 @@ function visible_checked () {
 
 document.querySelectorAll('.picking-disposal').forEach (element => {
   element.addEventListener('click', () => {
-    chb = element.querySelectorAll('input')[0];
-    chb.checked = ! chb.checked;
+    //chb = element.querySelectorAll('input')[0];
+    //chb.checked = ! chb.checked;
     visible_checked()
   })
 })
 
 // start
+document.querySelectorAll('.picking-disposal input').forEach (e => e.style.display = 'none');
 visible_checked();
