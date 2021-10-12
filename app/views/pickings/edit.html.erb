@@ -11,13 +11,14 @@
   <% end %>
 </ul>
 
-<h2>Scegli i rifiuti</h2>
-
 <% ids = @picking.disposal_ids %>
 
 <%= simple_form_for @picking do |f| %>  
   <%= f.input :date %>  
   <%= f.label "Rifiuti" %>
+
+  <h2>Scegli i rifiuti</h2>
+  <p>I rifiuti selezionati sono colorati di azzurro. </p>
 
   <div class="row">
     <% @picking.supplier.contract_picking_disposals.each do |disposal| %>  
