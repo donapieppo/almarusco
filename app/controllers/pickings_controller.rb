@@ -15,9 +15,9 @@ class PickingsController < ApplicationController
     @supplier = Supplier.find(params[:supplier_id])
     @picking = current_organization.pickings.new(supplier_id: @supplier.id)
     if @picking.save
-      redirect_to edit_picking_path(@picking), 'Ritiro creato.'
+      redirect_to edit_picking_path(@picking), notice: 'Ritiro creato.'
     else
-      redirect_to root_path, 'ERRORE'
+      redirect_to root_path, alert: 'ERRORE'
     end
     authorize @picking
   end
