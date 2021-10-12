@@ -5,7 +5,6 @@
       <ul class="navbar-nav mr-auto">
         <%= dropdown_menu :disposal, big_dmicon('radiation-alt') + ' Rifiuti.' do  %>
           <%= link_to fwdmicon('plus') + ' nuova rifiuto', choose_disposal_type_disposals_path %>
-          <%= link_to fwdmicon('list') + ' tipologie di rifiuti', disposal_types_path %>
           <%= link_to fwdmicon('print') + ' stampe', new_print_path %>
           <% if current_organization && policy(current_organization).manage? %>
             <%= link_to fwdmicon('radiation-alt') + ' richieste', disposals_path %>
@@ -17,18 +16,19 @@
         <!-- amministrazione -->
         <% if current_organization && policy(current_organization).manage? %>  
           <%= dropdown_menu :amm, big_dmicon('cogs') + ' Amm.' do  %>
-            <%= link_to fwdmicon('truck')  + ' Fornitori', suppliers_path %>
+            <%= link_to fwdmicon('list') + ' tipologie di rifiuti', disposal_types_path %>
+            <%= link_to fwdmicon('truck') + ' Fornitori', suppliers_path %>
             <%= link_to fwdmicon('wrench') + ' Configurazioni', current_organization_edit_path %>
+            <%= link_to fwdmicon('flask') + ' Laboratori', labs_path %>
+            <%= link_to fwdmicon('users') + ' Permessi', producers_path %>
+            <%= link_to fwdmicon('radiation-alt') + ' Codici CER', cer_codes_path %>
             <!-- CESIA -->
             <% if current_user.is_cesia? %>
               <div class="dropdown-divider"></div>
               <h6 class="dropdown-header">Cesia</h6>
               <%= link_to fwdmicon('building') + ' Strutture',      dm_unibo_common.organizations_path %>
-              <%= link_to fwdmicon('user')     + ' Autorizzazioni', dm_unibo_common.permissions_path %>
+              <%= link_to fwdmicon('user') + ' Autorizzazioni', dm_unibo_common.permissions_path %>
             <% end %>
-            <%= link_to fwdmicon('flask')  + ' Laboratori', labs_path %>
-            <%= link_to fwdmicon('users') + ' Permessi', producers_path %>
-            <%= link_to fwdmicon('radiation-alt') + ' Codici CER', cer_codes_path %>
           <% end %>
         <% end %>
         <% if current_organization && current_user.multi_organizations? %>
