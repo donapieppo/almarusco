@@ -5,7 +5,7 @@ class SuppliersController < ApplicationController
     authorize Supplier
     # @initial = params[:in] ? params[:in][0, 1] : 'a'
     # @suppliers = Supplier.where(['name REGEXP ?', "^#{@initial}"]).order('name asc').to_a
-    @suppliers = Supplier.all
+    @suppliers = Supplier.order(:name).all
   end
 
   def new

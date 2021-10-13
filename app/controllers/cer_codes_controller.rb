@@ -3,7 +3,7 @@ class CerCodesController < ApplicationController
 
   def index
     authorize :cer_code
-    @cer_codes = CerCode.all
+    @cer_codes = CerCode.order(:name).all
   end
 
   def new
