@@ -3,14 +3,19 @@
 <div class="centered">
   <%= form_for :print, url: prints_path do |f| %>  
     <h2 class="my-4">Scegli gli scarichi che vuoi stampare</h2>
-    <% @disposals.each do |disposal| %>  
-      <label class="border p-2">
-        <input type="checkbox" name="disposal_ids[]" value="<%= disposal.id %>"/>
-        <span class="badge badge-primary"><%= disposal.id %></span>
-        <%= disposal.disposal_type %> <br/>
-        <small><%= disposal.kgs %> Kg. - <%= disposal.volume %> Litri del <%= l disposal.created_at %></small>
-      </label>
-    <% end %>
+
+    <div class="row">
+      <% @disposals.each do |disposal| %>  
+        <div class="col-6 col-md-4">
+          <label class="border p-2">
+            <input type="checkbox" name="disposal_ids[]" value="<%= disposal.id %>"/>
+            <span class="badge badge-primary"><%= disposal.id %></span>
+            <%= disposal.disposal_type %> <br/>
+            <small><%= disposal.kgs %> Kg. - <%= disposal.volume %> Litri del <%= l disposal.created_at %></small>
+          </label>
+        </div>
+      <% end %>
+    </div>
 
     <h2 class="my-4">Scegli le etichette da stampare</h2>
     <p class="info">
