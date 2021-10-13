@@ -3,12 +3,12 @@
   <% if current_user && current_organization %>  
     <div class="collapse navbar-collapse" id="bs-navbar-collapse">
       <ul class="navbar-nav mr-auto">
-        <%= dropdown_menu :disposal, big_dmicon('radiation-alt') + ' Rifiuti.' do  %>
+        <%= dropdown_menu :disposal, big_dmicon('trash') + ' Rifiuti.' do  %>
           <%= link_to fwdmicon('plus') + ' nuova rifiuto', choose_disposal_type_disposals_path %>
           <%= link_to fwdmicon('print') + ' stampe', new_print_path %>
           <% if current_organization && policy(current_organization).manage? %>
-            <%= link_to fwdmicon('radiation-alt') + ' richieste', disposals_path %>
-            <%= link_to fwdmicon('info-circle') + ' situazione magazzino', infos_path %>
+            <%= link_to fwdmicon('trash') + ' richieste', disposals_path %>
+            <%= link_to fwdmicon('info-circle') + ' deposito temporaneo', infos_path %>
             <%= link_to fwdmicon('truck') + ' ritiri', pickings_path %>
           <% end %>
         <% end %>
@@ -16,7 +16,7 @@
         <!-- amministrazione -->
         <% if current_organization && policy(current_organization).manage? %>  
           <%= dropdown_menu :amm, big_dmicon('cogs') + ' Amm.' do  %>
-            <%= link_to fwdmicon('radiation-alt') + ' Codici CER', cer_codes_path %>
+            <%= link_to fwdmicon('trash') + ' Codici CER', cer_codes_path %>
             <%= link_to fwdmicon('list') + ' tipologie di rifiuti', disposal_types_path %>
             <%= link_to fwdmicon('truck') + ' Fornitori', suppliers_path %>
             <%= link_to fwdmicon('wrench') + ' Configurazioni', current_organization_edit_path %>
