@@ -1,8 +1,12 @@
 <h1>Tipologie rifiuti</h1>
 
+<div class="alert alert-warning" role="alert">
+  Le tipologie di rifiuti sono relative alla vostra struttura - <%= current_organization %>.
+</div>
+
 <% if policy(current_organization).manage? %>  
-  <div class="centered">
-    <%= link_to 'NUOVA TIPOLOGIA', new_disposal_type_path, class: 'button' %>  
+  <div class="centered my-2">
+    <%= link_to 'Aggiungi una nuova tipologia di rifiuti', new_disposal_type_path, class: 'button' %>  
   </div>
 <% end %>
 
