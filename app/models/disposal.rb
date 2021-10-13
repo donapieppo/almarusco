@@ -7,7 +7,7 @@ class Disposal < ApplicationRecord
   belongs_to :picking, optional: true 
 
   validates :volume, presence: true, numericality: { greater_than: 0 }
-  validates :kgs, presence: true, numericality: { greater_than: 0 }
+  validates :kgs, numericality: { greater_than: 0 }, allow_blank: true
 
   def liquid?
     self.disposal_type.liquid?
@@ -40,6 +40,6 @@ class Disposal < ApplicationRecord
   end
 
   def status
-    approved_at ? 'approvato' : 'da approvare'
+    approved_at ? 'accettato' : 'da accettare'
   end
 end
