@@ -21,7 +21,7 @@
   <p>I rifiuti selezionati sono colorati di azzurro. </p>
 
   <div class="row">
-    <% @picking.supplier.contract_picking_disposals.each do |disposal| %>  
+    <% @picking.supplier.contract_picking_disposals(current_organization).each do |disposal| %>  
       <div class="col-md-6 picking-disposal">
         <input type="checkbox" 
                id="d<%= disposal.id %>"
