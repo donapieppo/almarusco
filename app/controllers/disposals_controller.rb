@@ -93,7 +93,7 @@ class DisposalsController < ApplicationController
       @disposal = current_organization.disposals.find_by_id(requested_disposal_id)
       redirect_to @disposal
     else
-      redirect_to root_path, alert: "Manca l'identificativo dell rifiuto."
+      redirect_to root_path, alert: "Non esiste l'identificativo del rifiuto in questa UL."
     end
   end
 
