@@ -1,2 +1,2 @@
 # almarusco
-Rifiuti spoeciali i Unibo
+Prototipo di gestionale per i rifiuti speciali (su specifiche Unibo)
