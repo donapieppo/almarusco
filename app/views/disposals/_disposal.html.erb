@@ -8,7 +8,11 @@
       <div class="col-md-2">
         <div class="font-weight-bold">
           <%= disposal.volume %> L. <br/>
-          <%= disposal.kgs %> Kg 
+          <% if disposal.kgs %>  
+            <%= disposal.kgs %> Kg 
+          <% else %>
+            <span class="text-danger">? Kg</span>
+          <% end %>
         </div>
       </div>
       <div class="col-md-10">

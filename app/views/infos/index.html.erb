@@ -1,4 +1,4 @@
-<h1>Situazione magazzino</h1>
+<h1>Deposito temporaneo</h1>
 
 <% tot_num = tot_kgs = tot_volume = 0 %>  
 <% @infos.each do |dt, disposals| %>  
@@ -16,14 +16,18 @@
             id <%= disposal.id %>
           <% end %>
           <%= disposal.volume %> L. - 
-          <%= disposal.kgs %> Kg. - 
+          <% if disposal.kgs %>  
+            <%= disposal.kgs %> Kg. - 
+          <% else %>
+            <span class="text-danger"> ? Kg. -</span>
+          <% end %>
           <%= disposal.producer %> 
           <% if disposal.producer_id != disposal.user_id %>
             <small>(<%= disposal.user %>)</small>
           <% end %>
           <%= '<i class="fas fa-check text-success"></i>'.html_safe if disposal.approved? %>    
 
-          <% kgs += disposal.kgs %>  
+          <% kgs += disposal.kgs.to_i %>  
           <% volume += disposal.volume %>  
         </div>
       <% end %>
