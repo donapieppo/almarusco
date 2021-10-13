@@ -1,7 +1,13 @@
 <h1>Fornitori</h1>
 
+<div class="alert alert-warning" role="alert">
+  I fornitori sono <b>comuni a tutte le strutture</b>.<br/>
+  Vi preghiamo di inserire/aggiornare questi dati con cura.
+</div>
+
+
 <div class="centered my-4">
-  <%= link_to_new 'Registra nuovo fornitore', new_supplier_path, modal: true %>
+  <%= link_to_new 'Registra nuovo fornitore', new_supplier_path %>
 </div>
 
 <div class="list-group">
