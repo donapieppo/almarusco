@@ -10,10 +10,10 @@ class DisposalsController < ApplicationController
     if policy(current_organization).manage?
       if params[:u]
         @user = User.find(params[:u].to_i)
-        @disposals = @disposals.where('user_id = ? or producer_id = ?', @user.id, @user.id)
+        @disposals = @disposals.user_or_producer(@user.id)
       end
     else
-      @disposals = @disposals.where('user_id = ? or producer_id = ?', current_user.id, current_user.id)
+      @disposals = @disposals.user_or_producer(current_user.id)
     end
     @disposals = @disposals.order(:user_id, :created_at)
     authorize :disposal

@@ -9,6 +9,9 @@ class Disposal < ApplicationRecord
   validates :volume, presence: true, numericality: { greater_than: 0 }
   validates :kgs, numericality: { greater_than: 0 }, allow_blank: true
 
+  scope :user_or_producer, -> (u_id) { where('user_id = ? or producer_id = ?', u_id, u_id) }
+
+
   def liquid?
     self.disposal_type.liquid?
   end
