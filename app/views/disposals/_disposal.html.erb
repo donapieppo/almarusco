@@ -23,7 +23,7 @@
           <% end %>
           Laboratorio: <%= disposal.lab %><br/>
           Data richiesta: <%= l disposal.created_at %> <br/>
-          Stato: <%= disposal.status %> <%= '<i class="fas fa-check text-success"></i>'.html_safe if disposal.approved? %>    
+          Stato: <%= disposal.status %> <%= disposal_status_icon(disposal) %>  
         </div>
         <div class="small text-info">
           <strong>UN:</strong> <%= disposal.disposal_type.un_code.name.upcase %><br/>  
