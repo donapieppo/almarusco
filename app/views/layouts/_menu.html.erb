@@ -3,7 +3,7 @@
   <% if current_user && current_organization %>  
     <div class="collapse navbar-collapse" id="bs-navbar-collapse">
       <ul class="navbar-nav mr-auto">
-        <%= dropdown_menu :disposal, big_dmicon('trash') + ' Rifiuti.' do  %>
+        <%= dropdown_menu :disposal, big_dmicon('trash-alt') + ' Rifiuti.' do  %>
           <%= link_to fwdmicon('plus') + ' nuova rifiuto', choose_disposal_type_disposals_path %>
           <%= link_to fwdmicon('print') + ' stampe', new_print_path %>
           <% if current_organization && policy(current_organization).manage? %>
