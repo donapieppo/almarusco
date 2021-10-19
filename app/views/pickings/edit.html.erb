@@ -15,17 +15,22 @@
 
 <%= simple_form_for @picking do |f| %>  
   <%= f.input :date %>  
-  <%= f.label "Rifiuti" %>
 
-  <h2>Scegli i rifiuti</h2>
   <p>I rifiuti selezionati sono colorati di azzurro. </p>
 
   <%= f.association :disposals, as: :check_boxes, 
+                                label: "Seleziona i rifiuti", 
                                 collection: @possible_disposals,
                                 label_method: lambda { |d| render partial: 'disposals/disposal_line', locals: { disposal: d} } %>  
 
   <%= f.submit 'Salva' %>  
 <% end %>
+
+<h2>
+  Totali:
+  <%= @picking.disposals.sum(:volume) %> L. -
+  <%= @picking.disposals.sum(:kgs) %> Kg. 
+</h2>
 
 <%= javascript_tag do %>  
   <%= render partial: 'disposals/js_infos', formats: ['js'] %>  
