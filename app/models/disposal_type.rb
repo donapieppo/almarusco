@@ -1,7 +1,7 @@
 class DisposalType < ApplicationRecord
   belongs_to :organization
-  belongs_to :un_code
   belongs_to :cer_code
+  belongs_to :un_code, optional: true
   has_and_belongs_to_many :hp_codes
 
   has_many :disposals
@@ -17,7 +17,11 @@ class DisposalType < ApplicationRecord
   end
 
   def to_s
-    "#{self.un_code} - #{self.cer_code} #{self.adr ? ' - ADR' : ''} (#{self.physical_state_to_s})" 
+    "#{self.un_code ? self.un_code.to_s + ' - ' : ''}#{self.cer_code} #{self.adr ? ' - ADR' : ''} (#{self.physical_state_to_s})" 
+  end
+
+  def to_s_short
+    "#{self.un_code ? self.un_code.to_s + ' - ' : ''}#{self.cer_code}" 
   end
 
   def physical_state_to_s
