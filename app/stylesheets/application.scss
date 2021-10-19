@@ -78,3 +78,17 @@ span.twitter-typeahead {
   }
 }
 
+fieldset.picking_disposals {
+  input {
+    display: none;
+  }
+  label {
+    @extend .btn;
+    margin-bottom: 1px;
+    color: #333 !important;
+  }
+  input:checked + label {
+    @extend .btn-info;
+    @extend .text-white;
+  }
+}
