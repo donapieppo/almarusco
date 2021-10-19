@@ -8,8 +8,7 @@ Rails.application.routes.draw do
 
   # cesia list (more than dm_unibo_common)
   get '/organizations',              to: 'organizations#index', as: "organizations"
-  get '/logins/choose_organization', to: 'helps#old_url' # OLD
-  get '/logins/form',                to: 'helps#old_url' # OLD
+  get '/helps',                      to: 'helps#index' # OLD
 
   scope ":__org__" do
     # current_organization implicit
