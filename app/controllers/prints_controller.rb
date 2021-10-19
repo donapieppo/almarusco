@@ -36,7 +36,9 @@ class PrintsController < ApplicationController
           qr = RQRCode::QRCode.new(disposal_url(disposal))
           IO.binwrite("/tmp/pippo#{disposal.id}.png", qr.as_png.to_s)
           pdf.text disposal.id.to_s, align: :right
-          pdf.text dt.un_code.to_s, style: 'bold', size: 16
+          if dt.un_code
+            pdf.text dt.un_code.to_s, style: 'bold', size: 16
+          end
           pdf.text dt.cer_code.to_s, size: 16
           pdf.text dt.adr ? 'ADR' : ''
           pdf.text dt.hp_codes.map(&:code).join(', ')

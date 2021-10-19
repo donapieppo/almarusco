@@ -5,7 +5,9 @@
     <% end %>
   </div>
   <div class="small text-info my-2">
-    <strong>UN:</strong> <%= disposal_type.un_code.name.upcase %><br/>
+    <% if disposal_type.un_code %>  
+      <strong>UN:</strong> <%= disposal_type.un_code.name.upcase %><br/>
+    <% end %>
     <strong>CER:</strong> <%= disposal_type.cer_code.description.upcase %><br/>
     <strong>STATO:</strong> <%= t(disposal_type.physical_state).upcase %> 
   </div>
