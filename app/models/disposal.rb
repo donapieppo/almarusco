@@ -12,6 +12,10 @@ class Disposal < ApplicationRecord
   scope :user_or_producer, -> (u_id) { where('user_id = ? or producer_id = ?', u_id, u_id) }
 
 
+  def to_s
+    "#{self.volume} L - #{self.kgs} Kg #{self.disposal_type.to_s_short}"
+  end
+
   def liquid?
     self.disposal_type.liquid?
   end
