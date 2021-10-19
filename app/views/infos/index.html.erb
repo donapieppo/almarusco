@@ -11,25 +11,9 @@
     <div class="dm-card-body">
       <% disposals.each do |disposal| %>  
         <% num += 1  %>  
-        <div>
-          <%= link_to disposal, class: "badge badge-warning" do %>  
-            id <%= disposal.id %>
-          <% end %>
-          <%= disposal.volume %> L. - 
-          <% if disposal.kgs %>  
-            <%= disposal.kgs %> Kg. - 
-          <% else %>
-            <span class="text-danger"> ? Kg. -</span>
-          <% end %>
-          <%= disposal.producer %> 
-          <% if disposal.producer_id != disposal.user_id %>
-            <small>(<%= disposal.user %>)</small>
-          <% end %>
-          <%= '<i class="fas fa-check text-success"></i>'.html_safe if disposal.approved? %>    
-
-          <% kgs += disposal.kgs.to_i %>  
-          <% volume += disposal.volume %>  
-        </div>
+        <%= render partial: 'disposals/disposal_line', locals: { disposal: disposal } %>  
+        <% kgs += disposal.kgs.to_i %>  
+        <% volume += disposal.volume %>  
       <% end %>
     </div>
     <div class="dm-card-footer">
