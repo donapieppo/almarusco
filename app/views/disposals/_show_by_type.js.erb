@@ -1,14 +1,20 @@
-const disposal_type_selectors = document.querySelectorAll(".disposal_type_selector");
+const disposalTypeSelectors = document.querySelectorAll(".disposal_type_selector");
 
-disposal_type_selectors.forEach(x => {
+const changeButtons = (bs, x) => {
+  bs.forEach(y => { y.classList.remove('active') });
+  x.classList.add('active');
+}
+
+disposalTypeSelectors.forEach(x => {
   x.addEventListener('click', () => {
     let disposalTypeId = x.dataset.disposaltypeid; 
-    disposal_type_selectors.forEach(y => { y.classList.remove('active') })
     console.log("clicked disposal_type_selector: " + disposalTypeId );
+
     document.querySelectorAll(".disposal-card").forEach(d => {
       d.style.display = (d.dataset.disposaltypeid === disposalTypeId) ? 'block' : 'none';
     })
-    x.classList.add('active');
+
+    changeButtons(disposalTypeSelectors, x);
   })
 })
 
