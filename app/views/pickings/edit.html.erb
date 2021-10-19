@@ -1,27 +1,22 @@
+<% 
+  disposal_label = lambda do |d|
+  "id #{d.id} #{d.disposal_type.to_s_short} - #{d.volume} L. - #{d.kgs} Kg."
+  end
+%>  
 <h1>
   Programmazione ritiro con <br/>
   <%= @picking.supplier %>
 </h1>
-
-<%= @picking.supplier.name.upcase %> è in contratto per:
-
-<ul class="my-2">
-  <% @picking.supplier.contract_disposal_types.each do |disposal_type| %>  
-    <li class="small"><%= disposal_type %></li>
-  <% end %>
-</ul>
 
 <% ids = @picking.disposal_ids %>
 
 <%= simple_form_for @picking do |f| %>  
   <%= f.input :date %>  
 
-  <p>I rifiuti selezionati sono colorati di azzurro. </p>
-
   <%= f.association :disposals, as: :check_boxes, 
                                 label: "Seleziona i rifiuti", 
                                 collection: @possible_disposals,
-                                label_method: lambda { |d| render partial: 'disposals/disposal_line', locals: { disposal: d} } %>  
+                                label_method: disposal_label %>  
 
   <%= f.submit 'Salva' %>  
 <% end %>
@@ -35,3 +30,13 @@
 <%= javascript_tag do %>  
   <%= render partial: 'disposals/js_infos', formats: ['js'] %>  
 <% end %>
+
+<div class="alert alert-info my-4">
+  <%= @picking.supplier.name.upcase %> è in contratto per:
+
+  <ul class="my-2">
+    <% @picking.supplier.contract_disposal_types.each do |disposal_type| %>  
+      <li class="small"><%= disposal_type %></li>
+    <% end %>
+  </ul>
+</div>
