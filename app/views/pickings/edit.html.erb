@@ -20,23 +20,11 @@
   <h2>Scegli i rifiuti</h2>
   <p>I rifiuti selezionati sono colorati di azzurro. </p>
 
-  <div class="row">
-    <% @picking.supplier.contract_picking_disposals(current_organization).each do |disposal| %>  
-      <div class="col-md-6 picking-disposal">
-        <input type="checkbox" 
-               id="d<%= disposal.id %>"
-               name="picking[disposal_ids][]" 
-               value="<%= disposal.id %>" 
-               <%= 'checked="checked"' if ids.include?(disposal.id) %> />
-        <label for="d<%= disposal.id %>" style="cursor: pointer">
-          <%= render disposal, no_actions: true %>  
-        </label>
-      </div>
-    <% end %>
-  </div>
+  <%= f.association :disposals, as: :check_boxes, label_method: lambda { |d| render partial: 'disposals/disposal_line', locals: { disposal: d} } %>  
+
   <%= f.submit 'Salva' %>  
 <% end %>
 
 <%= javascript_tag do %>  
-  <%= render partial: 'picking', formats: :js %>  
+  <%= render partial: 'disposals/js_infos', formats: ['js'] %>  
 <% end %>

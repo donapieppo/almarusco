@@ -15,6 +15,7 @@ class PickingsController < ApplicationController
     @supplier = Supplier.find(params[:supplier_id])
     @picking = current_organization.pickings.new(supplier_id: @supplier.id)
     if @picking.save
+      @picking.fill_with_defoult_disposals
       redirect_to edit_picking_path(@picking), notice: 'Ritiro creato.'
     else
       redirect_to root_path, alert: 'ERRORE'
@@ -23,6 +24,7 @@ class PickingsController < ApplicationController
   end
 
   def edit
+    @possible_disposals = @picking.supplier.contract_picking_disposals(current_organization)
   end
 
   def update
