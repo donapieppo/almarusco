@@ -1,48 +1,57 @@
 <div class="dm-card">
   <div class="dm-card-title <%= disposal.approved? ? 'border-success' : '' %>">
-    <%= disposal.disposal_type.to_s %>  
+    <%= disposal.disposal_type.to_s %>
     <span class="float-right"><%= disposal.id %></span>
+    <br/>
+    <small><%= disposal.disposal_type.hp_codes_to_s %></small>
+    <i class="show-details ml-2 fas fa-question-circle" style="cursor: pointer"></i>
   </div>
   <div class="dm-card-body">
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="font-weight-bold">
           <%= disposal.volume %> L. <br/>
           <% if disposal.kgs %>  
-            <%= disposal.kgs %> Kg 
+            <%= disposal.kgs %> Kg. 
           <% else %>
             <span class="text-danger">? Kg</span>
           <% end %>
         </div>
       </div>
-      <div class="col-md-10">
-        <div>
-          Produttore: <%= link_to disposal.producer, disposals_path(u: disposal.producer.id) %> <br/>
-          <% if disposal.producer_id != disposal.user_id %>  
-            Richiedente: <%= link_to disposal.user, disposals_path(u: disposal.user_id) %> <br/>
-          <% end %>
-          Laboratorio: <%= disposal.lab %><br/>
-          Data richiesta: <%= l disposal.created_at %> <br/>
-          Stato: <%= disposal.status %> <%= disposal_status_icon(disposal) %>  
-        </div>
-        <div class="small text-info">
+      <div class="col-md-9">
+        Produttore: <%= link_to disposal.producer, disposals_path(u: disposal.producer.id) %>
+      <% if disposal.producer_id != disposal.user_id %>  
+        (da <%= link_to disposal.user, disposals_path(u: disposal.user_id) %>)
+      <% end %> 
+      <br/>
+      Lab: <%= disposal.lab %><br/>
+      Data richiesta: <%= l disposal.created_at %> <br/>
+      </div>
+      <div class="details p-2 small text-info">
+        <% if disposal.disposal_type.un_code %>  
           <strong>UN:</strong> <%= disposal.disposal_type.un_code.name.upcase %><br/>  
-          <strong>CER:</strong> <%= disposal.disposal_type.cer_code.description.upcase %><br/>
-          <strong>HP:</strong> <%= disposal.disposal_type.hp_codes_to_s %><br/>
-          <strong>STATO:</strong> <%= t disposal.disposal_type.physical_state %>
-        </div>
-        <div class="font-italic text-gray-500 p-2">
-          <%= disposal.notes %>  
-        </div>
+        <% end %>
+        <strong>CER:</strong> <%= disposal.disposal_type.cer_code.description.upcase %><br/>
+        <strong>HP:</strong> <%= disposal.disposal_type.hp_codes_to_s %><br/>
+        <strong>STATO:</strong> <%= t disposal.disposal_type.physical_state %>
+      </div>
+      <div class="font-italic text-gray-500 p-2">
+        <%= disposal.notes %>  
       </div>
     </div>
-    <% unless defined?(no_actions) %>  
-      <hr/>
-      <div class="text-right">
-        <%= link_to fwdmicon('eye'), disposal %>
-        <%= link_to_edit([:edit, disposal]) if policy(disposal).edit? %>  
-        <%= link_to_delete(disposal) if policy(disposal).destroy? %>  
+    <div class="row">
+      <div class="col-md-6">
+        <%= disposal_status_icon(disposal) %> (<%= link_to disposal.status, disposal %>)
       </div>
-    <% end %>
+      <div class="col-md-6">
+        <% unless defined?(no_actions) %>  
+          <div class="text-right">
+            <%= link_to fwdmicon('eye'), disposal %>
+            <%= link_to_edit([:edit, disposal]) if policy(disposal).edit? %>  
+            <%= link_to_delete(disposal) if policy(disposal).destroy? %>  
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div> <!-- dm-card -->

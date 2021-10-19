@@ -9,6 +9,7 @@
     <% else %>
       <%= link_to 'Accetta', approve_disposal_path(@disposal), method: :post, class: 'btn btn-success btn-lg' %>  
     <% end %>
+    <%= link_to ' - indietro', disposals_path %>  
   <% end %>
 </div>
 

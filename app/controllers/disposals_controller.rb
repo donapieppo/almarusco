@@ -15,7 +15,8 @@ class DisposalsController < ApplicationController
     else
       @disposals = @disposals.user_or_producer(current_user.id)
     end
-    @disposals = @disposals.order(:user_id, :created_at)
+    @disposals = @disposals.order("disposals.created_at DESC, disposals.user_id ASC")
+    @disposal_types = current_organization.disposal_types.where(id: @disposals.map(&:disposal_type_id).sort.uniq)
     authorize :disposal
   end
 

@@ -12,10 +12,23 @@
   <% end %>
 </div>
 
+<div class="my-2">
+  <% @disposal_types.each do |disposal_type| %>  
+    <span class="disposal_type_selector btn btn-sm btn-outline-info" data-disposaltypeid="<%= disposal_type.id %>">
+      <%= disposal_type.to_s_short %> <br/><small><%= disposal_type.hp_codes_to_s %></small>
+    </span>
+  <% end %>
+</div>
+
 <div class="row">
   <% @disposals.each do |disposal| %>  
-    <div class="col-md-6">
+    <div class="disposal-card col-md-6" data-disposaltypeid="<%= disposal.disposal_type.id %>">
       <%= render disposal %>
     </div>
   <% end %>
 </div>
+
+<%= javascript_tag do %>  
+  <%= render partial: 'js_infos', formats: ['js'] %>  
+  <%= render partial: 'show_by_type', formats: ['js'] %>  
+<% end %>
