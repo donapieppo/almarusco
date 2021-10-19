@@ -1,0 +1,19 @@
+<div>
+  <%= link_to disposal, class: "badge badge-warning" do %>  
+    id <%= disposal.id %>
+  <% end %>
+  <span class="px-2"><%= disposal.volume %> L. - </span>
+  <% if disposal.kgs %>  
+    <%= disposal.kgs %> Kg. - 
+  <% else %>
+    <span class="text-danger"> ? Kg. -</span>
+  <% end %>
+
+  <%= disposal.producer %> 
+
+  <% if disposal.producer_id != disposal.user_id %>
+    <small>(<%= disposal.user %>)</small>
+  <% end %>
+  <%= '<i class="fas fa-check text-success"></i>'.html_safe if disposal.approved? %>    
+</div>
+
