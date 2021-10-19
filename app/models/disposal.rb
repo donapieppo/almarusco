@@ -10,6 +10,7 @@ class Disposal < ApplicationRecord
   validates :kgs, numericality: { greater_than: 0 }, allow_blank: true
 
   scope :user_or_producer, -> (u_id) { where('user_id = ? or producer_id = ?', u_id, u_id) }
+  scope :approved, -> { where.not(approved_at: nil) }
 
 
   def to_s

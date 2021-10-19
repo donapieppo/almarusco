@@ -20,7 +20,9 @@
   <h2>Scegli i rifiuti</h2>
   <p>I rifiuti selezionati sono colorati di azzurro. </p>
 
-  <%= f.association :disposals, as: :check_boxes, label_method: lambda { |d| render partial: 'disposals/disposal_line', locals: { disposal: d} } %>  
+  <%= f.association :disposals, as: :check_boxes, 
+                                collection: @possible_disposals,
+                                label_method: lambda { |d| render partial: 'disposals/disposal_line', locals: { disposal: d} } %>  
 
   <%= f.submit 'Salva' %>  
 <% end %>
