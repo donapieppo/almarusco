@@ -12,11 +12,12 @@
   <% end %>
 </div>
 
-<div class="my-2">
+<div class="my-2 centered">
   <% @disposal_types.each do |disposal_type| %>  
-    <span class="disposal_type_selector btn btn-sm btn-outline-info" data-disposaltypeid="<%= disposal_type.id %>">
+    <div class="disposal_type_selector btn btn-sm btn-outline-info my-1" data-disposaltypeid="<%= disposal_type.id %>" 
+         style="display: inline-block; max-width: 45%">
       <%= disposal_type.to_s_short %> <br/><small><%= disposal_type.hp_codes_to_s %></small>
-    </span>
+    </div>
   <% end %>
 </div>
 
