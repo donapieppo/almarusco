@@ -2,7 +2,7 @@ class DisposalTypesController < ApplicationController
   before_action :set_disposal_type_and_check_permission, only: %i(edit update destroy)
 
   def index
-    @disposal_types = current_organization.disposal_types.order(:cer_code_id)
+    @disposal_types = current_organization.disposal_types.includes(:cer_code, :un_code).order('cer_codes.name')
     authorize :disposal_type
   end
 
