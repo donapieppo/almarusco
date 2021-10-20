@@ -10,10 +10,9 @@
     <% current_organization.permissions.where(producer_id: producer.user_id).includes(:user).each do |permission| %>  
       operatore: <%= permission.user %>  
     <% end %>
-    <hr/>
     <div style="text-align: right">
       <%= link_to dmicon('plus') + ' aggiungi operatore', new_producer_operator_path(producer.user_id) %>  
-      <%= link_to_delete producer_path(producer) %>
+      <%= link_to dmicon('trash-alt') + " elimina produttore", producer_path(producer), method: :delete, data: {confirm: 'Siete sicuri di voler cancellare?'} %>
     </div>
   <% end %>
 <% end %>
