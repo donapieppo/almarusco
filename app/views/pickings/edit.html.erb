@@ -35,8 +35,8 @@
   <%= @picking.supplier.name.upcase %> è in contratto per:
 
   <ul class="my-2">
-    <% @picking.supplier.contract_disposal_types.each do |disposal_type| %>  
-      <li class="small"><%= disposal_type %></li>
+    <% @picking.supplier.contract_disposal_types.includes(:cer_code, :un_code, :hp_codes).order(:cer_code_id).each do |disposal_type| %>  
+      <li class="small"><%= disposal_type %> <%= disposal_type.hp_codes_to_s %>  </li>
     <% end %>
   </ul>
 </div>
