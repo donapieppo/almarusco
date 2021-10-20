@@ -11,7 +11,7 @@ class Supplier < ApplicationRecord
   end
 
   def contract_disposal_types
-    DisposalType.where('cer_code_id in (?)', self.cer_code_ids)
+    DisposalType.where(cer_code_id: self.cer_code_ids)
   end
 
   def contract_picking_disposals(oid)
