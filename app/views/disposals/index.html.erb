@@ -12,14 +12,14 @@
   <% end %>
 </div>
 
-<div class="my-2 centered">
+<form class="my-2 centered disposal_type_selector">
   <% @disposal_types.each do |disposal_type| %>  
-    <div class="disposal_type_selector btn btn-sm btn-outline-info my-1" data-disposaltypeid="<%= disposal_type.id %>" 
-         style="display: inline-block; max-width: 45%">
+    <input type="radio" id="<%= disposal_type.id %>" name="disposal_to_show" />
+    <label for="<%= disposal_type.id %>" data-disposaltypeid="<%= disposal_type.id %>">
       <%= disposal_type.to_s_short %> <br/><small><%= disposal_type.hp_codes_to_s %></small>
-    </div>
+    </label>
   <% end %>
-</div>
+</form>
 
 <div class="row">
   <% @disposals.each do |disposal| %>  
