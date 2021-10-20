@@ -6,6 +6,8 @@ class DisposalType < ApplicationRecord
 
   has_many :disposals
 
+  # TODO uniqneness with also hps
+  # validates :cer_code_id, uniqueness: { scope: [:organization_id, :un_code_id], message: 'La tipoligia è già presente nella ul.', case_sensitive: false }
   validates :physical_state, presence: true
 
   def liquid?
@@ -17,11 +19,11 @@ class DisposalType < ApplicationRecord
   end
 
   def to_s
-    "#{self.un_code ? self.un_code.to_s + ' - ' : ''}#{self.cer_code} #{self.adr ? ' - ADR' : ''} (#{self.physical_state_to_s})" 
+    "#{self.cer_code} - #{self.un_code ? self.un_code.to_s + ' - ' : ''} #{self.adr ? ' ADR' : ''} (#{self.physical_state_to_s})" 
   end
 
   def to_s_short
-    "#{self.un_code ? self.un_code.to_s + ' - ' : ''}#{self.cer_code}" 
+    "#{self.cer_code} #{self.un_code ? ' - ' + self.un_code.to_s : ''}" 
   end
 
   def physical_state_to_s
