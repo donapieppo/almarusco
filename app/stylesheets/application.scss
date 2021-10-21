@@ -78,6 +78,22 @@ span.twitter-typeahead {
   }
 }
 
+form.status_selector {
+  input {
+    display: none;
+  }
+  label {
+    @extend .btn;
+    @extend .btn-lg;
+    @extend .btn-outline-info;
+    @extend .btn-block;
+
+  }
+  input:checked + label {
+    @extend .btn-info;
+    @extend .text-white;
+  }
+}
 form.disposal_type_selector {
   input {
     display: none;
@@ -85,8 +101,7 @@ form.disposal_type_selector {
   label {
     @extend .btn;
     @extend .btn-outline-info;
-    display: inline-block;
-    max-width: 45%; 
+
   }
   input:checked + label {
     @extend .btn-info;
