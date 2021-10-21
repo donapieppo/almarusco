@@ -1,16 +1,19 @@
 <h1>Scegli la tipologia di rifiuto</h1>
 
-<div role="group" class="row">
-  <div class="col-md-4 my-1">
-    <a id="sp" onclick="showDisposalType('sp')" class="btn btn-primary btn-lg btn-block">Solido</a>
+<form class="status_selector row">
+  <div class="col-md-4 my-1 text-center">
+    <input type="radio" id="sp" name="disposalType" />
+    <label for="sp">Solido</label>
   </div>
-  <div class="col-md-4 my-1">
-  <a id="snp" onclick="showDisposalType('snp')" class="btn btn-primary btn-lg btn-block">Solido non pulv.</a>
+  <div class="col-md-4 my-1 text-center">
+    <input type="radio" id="snp" name="disposalType" />
+    <label for="snp">Solido non pulv.</label>
   </div>
-  <div class="col-md-4 my-1">
-  <a id="liq" onclick="showDisposalType('liq')" class="btn btn-primary btn-lg btn-block">Liquido</a>
+  <div class="col-md-4 my-1 text-center">
+    <input type="radio" id="liq" name="disposalType" />
+    <label for="liq">Liquido</label>
   </div>
-</div>
+</form>
 
 <% @disposal_types.each do |disposal_type| %>
   <div class="choosable-disposal-type <%= disposal_type.physical_state %>">
