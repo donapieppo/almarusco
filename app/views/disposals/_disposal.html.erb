@@ -26,18 +26,18 @@
       <br/>
       Lab: <%= disposal.lab %><br/>
       Data richiesta: <%= l disposal.created_at %> <br/>
-      </div>
-      <div class="details p-2 small text-info">
-        <% if disposal.disposal_type.un_code %>  
-          <strong>UN:</strong> <%= disposal.disposal_type.un_code.name.upcase %><br/>  
-        <% end %>
-        <strong>CER:</strong> <%= disposal.disposal_type.cer_code.description.upcase %><br/>
-        <strong>HP:</strong> <%= disposal.disposal_type.hp_codes_to_s %><br/>
-        <strong>STATO:</strong> <%= t disposal.disposal_type.physical_state %>
-      </div>
-      <div class="font-italic text-gray-500 p-2">
+      <div class="font-italic text-gray-500">
         <%= disposal.notes %>  
       </div>
+      </div>
+    </div> <!-- row -->
+    <div class="details p-2 small text-info">
+      <% if disposal.disposal_type.un_code %>  
+        <strong>UN:</strong> <%= disposal.disposal_type.un_code.name.upcase %><br/>  
+      <% end %>
+      <strong>CER:</strong> <%= disposal.disposal_type.cer_code.description.upcase %><br/>
+      <strong>HP:</strong> <%= disposal.disposal_type.hp_codes_to_s %><br/>
+      <strong>STATO:</strong> <%= t disposal.disposal_type.physical_state %>
     </div>
     <div class="row">
       <div class="col-md-6">
