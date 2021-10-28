@@ -7,6 +7,8 @@ class PickingsController < ApplicationController
   end
 
   def new
+    @current_pickings = current_organization.pickings.all # da fissare con all prima di aggiungere new 
+    @suppliers = Supplier.where.not(id: @current_pickings.map(&:supplier_id))
     @picking = current_organization.pickings.new
     authorize @picking
   end
