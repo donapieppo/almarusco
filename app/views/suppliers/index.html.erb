@@ -13,9 +13,9 @@
 <div class="list-group">
   <% @suppliers.each do |supplier| %>  
     <%= link_to [:edit, supplier], class: 'list-group-item list-group-item-action' do %>
-      <%= supplier.name.upcase %>  
-      <span class="float-right small">(p.i. <%= supplier.pi %>)</span><br/>
-      <%= supplier.cer_codes.map(&:to_s).join(", ") %>  
+      <strong><%= supplier.name.upcase %> </strong>
+      <span class="float-right small">(p.i. <%= supplier.pi %>)</span>
+      <div class="small"><%= supplier.cer_codes.map(&:to_s).join(", ") %></div>
     <% end %>
   <% end %>
 </div>
