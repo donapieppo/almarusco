@@ -6,7 +6,7 @@ class DisposalsController < ApplicationController
   before_action :set_disposal_and_check_permission, only: %i(show edit update destroy approve unapprove)
 
   def index
-    @disposals = current_organization.disposals
+    @disposals = current_organization.disposals.includes(:user, :producer, :lab, disposal_type: [:cer_code, :un_code, :hp_codes])
     if policy(current_organization).manage?
       if params[:u]
         @user = User.find(params[:u].to_i)
