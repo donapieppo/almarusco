@@ -2,9 +2,7 @@
   <%= current_organization.code %> 
 </h1>
 
-<% if current_user.is_cesia? %>  
-  <%= render partial: 'form' %>
-<% end %>
+<%= render partial: 'form' %>
 
 <%= dm_card title: "Permessi" do %>
   <dl>
