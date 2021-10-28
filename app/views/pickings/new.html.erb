@@ -1,7 +1,17 @@
 <h1>Programmazione ritiro</h1>
 
+<div class="list-group">
+  <% @current_pickings.each do |picking| %>  
+    <%= link_to [:edit, picking], class: 'list-group-item list-group-item-action' do %>  
+      <%= picking.supplier %> <span class="float-right"><%= picking.date ? l(picking.date) : '' %></span>   
+    <% end %>
+  <% end %>
+</div>
+
 <p>Scegli il fornitore</p>
 
-<% Supplier.order(:name).each do |supplier| %>  
-  <%= link_to supplier.name, pickings_path(supplier_id: supplier.id), method: :post, class: 'btn btn-primary' %>  
-<% end %>
+<div class="list-group">
+  <% @suppliers.each do |supplier| %>  
+    <%= link_to supplier.name, pickings_path(supplier_id: supplier.id), method: :post, class: 'list-group list-group-item list-group-item-action' %>  
+  <% end %>
+</div>
