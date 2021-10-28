@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://github.com/donapieppo/dm_unibo_user_search.git
-  revision: a62701d6597a047acc6458244ce4d844ad51753e
+  revision: c1448ac2215785f12cd619fddfd045fe8f0bc7c0
   specs:
     dm_unibo_user_search (0.2.0)
       rails
@@ -96,15 +96,16 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.1.3)
-    capybara (3.35.3)
+    capybara (3.36.0)
       addressable
+      matrix
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    childprocess (3.0.0)
+    childprocess (4.1.0)
     chunky_png (1.4.0)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
@@ -136,7 +137,7 @@ GEM
     gyoku (1.3.1)
       builder (>= 2.1.2)
     hashie (4.1.0)
-    httpi (2.4.5)
+    httpi (2.5.0)
       rack
       socksify
     i18n (1.8.10)
@@ -156,9 +157,10 @@ GEM
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (1.0.2)
+    matrix (0.4.2)
     method_source (1.0.0)
     mini_magick (4.11.0)
-    mini_mime (1.1.1)
+    mini_mime (1.1.2)
     minitest (5.14.4)
     msgpack (1.4.2)
     multi_json (1.15.0)
@@ -202,11 +204,11 @@ GEM
     pretender (0.3.4)
       actionpack (>= 4.2)
     public_suffix (4.0.6)
-    puma (5.5.0)
+    puma (5.5.2)
       nio4r (~> 2.0)
     pundit (2.1.1)
       activesupport (>= 3.0.0)
-    racc (1.5.2)
+    racc (1.6.0)
     rack (2.2.3)
     rack-mini-profiler (2.3.3)
       rack (>= 1.2.0)
@@ -264,8 +266,9 @@ GEM
       nokogiri (>= 1.8.1)
       nori (~> 2.4)
       wasabi (~> 3.4)
-    selenium-webdriver (3.142.7)
-      childprocess (>= 0.5, < 4.0)
+    selenium-webdriver (4.0.3)
+      childprocess (>= 0.5, < 5.0)
+      rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
     simple_form (5.1.0)
@@ -293,10 +296,10 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webdrivers (4.6.1)
+    webdrivers (5.0.0)
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
-      selenium-webdriver (>= 3.0, < 4.0)
+      selenium-webdriver (~> 4.0)
     webpacker (5.4.3)
       activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
@@ -307,7 +310,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.4.2)
+    zeitwerk (2.5.1)
 
 PLATFORMS
   x86_64-linux
@@ -335,4 +338,4 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 BUNDLED WITH
-   2.2.22
+   2.2.29
