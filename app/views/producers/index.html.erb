@@ -4,30 +4,36 @@
   <%= link_to 'Nuovo produttore di rifiuti', new_producer_path, class: 'btn btn-primary' %>  
 </div>
 
-<% @producers.each do |producer| %>  
-  <%= dm_card title: producer.user.cn_militar do %>  
-    <% producer %>  
-    <% current_organization.permissions.where(producer_id: producer.user_id).includes(:user).each do |permission| %>  
-      operatore: <%= permission.user %>  
-    <% end %>
-    <div style="text-align: right">
-      <%= link_to dmicon('plus') + ' aggiungi operatore', new_producer_operator_path(producer.user_id) %>  
-      <%= link_to dmicon('trash-alt') + " elimina produttore", producer_path(producer), method: :delete, data: {confirm: 'Siete sicuri di voler cancellare?'} %>
+<div class="row">
+  <div class="col-md-6">
+    <div class="info my-2">
+      <p>
+      <strong>Produttore:</strong> soggetto la cui attività produce rifiuti; per produttore/detentore di rifiuti,
+      nell’organizzazione dell’Università di Bologna, deve intendersi non soltanto il soggetto (Responsabile di
+      didattica e di ricerca in laboratorio, RDRL) dalla cui attività materiale sia derivata la produzione di rifiuti,
+      ma qualora questa figura non fosse identificabile, anche il soggetto (Responsabile di Struttura) al quale
+      sia giuridicamente riferibile detta produzione ed a carico del quale sia quindi configurabile, quale
+      titolare di una posizione definibile come di garanzia, l’obbligo di provvedere allo smaltimento di detti
+      rifiuti nei modi prescritti per legge.
+      </p>
+      <p>
+      <strong>Operatore:</strong> soggetto che può operare sul software <strong>in vece</strong> di uno o più produttori
+      </p>
     </div>
-  <% end %>
-<% end %>
+  </div>
+  <div class="col-md-6">
 
-<div class="info my-2">
-  <p>
-  <strong>Produttore:</strong> soggetto la cui attività produce rifiuti; per produttore/detentore di rifiuti,
-  nell’organizzazione dell’Università di Bologna, deve intendersi non soltanto il soggetto (Responsabile di
-  didattica e di ricerca in laboratorio, RDRL) dalla cui attività materiale sia derivata la produzione di rifiuti,
-  ma qualora questa figura non fosse identificabile, anche il soggetto (Responsabile di Struttura) al quale
-  sia giuridicamente riferibile detta produzione ed a carico del quale sia quindi configurabile, quale
-  titolare di una posizione definibile come di garanzia, l’obbligo di provvedere allo smaltimento di detti
-  rifiuti nei modi prescritti per legge.
-  </p>
-  <p>
-  <strong>Operatore:</strong> soggetto che può operare sul software in vece di uno o più produttori
-  </p>
+    <% @producers.each do |producer| %>  
+      <%= dm_card title: producer.user.cn_militar do %>  
+        <% producer %>  
+        <% current_organization.permissions.where(producer_id: producer.user_id).includes(:user).each do |permission| %>  
+          operatore: <%= permission.user %> <br/>  
+        <% end %>
+        <div style="text-align: right">
+          <%= link_to dmicon('plus') + ' aggiungi operatore', new_producer_operator_path(producer.user_id) %>  
+          <%= link_to dmicon('trash-alt') + " elimina produttore", producer_path(producer), method: :delete, data: {confirm: 'Siete sicuri di voler cancellare?'} %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>
