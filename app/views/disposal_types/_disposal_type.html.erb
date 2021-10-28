@@ -1,22 +1,28 @@
-<%= dm_card title: disposal_type.to_s do %>  
-  <div class="">
-    <% disposal_type.hp_codes.each do |hp| %>
-      <span class="badge rounded-pill bg-warning text-dark" title="<%= hp.description %>"><%= hp.code %></span>
+<div class="dm-card">
+  <div class="dm-card-title">
+    <div><%= disposal_type.to_s %>
+    <% if defined?(editable) && editable %>  
+      <span class="float-right"><%= link_to_edit [:edit, disposal_type] %></span>
     <% end %>
-  </div>
-  <div class="small text-info my-2">
-    <% if disposal_type.un_code %>  
-      <strong>UN:</strong> <%= disposal_type.un_code.name.upcase %><br/>
-    <% end %>
-    <strong>CER:</strong> <%= disposal_type.cer_code.description.upcase %><br/>
-    <strong>STATO:</strong> <%= t(disposal_type.physical_state).upcase %> 
-  </div>
-  <% unless disposal_type.notes.blank? %>  
-    <div class="text-secondary">
-      note: <%= disposal_type.notes %>  
     </div>
-  <% end %>
-  <% if defined?(editable) && editable %>  
-    <span class="float-right"><%= link_to_edit [:edit, disposal_type] %></span>
-  <% end %>
-<% end %>
+    <div>
+      <% disposal_type.hp_codes.each do |hp| %>
+        <span class="badge rounded-pill bg-warning text-dark" title="<%= hp.description %>"><%= hp.code %></span>
+      <% end %>
+    </div>
+  </div>
+  <div class="dm-card-body">
+    <div class="small text-info">
+      <% if disposal_type.un_code %>  
+        <strong>UN:</strong> <%= disposal_type.un_code.name.upcase %><br/>
+      <% end %>
+      <strong>CER:</strong> <%= disposal_type.cer_code.description.upcase %><br/>
+      <strong>STATO:</strong> <%= t(disposal_type.physical_state).upcase %> 
+    </div>
+    <% unless disposal_type.notes.blank? %>  
+      <div class="text-secondary">
+        note: <%= disposal_type.notes %>  
+      </div>
+    <% end %>
+  </div>
+</div>
