@@ -16,6 +16,7 @@
       <strong><%= supplier.name.upcase %> </strong>
       <span class="float-right small">(p.i. <%= supplier.pi %>)</span>
       <div class="small"><%= supplier.cer_codes.map(&:to_s).join(", ") %></div>
+      <div class="small"><%= supplier.address %></div>
     <% end %>
   <% end %>
 </div>

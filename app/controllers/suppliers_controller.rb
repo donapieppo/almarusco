@@ -58,7 +58,7 @@ class SuppliersController < ApplicationController
   private
 
   def supplier_params
-    params[:supplier].permit(:name, :pi, cer_code_ids: [])
+    params[:supplier].permit(:name, :pi, :address, cer_code_ids: [])
   end
 
   def set_supplier_and_check_permission

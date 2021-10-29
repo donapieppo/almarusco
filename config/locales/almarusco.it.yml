@@ -27,6 +27,7 @@ it:
       supplier:
         name: Nome fornitore
         pi: Partita IVA
+        address: Indirizzo
         cer_codes: Codici Cer
       barcode:
         name: Codice a barre
