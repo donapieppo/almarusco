@@ -4,10 +4,17 @@
   <%= link_to 'Nuovo Ritiro', new_picking_path, class: 'btn btn-primary' %>  
 </div>
 
-<div class="list-group">
-  <% @pickings.each do |picking| %>  
-    <%= link_to [:edit, picking], class: 'list-group-item list-group-item-action' do %>  
-      <%= picking.supplier %> <span class="float-right"><%= picking.date ? l(picking.date) : '' %></span>   
+<% if @pickings.empty? %>  
+  <p class="info info-warning">
+  Non sono al momento programmati ritiri per al tua UL
+  </p>
+<% else %>
+  <p class="font-weight-bold">Ritiri programmati:</p>
+  <div class="list-group">
+    <% @pickings.each do |picking| %>  
+      <%= link_to [:edit, picking], class: 'list-group-item list-group-item-action' do %>  
+        <%= picking.supplier %> <span class="float-right"><%= picking.date ? l(picking.date) : '' %></span>   
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>
