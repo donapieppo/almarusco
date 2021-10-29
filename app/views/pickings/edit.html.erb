@@ -13,15 +13,22 @@ end
 <%= simple_form_for @picking do |f| %>  
   <%= f.input :date %>  
 
-  <%= f.association :disposals, as: :check_boxes, 
-    label: "Seleziona i rifiuti", 
-    collection: @possible_disposals,
-    label_method: disposal_label %>  
+  <% if @possible_disposals.empty? %>  
+    <p class="alert alert-warning">
+    Non sono disponibili rifiuti <strong>approvati</strong> per le tipologie di CER trattati dal fornitore <%= @picking.supplier %>.<br/>
+    Una volta aggiunti e approvati rifiuti al tuo deposito temporaneo con i CER che vedi nel box azzurro sotto potrai aggiungerli a questo ritiro.
+    </p>
+  <% else %>
+    <%= f.association :disposals, as: :check_boxes, 
+                               label: "Seleziona i rifiuti", 
+                          collection: @possible_disposals,
+                        label_method: disposal_label %>  
+  <% end %>
 
   <%= f.submit 'Salva' %>  
 <% end %>
 
-<div class="alert alert-warning font-weight-bold my-4" style="font-size: 120%">
+<div class="alert alert-success font-weight-bold my-4" style="font-size: 120%">
   Totali:
   <%= @picking.disposals.sum(:volume) %> L. -
   <%= @picking.disposals.sum(:kgs) %> Kg. 
