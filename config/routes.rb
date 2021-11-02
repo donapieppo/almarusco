@@ -48,6 +48,7 @@ Rails.application.routes.draw do
 
     resources :labs
     resources :cer_codes
+    resources :un_codes
     resources :pickings
 
     get 'infos', to: 'infos#index', as: :infos
