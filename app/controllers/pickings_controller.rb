@@ -3,7 +3,7 @@ class PickingsController < ApplicationController
 
   def index
     authorize :picking
-    @pickings = current_organization.pickings
+    @pickings = current_organization.pickings.order(:date)
   end
 
   def new
