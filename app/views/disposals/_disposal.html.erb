@@ -41,6 +41,9 @@
     <div class="row">
       <div class="col-md-6">
         <%= disposal_status_icon(disposal) %> (<%= link_to disposal.status, disposal %>)
+        <% if disposal.picking_id %>  
+          <%= link_to dmicon('truck'), edit_picking_path(disposal.picking_id) %>  
+        <% end %>
       </div>
       <div class="col-md-6">
         <% unless defined?(no_actions) %>  
