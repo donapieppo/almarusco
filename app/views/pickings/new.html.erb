@@ -1,12 +1,18 @@
 <h1>Programmazione ritiro</h1>
 
-<div class="list-group">
-  <% @current_pickings.each do |picking| %>  
-    <%= link_to [:edit, picking], class: 'list-group-item list-group-item-action' do %>  
-      <%= picking.supplier %> <span class="float-right"><%= picking.date ? l(picking.date) : '' %></span>   
+<div class="border-left border-4 border-info px-4">
+  <h2 class="text-info">Ritiri già programmati:</h2>
+
+  <div class="list-group">
+    <% @current_pickings.each do |picking| %>  
+      <%= link_to [:edit, picking], class: 'list-group-item list-group-item-action list-group-item-secondary' do %>  
+        <%= picking.supplier %> <span class="float-right"><%= picking.date ? l(picking.date) : '' %></span>   
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
+
+<h2 class="my-4">Nuovo ritiro</h2>
 
 <p class="font-weight-bold">Scegli il fornitore:</p>
 
