@@ -11,7 +11,7 @@ end
 <% ids = @picking.disposal_ids %>
 
 <%= simple_form_for @picking do |f| %>  
-  <%= f.input :date %>  
+  <%= f.input :date, as: :date, html5: true %>  
 
   <% if @possible_disposals.empty? %>  
     <p class="alert alert-warning">
