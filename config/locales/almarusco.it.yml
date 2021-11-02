@@ -45,6 +45,9 @@ it:
         lab: Laboratorio
       lab:
         name: Nome
+      un_code:
+        id: Numero
+        name: Nome
       cer_code:
         name: Nome
         danger: Pericolo
