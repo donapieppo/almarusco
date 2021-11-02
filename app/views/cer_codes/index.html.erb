@@ -7,10 +7,11 @@
   Vi preghiamo di inserire/aggiornare questi dati con cura.
 </div>
 
-<div class="centered my-4">
-  <%= link_to 'Aggiungi nuovo codice', new_cer_code_path, class: 'btn btn-primary' %>  
-</div>
-
+<% if policy(:cer_code).new? %>  
+  <div class="centered my-4">
+    <%= link_to 'Aggiungi nuovo codice CER', new_cer_code_path, class: 'btn btn-primary' %>  
+  </div>
+<% end %>
 
 <div class="list-group">
   <% @cer_codes.each do |cc| %>  
