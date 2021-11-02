@@ -17,6 +17,7 @@
         <% if current_organization && policy(current_organization).manage? %>  
           <%= dropdown_menu :amm, big_dmicon('cogs') + ' Amm.' do  %>
             <%= link_to fwdmicon('trash') + ' Codici CER', cer_codes_path %>
+            <%= link_to fwdmicon('trash') + ' Codici UN', un_codes_path %>
             <%= link_to fwdmicon('list') + ' tipologie di rifiuti', disposal_types_path %>
             <%= link_to fwdmicon('truck') + ' Fornitori', suppliers_path %>
             <%= link_to fwdmicon('wrench') + ' Configurazioni', current_organization_edit_path %>

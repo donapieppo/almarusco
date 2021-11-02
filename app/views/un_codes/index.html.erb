@@ -1,0 +1,17 @@
+<h1>
+  Codici UN
+</h1>
+
+<div class="alert alert-warning" role="alert">
+  I codici UN sono <b>comuni a tutte le strutture</b>.<br/>
+</div>
+
+<div class="list-group">
+  <% @un_codes.each do |un| %>  
+    <% url = policy(un).edit? ? edit_un_code_path(un) : '#' %>  
+    <%= link_to url, class: "list-group-item list-group-item-action" do %>
+      <strong><%= un.id %></strong> 
+      <span class="pl-2 small"><%= un.name %></span>
+    <% end %>
+  <% end %>
+</div>
