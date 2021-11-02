@@ -12,12 +12,17 @@ class UnCodesController < ApplicationController
   end
 
   def create
-    @un_code = UnCode.new(un_code_params)
-    authorize @un_code
-    if @un_code.save
-      redirect_to un_codes_path, notice: "Laboratorio creato correttamente."
+    if UnCode.find_by_id(params[:un_code][:id])
+      skip_authorization
+      redirect_to un_codes_path, alert: 'Codice già esistente.'
     else
-      render action: :new
+      @un_code = UnCode.new(un_code_params)
+      authorize @un_code
+      if @un_code.save
+        redirect_to un_codes_path, notice: "Laboratorio creato correttamente."
+      else
+        render action: :new
+      end
     end
   end
 
