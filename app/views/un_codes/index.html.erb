@@ -6,6 +6,12 @@
   I codici UN sono <b>comuni a tutte le strutture</b>.<br/>
 </div>
 
+<% if policy(:un_code).new? %>  
+  <div class="centered my-4">
+    <%= link_to 'Aggiungi nuovo codice UN', new_un_code_path, class: 'btn btn-primary' %>  
+  </div>
+<% end %>
+
 <div class="list-group">
   <% @un_codes.each do |un| %>  
     <% url = policy(un).edit? ? edit_un_code_path(un) : '#' %>  
