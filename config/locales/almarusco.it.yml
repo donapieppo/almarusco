@@ -11,7 +11,9 @@ it:
       disposal_type: Tipologia
       lab: Laboratorio
       cer_code: Codice CER
+      un_code: Codice UN
       cercode: Codice CER
+      uncode: Codice UN
       picking: Ritiro
 
     attributes:
