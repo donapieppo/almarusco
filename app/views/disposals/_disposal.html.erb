@@ -40,9 +40,12 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <%= disposal_status_icon(disposal) %> (<%= link_to disposal.status, disposal %>)
+        <%= link_to disposal do %>
+          <%= disposal_status_icon(disposal) %> 
+          <%= disposal.approved_at ? '' : '(da accettare)' %> 
+        <% end %>
         <% if disposal.picking_id %>  
-          <%= link_to dmicon('truck'), edit_picking_path(disposal.picking_id) %>  
+          <%= link_to dmicon('truck'), edit_picking_path(disposal.picking_id), title: 'Associato a ritiro' %>  
         <% end %>
       </div>
       <div class="col-md-6">
