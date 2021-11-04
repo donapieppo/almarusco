@@ -7,12 +7,7 @@ class OrganizationsController < ApplicationController
 
   def edit
     authorize current_organization
-
-    @permissions_hash = Hash.new { |hash, key| hash[key] = [] }
-
-    current_organization.permissions.includes(:user).order('authlevel desc, users.upn asc').references(:user).each do |permission|
-      @permissions_hash[permission.authlevel] << permission
-    end
+    @permissions_hash = permissions_hash
   end
 
   def update
@@ -20,6 +15,7 @@ class OrganizationsController < ApplicationController
     if current_organization.update(organization_params)
       redirect_to current_organization_edit_path, notice: 'La Struttura è stata modificata.'
     else
+      @permissions_hash = permissions_hash
       render action: :edit
     end
   end
@@ -34,5 +30,13 @@ class OrganizationsController < ApplicationController
     p =  [:adminmail]
     p += [:name, :description, :code] if current_user.is_cesia?
     params[:organization].permit(p)
+  end
+
+  def permissions_hash
+    res = Hash.new { |hash, key| hash[key] = [] }
+    current_organization.permissions.includes(:user).order('authlevel desc, users.upn asc').references(:user).each do |permission|
+      res[permission.authlevel] << permission
+    end
+    res
   end
 end
