@@ -2,7 +2,9 @@
   <%= current_organization.code %> 
 </h1>
 
-<%= render partial: 'form' %>
+<% if policy(current_organization).edit? %>  
+  <%= render partial: 'form' %>
+<% end %>
 
 <%= dm_card title: "Permessi" do %>
   <dl>
@@ -16,4 +18,9 @@
       <%= link_to 'Modifica', dm_unibo_common.organization_permissions_path(current_organization), class: 'btn btn-primary' %>  
     <% end %>
   </dl>
+  <% unless current_user.is_cesia? %>  
+    <div class="alert alert-warning">
+      Per modificare...
+    </div>
+  <% end %>
 <% end %>
