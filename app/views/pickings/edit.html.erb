@@ -35,6 +35,7 @@ end
 </div>
 
 <%= link_to 'STAMPA', [:print, @picking], class: 'btn btn-primary' %>  
+<%= link_to 'ESTRAI EXCEL', [:print, @picking, format: :csv], class: 'btn btn-primary' %>  
 
 <%= javascript_tag do %>  
   <%= render partial: 'disposals/js_infos', formats: ['js'] %>  
