@@ -49,7 +49,9 @@ Rails.application.routes.draw do
     resources :labs
     resources :cer_codes
     resources :un_codes
-    resources :pickings
+    resources :pickings do
+      get :print, on: :member
+    end
 
     get 'infos', to: 'infos#index', as: :infos
   end
