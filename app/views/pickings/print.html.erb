@@ -1,0 +1,36 @@
+<h1>Pagina di prova</h1>
+
+<table class="table-sm" style="font-size: 13px">
+  <thead>
+  <th>CER</th>
+  <th>Stato fisico</th>
+  <th>Descrizione rifiuto</th>
+  <th>Tipo di imbal.ggio</th>
+  <th>N° e tipo di colli</th>
+  <th>Peso (Kg)</th>
+  <th>Caratteristiche di pericolo</th>
+  <th>ADR</th>
+  <th>N. ONU</th>
+  <th>Classe ADR</th>
+  </thead>
+  <tbody>
+    <% @volumes_and_kgs.each do |disposal_type, vols_and_kgs| %>  
+      <tr>
+       <td nowrap><%= disposal_type.cer_code %></td>
+       <td><%= disposal_type.physical_state_to_s %></td>
+       <td><%= disposal_type.cer_code.description %></td>
+       <td>Tanica</td>
+       <td nowrap>
+         <% vols_and_kgs['volumes'].keys.map(&:to_i).sort.each do |v| %>
+           da <%= v %> litri: <%= vols_and_kgs['volumes'][v.to_s] %><br/>
+         <% end %>
+       </td>
+       <td><%= vols_and_kgs['kgs'] %></td>
+       <td><%= disposal_type.hp_codes_to_s %></td>
+       <td><%= disposal_type.adr ? 'si' : '' %></td>
+       <td nowrap><%= disposal_type.un_code %></td>
+       <td>???</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
