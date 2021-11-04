@@ -1,5 +1,5 @@
 class PickingsController < ApplicationController
-  before_action :set_picking_and_check_permission, only: [:show, :edit, :update, :delete]
+  before_action :set_picking_and_check_permission, only: [:show, :edit, :update, :delete, :print]
 
   def index
     authorize :picking
@@ -35,6 +35,17 @@ class PickingsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def print
+    @volumes_and_kgs = @picking.disposal_types_volumes_and_kgs
+    respond_to do |format|
+      format.pdf do
+        pdf = PickingPrint.new(@picking)
+        send_data pdf.render, filename: "stampa_ritiro_#{@picking.supplier.name}_#{@picking.date}.pdf", type: 'application/pdf', disposition: 'inline'
+      end
+      format.html
+    end
   end
 
   private
