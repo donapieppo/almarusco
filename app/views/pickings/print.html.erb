@@ -1,17 +1,20 @@
-<h1>Pagina di prova</h1>
+<center>
+<h1>Ritiro per il giorno <%= @picking.date %></h1>
+<h2><%= @picking.supplier %></h2>
+</center>
 
-<table class="table-sm" style="font-size: 13px">
+<table class="border border-green-800" style="font-size: 13px">
   <thead>
-  <th>CER</th>
-  <th>Stato fisico</th>
-  <th>Descrizione rifiuto</th>
-  <th>Tipo di imbal.ggio</th>
-  <th>N° e tipo di colli</th>
-  <th>Peso (Kg)</th>
-  <th>Caratteristiche di pericolo</th>
-  <th>ADR</th>
-  <th>N. ONU</th>
-  <th>Classe ADR</th>
+    <th>CER</th>
+    <th>Stato fisico</th>
+    <th>Descrizione rifiuto</th>
+    <th>Tipo di imbal.ggio</th>
+    <th>N° e tipo di colli</th>
+    <th>Peso (Kg)</th>
+    <th>Caratteristiche di pericolo</th>
+    <th>ADR</th>
+    <th>N. ONU</th>
+    <th>Classe ADR</th>
   </thead>
   <tbody>
     <% @volumes_and_kgs.each do |disposal_type, vols_and_kgs| %>  
