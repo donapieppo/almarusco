@@ -11,4 +11,8 @@ class PickingPolicy < ApplicationPolicy
   def update?
     create?
   end
+
+  def print?
+    create?
+  end
 end
