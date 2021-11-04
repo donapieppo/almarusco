@@ -15,7 +15,9 @@
     <%= csp_meta_tag %>
   </head>
   <body>
-    <%= render partial: 'layouts/menu' %>
+    <% unless @no_menu %>  
+      <%= render partial: 'layouts/menu' %>
+    <% end %>
 
     <main role="main" class="container">
       <%= bootstrap_modal_div %>
@@ -32,7 +34,9 @@
       <% end %>
     </main><!-- container -->
 
-    <%= render partial: 'layouts/footer' %>
+    <% unless @no_menu %>  
+      <%= render partial: 'layouts/footer' %>
+    <% end %>
   </body>
 </html>
 
