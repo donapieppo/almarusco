@@ -6,7 +6,7 @@ class PrintsController < ApplicationController
     if policy(current_organization).manage?
       @disposals = current_organization.disposals
     else
-      @disposals = current_user.disposals.where(organization: current_organization)
+      @disposals = current_user.disposals.where(organization_id: current_organization.id)
     end
     @disposals = @disposals.order(:user_id).order('created_at desc')
     authorize :print
@@ -81,4 +81,3 @@ class PrintsController < ApplicationController
     send_data pdf.render, filename: "print.pdf", type: :pdf
   end
 end
-
