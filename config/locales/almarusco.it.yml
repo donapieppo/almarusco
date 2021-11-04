@@ -24,6 +24,7 @@ it:
         code: Codice 
         name: Nome
         description: Descrizione 
+        adminmail: Mail per notifiche
       admin:
         authlevel: Permessi
       supplier:
