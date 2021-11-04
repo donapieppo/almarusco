@@ -5,21 +5,28 @@
   <div class="dm-card">
     <% num = kgs = volume = 0 %>  
     <div class="dm-card-title">
-      <%= dt %>
-      <div class="small"><%= dt.hp_codes_to_s %></div>
+      <%= dt %> <span class="small"><%= dt.hp_codes_to_s %></span>
     </div>
     <div class="dm-card-body">
       <% disposals.each do |disposal| %>  
         <% num += 1  %>  
-        <%= render partial: 'disposals/disposal_line', locals: { disposal: disposal } %>  
+        <%= link_to disposal, class: "btn btn-outline-info" do %>  
+          <strong>id <%= disposal.id %></strong>
+          <span class="px-2"><%= disposal.volume %> L. - </span>
+          <% if disposal.kgs %>  
+            <%= disposal.kgs %> Kg. 
+          <% else %>
+            <span class="text-danger"> ? Kg.</span>
+          <% end %>
+        <% end %>
         <% kgs += disposal.kgs.to_i %>  
         <% volume += disposal.volume %>  
       <% end %>
     </div>
     <div class="dm-card-footer">
       <span class="font-weight-bold"><%= num %> coll<%= num > 1 ? "i" : "o" %></span>: 
-      <span class="mx-1"><%= volume %> L. totale</span>
-      <span class="mx-1"><%= kgs %> Kg. totale</span>
+      <span class="mx-1"><strong><%= volume %></strong> L. totale</span>
+      <span class="mx-1"><strong><%= kgs %></strong> Kg. totale</span>
     </div>
     <% tot_num += num %>  
     <% tot_kgs += kgs %>  
