@@ -34,6 +34,8 @@ end
   <%= @picking.disposals.sum(:kgs) %> Kg. 
 </div>
 
+<%= link_to 'STAMPA', [:print, @picking], class: 'btn btn-primary' %>  
+
 <%= javascript_tag do %>  
   <%= render partial: 'disposals/js_infos', formats: ['js'] %>  
 <% end %>
