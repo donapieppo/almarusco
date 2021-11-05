@@ -81,7 +81,7 @@ class PickingsController < ApplicationController
             end.join("")
     res << vols_and_kgs['kgs']
     res << disposal_type.hp_codes_to_s
-    res << disposal_type.adr ? 'si' : ''
+    res << (disposal_type.adr ? 'si' : '')
     res << disposal_type.un_code
     res << "???"
     res
