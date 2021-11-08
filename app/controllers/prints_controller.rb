@@ -22,6 +22,11 @@ class PrintsController < ApplicationController
       @disposals = current_user.disposals.where(organization: current_organization).where(id: params[:disposal_ids]).to_a
     end
 
+    unless params['paper_boxes']
+      redirect_to new_print_path, alert: "Selezionare le etichette sul foglio"
+      return
+    end
+
     pdf = Prawn::Document.new(page_size: 'A4') # 595.28 x 841.89
     # :margin Sets the margin on all sides in points [0.5 inch]
     # :left_margin :right_margin
@@ -44,13 +49,12 @@ class PrintsController < ApplicationController
           if dt.un_code
             pdf.text dt.un_code.to_s, style: 'bold', size: 12
           end
-          pdf.text dt.cer_code.to_s, size: 12
+          pdf.text dt.cer_code.to_s + " " + dt.physical_state_to_s, size: 12
           pdf.text (dt.adr ? 'ADR' : '') + " " + dt.hp_codes.map(&:code).join(', ')
-          pdf.text dt.physical_state_to_s
           pdf.text dt.notes, size: 6
-          pdf.image "/tmp/pippo#{disposal.id}.png", width: 65, height: 65
+          pdf.image "/tmp/pippo#{disposal.id}.png", width: 80, height: 80
           disposal.adr_classes.each_with_index do |adrc, i|
-            pdf.svg IO.read(Rails.root.join('app', 'javascript', 'images', 'labels', "adr_#{adrc}.svg")), width: 30, at: [80+38*i, 35]
+            pdf.svg IO.read(Rails.root.join('app', 'javascript', 'images', 'labels', "adr_#{adrc}.svg")), height: 30, at: [80+38*i, 40]
           end
         end
       end
