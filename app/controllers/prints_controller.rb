@@ -44,8 +44,8 @@ class PrintsController < ApplicationController
         pdf.grid(col.to_i - 1, row.to_i - 1).bounding_box do
           # pdf.stroke_bounds
           qr = RQRCode::QRCode.new(disposal_url(disposal))
-          IO.binwrite("/tmp/pippo#{disposal.id}.png", qr.as_png.to_s)
-          pdf.text disposal.id.to_s, align: :right, size: 14
+          IO.binwrite("/tmp/pippo#{disposal.id}.png", qr.as_png(size: 240).to_s)
+          pdf.text "<font size='9'>#{disposal.organization.code} - #{disposal.lab}</font>    n. #{disposal.id.to_s}", align: :right, size: 14, inline_format: true
           if dt.un_code
             pdf.text dt.un_code.to_s, style: 'bold', size: 12
           end
