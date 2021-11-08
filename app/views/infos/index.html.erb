@@ -10,9 +10,9 @@
     <div class="dm-card-body">
       <% disposals.each do |disposal| %>  
         <% num += 1  %>  
-        <%= link_to disposal, class: "btn btn-outline-info" do %>  
-          <strong>id <%= disposal.id %></strong>
-          <span class="px-2"><%= disposal.volume %> L. - </span>
+        <%= link_to disposal, class: "btn btn-outline-info mt-1" do %>  
+          <strong>id <%= disposal.id %></strong><br/>
+          <span class="px-2"><%= disposal.volume %> L. </span><br/>
           <% if disposal.kgs %>  
             <%= disposal.kgs %> Kg. 
           <% else %>
