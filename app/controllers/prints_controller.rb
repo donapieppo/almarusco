@@ -4,7 +4,7 @@ class PrintsController < ApplicationController
 
   def new
     if policy(current_organization).manage?
-      @disposals = current_organization.disposals
+      @disposals = current_organization.disposals.order(:id)
     else
       @disposals = current_user.disposals.where(organization_id: current_organization.id)
     end
@@ -26,27 +26,31 @@ class PrintsController < ApplicationController
     # :margin Sets the margin on all sides in points [0.5 inch]
     # :left_margin :right_margin
     pdf.font_size 8
-    pdf.define_grid(columns: 3, rows: 3, gutter: 10)
+    pdf.define_grid(columns: 2, rows: 5, gutter: 15)
+    # pdf.grid.show_all
 
+    # 96 x 51mm rettangolari
+    # ["1-1", "2-2", "1-5"]
     params['paper_boxes'].each do |rc|
       row, col = rc.split('-')
       if disposal = @disposals.pop
         dt = disposal.disposal_type
+        # :rows, :columns, :gutter, :row_gutter, :column_gutter 
         pdf.grid(col.to_i - 1, row.to_i - 1).bounding_box do
+          # pdf.stroke_bounds
           qr = RQRCode::QRCode.new(disposal_url(disposal))
           IO.binwrite("/tmp/pippo#{disposal.id}.png", qr.as_png.to_s)
-          pdf.text disposal.id.to_s, align: :right
+          pdf.text disposal.id.to_s, align: :right, size: 14
           if dt.un_code
-            pdf.text dt.un_code.to_s, style: 'bold', size: 16
+            pdf.text dt.un_code.to_s, style: 'bold', size: 12
           end
-          pdf.text dt.cer_code.to_s, size: 16
-          pdf.text dt.adr ? 'ADR' : ''
-          pdf.text dt.hp_codes.map(&:code).join(', ')
+          pdf.text dt.cer_code.to_s, size: 12
+          pdf.text (dt.adr ? 'ADR' : '') + " " + dt.hp_codes.map(&:code).join(', ')
           pdf.text dt.physical_state_to_s
-          pdf.text dt.notes
-          pdf.image "/tmp/pippo#{disposal.id}.png", width: 100, height: 100
+          pdf.text dt.notes, size: 6
+          pdf.image "/tmp/pippo#{disposal.id}.png", width: 65, height: 65
           disposal.adr_classes.each_with_index do |adrc, i|
-            pdf.svg IO.read(Rails.root.join('app', 'javascript', 'images', 'labels', "adr_#{adrc}.svg")), width: 50, at: [52*i, 60]
+            pdf.svg IO.read(Rails.root.join('app', 'javascript', 'images', 'labels', "adr_#{adrc}.svg")), width: 30, at: [80+38*i, 35]
           end
         end
       end
