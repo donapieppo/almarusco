@@ -8,11 +8,19 @@ class PickingPolicy < ApplicationPolicy
     current_organization_manager?
   end
 
+  def show?
+    create?
+  end
+
   def update?
     create?
   end
 
   def print?
+    create?
+  end
+
+  def deliver?
     create?
   end
 end
