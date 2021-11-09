@@ -4,11 +4,11 @@ class PickingsController < ApplicationController
 
   def index
     authorize :picking
-    @pickings = current_organization.pickings.order(:date)
+    @pickings = current_organization.pickings.order('date desc')
   end
 
   def show
-    @disposals = @picking.disposals
+    @disposals = @picking.disposals.includes(disposal_type: [:un_code, :cer_code])
   end
   
   def new
