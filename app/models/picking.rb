@@ -3,8 +3,10 @@ class Picking < ApplicationRecord
   belongs_to :supplier
   has_many :disposals
 
+  scope :undelivered, -> { where('pickings.delivered_at IS NULL') }
+
   def possible_disposals
-    self.supplier.contract_picking_disposals(self.organization_id).approved
+    self.supplier.contract_picking_disposals(self.organization_id).approved.undelivered
   end
 
   def fill_with_defoult_disposals
@@ -20,10 +22,23 @@ class Picking < ApplicationRecord
       # p disposal
       res[disposal.disposal_type]['volumes'] ||= {}
       res[disposal.disposal_type]['volumes'][disposal.volume.to_s] = res[disposal.disposal_type]['volumes'][disposal.volume.to_s].to_i + 1
-      res[disposal.disposal_type]['kgs'] = res[disposal.disposal_type]['kgs'].to_i + disposal.kgs
+      res[disposal.disposal_type]['kgs'] = res[disposal.disposal_type]['kgs'].to_i + disposal.kgs.to_i
       # p res
     end
 
     res
+  end
+
+  def delivered?
+    delivered_at
+  end
+
+  def undelivered?
+    ! delivered?
+  end
+
+  def deliver
+    self.disposals.update_all(delivered_at: Date.today)
+    self.update(delivered_at: Date.today)
   end
 end

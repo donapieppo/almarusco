@@ -11,7 +11,8 @@ class Disposal < ApplicationRecord
 
   scope :user_or_producer, -> (u_id) { where('user_id = ? or producer_id = ?', u_id, u_id) }
   scope :approved, -> { where.not(approved_at: nil) }
-
+  scope :delivered, -> { where.not(delivered_at: nil) }
+  scope :undelivered, -> { where(delivered_at: nil) }
 
   def to_s
     "#{self.volume} L - #{self.kgs} Kg #{self.disposal_type.to_s_short}"
@@ -49,5 +50,13 @@ class Disposal < ApplicationRecord
 
   def status
     approved_at ? 'accettato' : 'da accettare'
+  end
+
+  def delivered?
+    delivered_at
+  end
+
+  def undelivered?
+    ! delivered?
   end
 end
