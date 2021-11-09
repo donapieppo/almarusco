@@ -6,10 +6,9 @@
 
 <% if @pickings.empty? %>  
   <p class="info info-warning">
-  Non sono al momento programmati ritiri per al tua UL
+  Non sono al momento programmati ritiri per al tua UL.
   </p>
 <% else %>
-  <p class="font-weight-bold">Ritiri programmati:</p>
   <div class="list-group">
     <% @pickings.each do |picking| %>  
       <%= link_to [(picking.delivered? ? nil : :edit), picking], class: "list-group-item list-group-item-action #{picking.delivered_at ? 'list-group-item-secondary' : ''}" do %>  
