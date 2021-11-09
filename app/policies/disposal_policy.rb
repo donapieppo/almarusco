@@ -16,12 +16,12 @@ class DisposalPolicy < ApplicationPolicy
   end
 
   def update?
-    @user && ((! @record.approved? && @user.owns?(@record)) || OrganizationPolicy.new(@user, @record.organization_id).manage?)
+    @user && ((! @record.approved? && @record.undelivered? && @user.owns?(@record)) || OrganizationPolicy.new(@user, @record.organization_id).manage?)
   end
 
-  # ONLY MANAGER
+  # ONLY MANAGER and only not delivered FIXME puo' succedere il contrario?
   def destroy?
-    update?
+    update? && @record.undelivered?
   end
 
   def approve?
@@ -34,5 +34,9 @@ class DisposalPolicy < ApplicationPolicy
 
   def search?
     @user
+  end
+
+  def archive?
+    current_organization_manager?
   end
 end

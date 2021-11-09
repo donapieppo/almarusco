@@ -4,9 +4,9 @@ class PrintsController < ApplicationController
 
   def new
     if policy(current_organization).manage?
-      @disposals = current_organization.disposals.order(:id)
+      @disposals = current_organization.disposals.undelivered.order(:id)
     else
-      @disposals = current_user.disposals.where(organization_id: current_organization.id)
+      @disposals = current_user.disposals.undelivered.where(organization_id: current_organization.id)
     end
     @disposals = @disposals.order(:user_id).order('created_at desc')
     authorize :print

@@ -1,3 +1,6 @@
+alter table `disposals` add column `delivered_at` date after `approved_at`;
+alter table `pickings` add column `delivered_at` date after `created_at`;
+
 /* create table `cer_codes_suppliers` ( */
 /*   `cer_code_id` int(10) unsigned NOT NULL, */
 /*   `supplier_id` int(10) unsigned NOT NULL, */
