@@ -3,14 +3,14 @@
 <%= render @disposal %>  
 
 <div class="centered my-2">
-  <% if policy(current_organization).manage? %>  
+  <% if @disposal.undelivered? && policy(current_organization).manage? %>  
     <% if @disposal.approved? %>  
       <%= link_to 'Disaccetta', unapprove_disposal_path(@disposal), method: :post, class: 'btn btn-success btn-lg' %>  
     <% else %>
       <%= link_to 'Accetta', approve_disposal_path(@disposal), method: :post, class: 'btn btn-success btn-lg' %>  
     <% end %>
-    <%= link_to ' - indietro', disposals_path %>  
   <% end %>
+  <%= link_to ' indietro', disposals_path %>  
 </div>
 
 <div class="my-4 centered">
