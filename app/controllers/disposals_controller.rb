@@ -6,7 +6,8 @@ class DisposalsController < ApplicationController
   before_action :set_disposal_and_check_permission, only: %i(show edit update destroy approve unapprove)
 
   def index
-    @disposals = current_organization.disposals.includes(:user, :producer, :lab, disposal_type: [:cer_code, :un_code, :hp_codes])
+    authorize :disposal
+    @disposals = current_organization.disposals.undelivered.includes(:user, :producer, :lab, disposal_type: [:cer_code, :un_code, :hp_codes])
     if policy(current_organization).manage?
       if params[:u]
         @user = User.find(params[:u].to_i)
@@ -17,7 +18,6 @@ class DisposalsController < ApplicationController
     end
     @disposals = @disposals.order("disposals.created_at DESC, disposals.user_id ASC")
     @disposal_types = current_organization.disposal_types.where(id: @disposals.map(&:disposal_type_id).sort.uniq)
-    authorize :disposal
   end
 
   def show
@@ -96,6 +96,16 @@ class DisposalsController < ApplicationController
     else
       redirect_to root_path, alert: "Non esiste l'identificativo del rifiuto in questa UL."
     end
+  end
+
+  def archive
+    authorize :disposal
+    @year = 2021
+    @disposals = current_organization.disposals
+                                     .delivered
+                                     .where('YEAR(disposals.delivered_at) = ?', @year)
+                                     .includes(:user, :producer, :lab, disposal_type: [:cer_code, :un_code, :hp_codes])
+    @disposal_types = current_organization.disposal_types.where(id: @disposals.map(&:disposal_type_id).sort.uniq)
   end
 
   private

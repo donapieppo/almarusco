@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
     resources :disposals do
       get 'choose_disposal_type', as: :choose_disposal_type, on: :collection
+      get 'archive', as: :archive, on: :collection
       post 'approve', on: :member
       post 'unapprove', on: :member
     end
@@ -51,6 +52,7 @@ Rails.application.routes.draw do
     resources :un_codes
     resources :pickings do
       get :print, on: :member
+      put :deliver, on: :member
     end
 
     get 'infos', to: 'infos#index', as: :infos
