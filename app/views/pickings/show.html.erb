@@ -4,8 +4,13 @@
 
 <div class="list-group">
   <% @disposals.each do |disposal| %>  
-    <div class="list-group-item py-2">
-      <%= link_to disposal.id, disposal, class: "badge badge-info" %> <%= disposal %>
-    </div>
+    <%= link_to disposal, class: "list-group-item list-group-item-action py-2" do %>
+      <span class="badge badge-info"><%= disposal.id %></span>
+      <%= disposal %>
+    <% end %>
   <% end %>
 </div>
+
+<center>
+  <%= link_to_back pickings_path %>  
+</center>
