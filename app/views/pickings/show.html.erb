@@ -1,0 +1,11 @@
+<h1>
+  Ritiro effettuato con <%= @picking.supplier %>
+</h1>
+
+<div class="list-group">
+  <% @disposals.each do |disposal| %>  
+    <div class="list-group-item py-2">
+      <%= link_to disposal.id, disposal, class: "badge badge-info" %> <%= disposal %>
+    </div>
+  <% end %>
+</div>
