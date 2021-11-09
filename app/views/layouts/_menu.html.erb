@@ -20,9 +20,9 @@
             <%= link_to fwdmicon('trash') + ' Codici UN', un_codes_path %>
             <%= link_to fwdmicon('list') + ' tipologie di rifiuti', disposal_types_path %>
             <%= link_to fwdmicon('truck') + ' Fornitori', suppliers_path %>
-            <%= link_to fwdmicon('wrench') + ' Configurazioni', current_organization_edit_path %>
             <%= link_to fwdmicon('flask') + ' Laboratori', labs_path %>
             <%= link_to fwdmicon('users') + ' Permessi', producers_path %>
+            <%= link_to fwdmicon('wrench') + ' Configurazioni', current_organization_edit_path %>
             <!-- CESIA -->
             <% if current_user.is_cesia? %>
               <div class="dropdown-divider"></div>
