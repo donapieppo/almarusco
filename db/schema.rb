@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 0) do
   create_table "cer_codes", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.string "name", limit: 100
     t.text "description"
-    t.boolean "danger"
+    t.boolean "danger", default: false
     t.index ["name"], name: "name"
   end
 
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "organization_id", unsigned: true
     t.integer "cer_code_id", unsigned: true
     t.integer "un_code_id", unsigned: true
-    t.boolean "adr"
+    t.boolean "adr", default: false
     t.column "physical_state", "enum('liq','sp','snp')"
     t.text "notes"
     t.index ["cer_code_id"], name: "fk_disposal_types_cer"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "volume"
     t.date "created_at"
     t.date "approved_at"
+    t.date "delivered_at"
     t.index ["disposal_type_id"], name: "fk_disposals_disposal_type"
     t.index ["lab_id"], name: "fk_disposals_labs"
     t.index ["organization_id"], name: "fk_disposals_organizations"
@@ -104,6 +105,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "supplier_id", null: false, unsigned: true
     t.date "date"
     t.datetime "created_at"
+    t.date "delivered_at"
     t.index ["organization_id"], name: "fk_pickings_organizations"
     t.index ["supplier_id"], name: "fk_pickings_suppliers"
   end
@@ -111,6 +113,7 @@ ActiveRecord::Schema.define(version: 0) do
   create_table "suppliers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "pi"
+    t.text "address"
   end
 
   create_table "un_codes", id: { type: :integer, unsigned: true, default: nil }, charset: "utf8mb4", force: :cascade do |t|
