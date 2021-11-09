@@ -108,3 +108,16 @@ form.disposal_type_selector {
     @extend .text-white;
   }
 }
+
+.help {
+  h2, h3, h4 {
+    color: green;
+  }
+  p {
+    margin-left: 6px;
+    color: #333;
+  }
+  li {
+    list-style-type: square;
+  }
+}
