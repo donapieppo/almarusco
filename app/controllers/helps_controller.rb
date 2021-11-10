@@ -6,4 +6,8 @@ class HelpsController < ApplicationController
   def contacts
     skip_authorization
   end
+
+  def images
+    skip_authorization
+  end
 end
