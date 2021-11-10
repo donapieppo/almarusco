@@ -37,7 +37,7 @@ end
 <%= link_to 'STAMPA', [:print, @picking], class: 'btn btn-primary' %>  
 <%= link_to 'ESTRAI EXCEL', [:print, @picking, format: :csv], class: 'btn btn-primary' %> 
 <span class="px-4"> - </span>
-<%= link_to 'FINITO', [:deliver, @picking], method: :put, class: 'btn btn-danger', data: {confirm: 'Siete sicuri di voler archiviare i rifiuti collegati a questo scarico?'} %>  
+<%= link_to 'CONCLUSO', [:deliver, @picking], method: :put, class: 'btn btn-danger', data: {confirm: 'Siete sicuri di voler archiviare i rifiuti collegati a questo scarico?'} %>  
 
 <%= javascript_tag do %>  
   <%= render partial: 'disposals/js_infos', formats: ['js'] %>  
