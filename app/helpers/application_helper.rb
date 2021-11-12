@@ -9,3 +9,5 @@ module ApplicationHelper
     end
   end
 end
+
+include DisposalHelper
