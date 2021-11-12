@@ -14,9 +14,10 @@
 </div>
 
 <div class="my-4 centered">
-  <% disposal_type_pictograms(@disposal.disposal_type) %>  
+  <%= qrcode(@disposal) %>  
 </div>
 
 <div class="my-4 centered">
-  <%= qrcode(@disposal) %>  
+  <% disposal_type_pictograms(@disposal.disposal_type) %>  
 </div>
+
