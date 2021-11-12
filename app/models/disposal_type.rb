@@ -33,4 +33,17 @@ class DisposalType < ApplicationRecord
   def hp_codes_to_s
     hp_codes.map(&:code).join(', ')
   end
+
+  def adr_classes
+    hp_codes.map do |hp|
+      hp.adr_class(liquid: self.liquid?)
+    end.compact
+  end
+
+  # array ["ghs01", "ghs03"]
+  def pictograms
+    hp_codes.map do |hp|
+      hp.pictogram
+    end.compact.uniq.sort
+  end
 end

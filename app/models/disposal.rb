@@ -30,12 +30,6 @@ class Disposal < ApplicationRecord
     { liquid: [10, 20], solid: [40, 60, 120] }
   end
 
-  def adr_classes
-    disposal_type.hp_codes.map do |hp|
-      hp.adr_class(liquid: self.liquid?)
-    end.compact
-  end
-
   def approved?
     approved_at
   end

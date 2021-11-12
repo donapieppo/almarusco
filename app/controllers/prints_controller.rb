@@ -53,7 +53,7 @@ class PrintsController < ApplicationController
           pdf.text (dt.adr ? 'ADR' : '') + " " + dt.hp_codes.map(&:code).join(', ')
           pdf.text dt.notes, size: 6
           pdf.image "/tmp/pippo#{disposal.id}.png", width: 80, height: 80
-          disposal.adr_classes.each_with_index do |adrc, i|
+          disposal.disposal_type.adr_classes.each_with_index do |adrc, i|
             pdf.svg IO.read(Rails.root.join('app', 'javascript', 'images', 'labels', "adr_#{adrc}.svg")), height: 30, at: [80+38*i, 40]
           end
         end

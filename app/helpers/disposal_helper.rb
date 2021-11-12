@@ -4,8 +4,14 @@ module DisposalHelper
     image_tag qr.as_png(size: 180).to_data_url
   end
 
+  def disposal_type_pictograms(disposal_type, size: 100)
+    disposal_type.pictograms.each do |pictogram|
+      concat image_pack_tag("ghs/#{pictogram}.png", size: size) 
+    end
+  end
+
   def adr_images(disposal)
-    disposal.adr_classes.each do |adrc|
+    disposal.disposal_type.adr_classes.each do |adrc|
       concat image_pack_tag("labels/adr_#{adrc}.svg", size: 100)
     end
   end
