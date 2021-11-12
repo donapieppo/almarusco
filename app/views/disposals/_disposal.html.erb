@@ -1,10 +1,13 @@
 <div class="dm-card">
   <div class="dm-card-title <%= disposal.approved? ? 'border-success' : '' %>">
-    <%= disposal.disposal_type.to_s %>
-    <span class="float-right"><%= disposal.id %></span>
-    <br/>
-    <small><%= disposal.disposal_type.hp_codes_to_s %></small>
-    <i class="show-details ml-2 fas fa-question-circle" style="cursor: pointer"></i>
+    <div>
+      <%= disposal.disposal_type.to_s %>
+      <span class="float-right"><%= disposal.id %></span>
+    </div>
+    <div>
+      <small><%= disposal.disposal_type.hp_codes_to_s %></small>
+      <i class="show-details ml-2 fas fa-question-circle" style="cursor: pointer"></i>
+    </div>
   </div>
   <div class="dm-card-body">
     <div class="row">
@@ -62,3 +65,7 @@
     </div>
   </div>
 </div> <!-- dm-card -->
+
+<%= javascript_tag do %>  
+  document.querySelector(".show-details").style.display = "none";
+<% end %>
