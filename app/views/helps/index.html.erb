@@ -7,54 +7,84 @@
 
   <p>Una volta ottenuta l'abilitazione è possibile acceere con le credenziali di Ateneo.</p>
 
-  <h2>Operazioni preliminari</h2>
+  <h2 class="title"><%= dmicon('caret-right') %> Operazioni preliminari</h2>
+  <div class="help-details">
+    <p>Per configurare la vostra UL cliccate, dal menu in alto, <%= dmicon('cogs') %> Amm. nel quale trovate le seguenti 
+    opzioni:</p>
 
-  <p>Per configurare la vostra UL cliccate, dal menu in alto, <%= dmicon('cogs') %> Amm. nel quale trovate le seguenti 
-  opzioni:</p>
+    <h4>Codici CER e codici UN</h4>
+    <div class="info">
+      CER: Catalogo Europeo dei Rifiuti<br/>
+      Numero UN o numero ONU: numero univoco di 4 cifre che in ADR identifica ogni sostanza (o gruppi di sostanze affini per proprietà e pericolosità)
+    </div>
+    <p>Null'applicativo i codici CER e UN sono <strong>comuni a tutte le strutture</strong> e potete aggiungerne dei nuovi se necessario.</p>
 
-  <h4>Codici CER e codici UN</h4>
+    <h4>Tipologie di rifiuti</h4> 
+    <p>Le tipologie di rifiuti sono relative alla vostra UL.</p>
+    <p>Dalla pagina delle tipologie di rifiuti avete possibilità di aggiungere una nuova tipologia di rifiuti in 
+    base alle tipologie di rifiuti che vengono prodotte nella vostra UL.</p>
 
-  <div class="info">
-    CER: Catalogo Europeo dei Rifiuti<br/>
-    Numero UN o numero ONU: numero univoco di 4 cifre che in ADR identifica ogni sostanza (o gruppi di sostanze affini per proprietà e pericolosità)
+    <h4>Laboratori</h4>
+    <p>Laboratori di provenienza dei rifiuti nella vostra UL.</p>
+
+    <h4>Permessi</h4>
+    <p>Da questa pagina avete la possibilità di dare accesso all'applicativo ai produttori di rifiuti</p>
+    <p>È sufficiente cliccare su "Nuovo produttore di rifiuti" e inserire la sua mail @unibo.it.</p>
+    <p>Per ogni produttore di rifiuti inserito è possibile aggiungere un "operatore" che abbia accesso all'applicativo
+    e possa inserire i prodotti al posto del "produttore".
+    Solitamente si tratta di dottorandi/assegnisti/collaboratori incaricati dal produttore.</p>
   </div>
 
-  <p>Null'applicativo i codici CER e UN sono <strong>comuni a tutte le strutture</strong> e potete aggiungerne dei nuovi se necessario.</p>
+  <h2 class="title"><%= dmicon('caret-right') %> Cosa fare una volta configurata la UL</h2>
+  <div class="help-details">
+    <p>Una volta finito di configurare la vostra UL potete <strong>comunicare</strong> l'indirizzo dell'applicativo
+    ai produttori di rifiuti e operatori (definiti come sopra).</p>
+    <p>Questi si potranno autenticare con le credenziali di Ateneo e potranno iniziare a 
+    <strong>inserire i rifiuti prodotti dai loro laboratori.</strong></p>
+    <p>L'applicativo permette agli operatori poche operazioni:</p>
 
-  <h4>Tipologie di rifiuti</h4> 
+    <ul>
+      <li>Scegliere la tipologia di rifiuto e quindi inserire il volume, il peso (opzionale) e il laboratorio di 
+        provenienza del rifiuto. È possibile anche aggiungere una nota;</li>
+      <li>Stampare le etichette dei rifiuti inseriti;</li>
+      <li>Correggere i dati inseriti fino all'approvazione del rifiuto dal responsabile della UL.</li>
+    </ul>
 
-  <p>Le tipologie di rifiuti sono relative alla vostra UL.</p>
+    <p>Si osservi che la pagina da cui si stampano le etichette permette di scegliere i rifiuti e la posizione delle etichette 
+    in modo da poter riutilizzare i fogli fino al loro completamento.</p>
+  </div>
 
-  <p>Dalla pagina delle tipologie di rifiuti avete possibilità di aggiungere una nuova tipologia di rifiuti in 
-  base alle tipologie di rifiuti che vengono prodotte nella vostra UL.</p>
+  <h2 class="title"><%= dmicon('caret-right') %> Iter di un rifiuto</h2>
+  <div class="help-details">
+    <h3>Registrazione del rifiuto</h3>
+    <p>Il rifiuto può essere inserito nell'applicativo da chiunque sia stato abilitato ad accedere alla vostra UL.</p>
+    <p>Gli operatori hanno la possibilità di vedere i rifiuti da loro inseriti e modificarne i dati
+    fino al momento in cui un responsabile dell UL non approvi il rifiuto.</p>
+    <p>L'operatore si occupa di stampare le etichette da attaccare al rifiuto.</p>
 
-  <h4>Laboratori</h4>
+    <h3>Approvazione del rifiuto</h3>
+    <p>Il resonsabile della UL vede tutti i rifiuti inseriti nella sua UL e può modificare i loro dati e approvarli.</p>
+    <p>Il responsabile una volta ricevuto il rifiuto può vedere i dati relativi al rifiuto e approvarlo partendo dal numero o dal codice
+    a barra entrambi presenti nell'etichetta.</p>
+    <p>Una volta che il rifiuto è stato <strong>approvato</strong> questo compare nel "deposito temporaneo" e l'operatore (produttore di rifiuti)
+    non può più modificarlo.</p>
 
-  <p>Laboratori di provenienza dei rifiuti nella vostra UL.</p>
+    <h3>Ritiro dalla ditta incaricata</h3>
+    <p>Il responsabile della UL crea un nuovo ritiro scegliendo la ditta.</p>
+    <p>Ad ogni ditta sono associati i codici CER che tratta per cui alla creazione del ritiro vengono associati a questo
+    i rifiuti della UL con i CER trattati dalla ditta. È comunque possibile aggiungere o rimuovere rifiuti dalla lista
+    associata al ritiro.</p>
 
-  <h4>Permessi</h4>
-
-  <p>Da questa pagina avete la possibilità di dare accesso all'applicativo ai produttori di rifiuti</p>
-
-  <p>È sufficiente cliccare su "Nuovo produttore di rifiuti" e inserire la sua mail @unibo.it.</p>
-
-  <p>Per ogni produttore di rifiuti inserito è possibile aggiungere un "operatore" che abbia accesso all'applicativo
-  e possa inserire i prodotti al posto del "produttore".
-  Solitamente si tratta di dottorandi/assegnisti/collaboratori incaricati dal produttore.</p>
-
-  <h2>Cosa fare dopo</h2>
-
-  <p>Una volta finito di configurare la vostra UL potete <strong>comunicare</strong> l'indirizzo dell'applicativo
-  ai produttori di rifiuti e operatori (definiti come sopra).</p>
-
-  <p>Questi si potranno autenticare con le credenziali di Ateneo e potranno iniziare a 
-  <strong>inserire i rifiuti prodotti dai loro laboratori.</strong></p>
-
-  <p>L'applicativo permette agli operatori poche operazioni:</p>
-
-  <ul>
-    <li>Scegliere la tipologia di rifiuto e quindi inserire il volume, il peso (opzionale) e il laboratorio di 
-      provenienza del rifiuto. È possibile anche aggiungere una nota.</li>
-    <li>Stampare le etichette dei rifiuti inseriti</li>
-  </ul>
+    <h3>Archiviazione</h3>
+    <p>Una volta effettuato il ritiro dalla ditta i rifiuti vengono archiviati.</p>
+  </div>
 </div>
+
+<%= javascript_tag do %>  
+  document.querySelectorAll("h2.title").forEach( e => {
+    let s = e.nextElementSibling;
+    e.style.cursor = "pointer";
+    s.style.display = "none";
+    e.addEventListener('click', () => s.style.display = (s.style.display === "none") ? "block" : "none");
+  });
+<% end %>
