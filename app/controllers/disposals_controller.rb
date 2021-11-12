@@ -71,13 +71,19 @@ class DisposalsController < ApplicationController
   end
 
   def approve
-    @disposal.approve!
-    redirect_to @disposal
+    respond_to do |format|
+      res = @disposal.approve!
+      format.html { redirect_to @disposal }
+      format.js
+    end
   end
 
   def unapprove
-    @disposal.unapprove!
-    redirect_to @disposal
+    respond_to do |format|
+      res = @disposal.unapprove!
+      format.html { redirect_to @disposal }
+      format.js
+    end
   end
 
   def destroy
