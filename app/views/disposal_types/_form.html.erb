@@ -13,13 +13,13 @@
   <div class="border p-4 my-4 bg-light">
     <div class="row">
       <div class="col-md-4">
-        <%= f.association :cer_code, as: :radio_buttons, include_blank: false, label_method: :to_s, label: false %>
+        <%= f.association :cer_code, collection: CerCode.order(:name), as: :radio_buttons, include_blank: false, label_method: :to_s, label: false %>
       </div>
       <div class="col-md-4">
-        <%= f.association :un_code,  as: :radio_buttons, include_blank: true, label_method: :to_s, label: false %>  
+        <%= f.association :un_code, collection: UnCode.order(:id), as: :radio_buttons, include_blank: true, label_method: :to_s, label: false %>  
       </div>
       <div class="col-md-4">
-        <%= f.association :hp_codes, as: :check_boxes, label_method: :code, label: false %>  
+        <%= f.association :hp_codes, collection: HpCode.order(:id), as: :check_boxes, label_method: :code, label: false %>  
       </div>
     </div>
   </div>
