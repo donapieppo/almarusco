@@ -74,31 +74,44 @@
         <div class="image-desc">Esempio di pagina di carico</div>
       </div>
     </div>
-
-    <h3>Approvazione del rifiuto</h3>
-    <div class="row">
-      <div class="col-md-8">
-        <p>Il resonsabile della UL vede tutti i rifiuti inseriti nella sua UL e può modificare i loro dati e approvarli.</p>
-        <p>Nna volta ricevuto il rifiuto può vedere i dati relativi al rifiuto e approvarlo partendo dal numero o dal codice
-        a barra entrambi presenti nell'etichetta.</p>
-        <p>Una volta che il rifiuto è stato <strong>approvato</strong> questo compare nel "deposito temporaneo" e l'operatore (produttore di rifiuti)
-        non può più modificarlo.</p>
-      </div>
-      <div class="col-md-4">
-        <%= image_pack_tag("media/images/helps/index_disposals.png", class: 'img-fluid modal-image') %>
-        <div class="image-desc">Esempio elenco rifiuti nella UL</div>
-      </div>
-    </div>
-
-    <h3>Ritiro dalla ditta incaricata</h3>
-    <p>Il responsabile della UL crea un nuovo ritiro scegliendo la ditta.</p>
-    <p>Ad ogni ditta sono associati i codici CER che tratta per cui alla creazione del ritiro vengono associati a questo
-    i rifiuti della UL con i CER trattati dalla ditta. È comunque possibile aggiungere o rimuovere rifiuti dalla lista
-    associata al ritiro.</p>
-
-    <h3>Archiviazione</h3>
-    <p>Una volta effettuato il ritiro dalla ditta i rifiuti vengono archiviati.</p>
   </div>
+
+  <h3>Approvazione del rifiuto</h3>
+  <div class="row">
+    <div class="col-md-8">
+      <p>Il resonsabile della UL vede tutti i rifiuti inseriti nella sua UL e può modificare i loro dati e approvarli.</p>
+      <p>Una volta ricevuto il rifiuto può vederne i dati e approvarlo partendo dal numero o dal codice
+      a barra entrambi presenti nell'etichetta.</p>
+      <p>Una volta che il rifiuto è stato <strong>approvato</strong> questo compare nel "deposito temporaneo" e l'operatore (produttore di rifiuti)
+      non può più modificarlo. Il responsabile continua invece ad avere i diritti di modifica sui dati del rifiuto.</p>
+    </div>
+    <div class="col-md-4">
+      <%= image_pack_tag("media/images/helps/index_disposals.png", class: 'img-fluid modal-image') %>
+      <div class="image-desc">Esempio elenco rifiuti nella UL</div>
+
+      <hr/>
+
+      <%= image_pack_tag("media/images/helps/index_disposals.png", class: 'img-fluid modal-image') %>
+      <div class="image-desc">Esempio elenco rifiuti nella UL</div>
+    </div>
+  </div>
+
+  <h3>Ritiro dalla ditta incaricata</h3>
+  <div class="row">
+    <div class="col-md-8">
+      <p>Il responsabile della UL crea un nuovo ritiro scegliendo la ditta.</p>
+      <p>Ad ogni ditta sono associati i codici CER che tratta per cui alla creazione del ritiro vengono associati a questo
+      i rifiuti della UL con i CER trattati dalla ditta. È comunque possibile aggiungere o rimuovere rifiuti dalla lista
+      associata al ritiro.</p>
+    </div>
+    <div class="col-md-4">
+      <%= image_pack_tag("media/images/helps/index_disposals.png", class: 'img-fluid modal-image') %>
+      <div class="image-desc">Esempio elenco rifiuti nella UL</div>
+    </div>
+  </div>
+
+  <h3>Archiviazione</h3>
+  <p>Una volta effettuato il ritiro dalla ditta i rifiuti vengono archiviati.</p>
 </div>
 
 <div id="imageModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
