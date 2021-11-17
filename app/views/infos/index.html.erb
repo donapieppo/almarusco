@@ -4,13 +4,13 @@
 <% @infos.each do |dt, disposals| %>  
   <div class="dm-card">
     <% num = kgs = volume = 0 %>  
-    <div class="dm-card-title">
+    <div class="dm-card-title py-2">
       <%= dt %> <span class="small"><%= dt.hp_codes_to_s %></span>
     </div>
     <div class="dm-card-body">
       <% disposals.each do |disposal| %>  
         <% num += 1  %>  
-        <%= link_to disposal, class: "btn btn-outline-info mt-1" do %>  
+        <%= link_to disposal, class: "btn btn-outline-info" do %>  
           <div class="font-weight-bold">id <%= disposal.id %></div>
           <span class="px-2"><%= disposal.volume %> L. </span><br/>
           <% if disposal.kgs %>  
@@ -23,7 +23,7 @@
         <% volume += disposal.volume %>  
       <% end %>
     </div>
-    <div class="dm-card-footer">
+    <div class="dm-card-footer py-2">
       <span class="font-weight-bold"><%= num %> coll<%= num > 1 ? "i" : "o" %></span>: 
       <span class="mx-1"><strong><%= volume %></strong> L. totale</span>
       <span class="mx-1"><strong><%= kgs %></strong> Kg. totale</span>
