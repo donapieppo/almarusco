@@ -9,25 +9,30 @@
 
   <h2 class="title"><%= dmicon('caret-right') %> Operazioni preliminari</h2>
   <div class="help-details">
-    <p>Per configurare la vostra UL cliccate, dal menu in alto, <%= dmicon('cogs') %> Amm. nel quale trovate le seguenti 
-    opzioni:</p>
+    <p>Per configurare la vostra UL cliccate, dal menu in alto, <%= dmicon('cogs') %> Amm.</p>
 
-    <h4>Codici CER e codici UN</h4>
+    <div class="px-5 py-5">
+      <%= image_pack_tag("media/images/helps/menu.png", class: 'img-fluid') %>
+    </div>
+
+    <p>In questo menu troverete i seguenti sottomenu:</p>
+
+    <h4><%= dmicon('trash') %> Codici CER e codici UN</h4>
     <div class="info">
       CER: Catalogo Europeo dei Rifiuti<br/>
       Numero UN o numero ONU: numero univoco di 4 cifre che in ADR identifica ogni sostanza (o gruppi di sostanze affini per proprietà e pericolosità)
     </div>
     <p>Null'applicativo i codici CER e UN sono <strong>comuni a tutte le strutture</strong> e potete aggiungerne dei nuovi se necessario.</p>
 
-    <h4>Tipologie di rifiuti</h4> 
+    <h4><%= dmicon('list') %> Tipologie di rifiuti</h4> 
     <p>Le tipologie di rifiuti sono relative alla vostra UL.</p>
     <p>Dalla pagina delle tipologie di rifiuti avete possibilità di aggiungere una nuova tipologia di rifiuti in 
     base alle tipologie di rifiuti che vengono prodotte nella vostra UL.</p>
 
-    <h4>Laboratori</h4>
+    <h4><%= dmicon('flask') %> Laboratori</h4>
     <p>Laboratori di provenienza dei rifiuti nella vostra UL.</p>
 
-    <h4>Permessi</h4>
+    <h4><%= dmicon('users') %> Permessi</h4>
     <p>Da questa pagina avete la possibilità di dare accesso all'applicativo ai produttori di rifiuti</p>
     <p>È sufficiente cliccare su "Nuovo produttore di rifiuti" e inserire la sua mail @unibo.it.</p>
     <p>Per ogni produttore di rifiuti inserito è possibile aggiungere un "operatore" che abbia accesso all'applicativo
@@ -57,17 +62,33 @@
   <h2 class="title"><%= dmicon('caret-right') %> Iter di un rifiuto</h2>
   <div class="help-details">
     <h3>Registrazione del rifiuto</h3>
-    <p>Il rifiuto può essere inserito nell'applicativo da chiunque sia stato abilitato ad accedere alla vostra UL.</p>
-    <p>Gli operatori hanno la possibilità di vedere i rifiuti da loro inseriti e modificarne i dati
-    fino al momento in cui un responsabile dell UL non approvi il rifiuto.</p>
-    <p>L'operatore si occupa di stampare le etichette da attaccare al rifiuto.</p>
+    <div class="row">
+      <div class="col-md-8">
+        <p>Il rifiuto può essere inserito nell'applicativo da chiunque sia stato abilitato ad accedere alla vostra UL.</p>
+        <p>Gli operatori hanno la possibilità di vedere i rifiuti da loro inseriti e modificarne i dati
+        fino al momento in cui un responsabile dell UL non approvi il rifiuto.</p>
+        <p>L'operatore si occupa di stampare le etichette da attaccare al rifiuto.</p>
+      </div>
+      <div class="col-md-4">
+        <%= image_pack_tag("media/images/helps/new_disposal.png", class: 'img-fluid modal-image') %>
+        <div class="image-desc">Esempio di pagina di carico</div>
+      </div>
+    </div>
 
     <h3>Approvazione del rifiuto</h3>
-    <p>Il resonsabile della UL vede tutti i rifiuti inseriti nella sua UL e può modificare i loro dati e approvarli.</p>
-    <p>Il responsabile una volta ricevuto il rifiuto può vedere i dati relativi al rifiuto e approvarlo partendo dal numero o dal codice
-    a barra entrambi presenti nell'etichetta.</p>
-    <p>Una volta che il rifiuto è stato <strong>approvato</strong> questo compare nel "deposito temporaneo" e l'operatore (produttore di rifiuti)
-    non può più modificarlo.</p>
+    <div class="row">
+      <div class="col-md-8">
+        <p>Il resonsabile della UL vede tutti i rifiuti inseriti nella sua UL e può modificare i loro dati e approvarli.</p>
+        <p>Nna volta ricevuto il rifiuto può vedere i dati relativi al rifiuto e approvarlo partendo dal numero o dal codice
+        a barra entrambi presenti nell'etichetta.</p>
+        <p>Una volta che il rifiuto è stato <strong>approvato</strong> questo compare nel "deposito temporaneo" e l'operatore (produttore di rifiuti)
+        non può più modificarlo.</p>
+      </div>
+      <div class="col-md-4">
+        <%= image_pack_tag("media/images/helps/index_disposals.png", class: 'img-fluid modal-image') %>
+        <div class="image-desc">Esempio elenco rifiuti nella UL</div>
+      </div>
+    </div>
 
     <h3>Ritiro dalla ditta incaricata</h3>
     <p>Il responsabile della UL crea un nuovo ritiro scegliendo la ditta.</p>
@@ -80,11 +101,17 @@
   </div>
 </div>
 
+<div id="imageModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <img class="modal-content" id="screeshot-image"/>
+      </div>
+    </div>
+  </div>
+</div>
+
 <%= javascript_tag do %>  
-  document.querySelectorAll("h2.title").forEach( e => {
-    let s = e.nextElementSibling;
-    e.style.cursor = "pointer";
-    s.style.display = "none";
-    e.addEventListener('click', () => s.style.display = (s.style.display === "none") ? "block" : "none");
-  });
+  <%= render partial: 'helpers', formats: ['js'] %>
 <% end %>
+
