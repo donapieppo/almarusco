@@ -56,6 +56,8 @@ Rails.application.routes.draw do
       put :deliver, on: :member
     end
 
+    resources :archives
+
     get 'infos', to: 'infos#index', as: :infos
   end
 
