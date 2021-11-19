@@ -4,10 +4,9 @@
   <h2 class="centered text-danger my-4"><%= dmicon('exclamation-circle') %>  Almarusco è un applicativo attualmente in fase di sperimentazione.</h2>
 
   <p>Per utilizzare l'applicativo è necessario inviare una richiesta all'indirizzo ........ indicando l'Unità Locale sulla quale si vuole operare.</p>
-
   <p>Una volta ottenuta l'abilitazione è possibile acceere con le credenziali di Ateneo.</p>
 
-  <h2 class="title"><%= dmicon('caret-right') %> Operazioni preliminari</h2>
+  <h2 class="title"><%= dmicon('caret-right') %> Operazioni preliminari (responsabile)</h2>
   <div class="help-details">
     <p>Per configurare la vostra UL cliccate, dal menu in alto, <%= dmicon('cogs') %> Amm.</p>
 
@@ -17,22 +16,22 @@
 
     <p>In questo menu troverete i seguenti sottomenu:</p>
 
-    <h4><%= dmicon('trash') %> Codici CER e codici UN</h4>
+    <h3><%= dmicon('trash') %> Codici CER e codici UN</h3>
     <div class="info">
       CER: Catalogo Europeo dei Rifiuti<br/>
       Numero UN o numero ONU: numero univoco di 4 cifre che in ADR identifica ogni sostanza (o gruppi di sostanze affini per proprietà e pericolosità)
     </div>
     <p>Null'applicativo i codici CER e UN sono <strong>comuni a tutte le strutture</strong> e potete aggiungerne dei nuovi se necessario.</p>
 
-    <h4><%= dmicon('list') %> Tipologie di rifiuti</h4> 
+    <h3><%= dmicon('list') %> Tipologie di rifiuti</h3> 
     <p>Le tipologie di rifiuti sono relative alla vostra UL.</p>
     <p>Dalla pagina delle tipologie di rifiuti avete possibilità di aggiungere una nuova tipologia di rifiuti in 
     base alle tipologie di rifiuti che vengono prodotte nella vostra UL.</p>
 
-    <h4><%= dmicon('flask') %> Laboratori</h4>
+    <h3><%= dmicon('flask') %> Laboratori</h3>
     <p>Laboratori di provenienza dei rifiuti nella vostra UL.</p>
 
-    <h4><%= dmicon('users') %> Permessi</h4>
+    <h3><%= dmicon('users') %> Permessi</h3>
     <p>Da questa pagina avete la possibilità di dare accesso all'applicativo ai produttori di rifiuti</p>
     <p>È sufficiente cliccare su "Nuovo produttore di rifiuti" e inserire la sua mail @unibo.it.</p>
     <p>Per ogni produttore di rifiuti inserito è possibile aggiungere un "operatore" che abbia accesso all'applicativo
@@ -54,64 +53,77 @@
       <li>Stampare le etichette dei rifiuti inseriti;</li>
       <li>Correggere i dati inseriti fino all'approvazione del rifiuto dal responsabile della UL.</li>
     </ul>
-
-    <p>Si osservi che la pagina da cui si stampano le etichette permette di scegliere i rifiuti e la posizione delle etichette 
-    in modo da poter riutilizzare i fogli fino al loro completamento.</p>
   </div>
 
   <h2 class="title"><%= dmicon('caret-right') %> Iter di un rifiuto</h2>
   <div class="help-details">
-    <h3>Registrazione del rifiuto</h3>
+    <h3>Registrazione del rifiuto <small>(produttore/operatore)</small></h3>
     <div class="row">
       <div class="col-md-8">
         <p>Il rifiuto può essere inserito nell'applicativo da chiunque sia stato abilitato ad accedere alla vostra UL.</p>
         <p>Gli operatori hanno la possibilità di vedere i rifiuti da loro inseriti e modificarne i dati
         fino al momento in cui un responsabile dell UL non approvi il rifiuto.</p>
-        <p>L'operatore si occupa di stampare le etichette da attaccare al rifiuto.</p>
       </div>
       <div class="col-md-4">
         <%= image_pack_tag("media/images/helps/new_disposal.png", class: 'img-fluid modal-image') %>
-        <div class="image-desc">Esempio di pagina di carico</div>
+        <div class="image-desc">Pagina di carico</div>
       </div>
     </div>
+
+    <h3>Stampa etichetta <small>(produttore/operatore)</small></h3>
+    <div class="row">
+      <div class="col-md-8">
+        <p>L'operatore si occupa di stampare le etichette da attaccare al rifiuto.</p>
+        <p>Dalla pagina di stampa si possono scegliere i rifiuti e la posizione nel foglio A4 dove si vuole vengano stampati.
+        Questo per permettere di stampare anche in diverse sessioni senza sprecare scarta.</p>
+        <p>
+        <p>I fogli adatti sono A4 con 10 etichette come
+        <a href="https://www.avery.it/etichette-adesive-stampabili/rettangolari/rettangolari-96x51mm?mat=poliestere%20impermeabile">
+          questi della Avery
+        </a>
+      </div>
+      <div class="col-md-4">
+        <%= image_pack_tag("media/images/helps/print.png", class: 'img-fluid modal-image') %>
+        <div class="image-desc">Pagina di stampa</div>
+      </div>
+    </div>
+
+    <h3>Approvazione del rifiuto <small>(responsabile)</small></h3>
+    <div class="row">
+      <div class="col-md-8">
+        <p>Il resonsabile della UL vede tutti i rifiuti inseriti nella sua UL e può modificare i loro dati e approvarli.</p>
+        <p>Una volta ricevuto il rifiuto può vederne i dati e approvarlo partendo dal suo <strong>numero</strong> o dal 
+        <strong>codice a barra</strong> entrambi presenti nell'etichetta.</p>
+        <p>Una volta che il rifiuto è stato <strong>approvato</strong> questo compare nel "deposito temporaneo" e il produttore/operatore
+        non può più modificarlo. Il responsabile continua invece ad avere i diritti di modifica sui dati del rifiuto.</p>
+      </div>
+      <div class="col-md-4">
+        <%= image_pack_tag("media/images/helps/index_disposals.png", class: 'img-fluid modal-image') %>
+        <div class="image-desc">Elenco rifiuti nella UL</div>
+        <hr/>
+        <%= image_pack_tag("media/images/helps/approve.png", class: 'img-fluid modal-image') %>
+        <div class="image-desc">Pagina per approvare il rifiuto</div>
+      </div>
+    </div>
+
+    <h3>Ritiro dalla ditta incaricata <small>(responsabile)</small></h3>
+    <div class="row">
+      <div class="col-md-8">
+        <p>Il responsabile della UL crea un nuovo ritiro (menu rifiuti->ritiro) scegliendo la ditta.</p>
+        <p>Ad ogni ditta sono associati i codici CER che tratta per cui alla creazione del ritiro a questo vengono associati
+        i rifiuti della UL con i CER trattati dalla ditta. 
+        È comunque possibile aggiungere o rimuovere rifiuti dalla lista associata al ritiro.</p>
+      </div>
+      <div class="col-md-4">
+        <%= image_pack_tag("media/images/helps/picking.png", class: 'img-fluid modal-image') %>
+        <div class="image-desc">Elenco rifiuti nella UL</div>
+      </div>
+    </div>
+
+    <h3>Archiviazione <small>(responsabile)</small></h3>
+    <p>Una volta effettuato il ritiro dalla ditta il responsabile aggede alla pagina del rititro e
+    clicca il pulsante 'concluso'. In questo modi i rifiuti vengono archiviati.</p>
   </div>
-
-  <h3>Approvazione del rifiuto</h3>
-  <div class="row">
-    <div class="col-md-8">
-      <p>Il resonsabile della UL vede tutti i rifiuti inseriti nella sua UL e può modificare i loro dati e approvarli.</p>
-      <p>Una volta ricevuto il rifiuto può vederne i dati e approvarlo partendo dal numero o dal codice
-      a barra entrambi presenti nell'etichetta.</p>
-      <p>Una volta che il rifiuto è stato <strong>approvato</strong> questo compare nel "deposito temporaneo" e l'operatore (produttore di rifiuti)
-      non può più modificarlo. Il responsabile continua invece ad avere i diritti di modifica sui dati del rifiuto.</p>
-    </div>
-    <div class="col-md-4">
-      <%= image_pack_tag("media/images/helps/index_disposals.png", class: 'img-fluid modal-image') %>
-      <div class="image-desc">Esempio elenco rifiuti nella UL</div>
-
-      <hr/>
-
-      <%= image_pack_tag("media/images/helps/index_disposals.png", class: 'img-fluid modal-image') %>
-      <div class="image-desc">Esempio elenco rifiuti nella UL</div>
-    </div>
-  </div>
-
-  <h3>Ritiro dalla ditta incaricata</h3>
-  <div class="row">
-    <div class="col-md-8">
-      <p>Il responsabile della UL crea un nuovo ritiro scegliendo la ditta.</p>
-      <p>Ad ogni ditta sono associati i codici CER che tratta per cui alla creazione del ritiro vengono associati a questo
-      i rifiuti della UL con i CER trattati dalla ditta. È comunque possibile aggiungere o rimuovere rifiuti dalla lista
-      associata al ritiro.</p>
-    </div>
-    <div class="col-md-4">
-      <%= image_pack_tag("media/images/helps/index_disposals.png", class: 'img-fluid modal-image') %>
-      <div class="image-desc">Esempio elenco rifiuti nella UL</div>
-    </div>
-  </div>
-
-  <h3>Archiviazione</h3>
-  <p>Una volta effettuato il ritiro dalla ditta i rifiuti vengono archiviati.</p>
 </div>
 
 <div id="imageModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
