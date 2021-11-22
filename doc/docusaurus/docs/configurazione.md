@@ -47,6 +47,6 @@ L'applicativo permette agli operatori poche operazioni:
 
   - Scegliere la tipologia di rifiuto e quindi inserire il volume, il peso (opzionale) e il laboratorio di provenienza del rifiuto. È possibile anche aggiungere una nota;
   - Stampare le etichette dei rifiuti inseriti;
-  - Correggere i dati inseriti fino all'approvazione del rifiuto dal responsabile della UL.
+  - Correggere i dati inseriti fino all'approvazione del rifiuto dal responsabile dell'UL.
 
 

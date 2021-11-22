@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Approvazione del rifiuto (responsabile)
 
-Il responsabile della UL vede tutti i rifiuti inseriti nella sua UL e può modificare i loro dati e approvarli.
+Il responsabile dell'UL vede tutti i rifiuti inseriti nella sua UL e può modificare i loro dati e approvarli.
 
 Una volta ricevuto il rifiuto può vederne i dati e approvarlo partendo dal suo numero o dal codice a barre entrambi presenti nell'etichetta.
 
