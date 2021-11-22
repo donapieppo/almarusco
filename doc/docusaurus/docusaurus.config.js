@@ -8,8 +8,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Almarusco',
   tagline: 'Documentazione per il progetto Almarusco',
-  url: 'http://127.0.0.1/',
-  baseUrl: '/helps2/', 
+  url: 'https://www.dm.unibo.it/',
+  baseUrl: '/almarusco/help/', 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
