@@ -22,7 +22,7 @@ Null'applicativo i codici CER e UN sono comuni a tutte le strutture e potete agg
 
 Le tipologie di rifiuti sono relative alla vostra UL.
 
-Dalla pagina delle tipologie di rifiuti avete possibilità di aggiungere una nuova tipologia di rifiuti in base alle tipologie di rifiuti che vengono prodotte nella vostra UL.
+Da questa pagina avete la possibilità di aggiungere una nuova tipologia di rifiuto in base a quelle che vengono prodotte nella vostra UL
 
 ## Laboratori
 
@@ -30,7 +30,8 @@ Laboratori di provenienza dei rifiuti nella vostra UL.
 
 ## Permessi
 
-Da questa pagina avete la possibilità di dare accesso all'applicativo ai produttori di rifiuti
+Da questa pagina avete la possibilità di dare accesso all'applicativo ai produttori di rifiuti. 
+Ricordiamo che il produttore è il **responsabile del laboratorio** (o RDRL).
 
 È sufficiente cliccare su "Nuovo produttore di rifiuti" e inserire la sua mail @unibo.it.
 
