@@ -1,9 +1,11 @@
 <div class="dm-card">
   <div class="dm-card-title">
-    <div><%= disposal_type.to_s %>
-    <% if defined?(editable) && editable %>  
-      <span class="float-right"><%= link_to_edit [:edit, disposal_type] %></span>
-    <% end %>
+    <div>
+      <%= disposal_type.to_s %>
+      <%= disposal_type.adrs_to_s %>  
+      <% if defined?(editable) && editable %>  
+        <span class="float-right"><%= link_to_edit [:edit, disposal_type] %></span>
+      <% end %>
     </div>
     <div>
       <% disposal_type.hp_codes.each do |hp| %>
