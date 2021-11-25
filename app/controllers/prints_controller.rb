@@ -45,16 +45,21 @@ class PrintsController < ApplicationController
           # pdf.stroke_bounds
           qr = RQRCode::QRCode.new(disposal_url(disposal))
           IO.binwrite("/tmp/pippo#{disposal.id}.png", qr.as_png(size: 240).to_s)
-          pdf.text "<font size='9'>#{disposal.organization.code} - #{disposal.lab}</font>    n. #{disposal.id.to_s}", align: :right, size: 14, inline_format: true
+          pdf.text "<font size='9'>#{disposal.organization.code} - #{disposal.lab}</font>    n. #{disposal.id.to_s}", align: :right, size: 12, inline_format: true
           if dt.un_code
-            pdf.text dt.un_code.to_s, style: 'bold', size: 12
+            pdf.text dt.un_code.to_s, style: 'bold', size: 10
           end
-          pdf.text dt.cer_code.to_s + " " + dt.physical_state_to_s, size: 12
+          pdf.text dt.cer_code.to_s + " " + dt.physical_state_to_s, size: 10
           pdf.text dt.hp_codes_to_s + " - " + dt.adrs_to_s 
           pdf.text dt.notes, size: 6
-          pdf.image "/tmp/pippo#{disposal.id}.png", width: 80, height: 80
-          disposal.disposal_type.adr_classes.each_with_index do |adrc, i|
-            pdf.svg IO.read(Rails.root.join('app', 'javascript', 'images', 'labels', "adr_#{adrc}.svg")), height: 30, at: [80+38*i, 40]
+
+          pdf.image "/tmp/pippo#{disposal.id}.png", width: 70, height: 70
+          disposal.disposal_type.pictograms.each_with_index do |pict, i|
+            if pict.filename =~ /\.png/
+              pdf.image open(pict.full_filename), height: 30, at: [80+38*i, 40]
+            else
+              pdf.svg IO.read(pict.full_filename), height: 30, at: [80+38*i, 40]
+            end
           end
         end
       end
