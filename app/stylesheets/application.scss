@@ -110,3 +110,33 @@ form.disposal_type_selector {
   }
 }
 
+.disposal_type_cer_code, .disposal_type_un_code, .disposal_type_hp_codes, .disposal_type_adrs, .disposal_type_pictograms {
+  input {
+    display: none;
+  }
+  .form-check {
+    display: inline-block;
+  }
+  label {
+    @extend .btn;
+    @extend .btn-outline-info;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 4px;
+    margin-left: 0 !important;
+  }
+  //label.collection_radio_buttons{
+  //  @extend .btn-outline-warning;
+  //}
+  .form-check {
+    padding-left: 6px;
+  }
+  .form-check-label {
+    color: #333 !important;
+  }
+  // label:selected {
+  input:checked+label {
+    @extend .btn-info;
+    color: #eee !important;;
+  }
+}
