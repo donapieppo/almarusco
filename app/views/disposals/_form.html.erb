@@ -8,9 +8,9 @@
   <% if @producers && @producers.any? %>  
     <%= f.association :producer, collection: @producers, include_blank: false, label_method: :cn_militar %>  
   <% end %>
+  <%= f.association :lab, collection: current_organization.labs.order(:name) %>  
   <%= f.input :volume, as: :radio_buttons, collection: volumes_collection, wrapper: :horizontal_collection %>  
   <%= f.input :kgs, as: :float, input_html: { step: 0.1 } %>  
-  <%= f.association :lab, collection: current_organization.labs.order(:name) %>  
   <%= f.input :notes %>  
   <div class="my-4">
     <%= f.submit %>  
