@@ -6,7 +6,7 @@ module DisposalHelper
 
   def disposal_type_pictograms(disposal_type, size: 100)
     disposal_type.pictograms.each do |pictogram|
-      concat image_pack_tag("ghs/#{pictogram}.png", size: size) 
+      concat image_pack_tag(pictogram.image, size: size) 
     end
   end
 
