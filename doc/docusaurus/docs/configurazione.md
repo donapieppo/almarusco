@@ -16,7 +16,7 @@ Per configurare la vostra UL cliccate, dal menu in alto, il link Amm.
 
 > Numero UN o numero ONU: numero univoco di 4 cifre che in ADR identifica ogni sostanza (o gruppi di sostanze affini per proprietà e pericolosità)
 
-Null'applicativo i codici CER e UN sono comuni a tutte le strutture e potete aggiungerne dei nuovi se necessario.
+Nell'applicativo i codici CER e UN sono comuni a tutte le strutture, potete aggiungerne dei nuovi se necessario ma manteneteli generici (senza specificare le sostanze contenute).
 
 ## Tipologie di rifiuti 
 
