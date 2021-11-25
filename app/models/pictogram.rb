@@ -4,4 +4,8 @@ class Pictogram < ApplicationRecord
   def image
     "media/images/#{self.filename}"
   end
+
+  def full_filename
+    Rails.root.join('app', 'javascript', 'images', self.filename)
+  end
 end
