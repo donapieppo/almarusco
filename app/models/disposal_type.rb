@@ -3,6 +3,8 @@ class DisposalType < ApplicationRecord
   belongs_to :cer_code
   belongs_to :un_code, optional: true
   has_and_belongs_to_many :hp_codes
+  has_and_belongs_to_many :adrs
+  has_and_belongs_to_many :pictograms
 
   has_many :disposals
 
@@ -19,7 +21,7 @@ class DisposalType < ApplicationRecord
   end
 
   def to_s
-    "#{self.cer_code} - #{self.un_code ? self.un_code.to_s + ' - ' : ''} #{self.adr ? ' ADR' : ''} (#{self.physical_state_to_s})" 
+    "#{self.cer_code} - #{self.un_code ? self.un_code.to_s + ' - ' : ''} (#{self.physical_state_to_s})" 
   end
 
   def to_s_short
@@ -34,16 +36,14 @@ class DisposalType < ApplicationRecord
     hp_codes.map(&:code).join(', ')
   end
 
+  def adrs_to_s
+    adrs_string = self.adrs.map(&:name).join(', ')
+    adrs_string.empty? ? '' : "ADR #{adrs_string}"
+  end
+
   def adr_classes
     hp_codes.map do |hp|
       hp.adr_class(liquid: self.liquid?)
     end.compact
-  end
-
-  # array ["ghs01", "ghs03"]
-  def pictograms
-    hp_codes.map do |hp|
-      hp.pictogram
-    end.compact.uniq.sort
   end
 end

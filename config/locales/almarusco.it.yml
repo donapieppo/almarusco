@@ -37,6 +37,11 @@ it:
       disposal_type:
         notes: Note
         physical_state: Stato
+        cer_code: CER
+        un_code: UN
+        hp_codes: Codici HP
+        adrs: ADR
+        pictograms: Pittogrammi
       disposal:
         producer: Produttore
         kgs: Peso

@@ -12,6 +12,19 @@
 
 ActiveRecord::Schema.define(version: 0) do
 
+  create_table "adrs", id: { type: :integer, unsigned: true, default: nil }, charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.index ["name"], name: "name"
+  end
+
+  create_table "adrs_disposal_types", id: false, charset: "utf8mb4", force: :cascade do |t|
+    t.integer "adr_id", unsigned: true
+    t.integer "disposal_type_id", unsigned: true
+    t.index ["adr_id"], name: "fk_adrdt_adr"
+    t.index ["disposal_type_id"], name: "fk_adrdt_dt"
+  end
+
   create_table "cer_codes", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.string "name", limit: 100
     t.text "description"
@@ -30,7 +43,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "organization_id", unsigned: true
     t.integer "cer_code_id", unsigned: true
     t.integer "un_code_id", unsigned: true
-    t.boolean "adr", default: false
     t.column "physical_state", "enum('liq','sp','snp')"
     t.text "notes"
     t.index ["cer_code_id"], name: "fk_disposal_types_cer"
@@ -43,6 +55,13 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "hp_code_id", unsigned: true
     t.index ["disposal_type_id"], name: "fk_dthc_disposal"
     t.index ["hp_code_id"], name: "fk_dthc_hp_code"
+  end
+
+  create_table "disposal_types_pictograms", id: false, charset: "utf8mb4", force: :cascade do |t|
+    t.integer "disposal_type_id", unsigned: true
+    t.integer "pictogram_id", unsigned: true
+    t.index ["disposal_type_id"], name: "fk_dtp_dt"
+    t.index ["pictogram_id"], name: "fk_dtp_picto"
   end
 
   create_table "disposals", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
@@ -110,6 +129,11 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["supplier_id"], name: "fk_pickings_suppliers"
   end
 
+  create_table "pictograms", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "filename"
+  end
+
   create_table "suppliers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "pi"
@@ -131,6 +155,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["upn"], name: "index_dsacaches_on_upn", unique: true
   end
 
+  add_foreign_key "adrs_disposal_types", "adrs", name: "fk_adrdt_adr"
+  add_foreign_key "adrs_disposal_types", "disposal_types", name: "fk_adrdt_dt"
   add_foreign_key "cer_codes_suppliers", "cer_codes", name: "fk_ccs_cer_code"
   add_foreign_key "cer_codes_suppliers", "suppliers", name: "fk_ccs_supplier"
   add_foreign_key "disposal_types", "cer_codes", name: "fk_disposal_types_cer"
@@ -138,6 +164,8 @@ ActiveRecord::Schema.define(version: 0) do
   add_foreign_key "disposal_types", "un_codes", name: "fk_disposal_types_un"
   add_foreign_key "disposal_types_hp_codes", "disposal_types", name: "fk_dthc_disposal"
   add_foreign_key "disposal_types_hp_codes", "hp_codes", name: "fk_dthc_hp_code"
+  add_foreign_key "disposal_types_pictograms", "disposal_types", name: "fk_dtp_dt"
+  add_foreign_key "disposal_types_pictograms", "pictograms", name: "fk_dtp_picto"
   add_foreign_key "disposals", "disposal_types", name: "fk_disposals_disposal_type"
   add_foreign_key "disposals", "labs", name: "fk_disposals_labs"
   add_foreign_key "disposals", "organizations", name: "fk_disposals_organizations"
