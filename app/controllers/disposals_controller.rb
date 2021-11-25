@@ -7,7 +7,7 @@ class DisposalsController < ApplicationController
 
   def index
     authorize :disposal
-    @disposals = current_organization.disposals.undelivered.includes(:user, :producer, :lab, disposal_type: [:cer_code, :un_code, :hp_codes])
+    @disposals = current_organization.disposals.undelivered.includes(:user, :producer, :lab, disposal_type: [:cer_code, :un_code, :hp_codes, :adrs])
     if policy(current_organization).manage?
       if params[:u]
         @user = User.find(params[:u].to_i)
@@ -110,7 +110,7 @@ class DisposalsController < ApplicationController
     @disposals = current_organization.disposals
                                      .delivered
                                      .where('YEAR(disposals.delivered_at) = ?', @year)
-                                     .includes(:user, :producer, :lab, disposal_type: [:cer_code, :un_code, :hp_codes])
+                                     .includes(:user, :producer, :lab, disposal_type: [:cer_code, :un_code, :hp_codes, :adrs])
     @disposal_types = current_organization.disposal_types.where(id: @disposals.map(&:disposal_type_id).sort.uniq)
   end
 
