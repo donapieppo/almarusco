@@ -50,7 +50,7 @@ class PrintsController < ApplicationController
             pdf.text dt.un_code.to_s, style: 'bold', size: 12
           end
           pdf.text dt.cer_code.to_s + " " + dt.physical_state_to_s, size: 12
-          pdf.text (dt.adr ? 'ADR' : '') + " " + dt.hp_codes.map(&:code).join(', ')
+          pdf.text dt.hp_codes_to_s + " - " + dt.adrs_to_s 
           pdf.text dt.notes, size: 6
           pdf.image "/tmp/pippo#{disposal.id}.png", width: 80, height: 80
           disposal.disposal_type.adr_classes.each_with_index do |adrc, i|
