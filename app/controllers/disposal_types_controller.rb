@@ -2,7 +2,7 @@ class DisposalTypesController < ApplicationController
   before_action :set_disposal_type_and_check_permission, only: %i(edit update destroy)
 
   def index
-    @disposal_types = current_organization.disposal_types.includes(:cer_code, :un_code).order('cer_codes.name')
+    @disposal_types = current_organization.disposal_types.includes(:cer_code, :un_code, :hp_codes, :adrs, :pictograms).order('cer_codes.name, un_codes.name')
     authorize :disposal_type
   end
 
@@ -35,7 +35,7 @@ class DisposalTypesController < ApplicationController
   private
 
   def disposal_type_params
-    params[:disposal_type].permit(:cer_code_id, :un_code_id, :physical_state, :adr, :notes, hp_code_ids: [])
+    params[:disposal_type].permit(:cer_code_id, :un_code_id, :physical_state, :adr, :notes, hp_code_ids: [], adr_ids: [], pictogram_ids: [])
   end
 
   def set_disposal_type_and_check_permission
