@@ -13,6 +13,7 @@ class DisposalType < ApplicationRecord
   validates :physical_state, presence: true
 
   scope :with_all_includes, -> { includes(:cer_code, :hp_codes, :un_code, :pictograms, :adrs) }
+  scope :order_by_cer_and_un, -> { order('cer_codes.name, un_codes.id') }
 
   def liquid?
     self.physical_state == 'liq'
