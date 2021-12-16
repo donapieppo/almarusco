@@ -27,7 +27,7 @@ class Disposal < ApplicationRecord
   end
 
   def self.available_volumes
-    { liquid: [10, 20], solid: [40, 60, 120] }
+    { liquid: [5, 10, 20], solid: [40, 60, 120] }
   end
 
   def approved?
