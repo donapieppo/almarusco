@@ -17,14 +17,14 @@ class DisposalsController < ApplicationController
       @disposals = @disposals.user_or_producer(current_user.id)
     end
     @disposals = @disposals.order("disposals.created_at DESC, disposals.user_id ASC")
-    @disposal_types = current_organization.disposal_types.where(id: @disposals.map(&:disposal_type_id).sort.uniq).includes(:cer_code, :un_code, :hp_codes, :adrs)
+    @disposal_types = current_organization.disposal_types.where(id: @disposals.map(&:disposal_type_id).sort.uniq).with_all_includes
   end
 
   def show
   end
 
   def choose_disposal_type
-    @disposal_types = current_organization.disposal_types
+    @disposal_types = current_organization.disposal_types.with_all_includes.order('cer_codes.name')
     authorize :disposal
   end
 
