@@ -12,6 +12,8 @@ class DisposalType < ApplicationRecord
   # validates :cer_code_id, uniqueness: { scope: [:organization_id, :un_code_id], message: 'La tipoligia è già presente nella ul.', case_sensitive: false }
   validates :physical_state, presence: true
 
+  scope :with_all_includes, -> { includes(:cer_code, :hp_codes, :un_code, :pictograms, :adrs) }
+
   def liquid?
     self.physical_state == 'liq'
   end
