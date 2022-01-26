@@ -2,17 +2,24 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'dm_unibo_user_search', git: 'https://github.com/donapieppo/dm_unibo_user_search.git'
-gem 'dm_unibo_common',      git: 'https://github.com/donapieppo/dm_unibo_common.git'
-# gem 'dm_unibo_common',      path: '/home/rails/gems/dm_unibo_common/'
+# gem 'dm_unibo_common',      git: 'https://github.com/donapieppo/dm_unibo_common.git'
+gem 'dm_unibo_common',      path: '/home/rails/gems/dm_unibo_common/'
 
-gem 'puma', '~> 5.0'
+gem "sprockets-rails"
+gem "importmap-rails"
+gem "turbo-rails"
+gem "stimulus-rails"
+
+# Build JSON APIs with ease [https://github.com/rails/jbuilder]
+gem "jbuilder"
+gem "jsbundling-rails"
+gem "cssbundling-rails"
+
+gem "view_component"
+
+gem "bootsnap", require: false
 
 gem 'rqrcode'
-gem 'image_processing', '~> 1.2'
-
-gem 'webpacker', '~> 5.0'
-gem 'jbuilder', '~> 2.7'
-gem 'bootsnap', '>= 1.4.4', require: false
 
 gem "prawn"
 gem "prawn-table"
