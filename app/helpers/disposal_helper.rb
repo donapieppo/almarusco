@@ -6,13 +6,13 @@ module DisposalHelper
 
   def disposal_type_pictograms(disposal_type, size: 100)
     disposal_type.pictograms.each do |pictogram|
-      concat image_pack_tag(pictogram.image, size: size) 
+      concat image_tag(pictogram.image, size: size) 
     end
   end
 
   def adr_images(disposal)
     disposal.disposal_type.adr_classes.each do |adrc|
-      concat image_pack_tag("labels/adr_#{adrc}.svg", size: 100)
+      concat image_tag("labels/adr_#{adrc}.svg", size: 100)
     end
   end
 end
