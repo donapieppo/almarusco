@@ -42,25 +42,39 @@ class PrintsController < ApplicationController
         dt = disposal.disposal_type
         # :rows, :columns, :gutter, :row_gutter, :column_gutter 
         pdf.grid(col.to_i - 1, row.to_i - 1).bounding_box do
-          # pdf.stroke_bounds
-          qr = RQRCode::QRCode.new(disposal_url(disposal))
-          IO.binwrite("/tmp/pippo#{disposal.id}.png", qr.as_png(size: 240).to_s)
-          pdf.text "<font size='9'>#{disposal.organization.code} - #{disposal.lab}</font>    n. #{disposal.id.to_s}", align: :right, size: 12, inline_format: true
-          if dt.un_code
-            pdf.text dt.un_code.to_s, style: 'bold', size: 10
-          end
-          pdf.text dt.cer_code.to_s + " " + dt.physical_state_to_s, size: 10
-          pdf.text dt.hp_codes_to_s + " - " + dt.adrs_to_s 
-          pdf.text dt.notes, size: 6
 
-          pdf.image "/tmp/pippo#{disposal.id}.png", width: 70, height: 70
+          # pdf.stroke_bounds
+          pdf.text "n.#{disposal.id.to_s}      <font size='9'>#{disposal.organization.code} - #{disposal.lab}</font>", size: 12, inline_format: true
+
+          y_position = pdf.cursor - 3 
+
+          qr = RQRCode::QRCode.new(disposal_url(disposal))
+          IO.binwrite("/tmp/gr_image_#{disposal.id}.png", qr.as_png(size: 240).to_s)
+
+          pdf.bounding_box([0, y_position], width: 70, height: 80) do
+            # pdf.stroke_bounds
+            pdf.image "/tmp/gr_image_#{disposal.id}.png", width: 70, height: 70
+          end
+
+          pdf.bounding_box([70, y_position], width: 180, height: 80) do
+            # pdf.stroke_bounds
+            if dt.un_code
+              pdf.text dt.un_code.to_s, style: 'bold', size: 20
+            end
+            pdf.text dt.cer_code.to_s, size: 20
+            pdf.text dt.physical_state_to_s.upcase
+            pdf.text dt.hp_codes_to_s + " - " + dt.adrs_to_s 
+            pdf.text dt.notes, size: 5
+          end
+
           disposal.disposal_type.pictograms.each_with_index do |pict, i|
             if pict.filename =~ /\.png/
-              pdf.image open(pict.full_filename), height: 30, at: [80+38*i, 40]
+              pdf.image open(pict.full_filename), height: 26, at: [80+28*i, 30]
             else
-              pdf.svg IO.read(pict.full_filename), height: 30, at: [80+38*i, 40]
+              pdf.svg IO.read(pict.full_filename), height: 26, at: [80+28*i, 30]
             end
           end
+
         end
       end
     end
@@ -76,8 +90,8 @@ class PrintsController < ApplicationController
           if disposal = @disposals.pop
             rows << disposal_cell_content(disposal)
             qr = RQRCode::QRCode.new(disposal_url(disposal))
-            IO.binwrite("/tmp/pippo#{disposal.id}.png", qr.as_png.to_s)
-            rows << { image: "/tmp/pippo#{disposal.id}.png", image_width: 80, image_height: 80 }
+            IO.binwrite("/tmp/gr_image_#{disposal.id}.png", qr.as_png.to_s)
+            rows << { image: "/tmp/gr_image_#{disposal.id}.png", image_width: 80, image_height: 80 }
           else
             rows << "--"
             rows << "--"
