@@ -1,0 +1,146 @@
+@import "variables";
+@import "dm";
+
+body {
+  color: rgb(62, 62, 62);
+}
+main {
+  min-height: 50vh;
+}
+
+a {
+  text-decoration: none;
+}
+.actual-number {
+  @extend .badge;
+  @extend .float-end;
+  font-size: 100%;
+  &.empty { @extend .bg-danger; }
+  &.full  { @extend .bg-success; }
+}
+.number {
+  text-align: right;
+}
+
+#search_string {
+  @extend .form-control;
+  width: 30ex;
+}
+
+input.choosen_dsauser {
+  @extend .form-control;
+  width: 30em;
+}
+
+.help-main {
+  font-size: 14px;
+  li {
+   list-style-type: circle; 
+  }
+}
+
+input.numeric-cents {
+  width: 4em;
+}
+
+span.twitter-typeahead {
+  .tt-menu {
+    @extend .dropdown-menu;
+  }
+
+  .tt-suggestion {
+    @extend .dropdown-item;
+  }
+
+  .tt-suggestion.tt-cursor {
+    @extend .dropdown-item, .active;
+  }
+
+  .input-group & {
+    display: flex !important;
+    align-items: center;
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+
+    .tt-menu, .tt-hint, .tt-input {
+      width: 100%;
+    }
+  }
+}
+
+.href-card {
+  display: block;
+  color: black;
+  &:hover {
+    color: black;
+    text-decoration: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+}
+
+form.status_selector {
+  input {
+    display: none;
+  }
+  label {
+    @extend .btn;
+    @extend .btn-lg;
+    @extend .btn-outline-primary;
+    // @extend .btn-block;
+  }
+  input:checked + label {
+    @extend .btn-info;
+    @extend .text-white;
+  }
+}
+form.disposal_type_selector {
+  input {
+    display: none;
+  }
+  label {
+    @extend .m-1;
+    @extend .btn;
+    @extend .btn-sm;
+    @extend .btn-outline-secondary;
+
+  }
+  input:checked + label {
+    @extend .btn-success;
+  }
+}
+
+.disposal_type_cer_code, .disposal_type_un_code, .disposal_type_hp_codes, .disposal_type_adrs, .disposal_type_pictograms {
+  input {
+    display: none;
+  }
+  .form-check {
+    display: inline-block;
+  }
+  label {
+    @extend .btn;
+    @extend .btn-outline-secondary;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 4px;
+    margin-left: 0 !important;
+  }
+  //label.collection_radio_buttons{
+  //  @extend .btn-outline-warning;
+  //}
+  .form-check {
+    padding-left: 6px;
+  }
+  .form-check-label {
+    color: #333 !important;
+  }
+  // label:selected {
+  input:checked+label {
+    @extend .btn-info;
+    color: #eee !important;;
+  }
+}
+
+.disposal-highlighted .dm-card-title {
+  @extend .bg-warning;
+}
