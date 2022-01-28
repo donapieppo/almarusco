@@ -7,6 +7,7 @@ class DisposalsController < ApplicationController
 
   def index
     authorize :disposal
+    @highlight_id = params[:h].to_i
     @disposals = current_organization.disposals.undelivered.includes(:user, :producer, :lab, disposal_type: [:cer_code, :un_code, :hp_codes, :adrs])
     if policy(current_organization).manage?
       if params[:u]
@@ -67,7 +68,8 @@ class DisposalsController < ApplicationController
 
   def update
     if @disposal.update(disposal_params)
-      redirect_to disposals_path
+      redirect_to @disposal
+      # redirect_to disposals_path(h: @disposal.id, anchor: @disposal.id)
     else
       render action: :edit
     end
