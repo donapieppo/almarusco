@@ -23,13 +23,14 @@
 
 <div class="row">
   <% @disposals.each do |disposal| %>  
-    <div class="disposal-card col-md-6" data-disposaltypeid="<%= disposal.disposal_type.id %>">
+    <% highlight = (@highlight_id == disposal.id) ? 'disposal-highlighted' : '' %>  
+    <div id="<%= disposal.id %>" class="disposal-card col-md-6 <%= highlight %>" data-disposaltypeid="<%= disposal.disposal_type.id %>">
       <%= render disposal %>
     </div>
   <% end %>
 </div>
 
 <%= javascript_tag do %>  
-  <%= render partial: 'js_infos', formats: ['js'] %>  
-  <%= render partial: 'show_by_type', formats: ['js'] %>  
+  <%= render partial: 'disposals/js_infos', formats: [:js] %>  
+  <%= render partial: 'disposals/show_by_type', formats: [:js] %>  
 <% end %>
