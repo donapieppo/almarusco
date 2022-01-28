@@ -2,7 +2,7 @@
   <div class="dm-card-title <%= disposal.approved? ? 'border-success' : '' %>">
     <div>
       <%= disposal.disposal_type.to_s %>
-      <span class="float-right"><%= disposal.id %></span>
+      <span class="float-end"><%= disposal.id %></span>
     </div>
     <div>
       <small><%= disposal.disposal_type.hp_codes_to_s %></small>
@@ -55,7 +55,7 @@
       </div>
       <div class="col-md-6">
         <% unless defined?(no_actions) || disposal.delivered? %>  
-          <div class="text-right">
+          <div class="text-end">
             <%= link_to fwdmicon('eye'), disposal %>
             <%= link_to_edit([:edit, disposal]) if policy(disposal).edit? %>  
             <%= link_to_delete(disposal) if policy(disposal).destroy? %>  
