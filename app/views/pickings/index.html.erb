@@ -14,7 +14,7 @@
       <%= link_to [(picking.delivered? ? nil : :edit), picking], class: "list-group-item list-group-item-action #{picking.delivered_at ? 'list-group-item-secondary' : ''}" do %>  
         <%= picking.supplier %>
         <%= "(concluso)" if picking.delivered? %>  
-        <span class="float-right"><%= picking.date ? l(picking.date) : '' %></span>   
+        <span class="float-end"><%= picking.date ? l(picking.date) : '' %></span>   
       <% end %>
     <% end %>
   </div>
