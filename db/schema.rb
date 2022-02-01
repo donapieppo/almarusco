@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 0) do
 
-  create_table "adrs", id: { type: :integer, unsigned: true, default: nil }, charset: "utf8mb4", force: :cascade do |t|
+  create_table "adrs", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.index ["name"], name: "name"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "organization_id", unsigned: true
     t.integer "cer_code_id", unsigned: true
     t.integer "un_code_id", unsigned: true
+    t.boolean "adr", default: false
     t.column "physical_state", "enum('liq','sp','snp')"
     t.text "notes"
     t.index ["cer_code_id"], name: "fk_disposal_types_cer"
@@ -151,7 +152,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "surname", limit: 50
     t.string "email"
     t.integer "employee_id", unsigned: true
-    t.timestamp "updated_at", default: -> { "current_timestamp()" }, null: false
+    t.timestamp "updated_at", default: -> { "current_timestamp() ON UPDATE current_timestamp()" }, null: false
     t.index ["upn"], name: "index_dsacaches_on_upn", unique: true
   end
 
