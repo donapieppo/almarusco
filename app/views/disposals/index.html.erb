@@ -16,7 +16,8 @@
   <% @disposal_types.each do |disposal_type| %>  
     <input type="radio" id="<%= disposal_type.id %>" name="disposal_to_show" />
     <label for="<%= disposal_type.id %>" data-disposaltypeid="<%= disposal_type.id %>">
-      <%= disposal_type.to_s_short %> <br/><small><%= disposal_type.hp_codes_to_s %></small>
+      <%= disposal_type.to_s_short %> <br/>
+      <small><%= disposal_type.hp_codes_to_s %></small>
     </label>
   <% end %>
 </form>
