@@ -6,7 +6,7 @@
 <div class="list-group">
   <% @disposals.each do |disposal| %>  
     <%= link_to disposal, class: "list-group-item list-group-item-action py-2" do %>
-      <span class="badge badge-info"><%= disposal.id %></span>
+      <span class="badge bg-info"><%= disposal.id %></span>
       <%= disposal %>
     <% end %>
   <% end %>
