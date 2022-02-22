@@ -5,7 +5,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-4">
     <div class="info my-2">
       <p>
       <strong>Produttore:</strong> soggetto la cui attività produce rifiuti; per produttore/detentore di rifiuti,
@@ -21,17 +21,22 @@
       </p>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-8">
 
     <% @producers.each do |producer| %>  
       <%= dm_card title: producer.user.cn_militar do %>  
         <% producer %>  
         <% current_organization.permissions.where(producer_id: producer.user_id).includes(:user).each do |permission| %>  
-          operatore: <%= permission.user %> <br/>  
+          <div>
+            operatore: <%= permission.user %>
+          <span class="float-end">
+            <%= link_to dmicon('trash-alt'), operator_path(permission.id), method: :delete, data: {confirm: "Siete sicuri di voler cancellare l'operatore?"} %>
+          </span>
+          </div>
         <% end %>
-        <div style="text-align: right">
-          <%= link_to dmicon('plus') + ' aggiungi operatore', new_producer_operator_path(producer.user_id) %>  
-          <%= link_to dmicon('trash-alt') + " elimina produttore", producer_path(producer), method: :delete, data: {confirm: 'Siete sicuri di voler cancellare?'} %>
+        <div class="mt-4 float-end">
+          <%= link_to dmicon('plus') + ' aggiungi operatore', new_producer_operator_path(producer.user_id) %> &nbsp;  
+          <%= link_to dmicon('trash-alt') + " elimina produttore", producer_path(producer), method: :delete, data: {confirm: 'Siete sicuri di voler cancellare il produttore?'} %>
         </div>
       <% end %>
     <% end %>

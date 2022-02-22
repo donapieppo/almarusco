@@ -26,10 +26,22 @@ class ProducersController < ApplicationController
     end
   end
 
+  # see app/controllers/operators_controller#destroy
   def destroy
-    @producer = current_organization.permissions.find(params[:id])
-    authorize @producer
-    @producer.destroy
-    redirect_to producers_path, notice: "È stato eliminata la delega come richiesto."
+    current_user or raise "NO"
+    # DmUniboCommon::Permission
+    permission = current_organization.permissions.find_by_id(params[:id])
+    producer = permission.user
+    # FIXME not allowed to destroy? this DmUniboCommon::Permission
+    # even with app/policies with dmDmUniboCommon::Permission
+    skip_authorization
+    if producer && current_user && 
+       OrganizationPolicy.new(current_user, current_organization).admin? &&
+       permission.organization_id == current_organization.id && 
+       permission.authlevel == Rails.configuration.authlevels[:dispose] 
+      permission.destroy
+      current_organization.permissions.where(producer_id: producer.id).destroy_all
+    end
+    redirect_to producers_path
   end
 end
