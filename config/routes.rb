@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     resources :producers do 
       resources :operators, only: [:new, :create]
     end
-    resources :operators, only: :delete
+    resources :operators, only: :destroy
 
     resources :disposals do
       get 'choose_disposal_type', as: :choose_disposal_type, on: :collection
