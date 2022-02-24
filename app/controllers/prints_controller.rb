@@ -28,8 +28,7 @@ class PrintsController < ApplicationController
     end
 
     pdf = Prawn::Document.new(page_size: 'A4', margin: 20) # 595.28 x 841.89
-    # :margin Sets the margin on all sides in points [0.5 inch]
-    # :left_margin :right_margin
+    # :margin Sets the margin on all sides in points [0.5 inch] :left_margin :right_margin
     pdf.font_size 8
     pdf.define_grid(columns: 2, rows: 5, gutter: 0)
     # pdf.grid.show_all
@@ -44,7 +43,7 @@ class PrintsController < ApplicationController
         pdf.grid(col.to_i - 1, row.to_i - 1).bounding_box do
 
           # pdf.stroke_bounds
-          pdf.move_down 6 
+          pdf.move_down 8 
           pdf.indent(10) do
             pdf.text " n.#{disposal.id.to_s}      <font size='9'>#{disposal.organization.code} - #{disposal.lab}</font>", size: 12, inline_format: true
           end
@@ -67,8 +66,8 @@ class PrintsController < ApplicationController
                 pdf.text dt.un_code.to_s, style: 'bold', size: 20
               end
               pdf.text dt.cer_code.to_s, size: 20
-              pdf.text dt.hp_codes_to_s + " - " + dt.adrs_to_s, size: 14
-              pdf.text dt.physical_state_to_s.upcase
+              pdf.text dt.hp_codes_to_s + " - " + dt.adrs_to_s, size: 13
+              pdf.text dt.physical_state_to_s.upcase, size: 6
             end
           end
 
