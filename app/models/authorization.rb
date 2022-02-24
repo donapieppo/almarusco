@@ -1,17 +1,12 @@
 # il livello e' solo un numero definito da costanti
 #
-# TO_READ:   può solo leggere le gicenze
-# TO_ORDER:  può ordinare l'acquisto di materiale
-# TO_BOOK:   può prenotare 
-# TO_UNLOAD: può scaricare 
-# TO_DISPOSE: può caricare rifiuti
-# TO_GIVE:   può scaricare a nome di altri
-# TO_ADMIN:  può amministrare la struttura 
-# TO_EDIT:   può editare la struttura (direttore amministrativo). Aggiungendo utenti.
-# TO_CESIA:  amministratore del programma (super admin)
+# TO_READ:    può solo leggere 
+# TO_OPERATE: può caricare rifiuto a nome del produttore
+# TO_DISPOSE: responsabile rifiuto
+# TO_MANAGE:  può configurare l'UL
+# TO_ADMIN:   amministratore
 #
 # il tipo di autorizzazione dipende dall'ip del client e dal login name (upn)
-
 class Authorization
   include DmUniboCommon::Authorization
 
