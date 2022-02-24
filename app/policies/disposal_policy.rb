@@ -4,7 +4,7 @@ class DisposalPolicy < ApplicationPolicy
   end
 
   def show?
-    @user.owns?(@record) || @user.can_manage?(@record.organization_id)
+    @user.owns?(@record) || @user.id == @record.producer_id || @user.can_manage?(@record.organization_id)
   end
 
   def choose_disposal_type?
