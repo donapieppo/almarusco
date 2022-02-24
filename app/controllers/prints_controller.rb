@@ -1,6 +1,8 @@
+# Avery (10 etichette per foglio, codice L7992 - 25)
 class PrintsController < ApplicationController
   helper DisposalHelper
   require "prawn"
+  require "prawn/measurement_extensions"
 
   def new
     if policy(current_organization).manage?
@@ -27,7 +29,8 @@ class PrintsController < ApplicationController
       return
     end
 
-    pdf = Prawn::Document.new(page_size: 'A4', margin: 20) # 595.28 x 841.89
+    # pdf = Prawn::Document.new(page_size: 'A4', margin: 20) # 595.28 x 841.89
+    pdf = Prawn::Document.new(page_size: 'A4', margin_top: 6.mm, margin_bottom: 4.mm, margin_left: 6.mm, margin_right: 8.mm) # 595.28 x 841.89
     # :margin Sets the margin on all sides in points [0.5 inch] :left_margin :right_margin
     pdf.font_size 8
     pdf.define_grid(columns: 2, rows: 5, gutter: 0)
