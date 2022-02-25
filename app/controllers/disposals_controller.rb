@@ -2,7 +2,7 @@ class DisposalsController < ApplicationController
   helper DisposalHelper
 
   before_action :set_disposal_type, only: %i(new create)
-  before_action :set_producers_for_operator_and_check, only: %i(new create)
+  before_action :set_permitted_producers, only: %i(new create)
   before_action :set_disposal_and_check_permission, only: %i(show edit update destroy approve unapprove)
 
   def index
@@ -39,9 +39,9 @@ class DisposalsController < ApplicationController
   end
 
   def create
-    # if @producers => only operator and  @producers array that must contain producer_id
+    # if @producers => only operator and @producers array that must contain producer_id
     # else is producer itsself
-    if @producers 
+    if params[:disposal][:producer_id] && @producers 
       @producer = User.find(params[:disposal][:producer_id])
       unless @producer && @producers.include?(@producer)
         raise "PRODUCER ERRATO" 
@@ -134,17 +134,11 @@ class DisposalsController < ApplicationController
     authorize @disposal
   end
 
-  # raise if only operator and has no producers available
-  def set_producers_for_operator_and_check
-    # if operator and not producer
-    if current_user.authorization.authlevel(current_organization) == Rails.configuration.authlevels[:operate]
-      current_organization_and_user_producer_ids = current_organization.permissions.where(authlevel: Rails.configuration.authlevels[:operate], user_id: current_user.id).map(&:producer_id)
-      @producers = User.find(current_organization_and_user_producer_ids)
-      if @producers.empty?
-        raise "NO PRODUCERS FOR YOU"
-      end
-    else
-      @producers = nil
+  # if user is operator can also be producer for themself
+  def set_permitted_producers
+    @producers = current_user.permitted_producers(current_organization)
+    if @producers.any? && current_user.authorization.can_dispose?(current_organization)
+      @producers << current_user 
     end
   end
 end
