@@ -17,7 +17,7 @@ class DisposalsController < ApplicationController
     else
       @disposals = @disposals.user_or_producer(current_user.id)
     end
-    @disposals = @disposals.order("disposals.created_at DESC, disposals.user_id ASC")
+    @disposals = @disposals.order("disposals.id DESC, disposals.user_id ASC")
     @disposal_types = current_organization.disposal_types
                                           .with_all_includes
                                           .order_by_cer_and_un
