@@ -9,7 +9,8 @@ class DisposalType < ApplicationRecord
   has_many :disposals
 
   # TODO uniqneness with also hps
-  # validates :cer_code_id, uniqueness: { scope: [:organization_id, :un_code_id], message: 'La tipoligia è già presente nella ul.', case_sensitive: false }
+  # validates :cer_code_id, uniqueness: { scope: [:organization_id, :un_code_id, :hp_code_ids], message: 'La tipoligia è già presente nella ul.', case_sensitive: false }
+  validate :cer_and_hps_uniqueness
   validates :physical_state, presence: true
 
   scope :with_all_includes, -> { includes(:cer_code, :hp_codes, :un_code, :pictograms, :adrs) }
@@ -48,5 +49,14 @@ class DisposalType < ApplicationRecord
     hp_codes.map do |hp|
       hp.adr_class(liquid: self.liquid?)
     end.compact
+  end
+
+  def cer_and_hps_uniqueness
+    DisposalType.where(cer_code_id: self.cer_code_id, un_code_id: self.un_code_id).each do |dt|
+      if self.hp_code_ids == dt.hp_code_ids
+        errors.add(:cer_code_id, "Esiste già una tipologia con gli stessi parametri cer/un/hp nella tua struttura.")
+        return false
+        end
+    end
   end
 end
