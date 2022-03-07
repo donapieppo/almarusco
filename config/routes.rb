@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     resources :disposals do
       get 'choose_disposal_type', as: :choose_disposal_type, on: :collection
       get 'archive', as: :archive, on: :collection
+      get 'clone', on: :member
       post 'approve', on: :member
       post 'unapprove', on: :member
     end
