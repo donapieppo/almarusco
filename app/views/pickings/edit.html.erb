@@ -39,10 +39,6 @@ end
 <span class="px-4"> - </span>
 <%= link_to 'CONCLUSO', [:deliver, @picking], method: :put, class: 'btn btn-danger', data: {confirm: 'Siete sicuri di voler archiviare i rifiuti collegati a questo scarico?'} %>  
 
-<%= javascript_tag do %>  
-  <%= render partial: 'disposals/js_infos', formats: [:js] %>  
-<% end %>
-
 <div class="alert alert-info my-4">
   <%= @picking.supplier.name.upcase %> è in contratto per:
 
