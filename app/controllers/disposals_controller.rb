@@ -2,7 +2,7 @@ class DisposalsController < ApplicationController
   helper DisposalHelper
 
   before_action :set_disposal_type, only: %i(new create)
-  before_action :set_permitted_producers, only: %i(new create)
+  before_action :set_permitted_producers, only: %i(new clone create)
   before_action :set_disposal_and_check_permission, only: %i(show edit update destroy approve unapprove)
 
   def index
@@ -38,6 +38,17 @@ class DisposalsController < ApplicationController
     authorize @disposal
   end
 
+  def clone
+    @orig = Disposal.find(params[:id])
+    @disposal_type = @orig.disposal_type
+    @disposal = current_user.disposals.new(disposal_type_id: @disposal_type.id,
+                                           organization_id: current_organization.id,
+                                           lab_id: @orig.lab_id,
+                                           producer_id: @orig.producer_id)
+    authorize @disposal
+    render action: :new
+  end
+
   def create
     # if @producers => only operator and @producers array that must contain producer_id
     # else is producer itsself
@@ -57,7 +68,7 @@ class DisposalsController < ApplicationController
 
     authorize @disposal
     if @disposal.save
-      redirect_to disposals_path, notice: "Salvata la richiesta di scarico con identificativo #{@disposal.id}. Consigliamo di scrivere il numero identificativo sul collo."
+      redirect_to disposals_path(h: @disposal.id, anchor: @disposal.id), notice: "Salvata la richiesta di scarico con identificativo #{@disposal.id}. Consigliamo di scrivere il numero identificativo sul collo."
     else
       render action: :new
     end

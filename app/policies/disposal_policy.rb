@@ -11,6 +11,10 @@ class DisposalPolicy < ApplicationPolicy
     current_organization_disposer?
   end
 
+  def clone?
+    new?
+  end
+
   def create?
     current_organization_disposer?
   end
