@@ -56,7 +56,8 @@
       <div class="col-md-6">
         <% unless defined?(no_actions) || disposal.delivered? %>  
           <div class="text-end">
-            <%= link_to fwdmicon('eye'), disposal %>
+            <%= link_to fwdmicon('clone'),[:clone, disposal], title: 'Crea nuovo rifiuto simile' %>
+            <%= link_to fwdmicon('eye'), disposal, title: 'Mostra dettagli' %>
             <%= link_to_edit([:edit, disposal]) if policy(disposal).edit? %>  
             <%= link_to_delete(disposal) if policy(disposal).destroy? %>  
           </div>
