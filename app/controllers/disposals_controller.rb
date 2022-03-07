@@ -18,10 +18,9 @@ class DisposalsController < ApplicationController
       @disposals = @disposals.user_or_producer(current_user.id)
     end
     @disposals = @disposals.order("disposals.id DESC, disposals.user_id ASC")
-    @disposal_types = current_organization.disposal_types
-                                          .with_all_includes
-                                          .order_by_cer_and_un
-                                          .where(id: @disposals.map(&:disposal_type_id)).uniq
+    @disposals_cers = current_organization.disposal_types
+                                          .includes(:cer_code)
+                                          .where(id: @disposals.map(&:disposal_type_id)).map(&:cer_code).uniq
   end
 
   def show

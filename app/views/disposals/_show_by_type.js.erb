@@ -1,9 +1,9 @@
-const disposalTypeSelectorForm = document.querySelector("form.disposal_type_selector");
+const cerSelectorForm = document.querySelector("form.disposal_cer_selector");
 
-disposalTypeSelectorForm.addEventListener('change', (e) => {
+cerSelectorForm.addEventListener('change', (e) => {
   let selectedId = e.target.id
   document.querySelectorAll(".disposal-card").forEach(d => {
-    d.style.display = (d.dataset.disposaltypeid === selectedId) ? 'block' : 'none';
+    d.style.display = (d.dataset.cerid === selectedId) ? 'block' : 'none';
   })
 });
 

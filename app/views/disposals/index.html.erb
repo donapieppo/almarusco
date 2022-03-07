@@ -12,12 +12,11 @@
   <% end %>
 </div>
 
-<form class="my-2 centered disposal_type_selector">
-  <% @disposal_types.each do |disposal_type| %>  
-    <input type="radio" id="<%= disposal_type.id %>" name="disposal_to_show" />
-    <label for="<%= disposal_type.id %>" data-disposaltypeid="<%= disposal_type.id %>">
-      <%= disposal_type.to_s_short %> <br/>
-      <small><%= disposal_type.hp_codes_to_s %></small>
+<form class="my-2 centered disposal_cer_selector">
+  <% @disposals_cers.each do |cer_code| %>  
+    <input type="radio" id="<%= cer_code.id %>" name="disposal_to_show" />
+    <label for="<%= cer_code.id %>" data-cerid="<%= cer_code.id %>">
+      CER <%= cer_code.name %>  
     </label>
   <% end %>
 </form>
@@ -25,8 +24,8 @@
 <div class="row">
   <% @disposals.each do |disposal| %>  
     <% highlight = (@highlight_id == disposal.id) ? 'disposal-highlighted' : '' %>  
-    <div id="<%= disposal.id %>" class="disposal-card col-md-6 <%= highlight %>" data-disposaltypeid="<%= disposal.disposal_type.id %>">
-      <%= render disposal %>
+    <div id="<%= disposal.id %>" class="disposal-card col-md-6 <%= highlight %>" data-cerid="<%= disposal.disposal_type.cer_code_id %>">
+      <%= render Disposal::ShowComponent.new(current_user, disposal) %>
     </div>
   <% end %>
 </div>
