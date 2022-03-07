@@ -1,23 +1,20 @@
 <h1>Deposito temporaneo</h1>
 
 <% tot_num = tot_kgs = tot_volume = 0 %>  
-<% @infos.each do |dt, disposals| %>  
+<% @infos.each_key.sort_by {|dt| dt.cer_code.name}.each do |dt| %>  
   <div class="dm-card">
     <% num = kgs = volume = 0 %>  
     <div class="dm-card-title py-2">
-      <%= dt %> <span class="small"><%= dt.hp_codes_to_s %></span>
+      <%= dt %> 
+      <span class="small float-end"><%= dt.hp_codes_to_s %></span>
     </div>
     <div class="dm-card-body">
-      <% disposals.each do |disposal| %>  
+      <% @infos[dt].each do |disposal| %>  
         <% num += 1  %>  
         <%= link_to disposal, class: "btn btn-outline-info" do %>  
-          <div class="font-weight-bold">id <%= disposal.id %></div>
-          <span class="px-2"><%= disposal.volume %> L. </span><br/>
-          <% if disposal.kgs %>  
-            <%= disposal.kgs %> Kg. 
-          <% else %>
-            <span class="text-danger"> ? Kg.</span>
-          <% end %>
+          <span class="small"><%= disposal.id %></strong><br/>
+          <strong><%= disposal.volume %></strong> L. &nbsp;
+          <strong><%= disposal.kgs %></strong> Kg. 
         <% end %>
         <% kgs += disposal.kgs.to_i %>  
         <% volume += disposal.volume %>  
