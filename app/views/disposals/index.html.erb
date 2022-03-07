@@ -25,12 +25,12 @@
   <% @disposals.each do |disposal| %>  
     <% highlight = (@highlight_id == disposal.id) ? 'disposal-highlighted' : '' %>  
     <div id="<%= disposal.id %>" class="disposal-card col-md-6 <%= highlight %>" data-cerid="<%= disposal.disposal_type.cer_code_id %>">
-      <%= render Disposal::ShowComponent.new(current_user, disposal) %>
+      <%= render Disposal::ShowComponent.new(current_user, disposal, with_details: false) %>
     </div>
   <% end %>
 </div>
 
 <%= javascript_tag do %>  
-  <%= render partial: 'disposals/js_infos', formats: [:js] %>  
+  <%# <%= render partial: 'disposals/js_infos', formats: [:js] %1> %>  
   <%= render partial: 'disposals/show_by_type', formats: [:js] %>  
 <% end %>
