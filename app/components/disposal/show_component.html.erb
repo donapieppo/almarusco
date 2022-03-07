@@ -6,7 +6,6 @@
     </div>
     <div>
       <small><%= @disposal.disposal_type.hp_codes_to_s %></small>
-      <i class="show-details ml-2 fas fa-question-circle" style="cursor: pointer"></i>
     </div>
   </div>
   <div class="dm-card-body">
@@ -34,13 +33,15 @@
       </div>
       </div>
     </div> <!-- row -->
-    <div class="details p-2 small text-info">
-      <% if @disposal.disposal_type.un_code %>  
-        <strong>UN:</strong> <%= @disposal.disposal_type.un_code.name.upcase %><br/>  
-      <% end %>
-      <strong>CER:</strong> <%= @disposal.disposal_type.cer_code.description.upcase %><br/>
-      <strong>STATO:</strong> <%= t @disposal.disposal_type.physical_state %>
-    </div>
+    <% if @with_details %>  
+      <div class="details p-2 small text-info">
+        <% if @disposal.disposal_type.un_code %>  
+          <strong>un:</strong> <%= @disposal.disposal_type.un_code.name.upcase %><br/>  
+        <% end %>
+        <strong>cer:</strong> <%= @disposal.disposal_type.cer_code.description.upcase %><br/>
+        <strong>stato:</strong> <%= t @disposal.disposal_type.physical_state %>
+      </div>
+    <% end %>
     <div class="row">
       <div class="col-md-6">
         <%= link_to @disposal do %>
@@ -49,9 +50,9 @@
         <% end %>
         <% if @disposal.delivered? %>  
           CONSEGNATO il <%= @disposal.delivered_at %>  
-        <% elsif @disposal.picking_id %>  
-          <%= link_to dmicon('truck'), edit_picking_path(@disposal.picking_id), title: 'Associato a ritiro' %>  
-        <% end %>
+      <% elsif @disposal.picking_id %>  
+        <%= link_to dmicon('truck'), edit_picking_path(@disposal.picking_id), title: 'Associato a ritiro' %>  
+      <% end %>
       </div>
       <div class="col-md-6">
         <% unless defined?(no_actions) || @disposal.delivered? %>  
