@@ -1,6 +1,6 @@
 <h1>Detttagli rifiuto</h1>
 
-<%= render @disposal %>  
+<%= render Disposal::ShowComponent.new(current_user, @disposal) %>
 
 <div class="centered my-2">
   <% if @disposal.undelivered? && policy(current_organization).manage? %>  
