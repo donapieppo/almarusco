@@ -8,7 +8,11 @@ class PickingsController < ApplicationController
   end
 
   def show
-    @disposals = @picking.disposals.includes(disposal_type: [:un_code, :cer_code])
+    @disposals_hash = Hash.new { |hash, key| hash[key] = [] }
+
+    @picking.disposals.includes(disposal_type: [:un_code, :cer_code]).each do |d|
+      @disposals_hash[d.disposal_type] << d
+    end
   end
   
   def new

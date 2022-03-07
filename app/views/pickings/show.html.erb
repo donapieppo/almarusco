@@ -3,14 +3,19 @@
   <%= @picking.date %>  
 </h1>
 
-<div class="list-group">
-  <% @disposals.each do |disposal| %>  
-    <%= link_to disposal, class: "list-group-item list-group-item-action py-2" do %>
-      <span class="badge bg-info"><%= disposal.id %></span>
-      <%= disposal %>
+<% @disposals_hash.keys.sort_by{ |dt| dt.cer_code_id }.each do |disposal_type| %>  
+  <h3 class="mt-4"><%= disposal_type %></h3>
+  <div>
+    <% @disposals_hash[disposal_type].each do |disposal| %>  
+      <%= link_to disposal do %>
+        <div class="d-inline me-2">
+        <span class="badge bg-info"><%= disposal.id %></span>
+        <%= disposal.kgs %> Kg.
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>
 
 <center>
   <%= link_to_back pickings_path %>  
