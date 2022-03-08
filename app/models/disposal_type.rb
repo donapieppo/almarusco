@@ -32,6 +32,10 @@ class DisposalType < ApplicationRecord
     "#{self.cer_code} #{self.un_code ? ' - ' + self.un_code.to_s : ''}" 
   end
 
+  def to_s_complete
+    "#{self.to_s} #{self.hp_codes_to_s}"
+  end
+
   def physical_state_to_s
     I18n.t(self.physical_state)
   end
