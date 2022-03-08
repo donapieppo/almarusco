@@ -11,7 +11,7 @@
 <% else %>
   <div class="list-group">
     <% @pickings.each do |picking| %>  
-      <%= link_to [(picking.delivered? ? nil : :edit), picking], class: "list-group-item list-group-item-action #{picking.delivered_at ? 'list-group-item-secondary' : ''}" do %>  
+      <%= link_to picking, class: "list-group-item list-group-item-action #{picking.delivered_at ? 'list-group-item-secondary' : ''}" do %>  
         <%= picking.supplier %>
         <%= "(concluso)" if picking.delivered? %>  
         <span class="float-end"><%= picking.date ? l(picking.date) : '' %></span>   

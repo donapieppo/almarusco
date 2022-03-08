@@ -34,11 +34,6 @@ end
   <%= @picking.disposals.sum(:kgs) %> Kg. 
 </div>
 
-<%= link_to 'STAMPA', [:print, @picking], class: 'btn btn-primary' %>  
-<%= link_to 'ESTRAI EXCEL', [:print, @picking, format: :csv], class: 'btn btn-primary' %> 
-<span class="px-4"> - </span>
-<%= link_to 'CONCLUSO', [:deliver, @picking], method: :put, class: 'btn btn-danger', data: {confirm: 'Siete sicuri di voler archiviare i rifiuti collegati a questo scarico?'} %>  
-
 <div class="alert alert-info my-4">
   <%= @picking.supplier.name.upcase %> è in contratto per:
 
