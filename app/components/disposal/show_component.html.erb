@@ -60,7 +60,7 @@
             <%= link_to(fwdmicon('edit', size: 21), [:edit, @disposal], title: 'Modifica il rifiuto') if @policy.edit? %>  
             <%= link_to(fwdmicon('clone', size: 21), [:clone, @disposal], title: 'Crea nuovo rifiuto simile') %>
             <%= link_to(fwdmicon('eye', size: 21), @disposal, title: 'Mostra dettagli') %>
-            <%= link_to(fwdmicon('trash-alt', size: 21),@disposal, method: :delete, title: 'Elimina il rifiuto', data: {confirm: 'Siete sicuri di voler cancellare?'}) if @policy.destroy? %> 
+            <%= link_to(fwdmicon('trash-alt', size: 21), @disposal, method: :delete, title: 'Elimina il rifiuto', data: {confirm: 'Siete sicuri di voler cancellare?'}) if @policy.destroy? %> 
           </div>
         <% end %>
       </div>
