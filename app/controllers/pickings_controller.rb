@@ -40,7 +40,7 @@ class PickingsController < ApplicationController
 
   def update
     @picking.update(picking_params)
-    redirect_to [:edit, @picking]
+    redirect_to @picking
   end
 
   def destroy
