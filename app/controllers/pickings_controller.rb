@@ -27,7 +27,7 @@ class PickingsController < ApplicationController
     @picking = current_organization.pickings.new(supplier_id: @supplier.id)
     authorize @picking
     if @picking.save
-      @picking.fill_with_defoult_disposals
+      @picking.fill_with_default_disposals
       redirect_to edit_picking_path(@picking), notice: 'Ritiro creato.'
     else
       redirect_to root_path, alert: 'ERRORE'

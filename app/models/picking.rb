@@ -9,7 +9,7 @@ class Picking < ApplicationRecord
     self.supplier.contract_picking_disposals(self.organization_id).approved.undelivered
   end
 
-  def fill_with_defoult_disposals
+  def fill_with_default_disposals
     self.disposals = self.possible_disposals
     self.save
   end
