@@ -25,7 +25,7 @@ end
                         label_method: disposal_label %>  
   <% end %>
 
-  <%= f.submit 'Salva' %>  
+  <%= f.submit 'Salva' %> - <%= link_to 'indietro', @picking %>    
 <% end %>
 
 <div class="alert alert-success font-weight-bold my-4" style="font-size: 120%">
@@ -34,12 +34,4 @@ end
   <%= @picking.disposals.sum(:kgs) %> Kg. 
 </div>
 
-<div class="alert alert-info my-4">
-  <%= @picking.supplier.name.upcase %> è in contratto per:
-
-  <ul class="my-2">
-    <% @picking.supplier.contract_disposal_types.includes(:cer_code, :un_code, :hp_codes).order(:cer_code_id).each do |disposal_type| %>  
-      <li class="small"><%= disposal_type %> <%= disposal_type.hp_codes_to_s %>  </li>
-    <% end %>
-  </ul>
-</div>
+<%= render Supplier::DisposalTypesComponent.new(@picking.supplier) %>  
