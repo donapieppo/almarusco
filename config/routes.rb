@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     resources :cer_codes
     resources :un_codes
     resources :pickings do
+      resources :picking_documents
       get :print, on: :member
       put :deliver, on: :member
     end

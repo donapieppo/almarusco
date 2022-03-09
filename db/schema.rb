@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
-
+ActiveRecord::Schema[7.0].define(version: 0) do
   create_table "adrs", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -103,8 +102,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "name"
     t.string "description"
     t.string "adminmail", limit: 200
-    t.datetime "updated_at"
-    t.datetime "created_at"
+    t.datetime "updated_at", precision: nil
+    t.datetime "created_at", precision: nil
   end
 
   create_table "permissions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
@@ -112,20 +111,32 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "organization_id", unsigned: true
     t.string "network", limit: 20
     t.integer "authlevel", unsigned: true
-    t.datetime "updated_at"
-    t.datetime "created_at"
+    t.datetime "updated_at", precision: nil
+    t.datetime "created_at", precision: nil
     t.integer "producer_id", unsigned: true
     t.index ["organization_id"], name: "fk_organization_permission"
     t.index ["producer_id"], name: "fk_permission_producer"
     t.index ["user_id"], name: "fk_user_permission"
   end
 
+  create_table "picking_documents", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+    t.integer "picking_id", null: false, unsigned: true
+    t.integer "disposal_type_id", null: false, unsigned: true
+    t.string "serial_number"
+    t.integer "register_number"
+    t.decimal "kgs", precision: 10, scale: 3
+    t.decimal "volume", precision: 10, scale: 3
+    t.index ["disposal_type_id"], name: "fk_picking_document_disposal_type"
+    t.index ["picking_id"], name: "fk_picking_document_picking"
+  end
+
   create_table "pickings", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.integer "organization_id", null: false, unsigned: true
     t.integer "supplier_id", null: false, unsigned: true
     t.date "date"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.date "delivered_at"
+    t.date "confirmed_at"
     t.index ["organization_id"], name: "fk_pickings_organizations"
     t.index ["supplier_id"], name: "fk_pickings_suppliers"
   end
@@ -177,6 +188,8 @@ ActiveRecord::Schema.define(version: 0) do
   add_foreign_key "permissions", "organizations", name: "fk_organization_permission"
   add_foreign_key "permissions", "users", column: "producer_id", name: "fk_permission_producer"
   add_foreign_key "permissions", "users", name: "fk_user_permission"
+  add_foreign_key "picking_documents", "disposal_types", name: "fk_picking_document_disposal_type"
+  add_foreign_key "picking_documents", "pickings", name: "fk_picking_document_picking"
   add_foreign_key "pickings", "organizations", name: "fk_pickings_organizations"
   add_foreign_key "pickings", "suppliers", name: "fk_pickings_suppliers"
 end

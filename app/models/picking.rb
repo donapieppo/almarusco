@@ -2,9 +2,14 @@ class Picking < ApplicationRecord
   belongs_to :organization
   belongs_to :supplier
   has_many :disposals
+  has_many :picking_documents
 
   scope :undelivered, -> { where('pickings.delivered_at IS NULL') }
 
+  def to_s
+    "Ritiro #{self.supplier} del #{self.date}"
+  end
+  
   def possible_disposals
     self.supplier.contract_picking_disposals(self.organization_id).approved.undelivered
   end
@@ -40,5 +45,9 @@ class Picking < ApplicationRecord
   def deliver
     self.disposals.update_all(delivered_at: Date.today)
     self.update(delivered_at: Date.today)
+  end
+
+  def confirmed?
+    confirmed_at
   end
 end

@@ -60,6 +60,10 @@ it:
       picking:
         supplier: Fornitore
         date: Data ritiro
+      picking_document:
+        serial_number: Serie e numero
+        kgs: Peso
+        volume: Volume
 
   simple_form:
     hints:

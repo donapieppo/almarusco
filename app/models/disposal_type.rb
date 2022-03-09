@@ -7,6 +7,7 @@ class DisposalType < ApplicationRecord
   has_and_belongs_to_many :pictograms
 
   has_many :disposals
+  has_many :picking_documents
 
   # TODO uniqneness with also hps
   # validates :cer_code_id, uniqueness: { scope: [:organization_id, :un_code_id, :hp_code_ids], message: 'La tipoligia è già presente nella ul.', case_sensitive: false }

@@ -1,30 +1,31 @@
 <h1>
   Ritiro con <%= @picking.supplier %>
-  <small>(<%= @picking.date ? l(@picking.date) : 'data da definire' %>)</small>
+<small>(<%= @picking.date ? l(@picking.date) : 'data da definire' %>)</small>
 </h1>
 
 <% @disposals_hash.keys.sort_by{ |dt| dt.cer_code_id }.each do |disposal_type| %>  
   <% total_kgs = 0.0 %>  
   <% total_liters = 0.0 %>  
-  <div class="mt-4 fw-bold">
-    <i class="fa-solid fa-circle-right"></i> 
-    <%= disposal_type.to_s_complete %>
-  </div>
-  <div class="ms-4">
-    <% @disposals_hash[disposal_type].each do |disposal| %>  
-      <% total_kgs += disposal.kgs.to_f %>  
-      <% total_liters += disposal.volume %>  
-      <%= link_to disposal do %>
-        <div class="d-inline me-2">
-          <span class="badge bg-info"><%= disposal.id %></span>
-          <%= disposal.kgs %> Kg.
-        </div>
+  <%= dm_card title: disposal_type.to_s_complete do %>  
+    <div class="ms-4">
+      <% @disposals_hash[disposal_type].each do |disposal| %>  
+        <% total_kgs += disposal.kgs.to_f %>  
+        <% total_liters += disposal.volume %>  
+        <%= link_to disposal do %>
+          <div class="d-inline me-2">
+            <span class="badge bg-info"><%= disposal.id %></span>
+            <%= disposal.kgs %> Kg.
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
-  </div>
-  <div class="mt-2">
-    Totali: <strong><%= total_kgs %> Kg. <%= total_liters %> L. </strong>
-  </div>
+    </div>
+    <div class="mt-2">
+      Totali: <strong><%= total_kgs %> Kg. <%= total_liters %> L. </strong>
+    </div>
+    <div class="mt-2">
+      <%= render PickingDocument::ShowComponent.new(current_user, @picking, disposal_type, expected_kgs: total_kgs, expected_liters: total_liters) %>  
+    </div>
+  <% end %>
 <% end %>
 
 <% unless @picking.delivered? %>  
