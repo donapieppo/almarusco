@@ -57,7 +57,10 @@ class DisposalType < ApplicationRecord
   end
 
   def cer_and_hps_uniqueness
-    DisposalType.where(cer_code_id: self.cer_code_id, un_code_id: self.un_code_id).each do |dt|
+    DisposalType.where(organization_id: self.organization_id, cer_code_id: self.cer_code_id, un_code_id: self.un_code_id).each do |dt|
+      if self.id && dt.id == self.id
+        next
+      end
       if self.hp_code_ids == dt.hp_code_ids
         errors.add(:cer_code_id, "Esiste già una tipologia con gli stessi parametri cer/un/hp nella tua struttura.")
         return false
