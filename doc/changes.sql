@@ -1,3 +1,20 @@
+ALTER TABLE `pickings` ADD COLUMN `confirmed_at` date after `delivered_at`;
+
+CREATE TABLE `picking_documents` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `picking_id` int(10) unsigned NOT NULL,
+  `disposal_type_id` int(10) unsigned NOT NULL,
+  `serial_number` varchar(255),
+  `register_number` int(2),
+  `kgs` decimal(10,3),
+  `volume` decimal(10,3),
+  PRIMARY KEY (`id`),
+  KEY `fk_picking_document_disposal_type` (`disposal_type_id`),
+  KEY `fk_picking_document_picking` (`picking_id`),
+  CONSTRAINT `fk_picking_document_disposal_type` FOREIGN KEY (`disposal_type_id`) REFERENCES `disposal_types` (`id`),
+  CONSTRAINT `fk_picking_document_picking` FOREIGN KEY (`picking_id`) REFERENCES `pickings` (`id`)
+);
+
 CREATE TABLE `adrs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
