@@ -15,7 +15,7 @@ it:
       cercode: Codice CER
       uncode: Codice UN
       picking: Ritiro
-      picking_document: Documento
+      picking_document: Formulario
 
     attributes:
       admin:
@@ -63,6 +63,7 @@ it:
         date: Data ritiro
       picking_document:
         serial_number: Serie e numero
+        register_number: Numero registro
         kgs: Peso
         volume: Volume
 
@@ -74,6 +75,8 @@ it:
       disposal:
         kgs: Quanti Kg? (numero decimale)
         lab: Laboratorio di provenienza del rifiuto
+      picking_document:
+        serial_number: "Come compare il alto nel formulario. Per esempio: 'XBO 111111/20'."
 
   can_operate: può operare
   can_read:    può leggere
