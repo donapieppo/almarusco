@@ -15,6 +15,7 @@ it:
       cercode: Codice CER
       uncode: Codice UN
       picking: Ritiro
+      picking_document: Documento
 
     attributes:
       admin:
