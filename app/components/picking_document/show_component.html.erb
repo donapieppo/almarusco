@@ -1,11 +1,15 @@
 <% if @picking_document %>  
-  (da formulario <%= @picking_document.serial_number %>):
-  <%= @picking_document.kgs %> Kgs.
-  <%= @picking_document.volume %> L.
-  <%= link_to 'modifica', [:edit, @picking, @picking_document], class: 'btn btn-sm btn-primary' %> 
+  <strong class="<%= @all_ok ? 'text-success' : 'text-danger' %>">
+    <%= @picking_document.kgs %> Kg.
+    <%= @picking_document.volume %> L.
+  </strong>
+  &nbsp; da formulario <%= @picking_document.register_number_with_year %>
+  <center>
+    <%= link_to 'Modifica formulario', [:edit, @picking, @picking_document], class: 'btn btn-sm btn-primary' %> 
+  </center>
 <% else %>
   <center>
-    <%= link_to 'Aggiungi documento (formulario)', new_picking_picking_document_path(@picking, disposal_type_id: @disposal_type.id), class: 'btn btn-primary btn-sm' %>  
+    <%= link_to 'Aggiungi formulario', new_picking_picking_document_path(@picking, disposal_type_id: @disposal_type.id), class: 'btn btn-primary btn-sm' %>  
   </center>
 <% end %>
 
