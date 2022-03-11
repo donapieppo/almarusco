@@ -7,7 +7,7 @@
 <div class="row">
   <% @disposals.each do |disposal| %>  
     <div class="col-md-6">
-      <%= render Disposal::ShowComponent.new(current_user, disposal) %>
+      <%= render Disposal::CardComponent.new(current_user, disposal) %>
     </div>
   <% end %>
 </div>

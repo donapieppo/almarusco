@@ -1,5 +1,5 @@
 <h1>Nuovo carico</h1>
 
-<%= render @disposal_type %>  
+<%= render DisposalType::CardComponent.new(current_user, @disposal_type, editable: false) %>  
 
 <%= render partial: 'form' %>  

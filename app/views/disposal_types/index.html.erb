@@ -13,7 +13,7 @@
 <div class="row">
   <% @disposal_types.each do |disposal_type| %>  
     <div class="col-6 col-md-6">
-      <%= render disposal_type, editable: policy(disposal_type).edit? %>
+      <%= render DisposalType::CardComponent.new(current_user, disposal_type) %>
     </div>
   <% end %>
 </div>

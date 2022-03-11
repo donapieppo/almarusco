@@ -1,6 +1,6 @@
-<h1>CARICO RIFIUTI</h1>
+<h1>Modifica carico</h1>
 
-<%= render @disposal.disposal_type %>  
+<%= render DisposalType::CardComponent.new(current_user, @disposal.disposal_type, editable: false) %>  
 
 <%= render partial: 'form' %>  
 

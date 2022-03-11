@@ -18,7 +18,7 @@
 <% @disposal_types.each do |disposal_type| %>
   <div class="choosable-disposal-type <%= disposal_type.physical_state %>">
     <%= link_to new_disposal_type_disposal_path(disposal_type), class: 'href-card' do %>  
-      <%= render disposal_type, editable: false %>  
+      <%= render DisposalType::CardComponent.new(current_user, disposal_type, editable: false) %>  
     <% end %>
   </div>
 <% end %>

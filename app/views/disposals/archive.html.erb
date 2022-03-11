@@ -12,7 +12,7 @@
 <div class="row">
   <% @disposals.each do |disposal| %>  
     <div class="disposal-card col-md-6" data-disposaltypeid="<%= disposal.disposal_type.id %>">
-      <%= render Disposal::ShowComponent.new(current_user, disposal) %>
+      <%= render Disposal::CardComponent.new(current_user, disposal) %>
     </div>
   <% end %>
 </div>
