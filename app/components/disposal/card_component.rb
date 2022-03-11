@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Disposal::ShowComponent < ViewComponent::Base
+class Disposal::CardComponent < ViewComponent::Base
   def initialize(current_user, disposal, with_details: true)
     @current_user = current_user
     @disposal = disposal

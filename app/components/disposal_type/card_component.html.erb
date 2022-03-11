@@ -1,0 +1,30 @@
+<div class="dm-card">
+  <div class="dm-card-title">
+    <%= @disposal_type.to_s %>
+    <%= @disposal_type.adrs_to_s %>  
+    <% @disposal_type.hp_codes.each do |hp| %>
+      <span class="badge rounded-pill bg-warning text-dark" style="font-size: 60%" title="<%= hp.description %>">
+        <%= hp.code %>
+      </span>
+    <% end %>
+    <% if @editable %>  
+      <span class="float-end"><%= link_to_edit [:edit, @disposal_type] %></span>
+    <% end %>
+  </div>
+  <div class="dm-card-body">
+    <div class="text-info" style="font-size: 80%">
+      <% if @disposal_type.un_code %>  
+        <strong>UN:</strong> <%= @disposal_type.un_code.name.upcase %><br/>
+      <% end %>
+      <strong>CER:</strong> <%= @disposal_type.cer_code.description.upcase %><br/>
+    </div>
+    <% unless @disposal_type.notes.blank? %>  
+      <div class="text-secondary">
+        note: <%= @disposal_type.notes %>  
+      </div>
+    <% end %>
+    <div style="text-align: right">
+      <% disposal_type_pictograms(@disposal_type, size: 40) %>  
+    </div>
+  </div>
+</div>
