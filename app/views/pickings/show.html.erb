@@ -1,23 +1,20 @@
 <h1>
   Ritiro con <%= @picking.supplier %>
-<small>(<%= @picking.date ? l(@picking.date) : 'data da definire' %>)</small>
+  <small>(<%= @picking.date ? l(@picking.date) : 'data da definire' %>)</small>
 </h1>
 
 <% @disposals_hash.keys.sort_by{ |dt| dt.cer_code_id }.each do |disposal_type| %>  
   <% total_kgs = 0.0 %>  
   <% total_volume = 0.0 %>  
   <%= dm_card title: disposal_type.to_s_complete do %>  
-    <div class="ms-4">
+    <div class="">
       <% @disposals_hash[disposal_type].each do |disposal| %>  
         <% total_kgs += disposal.kgs * 100 %>  
         <% total_volume += disposal.volume %>  
-        <%= link_to disposal do %>
-          <span class="btn btn-light btn-sm" title="id <%= disposal.id %>">
-            <%= disposal.kgs %> Kg.
-          </span>
-        <% end %>
+        <%= render Disposal::BadgeComponent.new(current_user, disposal, linked: true) %>  
       <% end %>
     </div>
+    <hr/>
     <div class="mt-2">
       <% total_kgs = total_kgs / 100 %>  
       <strong><%= total_kgs %> Kg. <%= total_volume %> L. </strong>
