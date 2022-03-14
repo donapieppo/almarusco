@@ -21,11 +21,12 @@ class PickingDocument < ApplicationRecord
   end
 
   def register_number_with_year
-    if self.register_number && self.picking.date
-      "#{self.register_number} / #{self.picking.date.year}"
+    if ! self.register_number 
+      "??? (manca numero)"
+    elsif ! self.picking.date
+      "??? (manca data in ritiro)"
     else
-      "???"
+      "#{self.register_number} / #{self.picking.date.year}"
     end
   end
-
 end
