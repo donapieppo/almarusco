@@ -11,7 +11,7 @@
   <div class="dm-card-body">
     <div class="row">
       <div class="col-md-3">
-        <div class="font-weight-bold">
+        <div class="fw-bold">
           <%= @disposal.volume %> L. <br/>
           <% if @disposal.kgs %>  
             <%= @disposal.kgs %> Kg. 
@@ -22,15 +22,16 @@
       </div>
       <div class="col-md-9">
         Produttore: <%= link_to @disposal.producer, disposals_path(u: @disposal.producer.id) %>
-      <% if @disposal.producer_id != @disposal.user_id %>  
-        (da <%= link_to @disposal.user, disposals_path(u: @disposal.user_id) %>)
-      <% end %> 
-      <br/>
-      Lab: <%= @disposal.lab %><br/>
-      Data richiesta: <%= l @disposal.created_at %> <br/>
-      <div class="font-italic text-gray-500">
-        <%= @disposal.notes %>  
-      </div>
+        <% if @disposal.producer_id != @disposal.user_id %>  
+          <small>(da <%= link_to @disposal.user, disposals_path(u: @disposal.user_id) %>)</small> 
+        <% end %> 
+        <div class="text-muted">
+          Lab: <%= @disposal.lab %><br/>
+          Data richiesta: <%= l @disposal.created_at %> <br/>
+          <div class="font-italic text-gray-500">
+            <%= @disposal.notes %>  
+          </div>
+        </div>
       </div>
     </div> <!-- row -->
     <% if @with_details %>  
@@ -42,7 +43,7 @@
         <strong>stato:</strong> <%= t @disposal.disposal_type.physical_state %>
       </div>
     <% end %>
-    <div class="row">
+    <div class="row mt-2">
       <div class="col-md-6">
         <%= link_to @disposal do %>
           <%= raw @status_icon %> 

@@ -1,0 +1,13 @@
+<% if @linked %>  
+  <%= link_to @disposal, class: "btn btn-outline-info me-2", style: 'position: relative' do %>  
+    <span class="small bg-info text-white" style="position: absolute; top: -6px; left: -6px; padding: 2px 6px"><%= @disposal.id %></span>
+    <span class="ps-4">   
+      <strong><%= @disposal.kgs %></strong> Kg. 
+      <strong><%= @disposal.volume %></strong> L. &nbsp;
+    </span>
+  <% end %>
+<% else %>
+  <span class="btn btn-light btn-sm" title="id <%= @disposal.id %>">
+    <%= @disposal.kgs %> Kg.
+  </span>
+<% end %>
