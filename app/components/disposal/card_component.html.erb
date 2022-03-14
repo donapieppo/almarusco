@@ -4,8 +4,8 @@
       <%= @disposal.disposal_type.to_s %>
       <span class="float-end"><%= @disposal.id %></span>
     </div>
-    <div>
-      <small><%= @disposal.disposal_type.hp_codes_to_s %></small>
+    <div class="small fw-normal">
+      <%= @disposal.disposal_type.hp_codes_to_s %>
     </div>
   </div>
   <div class="dm-card-body">
@@ -25,9 +25,9 @@
         <% if @disposal.producer_id != @disposal.user_id %>  
           <small>(da <%= link_to @disposal.user, disposals_path(u: @disposal.user_id) %>)</small> 
         <% end %> 
-        <div class="text-muted">
+        <div class="text-muted small">
           Lab: <%= @disposal.lab %><br/>
-          Data richiesta: <%= l @disposal.created_at %> <br/>
+          Richiesta del <%= l @disposal.created_at %> <br/>
           <div class="font-italic text-gray-500">
             <%= @disposal.notes %>  
           </div>
