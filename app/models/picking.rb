@@ -46,8 +46,4 @@ class Picking < ApplicationRecord
     self.disposals.update_all(delivered_at: Date.today)
     self.update(delivered_at: Date.today)
   end
-
-  def confirmed?
-    confirmed_at
-  end
 end
