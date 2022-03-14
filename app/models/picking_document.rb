@@ -26,7 +26,7 @@ class PickingDocument < ApplicationRecord
     elsif ! self.picking.date
       "??? (manca data in ritiro)"
     else
-      "#{self.register_number} / #{self.picking.date.year}"
+      "#{self.register_number}/#{self.picking.date.year}"
     end
   end
 end
