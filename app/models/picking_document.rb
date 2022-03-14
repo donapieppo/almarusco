@@ -15,7 +15,7 @@ class PickingDocument < ApplicationRecord
     organization = self.picking.organization
     year = self.picking.date.year
     pids = organization.pickings.where('YEAR(date) = ?', year).ids
-    if PickingDocument.where(register_number: self.register_number).where(picking_id: pids).any?
+    if PickingDocument.where.not(id: self.id).where(register_number: self.register_number).where(picking_id: pids).any?
       self.errors.add(:register_number, "Non univoco nell'anno #{year}")
     end
   end
