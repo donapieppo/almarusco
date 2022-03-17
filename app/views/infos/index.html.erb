@@ -13,7 +13,7 @@
         <% num += 1  %>  
         <% kgs += disposal.kgs.to_i %>  
         <% volume += disposal.volume %>  
-        <%= render Disposal::BadgeComponent.new(current_user, disposal, linked: true) %>  
+        <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
       <% end %>
     </div>
     <div class="dm-card-footer py-2">
