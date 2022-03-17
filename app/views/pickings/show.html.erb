@@ -11,7 +11,7 @@
       <% @disposals_hash[disposal_type].each do |disposal| %>  
         <% total_kgs += disposal.kgs * 100 %>  
         <% total_volume += disposal.volume %>  
-        <%= render Disposal::BadgeComponent.new(current_user, disposal, linked: true) %>  
+        <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
       <% end %>
     </div>
     <hr/>
