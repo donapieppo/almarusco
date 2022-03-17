@@ -12,7 +12,7 @@
   <% end %>
 </div>
 
-<form class="my-2 centered disposal_cer_selector">
+<form class="my-2 centered disposal_cer_selector" data-controller="cer-selector" data-action="change->cer-selector#change">
   <% @disposals_cers.each do |cer_code| %>  
     <input type="radio" id="<%= cer_code.id %>" name="disposal_to_show" />
     <label for="<%= cer_code.id %>" data-cerid="<%= cer_code.id %>">
@@ -29,8 +29,3 @@
     </div>
   <% end %>
 </div>
-
-<%= javascript_tag do %>  
-  <%# <%= render partial: 'disposals/js_infos', formats: [:js] %1> %>  
-  <%= render partial: 'disposals/show_by_type', formats: [:js] %>  
-<% end %>
