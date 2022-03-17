@@ -1,0 +1,25 @@
+<%= turbo_frame_tag "modal" do %>
+  <%= tag.div data: { controller: "turbo-modal", 
+                          action: "turbo:click->turbo-modal#followLink 
+                                   keyup@window->turbo-modal#closeWithKeyboard
+                                   click@window->turbo-modal#closeBackground
+                                   turbo:submit-end->turbo-modal#submitEnd" } do %>
+    <div id="modal-div" class="modal fade" tabindex="-1" aria-modal="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content position-relative" data-turbo-modal-target="modal">
+          <div class="position-absolute top-0 start-100 translate-middle p-2">
+            <%= button_tag "Chiudi", data: { action: "turbo-modal#hideModal" }, class: 'btn btn-success btn-sm' %>
+          </div>
+          <% unless @title.blank? %>  
+            <div class="modal-header">
+              <h2><%= @title %></h2>
+            </div>
+          <% end %>
+          <div class="modal-body">
+            <%= content %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
