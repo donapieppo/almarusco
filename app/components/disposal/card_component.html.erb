@@ -22,16 +22,16 @@
       </div>
       <div class="col-md-9">
         Produttore: <%= link_to @disposal.producer, disposals_path(u: @disposal.producer.id) %>
-        <% if @disposal.producer_id != @disposal.user_id %>  
-          <small>(da <%= link_to @disposal.user, disposals_path(u: @disposal.user_id) %>)</small> 
-        <% end %> 
-        <div class="text-muted small">
-          Lab: <%= @disposal.lab %><br/>
-          Richiesta del <%= l @disposal.created_at %> <br/>
-          <div class="font-italic text-gray-500">
-            <%= @disposal.notes %>  
-          </div>
+      <% if @disposal.producer_id != @disposal.user_id %>  
+        <small>(da <%= link_to @disposal.user, disposals_path(u: @disposal.user_id) %>)</small> 
+      <% end %> 
+      <div class="text-muted small">
+        Lab: <%= @disposal.lab %><br/>
+        Richiesta del <%= l @disposal.created_at %> <br/>
+        <div class="font-italic text-gray-500">
+          <%= @disposal.notes %>  
         </div>
+      </div>
       </div>
     </div> <!-- row -->
     <% if @with_details %>  
@@ -61,12 +61,10 @@
             <%= link_to(fwdmicon('edit', size: 21), [:edit, @disposal], title: 'Modifica il rifiuto') if @policy.edit? %>  
             <%= link_to(fwdmicon('clone', size: 21), [:clone, @disposal], title: 'Crea nuovo rifiuto simile') %>
             <%= link_to(fwdmicon('eye', size: 21), @disposal, title: 'Mostra dettagli') %>
-            <%= link_to(fwdmicon('trash-alt', size: 21), @disposal, method: :delete, title: 'Elimina il rifiuto', data: {confirm: 'Siete sicuri di voler cancellare?'}) if @policy.destroy? %> 
+            <%= helpers.link_to_delete(@disposal) if @policy.destroy? %>
           </div>
         <% end %>
       </div>
     </div>
   </div>
 </div> <!-- dm-card -->
-
-
