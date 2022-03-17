@@ -20,18 +20,16 @@
     <% end %>
 
     <main role="main" class="container">
-      <%= bootstrap_modal_div %>
+      <%= turbo_frame_tag "modal" %>
       <%= bootstrap_flash %>
 
       <% if current_organization %>  
-        <h2 class="centered"><%= current_organization.code %> - <%= current_organization.name %></h2>
+        <h2 class="centered">
+          <%= current_organization.code %> - <%= current_organization.name %>
+        </h2>
       <% end %>
 
-      <% begin %>  
-        <%= yield %>
-      <% rescue => errore %>
-        <%= errore %>
-      <% end %>
+      <%= yield %>
     </main><!-- container -->
 
     <% unless @no_menu %>  
