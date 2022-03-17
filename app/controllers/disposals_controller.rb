@@ -25,6 +25,7 @@ class DisposalsController < ApplicationController
   end
 
   def show
+    @modal = params[:modal]
   end
 
   def choose_disposal_type
