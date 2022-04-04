@@ -1,0 +1,32 @@
+<h1>MUD</h1>
+
+<table class="table table-bordered text-end">
+  <thead>
+    <tr class="table-primary">
+      <th>Cer</th>
+      <td>P. Netto</td>
+      <td>Rimanenza</td>
+      <td>Totale</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @mud.all_cers.each do |cer_code| %>  
+      <tr>
+        <th>
+          <%= cer_code %>
+        </th>
+        <td>
+          <%= kg1 = @summary[cer_code][:kgs] %> 
+        </td>
+        <td> 
+          <%= kg2 = @remainders[cer_code][:kgs] %> 
+        </td>
+        <td>
+          <%= kg1 + kg2 %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%# render Disposal::BadgeComponent.new(current_user, disposal) %>  
