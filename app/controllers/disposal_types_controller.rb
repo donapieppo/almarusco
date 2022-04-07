@@ -17,7 +17,7 @@ class DisposalTypesController < ApplicationController
     if @disposal_type.save
       redirect_to disposal_types_path
     else
-      render action: :new
+      render action: :new, status: :unprocessable_entity
     end
   end
 
@@ -28,7 +28,7 @@ class DisposalTypesController < ApplicationController
     if @disposal_type.update(disposal_type_params)
       redirect_to disposal_types_path
     else
-      render action: :edit
+      render action: :edit, status: :unprocessable_entity
     end
   end
 

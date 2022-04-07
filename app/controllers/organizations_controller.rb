@@ -16,7 +16,7 @@ class OrganizationsController < ApplicationController
       redirect_to current_organization_edit_path, notice: 'La Struttura è stata modificata.'
     else
       @permissions_hash = permissions_hash
-      render action: :edit
+      render action: :edit, status: :unprocessable_entity
     end
   end
 

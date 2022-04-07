@@ -21,7 +21,7 @@ class LabsController < ApplicationController
     if @lab.save
       redirect_to labs_path, notice: "Laboratorio creato correttamente."
     else
-      render action: :new
+      render action: :new, status: :unprocessable_entity
     end
   end
 
@@ -32,7 +32,7 @@ class LabsController < ApplicationController
     if @lab.update(name: params[:lab][:name])
       redirect_to labs_path, notice: "Il nome del laboratorio è stato modificato."
     else
-      render action: :edit
+      render action: :edit, status: :unprocessable_entity
     end
   end
 

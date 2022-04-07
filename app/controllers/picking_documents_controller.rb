@@ -12,7 +12,7 @@ class PickingDocumentsController < ApplicationController
     if @picking_document.save
       redirect_to @picking
     else
-      render action: :new
+      render action: :new, status: :unprocessable_entity
     end
   end
 
@@ -23,7 +23,7 @@ class PickingDocumentsController < ApplicationController
     if @picking_document.update(picking_document_params)
       redirect_to @picking
     else
-      render action: :edit
+      render action: :edit, status: :unprocessable_entity
     end
   end
   

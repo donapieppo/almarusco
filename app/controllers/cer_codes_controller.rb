@@ -17,7 +17,7 @@ class CerCodesController < ApplicationController
     if @cer_code.save
       redirect_to cer_codes_path, notice: "Laboratorio creato correttamente."
     else
-      render action: :new
+      render action: :new, status: :unprocessable_entity
     end
   end
 
@@ -28,7 +28,7 @@ class CerCodesController < ApplicationController
     if @cer_code.update(cer_code_params)
       redirect_to cer_codes_path, notice: "Il nome del laboratorio è stato modificato."
     else
-      render action: :edit
+      render action: :edit, status: :unprocessable_entity
     end
   end
 
