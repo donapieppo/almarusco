@@ -14,4 +14,6 @@ import TurboModalController from "./turbo_modal_controller"
 application.register("turbo-modal", TurboModalController)
 import CerSelectorController from "./cer_selector_controller"
 application.register("cer-selector", CerSelectorController)
+import DisposalTypeController from "./disposal_type"
+application.register("disposal-type", DisposalTypeController)
 

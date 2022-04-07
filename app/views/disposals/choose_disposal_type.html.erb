@@ -1,28 +1,27 @@
 <h1>Scegli la tipologia di rifiuto</h1>
 
-<form class="status_selector row">
+<form class="status_selector row" data-controller="disposal-type">
   <div class="col-md-4 my-1 text-center">
-    <input type="radio" id="sp" name="disposalType" />
+    <input type="radio" id="sp" name="disposalType" data-action="change->disposal-type#show_by_status" />
     <label for="sp">Solido</label>
   </div>
   <div class="col-md-4 my-1 text-center">
-    <input type="radio" id="snp" name="disposalType" />
+    <input type="radio" id="snp" name="disposalType" data-action="change->disposal-type#show_by_status" />
     <label for="snp">Solido non pulv.</label>
   </div>
   <div class="col-md-4 my-1 text-center">
-    <input type="radio" id="liq" name="disposalType" />
+    <input type="radio" id="liq" name="disposalType" data-action="change->disposal-type#show_by_status" />
     <label for="liq">Liquido</label>
   </div>
 </form>
 
-<% @disposal_types.each do |disposal_type| %>
-  <div class="choosable-disposal-type <%= disposal_type.physical_state %>">
-    <%= link_to new_disposal_type_disposal_path(disposal_type), class: 'href-card' do %>  
-      <%= render DisposalType::CardComponent.new(current_user, disposal_type, editable: false) %>  
-    <% end %>
-  </div>
-<% end %>
+<div class="row">
+  <% @disposal_types.each do |disposal_type| %>
+    <div class="col-md-6 choosable-disposal-type status_<%= disposal_type.physical_state %>">
+      <%= link_to new_disposal_type_disposal_path(disposal_type), class: 'href-card' do %>  
+        <%= render DisposalType::CardComponent.new(current_user, disposal_type, editable: false) %>  
+      <% end %>
+    </div>
+  <% end %>
+</div>
 
-<%= javascript_tag do %>  
-  <%= render partial: 'disposals/helpers', formats: [:js] %>  
-<% end %>
