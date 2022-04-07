@@ -11,6 +11,7 @@ class OperatorsController < ApplicationController
       @user = User.syncronize(params[:upn])
       @permission = current_organization.permissions.new(authlevel: Rails.configuration.authlevels[:operate], 
                                                          user_id: @user.id,
+                                                         expiry: params[:expiry], 
                                                          producer_id: @producer.id)
       if @permission.save
         redirect_to producers_path, notice: "È stato aggiunta la delega a #{@user} per #{@producer}."

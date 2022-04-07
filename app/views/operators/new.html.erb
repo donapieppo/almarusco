@@ -1,12 +1,28 @@
-<h1>Nuovo operatore</h1>
+<h1>
+  Nuovo operatore per <br/><small><%= @producer %></small>
+</h1>
 
-<div class="centered">
+<div class="">
   <div class="my-4">
     Inserire la mail del collega abilitato a operare in nome di <strong><%= @producer %></strong>.
   </div>
   <%= form_with url: producer_operators_path(@producer) do |f| %>  
-    <%= f.label 'email: ' %>  
-    <%= f.text_field :upn %>  
-    <%= f.submit "Invia" %>  
+    <div class="row">
+      <div class="col-md-3 py-2">
+        <%= f.label 'email:', class: 'float-end' %>  
+      </div>
+      <div class="col-md-9 py-2">
+        <%= f.text_field :upn %>   
+      </div>
+      <div class="col-md-3 py-2">
+        <%= f.label 'scadenza:', class: 'float-end' %>
+      </div>
+      <div class="col-md-9 py-2">
+        <%= f.date_field :expiry, html5: true %>  
+      </div>
+    </div>
+    <div class="offset-md-3 col-md-9 py-2">
+      <%= f.submit "Invia" %>  
+    </div>
   <% end %>
 </div>
