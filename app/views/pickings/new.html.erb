@@ -19,7 +19,7 @@
 
   <div class="list-group">
     <% @suppliers.each do |supplier| %>  
-      <%= link_to supplier.name, pickings_path(supplier_id: supplier.id), method: :post, class: 'list-group list-group-item list-group-item-action' %>  
+      <%= button_to supplier.name, pickings_path(supplier_id: supplier.id), class: 'list-group list-group-item list-group-item-action' %>  
     <% end %>
   </div>
 <% else %>
