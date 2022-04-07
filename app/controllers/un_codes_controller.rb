@@ -11,18 +11,26 @@ class UnCodesController < ApplicationController
     authorize @un_code
   end
 
+  # FIXME bad choiche id from user?
   def create
-    if UnCode.find_by_id(params[:un_code][:id])
-      skip_authorization
-      redirect_to un_codes_path, alert: 'Codice già esistente.'
+    _id = params[:un_code][:id].to_i
+    if _id > 0
+      if UnCode.find_by_id(_id)
+        skip_authorization
+        redirect_to un_codes_path, alert: 'Codice già esistente.'
+      else
+        @un_code = UnCode.new(un_code_params)
+        authorize @un_code
+        if @un_code.save
+          redirect_to un_codes_path, notice: "Codice UN creato correttamente."
+        else
+          render action: :new, status: :unprocessable_entity
+        end
+      end
     else
       @un_code = UnCode.new(un_code_params)
       authorize @un_code
-      if @un_code.save
-        redirect_to un_codes_path, notice: "Laboratorio creato correttamente."
-      else
-        render action: :new
-      end
+      render action: :new, status: :unprocessable_entity
     end
   end
 
@@ -33,7 +41,7 @@ class UnCodesController < ApplicationController
     if @un_code.update(un_code_params)
       redirect_to un_codes_path, notice: "Il nome del laboratorio è stato modificato."
     else
-      render action: :edit
+      render action: :edit, status: :unprocessable_entity
     end
   end
 
@@ -48,6 +56,6 @@ class UnCodesController < ApplicationController
   end
 
   def un_code_params
-    params[:un_code].permit(:name, :description, :danger)
+    params[:un_code].permit(:id, :name)
   end
 end
