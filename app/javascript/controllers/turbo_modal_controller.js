@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import * as bootstrap from "bootstrap"
 
 export default class extends Controller {
-  static targets = ["modal"]
+  static targets = ["modalContent"]
 
   connect() {
     console.log("modal connected");
@@ -48,8 +48,8 @@ export default class extends Controller {
 
   closeBackground(e) {
     console.log(this.element);
-    console.log(this.modalTarget);
-    if (e && this.modalTarget.contains(e.target)) {
+    console.log(this.modalContentTarget);
+    if (e && this.modalContentTarget.contains(e.target)) {
       return
     }
     this.hideModal()
