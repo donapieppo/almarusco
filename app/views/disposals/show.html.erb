@@ -3,16 +3,16 @@
     <%= render Disposal::CardComponent.new(current_user, @disposal) %>
   <% end %>
 <% else %>
-  <h1>Detttagli rifiuto</h1>
+  <h1>Dettagli rifiuto</h1>
 
   <%= render Disposal::CardComponent.new(current_user, @disposal) %>
 
   <div class="centered my-2">
     <% if @disposal.undelivered? && policy(current_organization).manage? %>  
       <% if @disposal.approved? %>  
-        <%= link_to 'Disaccetta', unapprove_disposal_path(@disposal), method: :post, class: 'btn btn-success btn-lg' %>  
+        <%= button_to 'Disaccetta', unapprove_disposal_path(@disposal), class: 'btn btn-success btn-lg' %>  
       <% else %>
-        <%= link_to 'Accetta', approve_disposal_path(@disposal), method: :post, class: 'btn btn-success btn-lg' %>  
+        <%= button_to 'Accetta', approve_disposal_path(@disposal), class: 'btn btn-success btn-lg' %>  
       <% end %>
     <% end %>
     <u><%= link_to ' torna alla lista degli scarichi', disposals_path(h: @disposal.id, anchor: @disposal.id), class: 'ms-4' %></u>
