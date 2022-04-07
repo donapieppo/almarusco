@@ -10,11 +10,7 @@ class PickingDocument::ShowComponent < ViewComponent::Base
 
     @picking_document = @picking.picking_documents.where(disposal_type: @disposal_type).first   
 
-    if @picking_document && @picking_document.kgs == @expected_kgs && @picking_document.volume == @expected_volume
-      @all_ok = true
-    else
-      @all_ok = false
-    end
+    @all_ok = (@picking_document && @picking_document.kgs.to_i == @expected_kgs.round && @picking_document.volume == @expected_volume)
   end
 end
 
