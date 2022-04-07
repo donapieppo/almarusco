@@ -96,7 +96,7 @@ class PickingsController < ApplicationController
     res << disposal_type.hp_codes_to_s
     res << (disposal_type.adr ? 'si' : '')
     res << disposal_type.un_code
-    res << "???"
+    res << disposal_type.adrs_to_s
     res
   end
 end
