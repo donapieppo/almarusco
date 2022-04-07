@@ -1,6 +1,6 @@
 <h1>Scegli formato</h1>
 
-<%= form_for :print, url: prints_path do |f| %>  
+<%= form_for :print, url: prints_path, html: { data: { turbo: false } } do |f| %>  
   <div class="row">
     <div class="col-4">
       <h2 class="my-4">Scegli le etichette da stampare</h2>
