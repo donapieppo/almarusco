@@ -1,12 +1,9 @@
 class SystemMailer < ApplicationMailer
-  def notify_approved_disposals(user, organization, data_inizio, data_fine, subject, elenco)
-    @user         = user
-    @organization = organization
-    @data_inizio  = data_inizio.strftime("%d/%m/%Y")
-    @data_fine    = data_fine.strftime("%d/%m/%Y")
-    @elenco       = elenco  
+  def notify_approved_disposals(user, disposals)
+    @user      = user
+    @disposals = disposals
 
     mail(to:      @user.upn, 
-         subject: subject)
+         subject: "Resoconto di prova carichi rifiuti pericolosi")
   end
 end
