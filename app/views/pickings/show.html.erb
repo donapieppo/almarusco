@@ -9,17 +9,13 @@
   <%= dm_card title: disposal_type.to_s_complete do %>  
     <div class="">
       <% @disposals_hash[disposal_type].each do |disposal| %>  
-        <% total_kgs += disposal.kgs * 100 %>  
+        <% total_kgs += disposal.kgs %>  
         <% total_volume += disposal.volume %>  
         <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
       <% end %>
     </div>
     <hr/>
-    <div class="mt-2">
-      <% total_kgs = total_kgs / 100 %>  
-      <strong><%= total_kgs %> Kg. <%= total_volume %> L. </strong>
-    </div>
-    <div class="mt-2">
+    <div class="mt-1">
       <%= render PickingDocument::ShowComponent.new(current_user, @picking, disposal_type, expected_kgs: total_kgs, expected_volume: total_volume) %>  
     </div>
   <% end %>
@@ -31,8 +27,7 @@
     <%= link_to 'STAMPA', [:print, @picking], class: 'btn btn-primary' %>  
     <%= link_to 'ESTRAI EXCEL', [:print, @picking, format: :csv], class: 'btn btn-primary' %> 
     <span class="px-4"> - </span>
-    <%= link_to 'CONCLUDI', [:deliver, @picking], method: :put, class: 'btn btn-warning', data: {confirm: 'Siete sicuri di voler archiviare i rifiuti collegati a questo scarico?'} %>  
-
+    <%= button_to 'CONCLUDI', [:deliver, @picking], method: :put, class: 'btn btn-warning', form: { data: { 'turbo-confirm': 'Siete sicuri di voler archiviare i rifiuti collegati a questo scarico?'}, class: 'd-inline px-0 mx-0' } %>  
   </div>
 <% end %>
 
