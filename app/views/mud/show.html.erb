@@ -1,4 +1,4 @@
-<h1>MUD</h1>
+<h1>MUD <%= @year %></h1>
 
 <table class="table table-bordered text-end">
   <thead>
@@ -12,17 +12,17 @@
   <tbody>
     <% @mud.all_cers.each do |cer_code| %>  
       <tr>
-        <th>
+        <th title="<%= cer_code.description %>">
           <%= cer_code %>
         </th>
         <td>
-          <%= kg1 = @summary[cer_code][:kgs] %> 
+          <%= kg1 = @summary[cer_code][:kgs].to_i %> 
         </td>
         <td> 
-          <%= kg2 = @remainders[cer_code][:kgs] %> 
+          <%= kg2 = @remainders[cer_code][:kgs].to_i %> 
         </td>
         <td>
-          <%= kg1 + kg2 %>
+          <%= kg1.to_i + kg2.to_i %>
         </td>
       </tr>
     <% end %>
