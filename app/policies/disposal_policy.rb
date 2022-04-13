@@ -4,23 +4,27 @@ class DisposalPolicy < ApplicationPolicy
   end
 
   def show?
-    @user.owns?(@record) || @user.id == @record.producer_id || @user.can_manage?(@record.organization_id)
+    @user.owns?(@record) || @user.id == @record.producer_id || organization_manager?(@record.organization)
   end
 
   def choose_disposal_type?
     current_organization_disposer?
   end
 
+  def new?
+    current_organization_disposer?
+  end
+
+  def create?
+    organization_disposer?(@record.organization)
+  end
+
   def clone?
     new?
   end
 
-  def create?
-    current_organization_disposer?
-  end
-
   def update?
-    @user && ((! @record.approved? && @record.undelivered? && @user.owns?(@record)) || OrganizationPolicy.new(@user, @record.organization_id).manage?)
+    @user && ((! @record.approved? && @record.undelivered? && @user.owns?(@record)) || organization_manager?(@record.organization))
   end
 
   # ONLY MANAGER and only not delivered FIXME puo' succedere il contrario?
@@ -29,7 +33,7 @@ class DisposalPolicy < ApplicationPolicy
   end
 
   def approve?
-    OrganizationPolicy.new(@user, @record.organization_id).manage?
+    organization_manager?(@record.organization)
   end
 
   def unapprove?
@@ -41,6 +45,6 @@ class DisposalPolicy < ApplicationPolicy
   end
 
   def archive?
-    current_organization_manager?
+    organization_manager?(@record.organization)
   end
 end
