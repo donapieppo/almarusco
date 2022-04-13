@@ -3,12 +3,12 @@
   Vi preghiamo di inserire/aggiornare questi dati con cura.
 </div>
 
-<%= dm_form_for @supplier, title: 'Dati fornitore' do |s| %>
-  <%= s.dm_error_notification %>  
-  <%= s.input :name %>
-  <%= s.input :pi %>
-  <%= s.input :address %>
-  <%= s.association :cer_codes, as: :check_boxes %>
-  <%= s.submit %> 
+<%= dm_form_for @supplier, title: 'Dati fornitore' do |f| %>
+  <%= f.dm_error_notification %>  
+  <%= f.input :name %>
+  <%= f.input :pi %>
+  <%= f.input :address %>
+  <%= f.association :cer_codes, as: :check_boxes %>
+  <%= f.submit %> - <%= link_to 'indietro', suppliers_path %>  
 <% end %>
 
