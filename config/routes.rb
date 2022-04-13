@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   # cesia list (more than dm_unibo_common)
   get '/organizations',              to: 'organizations#index', as: "organizations"
-  get '/helps',                      to: 'helps#index' # OLD
+  # get '/helps',                      to: 'helps#index' # OLD
 
   scope ":__org__" do
     # current_organization implicit
@@ -60,6 +60,7 @@ Rails.application.routes.draw do
 
     resources :archives
 
+    get 'mud', to: 'mud#show', as: :mud
     get 'infos', to: 'infos#index', as: :infos
   end
 
