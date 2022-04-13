@@ -45,6 +45,7 @@ it:
         pictograms: Pittogrammi
       disposal:
         producer: Produttore
+        producer_upn: Produttore 
         kgs: Peso
         volume: Volume
         notes: Note
