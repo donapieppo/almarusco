@@ -114,6 +114,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.datetime "updated_at", precision: nil
     t.datetime "created_at", precision: nil
     t.integer "producer_id", unsigned: true
+    t.date "expiry"
     t.index ["organization_id"], name: "fk_organization_permission"
     t.index ["producer_id"], name: "fk_permission_producer"
     t.index ["user_id"], name: "fk_user_permission"
@@ -136,7 +137,6 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.date "date"
     t.datetime "created_at", precision: nil
     t.date "delivered_at"
-    t.date "confirmed_at"
     t.index ["organization_id"], name: "fk_pickings_organizations"
     t.index ["supplier_id"], name: "fk_pickings_suppliers"
   end
