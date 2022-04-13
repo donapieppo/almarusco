@@ -7,6 +7,10 @@
 <%= simple_form_for [@disposal_type, @disposal], wrapper: :horizontal_form do |f| %>  
   <% if @producers && @producers.any? %>  
     <%= f.association :producer, collection: @producers, include_blank: false, label_method: :cn_militar %>  
+  <% elsif policy(current_organization).manage? %>
+      <%= content_tag :div, data: { controller: "dsa-awesomplete", dsa_awesomplete_users_value: @cache_users_json } do %>
+        <%= f.input :producer_upn, hint: "Inserire l'idirizzo email.", placeholder: 'nome.cognome@unbo.it' %>
+      <% end %>
   <% end %>
   <%= f.association :lab, collection: current_organization.labs.order(:name) %>  
   <%= f.input :volume, as: :radio_buttons, collection: volumes_collection, wrapper: :horizontal_collection %>  

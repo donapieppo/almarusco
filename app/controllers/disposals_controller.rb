@@ -2,22 +2,24 @@ class DisposalsController < ApplicationController
   helper DisposalHelper
 
   before_action :set_disposal_type, only: %i(new create)
-  before_action :set_permitted_producers, only: %i(new clone create)
+  before_action :set_permitted_producers, only: %i(new create)
+  before_action :set_cache_users, only: %i(new clone update)
   before_action :set_disposal_and_check_permission, only: %i(show edit update destroy approve unapprove)
 
   def index
     authorize :disposal
     @highlight_id = params[:h].to_i
-    @disposals = current_organization.disposals.undelivered.includes(:user, :producer, :lab, disposal_type: [:cer_code, :un_code, :hp_codes, :adrs])
-    if policy(current_organization).manage?
-      if params[:u]
-        @user = User.find(params[:u].to_i)
-        @disposals = @disposals.user_or_producer(@user.id)
-      end
-    else
-      @disposals = @disposals.user_or_producer(current_user.id)
+
+    if params[:u] && policy(current_organization).manage?
+      @user = User.find(params[:u].to_i)
     end
-    @disposals = @disposals.order("disposals.id DESC, disposals.user_id ASC")
+
+    @disposals = current_organization.disposals
+                                     .undelivered
+                                     .user_or_producer(@user ? @user.id : current_user.id)
+                                     .order("disposals.id DESC, disposals.user_id ASC")
+                                     .include_all
+
     _disposal_types = @disposals.map(&:disposal_type_id).uniq
     @disposals_cers = current_organization.disposal_types
                                           .includes(:cer_code)
@@ -51,21 +53,11 @@ class DisposalsController < ApplicationController
   end
 
   def create
-    # if @producers => only operator and @producers array that must contain producer_id
-    # else is producer itsself
-    if params[:disposal][:producer_id] && @producers 
-      @producer = User.find(params[:disposal][:producer_id])
-      unless @producer && @producers.include?(@producer)
-        raise "PRODUCER ERRATO" 
-      end
-    else
-      @producer = current_user
-    end
-
     @disposal = current_user.disposals.new(disposal_params)
     @disposal.organization_id = current_organization.id
     @disposal.disposal_type_id = @disposal_type.id
-    @disposal.producer_id = @producer.id
+
+    set_producer
 
     authorize @disposal
     if @disposal.save
@@ -133,6 +125,7 @@ class DisposalsController < ApplicationController
 
   private
 
+  # no producer or user!
   def disposal_params
     params[:disposal].permit(:volume, :kgs, :lab_id, :notes)
   end
@@ -152,5 +145,26 @@ class DisposalsController < ApplicationController
     if @producers.any? && current_user.authorization.can_dispose?(current_organization)
       @producers << current_user 
     end
+  end
+
+  def set_cache_users
+    @cache_users_json = User.all_in_cache(current_organization.id).map{|x| "#{x.to_s} (#{x.upn})"}.to_json
+  end
+
+  # if @producers => current_user only operator and @producers array that must contain producer_id
+  # else is producer itsself
+  def set_producer
+    if params[:disposal][:producer_id] && @producers 
+      @producer = User.find(params[:disposal][:producer_id])
+      unless @producer && @producers.include?(@producer)
+        raise "PRODUCER ERRATO" 
+      end
+    elsif params[:disposal][:producer_upn] && params[:disposal][:producer_upn] =~ /(\w+\.\w+)/ && policy(current_organization).manage?
+      @producer = User.find_by_upn("#{$1}@unibo.it")
+    else
+      @producer = current_user
+    end
+
+    @disposal.producer_id = @producer.id
   end
 end
