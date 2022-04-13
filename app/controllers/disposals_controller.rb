@@ -10,15 +10,17 @@ class DisposalsController < ApplicationController
     authorize :disposal
     @highlight_id = params[:h].to_i
 
-    if params[:u] && policy(current_organization).manage?
-      @user = User.find(params[:u].to_i)
-    end
-
     @disposals = current_organization.disposals
                                      .undelivered
-                                     .user_or_producer(@user ? @user.id : current_user.id)
                                      .order("disposals.id DESC, disposals.user_id ASC")
                                      .include_all
+
+    if params[:u] && policy(current_organization).manage?
+      @user = User.find(params[:u].to_i)
+      @disposals = @disposals.user_or_producer(@user.id)
+    end
+
+    @disposals = @disposals.user_or_producer(current_user.id) unless policy(current_organization).manage?
 
     _disposal_types = @disposals.map(&:disposal_type_id).uniq
     @disposals_cers = current_organization.disposal_types
