@@ -27,15 +27,15 @@
       <%= dm_card title: producer.user.cn_militar do %>  
         <% producer %>  
         <% current_organization.permissions.where(producer_id: producer.user_id).includes(:user).each do |permission| %>  
-          <div>
+          <div class="my-1">
             operatore: <%= permission.user %>
-            <i>(termina il <%= l permission.expiry %>)</i>
-          <span class="float-end">
-            <%= link_to_delete operator_path(permission.id) %>
-          </span>
+            <i>(fino al <%= l permission.expiry %>)</i>
+            <span class="float-end">
+              <%= link_to_delete operator_path(permission.id) %>
+            </span>
           </div>
         <% end %>
-        <div class="mt-4 float-end">
+        <div class="mt-2 float-end">
           <%= link_to dmicon('plus') + ' aggiungi operatore', new_producer_operator_path(producer.user_id) %> &nbsp;  
           <%= link_to_delete "elimina produttore", producer_path(producer) %>
         </div>
