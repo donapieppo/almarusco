@@ -1,4 +1,5 @@
-ALTER TABLE `pickings` ADD COLUMN `confirmed_at` date after `delivered_at`;
+alter table `permissions` add column `expiry` date after `producer_id`; 
+update permissions set expiry = '2023-01-01' where producer_id is not null ;
 
 CREATE TABLE `picking_documents` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
