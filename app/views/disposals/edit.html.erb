@@ -1,4 +1,4 @@
-<h1>Modifica carico</h1>
+<h1>Modifica carico <%= @disposal.id %></h1>
 
 <%= render DisposalType::CardComponent.new(current_user, @disposal.disposal_type, editable: false) %>  
 
