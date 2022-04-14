@@ -60,11 +60,15 @@ class Disposal < ApplicationRecord
   end
 
   # possiamo passare 'pietro.donatini' 'pietro.donatini@unibo.it' 'Pietro donatini pietro.donatini@unibo.it'
+  # FIXME check before use :-) For now see disposals_controller set_producer
   def producer_upn=(upn)
     if upn =~ /(\w+\.\w+)/ 
-      @_user_upn = "#{$1}@unibo.it"
+      _producer = User.find_or_syncronize("#{$1}@unibo.it")
     else
-      @_user_upn = upn
+      _producer = User.find_or_syncronize(upn)
+    end
+    if _producer
+      self.producer = _producer
     end
   end
 end
