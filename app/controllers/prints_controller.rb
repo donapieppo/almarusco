@@ -12,6 +12,9 @@ class PrintsController < ApplicationController
     end
     @disposals = @disposals.order(:user_id).order('created_at desc')
     authorize :print
+    if @disposals.empty?
+      redirect_to root_path, alert: 'Non sono presenti rifiuti da stampare.'
+    end
   end
 
   # "paper_boxes"=>["1-1", "2-2"]
