@@ -49,6 +49,7 @@ class DisposalsController < ApplicationController
     @disposal = current_user.disposals.new(disposal_type_id: @disposal_type.id,
                                            organization_id: current_organization.id,
                                            lab_id: @orig.lab_id,
+                                           volume: @orig.volume,
                                            producer_id: @orig.producer_id)
     authorize @disposal
     render action: :new
@@ -58,7 +59,6 @@ class DisposalsController < ApplicationController
     @disposal = current_user.disposals.new(disposal_params)
     @disposal.organization_id = current_organization.id
     @disposal.disposal_type_id = @disposal_type.id
-
     set_producer
 
     authorize @disposal
@@ -143,26 +143,31 @@ class DisposalsController < ApplicationController
 
   # if user is operator can also be producer for themself
   def set_permitted_producers
-    @producers = current_user.permitted_producers(current_organization)
-    if @producers.any? && current_user.authorization.can_dispose?(current_organization)
-      @producers << current_user 
+    @permitted_producers = current_user.permitted_producers(current_organization)
+    if @permitted_producers.any? && current_user.authorization.can_dispose?(current_organization)
+      @permitted_producers << current_user 
     end
   end
 
   def set_cache_users
-    @cache_users_json = User.all_in_cache(current_organization.id).map{|x| "#{x.to_s} (#{x.upn})"}.to_json
+    @cache_users_json = current_organization.users_cache.map{|x| "#{x.to_s} (#{x.upn})"}.to_json
   end
 
-  # if @producers => current_user only operator and @producers array that must contain producer_id
+  # if @permitted_producers => current_user only operator and @permitted_producers array that must contain producer_id
   # else is producer itsself
   def set_producer
-    if params[:disposal][:producer_id] && @producers 
-      @producer = User.find(params[:disposal][:producer_id])
-      unless @producer && @producers.include?(@producer)
+    producer_id  = params[:disposal].delete(:producer_id)
+    producer_upn = params[:disposal].delete(:producer_upn)
+    # Operator
+    if producer_id && @permitted_producers.any? 
+      @producer = User.find(producer_id)
+      unless @producer && @permitted_producers.include?(@producer)
         raise "PRODUCER ERRATO" 
       end
-    elsif params[:disposal][:producer_upn] && params[:disposal][:producer_upn] =~ /(\w+\.\w+)/ && policy(current_organization).manage?
-      @producer = User.find_by_upn("#{$1}@unibo.it")
+    # Admin
+    elsif producer_upn && producer_upn =~ /(\w+\.\w+)/ && policy(current_organization).manage?
+      @producer = User.find_or_syncronize("#{$1}@unibo.it")
+    # The rest
     else
       @producer = current_user
     end
