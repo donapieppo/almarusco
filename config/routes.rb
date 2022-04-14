@@ -61,7 +61,7 @@ Rails.application.routes.draw do
     resources :archives
 
     get 'mud', to: 'mud#show', as: :mud
-    get 'infos', to: 'infos#index', as: :infos
+    get 'deposit', to: 'deposits#index', as: :deposit
   end
 
   root to: 'disposals#index'
