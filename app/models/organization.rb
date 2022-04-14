@@ -12,6 +12,18 @@ class Organization < ApplicationRecord
 
   before_destroy :manual_delete
 
+  # Ritorna tutti gli utenti che sono stati in qualche modo associati ad una certa struttura in passato
+  # Di solito sono gli utenti che hanno fatto s/carichi o a cui sono stati associati scarichi 
+  # Andiamo indietro di un paio di anni (RECENTY in configuration for caching in mysql)
+  def users_cache
+    User.find_by_sql "SELECT DISTINCT users.id, users.upn, name, surname 
+                                 FROM users, disposals 
+                                WHERE organization_id = #{self.id.to_i} 
+                                  AND users.id = producer_id
+                                   OR users.id = user_id
+                             ORDER BY surname"
+  end
+
   private 
 
   def check_mail_parameters
