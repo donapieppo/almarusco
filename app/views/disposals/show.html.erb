@@ -1,5 +1,5 @@
 <% if @modal %>  
-  <%= render Modal::TurboModalComponent.new() do %>
+  <%= render TurboModal::ModalComponent.new() do %>
     <%= render Disposal::CardComponent.new(current_user, @disposal) %>
   <% end %>
 <% else %>
@@ -15,6 +15,9 @@
         <%= button_to 'Accetta', approve_disposal_path(@disposal), class: 'btn btn-success btn-lg' %>  
       <% end %>
     <% end %>
+  </div>
+
+  <div class="centered my-2">
     <u><%= link_to ' torna alla lista degli scarichi', disposals_path(h: @disposal.id, anchor: @disposal.id), class: 'ms-4' %></u>
   </div>
 
