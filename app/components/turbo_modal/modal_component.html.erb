@@ -4,9 +4,9 @@
                                    keyup@window->turbo-modal#closeWithKeyboard
                                    click@window->turbo-modal#closeBackground
                                    turbo:submit-end->turbo-modal#submitEnd" } do %>
-    <div id="modal-div" class="modal fade" tabindex="-1" aria-modal="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content position-relative" data-turbo-modal-target="modalContent">
+    <div id="modal_div" class="modal fade" tabindex="-1" aria-modal="true">
+      <div id="modal_dialog" class="modal-dialog modal-lg modal-dialog-centered">
+        <div id="modal_content" class="modal-content position-relative" data-turbo-modal-target="modalContent">
           <div class="position-absolute top-0 start-100 translate-middle p-2">
             <%= button_tag "Chiudi", data: { action: "turbo-modal#hideModal" }, class: 'btn btn-success btn-sm' %>
           </div>

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 include Turbo::FramesHelper
 
-class Modal::TurboModalComponent < ViewComponent::Base
+class TurboModal::ModalComponent < ViewComponent::Base
   def initialize(title: "", hidden: false)
     @title = title
     @hidden = hidden
