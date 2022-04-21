@@ -1,4 +1,5 @@
 @import "variables";
+@import "awesomplete";
 @import "dm";
 
 body {
@@ -144,3 +145,4 @@ form.disposal_cer_selector {
 .disposal-highlighted .dm-card-title {
   @extend .bg-warning;
 }
+
