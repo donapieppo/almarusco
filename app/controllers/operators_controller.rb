@@ -7,7 +7,7 @@ class OperatorsController < ApplicationController
   # FIXME check operator not already producer in organization
   def create
     if params[:expiry].blank? || params[:upn].blank?
-      redirect_to producers_path, alert: 'Si prega di fornire email e data di scadenza.'
+      redirect_to producers_path, alert: 'Si prega di fornire e-mail e data di scadenza.'
       return
     end
     begin

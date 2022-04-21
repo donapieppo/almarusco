@@ -4,12 +4,12 @@
 
 <div class="">
   <div class="my-4">
-    Inserire la mail del collega abilitato a operare in nome di <strong><%= @producer %></strong>.
+    Inserire l'e-mail del collega abilitato a operare in nome di <strong><%= @producer %></strong>.
   </div>
   <%= form_with url: producer_operators_path(@producer) do |f| %>  
     <div class="row">
       <div class="col-md-3 py-2">
-        <%= f.label 'email:', class: 'float-end' %>  
+        <%= f.label 'e-mail:', class: 'float-end' %>  
       </div>
       <div class="col-md-9 py-2">
         <%= f.text_field :upn %>   

@@ -19,13 +19,13 @@ it:
 
     attributes:
       admin:
-        user_upn: Indirizzo mail
+        user_upn: Indirizzo e-mail
         organization: Struttura
       organization:
         code: Codice 
         name: Nome
         description: Descrizione 
-        adminmail: Mail per notifiche
+        adminmail: E-mail per notifiche
       admin:
         authlevel: Permessi
       supplier:
