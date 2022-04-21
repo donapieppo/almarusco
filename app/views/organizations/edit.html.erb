@@ -18,9 +18,4 @@
       <%= link_to 'Modifica', dm_unibo_common.organization_permissions_path(current_organization), class: 'btn btn-primary' %>  
     <% end %>
   </dl>
-  <% unless current_user.is_cesia? %>  
-    <div class="alert alert-warning">
-      Per modificare...
-    </div>
-  <% end %>
 <% end %>
