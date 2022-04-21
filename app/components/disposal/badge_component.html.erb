@@ -1,9 +1,11 @@
-<%= link_to disposal_path(@disposal, modal: 1), class: "btn btn-outline-secondary me-2 mb-2 font-monospace", style: 'position: relative', data: { turbo_frame: 'modal' } do %>  
-  <span class="badge bg-info" style="position: absolute; top: -6px; left: -6px">
-    <%= @disposal.id %>
-  </span>
-  <span class="ps-4">   
-    <strong><%= @disposal.kgs %></strong> Kg. 
-    <strong><%= @disposal.volume %></strong> L. &nbsp;
-  </span>
-<% end %>
+<div class="font-monospace" style="position: relative">
+  <%= link_to disposal_path(@disposal, modal: 1), class: "btn btn-outline-secondary me-2 mb-2", data: { turbo_frame: 'modal' } do %>  
+    <span class="badge bg-info" style="position: absolute; top: -6px; left: -6px">
+      <%= @disposal.id %>
+    </span>
+    <span class="ps-4">   
+      <strong><%= @disposal.kgs %></strong> Kg. 
+      <strong><%= @disposal.volume %></strong> L. &nbsp;
+    </span>
+  <% end %>
+</div>
