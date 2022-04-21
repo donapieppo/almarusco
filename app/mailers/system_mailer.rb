@@ -4,6 +4,6 @@ class SystemMailer < ApplicationMailer
     @disposals = disposals
 
     mail(to:      @user.upn, 
-         subject: "Resoconto di prova carichi rifiuti pericolosi")
+         subject: "Oggetto: conferimento rifiuti.")
   end
 end
