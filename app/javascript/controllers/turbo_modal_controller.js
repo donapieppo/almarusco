@@ -5,9 +5,9 @@ export default class extends Controller {
   static targets = ["modalContent"]
 
   connect() {
-    console.log("modal connected");
-    this.modalDiv = document.getElementById("modal-div");
-    console.log(this.modalDiv)
+    console.log("turbo modal connected");
+    this.modalDiv = document.getElementById("modal_div");
+    this.modalContent = document.getElementById("modal_content"); // to locate click
     this.modal = bootstrap.Modal.getOrCreateInstance(this.modalDiv);
     this.modal.show()
   }
@@ -47,9 +47,7 @@ export default class extends Controller {
   }
 
   closeBackground(e) {
-    console.log(this.element);
-    console.log(this.modalContentTarget);
-    if (e && this.modalContentTarget.contains(e.target)) {
+    if (e && this.modalContent.contains(e.target)) {
       return
     }
     this.hideModal()
