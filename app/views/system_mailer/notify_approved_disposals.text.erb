@@ -1,8 +1,24 @@
-Mail di prova.
+Gentile collega,
 
-<%= @disposals.each do |disposal| %>  
-  <%= disposal %>  
+  in data odierna sono stati accettati i seguenti rifiuti:
+
+<% @disposals.each do |disposal| %> 
+
+------------------------------------------------
+<%= disposal.organization %> 
+    Laboratorio: <%= disposal.lab %>
+  <% if disposal.producer != disposal.user %>  
+    Operatore: <%= disposal.user %> (<%= disposal.user.upn %>)
+  <% end %>
+    <%= disposal.disposal_type %>  
+    <%= disposal.volume %> Litri
+------------------------------------------------
+
 <% end %>
 
-Pietro Donatini
+Per qualunque domanda può contattare i responsabili delle unità 
+locali indicate sopra.
+
+  Cordialmente
+
 
