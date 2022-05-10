@@ -6,7 +6,7 @@ Gentile collega,
 
 ------------------------------------------------
 <%= disposal.organization %> 
-    Laboratorio: <%= disposal.lab %>
+    Id: <%= disposal.id  %>, Laboratorio: <%= disposal.lab %>
   <% if disposal.producer != disposal.user %>  
     Operatore: <%= disposal.user %> (<%= disposal.user.upn %>)
   <% end %>
@@ -19,6 +19,4 @@ Gentile collega,
 Per qualunque domanda può contattare i responsabili delle unità 
 locali indicate sopra.
 
-  Cordialmente
-
-
+  Cordiali saluti
