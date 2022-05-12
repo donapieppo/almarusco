@@ -15,9 +15,7 @@
       <% end %>
     </div>
     <hr/>
-    <div class="mt-1">
-      <%= render PickingDocument::ShowComponent.new(current_user, @picking, disposal_type, expected_kgs: total_kgs, expected_volume: total_volume) %>  
-    </div>
+    <%= render PickingDocument::ShowComponent.new(current_user, @picking, disposal_type, expected_kgs: total_kgs, expected_volume: total_volume) %>  
   <% end %>
 <% end %>
 
