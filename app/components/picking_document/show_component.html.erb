@@ -1,18 +1,24 @@
-<div class="fw-bold">
-  <%= @expected_kgs %> Kg. <%= @expected_volume %> L.
-</div>
-<% if @picking_document %>  
-  <div class="d-inline fw-bold <%= @all_ok ? 'text-success' : 'text-danger' %>">
-    <%= @picking_document.kgs %> Kg.
-    <%= @picking_document.volume %> L.
+<div class="row">
+  <div class="col-md-6">
+    <div class="fw-bold">
+      <%= @expected_kgs %> Kg. <%= @expected_volume %> L.
+    </div>
+    <% if @picking_document %>  
+      <div>
+        <span class="d-inline fw-bold <%= @all_ok ? 'text-success' : 'text-danger' %>">
+          <%= @picking_document.kgs %> Kg.
+          <%= @picking_document.volume %> L.
+        </span>
+        &nbsp; da formulario <%= @picking_document.register_number_with_year %>
+      </div>
+    <% end %>
   </div>
-  &nbsp; da formulario <%= @picking_document.register_number_with_year %>
-<center>
-  <%= link_to 'Modifica formulario', [:edit, @picking, @picking_document], class: 'btn btn-sm btn-success' %> 
-</center>
-<% else %>
-  <center>
-    <%= link_to 'Aggiungi formulario', new_picking_picking_document_path(@picking, disposal_type_id: @disposal_type.id), class: 'btn btn-sm btn-primary' %>  
-  </center>
-<% end %>
 
+  <div class="col-md-6 text-end">
+    <% if @picking_document %>
+      <%= link_to 'Modifica formulario', [:edit, @picking, @picking_document], class: 'btn btn-sm btn-success' %> 
+    <% else %>
+      <%= link_to 'Aggiungi formulario', new_picking_picking_document_path(@picking, disposal_type_id: @disposal_type.id), class: 'btn btn-sm btn-primary' %>  
+    <% end %>
+  </div>
+</div>
