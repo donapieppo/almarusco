@@ -1,3 +1,4 @@
+# approved_at = SUBDATE(CURDATE(),1) = ieri -> inviare alle 10 di ogni giorno
 namespace :almarusco do
 namespace :notifications do
 
@@ -5,13 +6,15 @@ namespace :notifications do
   task day: :environment do
     disposals_hash = Hash.new { |hash, key| hash[key] = [] }
 
-    Disposal.includes(:producer).where('approved_at = SUBDATE(CURDATE(),1)').each do |d|
+    Disposal.includes(:producer).where('approved_at = SUBDATE(CURDATE(),1)').order(:organization_id).each do |d|
       disposals_hash[d.producer] << d
     end
 
     disposals_hash.each do |user, disposals|
       notification = SystemMailer.with({})
-      raise notification.notify_approved_disposals(user, disposals).inspect
+      m = notification.notify_approved_disposals(user, disposals)
+      p m
+      puts m.body.raw_source
     end
   end
 
