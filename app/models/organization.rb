@@ -12,6 +12,10 @@ class Organization < ApplicationRecord
 
   before_destroy :manual_delete
 
+  def to_s
+    "#{self.code} - #{self.name}".upcase
+  end
+
   # Ritorna tutti gli utenti che sono stati in qualche modo associati ad una certa struttura in passato
   # Di solito sono gli utenti che hanno fatto s/carichi o a cui sono stati associati scarichi 
   # Andiamo indietro di un paio di anni (RECENTY in configuration for caching in mysql)
