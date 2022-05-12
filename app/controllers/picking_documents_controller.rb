@@ -3,8 +3,13 @@ class PickingDocumentsController < ApplicationController
   before_action :set_picking_document_and_check_permission, only: [:edit, :update, :destroy]
 
   def new
-    @picking_document = @picking.picking_documents.new
-    @picking_document.disposal_type_id = params[:disposal_type_id]
+    if ! @picking.date
+      redirect_to @picking, alert: "Manca la data del ritiro"
+      return
+    else
+      @picking_document = @picking.picking_documents.new
+      @picking_document.disposal_type_id = params[:disposal_type_id]
+    end
   end
 
   def create
