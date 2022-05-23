@@ -1,5 +1,5 @@
 <% if @modal %>  
-  <%= render TurboModal::ModalComponent.new() do %>
+  <%= render DmUniboCommon::ModalComponent.new() do %>
     <%= render Disposal::CardComponent.new(current_user, @disposal) %>
   <% end %>
 <% else %>
