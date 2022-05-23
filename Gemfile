@@ -6,19 +6,7 @@ gem 'dm_unibo_common',      git: 'https://github.com/donapieppo/dm_unibo_common.
 #gem 'dm_unibo_common',      path: '/home/rails/gems/dm_unibo_common/'
 
 gem "sprockets-rails"
-gem "importmap-rails"
 gem "turbo-rails"
-gem "stimulus-rails"
-
-# Build JSON APIs with ease [https://github.com/rails/jbuilder]
-gem "jbuilder"
-gem "jsbundling-rails"
-gem "cssbundling-rails"
-
-gem "view_component"
-
-gem "bootsnap", require: false
-
 gem 'rqrcode'
 
 gem "prawn"
