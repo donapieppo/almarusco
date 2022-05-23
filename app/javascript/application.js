@@ -3,8 +3,3 @@
 import * as bootstrap from "bootstrap"
 import "@hotwired/turbo-rails"
 import "./controllers"
-
-//require("typeahead.js")
-//require("popper.js")
-
-
