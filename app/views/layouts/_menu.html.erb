@@ -39,14 +39,9 @@
       <% if current_user.is_cesia? %>  
         <li><%= link_to big_dmicon('list'), organizations_path %></li>
       <% end %>
-      </ul>
-
-      <%= form_tag search_path, class: "form-inline my-2 my-lg-0 me-2", role: "search" do %>
-        <input name="search_string" size="6" class="form-control mr-sm-2" type="number" placeholder="num. ident." aria-label="Cerca"/>
-      <% end %>
-
-      <%= logged_user %>  
-      </div>
+    <% end %>
+    <%= form_tag search_path, class: "float-end form-inline my-2 my-lg-0 me-2", role: "search" do %>
+      <input name="search_string" size="6" class="form-control mr-sm-2" type="number" placeholder="num. ident." aria-label="Cerca"/>
     <% end %>
   <% end %>  
 <% end %>
