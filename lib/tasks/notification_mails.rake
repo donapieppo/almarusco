@@ -15,6 +15,8 @@ namespace :notifications do
       m = notification.notify_approved_disposals(user, disposals)
       p m
       puts m.body.raw_source
+      m.deliver_now
+      sleep 25
     end
   end
 
