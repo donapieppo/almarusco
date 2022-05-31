@@ -48,6 +48,7 @@ class PickingsController < ApplicationController
 
   def print
     @volumes_and_kgs = @picking.disposal_types_volumes_and_kgs
+    filename = "stampa_ritiro_#{@picking.supplier.name}_#{@picking.date}"
     respond_to do |format|
       format.pdf do
         pdf = PickingPrint.new(@picking)
