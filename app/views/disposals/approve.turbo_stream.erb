@@ -1,0 +1,3 @@
+<%= turbo_stream.replace dom_id(@disposal) do %>  
+  <%= render Disposal::CardComponent.new(current_user, @disposal, with_details: false) %>
+<% end %>
