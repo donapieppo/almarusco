@@ -24,7 +24,7 @@
 <div class="row">
   <% @disposals.each do |disposal| %>  
     <% highlight = (@highlight_id == disposal.id) ? 'disposal-highlighted' : '' %>  
-    <div id="<%= disposal.id %>" class="disposal-card col-md-6 <%= highlight %>" data-cerid="<%= disposal.disposal_type.cer_code_id %>">
+    <div class="disposal-card col-md-6 <%= highlight %>" data-cerid="<%= disposal.disposal_type.cer_code_id %>">
       <%= render Disposal::CardComponent.new(current_user, disposal, with_details: false) %>
     </div>
   <% end %>
