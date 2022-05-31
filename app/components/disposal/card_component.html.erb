@@ -1,4 +1,4 @@
-<div class="dm-card">
+<div class="dm-card" id="<%= dom_id @disposal %>">
   <div class="dm-card-title <%= @disposal.approved? ? 'border-success' : '' %>">
     <div>
       <%= @disposal.disposal_type.to_s %>
@@ -47,7 +47,7 @@
       <div class="col-md-6">
         <%= link_to @disposal do %>
           <%= raw @status_icon %> 
-          <%= @disposal.approved_at ? '' : '(non ancora accettato)' %> 
+          <%= @disposal.approved_at ? 'accettato' : '(non ancora accettato)' %> 
         <% end %>
         <% if @disposal.delivered? %>  
           CONSEGNATO il <%= @disposal.delivered_at %>  
