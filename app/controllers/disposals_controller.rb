@@ -85,6 +85,7 @@ class DisposalsController < ApplicationController
     respond_to do |format|
       res = @disposal.approve!
       format.html { redirect_to @disposal }
+      format.turbo_stream
       format.js
     end
   end
@@ -93,6 +94,7 @@ class DisposalsController < ApplicationController
     respond_to do |format|
       res = @disposal.unapprove!
       format.html { redirect_to @disposal }
+      format.turbo_stream
       format.js
     end
   end
