@@ -1,25 +1,13 @@
 <% if @modal %>  
   <%= render DmUniboCommon::ModalComponent.new() do %>
     <%= render Disposal::CardComponent.new(current_user, @disposal) %>
+    <%= render Disposal::AcceptComponent.new(current_user, @disposal) %>  
   <% end %>
 <% else %>
   <h1>Dettagli rifiuto</h1>
 
   <%= render Disposal::CardComponent.new(current_user, @disposal) %>
-
-  <div class="centered my-2">
-    <% if @disposal.undelivered? && policy(current_organization).manage? %>  
-      <% if @disposal.approved? %>  
-        <%= button_to 'Disaccetta', unapprove_disposal_path(@disposal), class: 'btn btn-success btn-lg' %>  
-      <% else %>
-        <%= button_to 'Accetta', approve_disposal_path(@disposal), class: 'btn btn-success btn-lg' %>  
-      <% end %>
-    <% end %>
-  </div>
-
-  <div class="centered my-2">
-    <u><%= link_to ' torna alla lista degli scarichi', disposals_path(h: @disposal.id, anchor: dom_id(@disposal)), class: 'ms-4', turbo: false %></u>
-  </div>
+  <%= render Disposal::AcceptComponent.new(current_user, @disposal) %>  
 
   <div class="my-4 centered">
     <%= qrcode(@disposal) %>  
