@@ -1,0 +1,12 @@
+<%= raw @status_icon %> 
+
+<% if @disposal.delivered? %>  
+  CONSEGNATO il 
+  <%= @disposal.delivered_at %>  
+<% elsif @disposal.picking_id %>  
+  <%= link_to dmicon('truck'), edit_picking_path(@disposal.picking_id), title: 'Associato a ritiro.' %>  
+<% else %>
+  <%= link_to disposal_path(@disposal, modal: 1), data: { turbo_frame: :modal } do %>  
+    <%= @status %> 
+  <% end %>
+<% end %>

@@ -1,0 +1,8 @@
+<div class="centered my-2">
+  <% if @disposal.approved? %>  
+    <%= button_to 'Disaccetta', unapprove_disposal_path(@disposal), class: 'btn btn-success btn-lg' %>  
+  <% else %>
+    <%= button_to 'Accetta', approve_disposal_path(@disposal), class: 'btn btn-success btn-lg' %>  
+  <% end %>
+</div>
+
