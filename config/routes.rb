@@ -58,6 +58,7 @@ Rails.application.routes.draw do
       put :deliver, on: :member
     end
 
+    resources :picking_documents, only: [:edit, :update]
     resources :archives
 
     get 'mud', to: 'mud#show', as: :mud
