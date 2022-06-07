@@ -7,6 +7,10 @@ class PickingDocument < ApplicationRecord
   validate :organization_coherence
   validate :unique_in_organizations_and_year
 
+  def to_s
+    "#{self.serial_number} - #{self.register_number}"
+  end
+
   def organization_coherence
     (self.disposal_type.organization_id == self.picking.organization_id) or self.errors.add(:base, "UL incoerenti")
   end
