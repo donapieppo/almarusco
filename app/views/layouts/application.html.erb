@@ -8,11 +8,7 @@
     <meta name="author" content="Dipartimento di Matematica - Unibo - Pietro Donatini">
     <title>AlmaRusco - Gestione Rifiuti Speciali - Università di Bologna</title>
 
-    <%= csrf_meta_tag %>
-    <%= csp_meta_tag %>
-
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-    <%= stylesheet_link_tag "application" %>
+    <%= dm_unibo_common_headers %>  
   </head>
   <body>
     <% unless @no_menu %>  
