@@ -1,6 +1,6 @@
 require 'csv'
 class PickingsController < ApplicationController
-  before_action :set_picking_and_check_permission, only: [:show, :edit, :update, :delete, :print, :deliver]
+  before_action :set_picking_and_check_permission, only: [:show, :edit, :update, :delete, :print, :deliver, :complete]
 
   def index
     authorize :picking
@@ -17,7 +17,7 @@ class PickingsController < ApplicationController
   
   def new
     @current_pickings = current_organization.pickings.undelivered.all # da fissare con all prima di aggiungere new 
-    @suppliers = Supplier.where.not(id: @current_pickings.map(&:supplier_id))
+    @suppliers = Supplier.where.not(id: @current_pickings.pluck(:supplier_id))
     @picking = current_organization.pickings.new
     authorize @picking
   end
@@ -70,6 +70,11 @@ class PickingsController < ApplicationController
 
   def deliver
     @picking.deliver
+    redirect_to pickings_path, notice: "Il ritiro è stato consegnato."
+  end
+
+  def complete
+    @picking.complete
     redirect_to pickings_path, notice: "I rifiuti associati sono archiviati."
   end
 
