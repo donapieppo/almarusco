@@ -5,6 +5,7 @@ class Picking < ApplicationRecord
   has_many :picking_documents
 
   scope :undelivered, -> { where('pickings.delivered_at IS NULL') }
+  scope :uncompleted, -> { where('pickings.completed_at IS NULL') }
 
   def to_s
     "Ritiro #{self.supplier} del #{self.date}"
@@ -42,8 +43,31 @@ class Picking < ApplicationRecord
     ! delivered?
   end
 
+  def completed?
+    completed_at
+  end
+
   def deliver
-    self.disposals.update_all(delivered_at: Date.today)
-    self.update(delivered_at: Date.today)
+    if self.date
+      self.disposals.update_all(delivered_at: self.date) # cache
+      self.update(delivered_at: self.date)
+    else
+      self.errors.add(:base, "È necessario indicare la data della consegna tra i dati del ritiro prima di confermare.")
+    end
+  end
+
+  def complete
+    self.disposals.update_all(completed_at: Date.today) # cache
+    self.update(completed_at: Date.today)
+  end
+
+  def status
+    if self.completed_at
+      'completato'
+    elsif self.delivered_at
+      'consegnato'
+    else
+      'in corso'
+    end
   end
 end

@@ -15,7 +15,7 @@
         <div class="my-2">
           <span class="pe-3"><%= picking.date ? l(picking.date) : '' %></span>   
           <strong><%= picking.supplier.to_s.upcase %></strong>
-          <%= "(consegnato)" if picking.delivered? %>  
+          <span class="float-end"><%= picking.status %></span>
         </div>
         <div class="ps-4">
           <% picking.picking_documents.each do |pd| %>  

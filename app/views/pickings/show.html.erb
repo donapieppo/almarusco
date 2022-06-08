@@ -1,6 +1,6 @@
 <h1>
   Ritiro con <%= @picking.supplier %>
-  <small>(<%= @picking.date ? l(@picking.date) : 'data da definire' %>)</small>
+<small>(<%= @picking.date ? l(@picking.date) : 'data da definire' %>)</small>
 </h1>
 
 <% @disposals_hash.keys.sort_by{ |dt| dt.cer_code_id }.each do |disposal_type| %>  
@@ -19,15 +19,20 @@
   <% end %>
 <% end %>
 
-<% unless @picking.delivered? %>  
-  <div class="centered my-2">
+<div class="centered my-2">
+  <%= link_to 'STAMPA', [:print, @picking], class: 'btn btn-primary' %>  
+  <%= link_to 'ESTRAI EXCEL', [:print, @picking, format: :csv], class: 'btn btn-primary' %> 
+  <% unless @picking.completed? %>  
     <%= link_to 'MODIFICA', [:edit, @picking], class: 'btn btn-primary' %>
-    <%= link_to 'STAMPA', [:print, @picking], class: 'btn btn-primary' %>  
-    <%= link_to 'ESTRAI EXCEL', [:print, @picking, format: :csv], class: 'btn btn-primary' %> 
-    <span class="px-4"> - </span>
-    <%= button_to 'CONCLUDI', [:deliver, @picking], method: :put, class: 'btn btn-warning', form: { data: { 'turbo-confirm': 'Siete sicuri di voler archiviare i rifiuti collegati a questo scarico?'}, class: 'd-inline px-0 mx-0' } %>  
-  </div>
-<% end %>
+  <% end %>
+  <span class="px-4"> - </span>
+  <% unless @picking.delivered? %>  
+    <%= button_to 'CONSEGNATO', [:deliver, @picking], method: :put, class: 'btn btn-warning', form: { data: { 'turbo-confirm': 'Siete sicuri?'}, class: 'd-inline px-0 mx-0' } %>  
+  <% end %>
+  <% if @picking.delivered? && ! @picking.completed? %>
+    <%= button_to 'ARCHIVIA', [:complete, @picking], method: :put, class: 'btn btn-warning', form: { data: { 'turbo-confirm': 'Siete sicuri di voler archiviare i rifiuti collegati a questo scarico?'}, class: 'd-inline px-0 mx-0' } %>  
+  <% end %>
+</div>
 
 <center>
   <%= link_to_back pickings_path %>  

@@ -56,6 +56,7 @@ Rails.application.routes.draw do
       resources :picking_documents
       get :print, on: :member
       put :deliver, on: :member
+      put :complete, on: :member
     end
 
     resources :picking_documents, only: [:edit, :update]
