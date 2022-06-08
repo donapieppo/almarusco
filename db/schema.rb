@@ -77,6 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.date "created_at"
     t.date "approved_at"
     t.date "delivered_at"
+    t.date "completed_at"
     t.index ["disposal_type_id"], name: "fk_disposals_disposal_type"
     t.index ["lab_id"], name: "fk_disposals_labs"
     t.index ["organization_id"], name: "fk_disposals_organizations"
@@ -137,6 +138,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.date "date"
     t.datetime "created_at", precision: nil
     t.date "delivered_at"
+    t.date "completed_at"
     t.index ["organization_id"], name: "fk_pickings_organizations"
     t.index ["supplier_id"], name: "fk_pickings_suppliers"
   end
