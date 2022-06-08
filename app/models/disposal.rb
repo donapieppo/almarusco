@@ -44,7 +44,15 @@ class Disposal < ApplicationRecord
   end
 
   def status
-    approved_at ? 'accettato' : 'da accettare'
+    if self.completed_at
+      'completato'
+    elsif self.delivered_at
+      'consegnato'
+    elsif self.approved_at 
+      'accettato' 
+    else
+      'da accettare'
+    end
   end
 
   def delivered?
