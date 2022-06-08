@@ -23,4 +23,8 @@ class PickingPolicy < ApplicationPolicy
   def deliver?
     create?
   end
+
+  def complete?
+    create?
+  end
 end
