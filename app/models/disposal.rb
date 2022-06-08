@@ -63,6 +63,10 @@ class Disposal < ApplicationRecord
     ! delivered?
   end
 
+  def completed?
+    completed_at
+  end
+
   def producer_upn
     self.producer ? self.producer.upn : ""
   end
