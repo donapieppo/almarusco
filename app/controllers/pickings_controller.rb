@@ -4,7 +4,7 @@ class PickingsController < ApplicationController
 
   def index
     authorize :picking
-    @pickings = current_organization.pickings.order('date desc')
+    @pickings = current_organization.pickings.includes(:supplier, :picking_documents).order('date desc')
   end
 
   def show
