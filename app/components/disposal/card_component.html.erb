@@ -12,15 +12,13 @@
   <% end %>
   <div class="dm-card-body">
     <div class="row">
-      <div class="col-md-3">
-        <div class="fw-bold">
-          <%= @disposal.volume %> L. <br/>
-          <% if @disposal.kgs %>  
-            <%= @disposal.kgs %> Kg. 
-          <% else %>
-            <span class="text-danger">? Kg</span>
-          <% end %>
-        </div>
+      <div class="col-md-3 fw-bold">
+        <%= @disposal.volume %> L. <br/>
+        <% if @disposal.kgs %>  
+          <%= @disposal.kgs %> Kg. 
+        <% else %>
+          <span class="text-danger">? Kg</span>
+        <% end %>
       </div>
       <div class="col-md-9">
         Produttore: 
