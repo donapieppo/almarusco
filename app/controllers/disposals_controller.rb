@@ -2,8 +2,8 @@ class DisposalsController < ApplicationController
   helper DisposalHelper
 
   before_action :set_disposal_type, only: %i(new create)
-  before_action :set_permitted_producers, only: %i(new create)
-  before_action :set_cache_users, only: %i(new clone update)
+  before_action :set_permitted_producers, only: %i(new create edit update)
+  before_action :set_cache_users, only: %i(new clone edit)
   before_action :set_disposal_and_check_permission, only: %i(show edit update destroy approve unapprove)
 
   def index
@@ -73,6 +73,7 @@ class DisposalsController < ApplicationController
   end
 
   def update
+    set_producer
     if @disposal.update(disposal_params)
       redirect_to @disposal
       # redirect_to disposals_path(h: @disposal.id, anchor: @disposal.id)
