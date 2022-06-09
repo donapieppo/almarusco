@@ -18,7 +18,7 @@
   <%= f.input :notes %>  
   <div class="my-4">
     <%= f.submit %>  
-    <u><%= link_to ' torna alla lista degli scarichi', disposals_path(h: @disposal.id, anchor: dom_id(@disposal)), class: 'ms-4', turbo: false %></u>
+    <u><%= link_to ' torna alla lista degli scarichi', disposals_path(h: @disposal.id, anchor: dom_id(@disposal)), class: 'ms-4', data: { turbo: false } %></u>
   </div>
 <% end %>
 
