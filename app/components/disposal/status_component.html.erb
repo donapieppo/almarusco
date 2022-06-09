@@ -5,7 +5,7 @@
 <% elsif @disposal.delivered? %>  
   <%= link_to 'consegnato', picking_path(@disposal.picking_id) %>  
 <% elsif @disposal.picking_id %>  
-  <%= link_to dmicon('truck'), edit_picking_path(@disposal.picking_id), title: 'associato a ritiro' %>  
+  <%= link_to dmicon('truck'), picking_path(@disposal.picking_id), title: 'associato a ritiro' %>  
 <% else %>
   <% if @modal %>  
     <%= @status %>  
