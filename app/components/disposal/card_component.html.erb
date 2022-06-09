@@ -29,7 +29,7 @@
         <% if @disposal.kgs %>  
           <%= @disposal.kgs %> Kg. 
         <% else %>
-          <span class="text-danger">? Kg</span>
+          <%= link_to '? Kg', edit_disposal_path(@disposal), class: "text-danger" %>
         <% end %>
       </div>
       <div class="col-md-9">
