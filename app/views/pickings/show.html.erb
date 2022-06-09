@@ -1,6 +1,6 @@
 <h1>
-  Ritiro con <%= @picking.supplier %>
-<small>(<%= @picking.date ? l(@picking.date) : 'data da definire' %>)</small>
+  Ritiro <%= @picking.status %> con <%= @picking.supplier %>
+  <small>(<%= @picking.date ? l(@picking.date) : 'data da definire' %>)</small>
 </h1>
 
 <% @disposals_hash.keys.sort_by{ |dt| dt.cer_code_id }.each do |disposal_type| %>  
