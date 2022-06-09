@@ -45,7 +45,7 @@ class Disposal < ApplicationRecord
 
   def status
     if self.completed_at
-      'completato'
+      'archiviato'
     elsif self.delivered_at
       'consegnato'
     elsif self.approved_at 
