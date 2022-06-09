@@ -1,18 +1,18 @@
 <%= raw @status_icon %> 
 
 <% if @disposal.completed? %>  
-  <%= link_to 'archiviato', picking_path(@disposal.picking_id) %> 
+  <%= link_to 'archiviato', picking_path(@disposal.picking_id), data: { turbo: false } %> 
 <% elsif @disposal.delivered? %>  
-  <%= link_to 'consegnato', picking_path(@disposal.picking_id) %>  
+  <%= link_to 'consegnato', picking_path(@disposal.picking_id), data: { turbo: false } %>  
 <% elsif @disposal.picking_id %>  
-  <%= link_to dmicon('truck'), picking_path(@disposal.picking_id), title: 'associato a ritiro' %>  
+  <%= link_to dmicon('truck'), picking_path(@disposal.picking_id), title: 'associato a ritiro', data: { turbo: false } %>  
 <% else %>
   <% if @modal %>  
     <%= @status %>  
   <% elsif @disposal.kgs %>
     <%= link_to @status, disposal_path(@disposal, modal: 1), data: { turbo_frame: :modal } %>  
   <% elsif @policy.edit? %>
-    <%= link_to @status, edit_disposal_path(@disposal) %>  
+    <%= link_to 'manca il peso', edit_disposal_path(@disposal), data: { turbo: false } %>  
   <% else %>
     <%= @status %>
   <% end %>
