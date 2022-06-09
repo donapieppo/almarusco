@@ -11,7 +11,9 @@
     <%= @status %>  
   <% elsif @disposal.kgs %>
     <%= link_to @status, disposal_path(@disposal, modal: 1), data: { turbo_frame: :modal } %>  
-  <% else %>
+  <% elsif @policy.edit? %>
     <%= link_to @status, edit_disposal_path(@disposal) %>  
+  <% else %>
+    <%= @status %>
   <% end %>
 <% end %>
