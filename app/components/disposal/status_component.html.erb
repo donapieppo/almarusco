@@ -9,7 +9,9 @@
 <% else %>
   <% if @modal %>  
     <%= @status %>  
-  <% else %>
+  <% elsif @disposal.kgs %>
     <%= link_to @status, disposal_path(@disposal, modal: 1), data: { turbo_frame: :modal } %>  
+  <% else %>
+    <%= link_to @status, edit_disposal_path(@disposal) %>  
   <% end %>
 <% end %>
