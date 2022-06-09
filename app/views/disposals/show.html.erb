@@ -1,6 +1,6 @@
 <% if @modal %>  
   <%= render DmUniboCommon::ModalComponent.new() do %>
-    <%= render Disposal::CardComponent.new(current_user, @disposal) %>
+    <%= render Disposal::CardComponent.new(current_user, @disposal, modal: true) %>
     <%= render Disposal::AcceptComponent.new(current_user, @disposal) %>  
   <% end %>
 <% else %>
@@ -8,6 +8,10 @@
 
   <%= render Disposal::CardComponent.new(current_user, @disposal) %>
   <%= render Disposal::AcceptComponent.new(current_user, @disposal) %>  
+
+  <div class="centered my-2">
+   <u><%= link_to ' torna alla lista degli scarichi', disposals_path(h: @disposal.id, anchor: dom_id(@disposal)), class: 'ms-4', turbo: false %></u>
+  </div>
 
   <div class="my-4 centered">
     <%= qrcode(@disposal) %>  
