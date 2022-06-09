@@ -63,7 +63,7 @@ class Picking < ApplicationRecord
 
   def status
     if self.completed_at
-      'completato'
+      'archiviato'
     elsif self.delivered_at
       'consegnato'
     else
