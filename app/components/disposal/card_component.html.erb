@@ -28,8 +28,10 @@
         <%= @disposal.volume %> L. <br/>
         <% if @disposal.kgs %>  
           <%= @disposal.kgs %> Kg. 
-        <% else %>
+        <% elsif @policy.edit? %>
           <%= link_to '? Kg', edit_disposal_path(@disposal), class: "text-danger" %>
+        <% else %>
+          <span class: "text-danger">? Kg</span>
         <% end %>
       </div>
       <div class="col-md-9">
