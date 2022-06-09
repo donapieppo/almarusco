@@ -6,8 +6,9 @@ class Disposal::StatusComponent < ViewComponent::Base
     @disposal = disposal
     @modal = modal
 
-    @status = @disposal.approved_at ? 'accettato' : '(non ancora accettato)'
-    @status_icon = disposal.approved? ? '<i class="fas fa-check text-success"></i>' : '<i class="fas fa-exclamation-circle text-danger"></i>'
     @policy = DisposalPolicy.new(@current_user, @disposal)
+
+    @status = @disposal.status
+    @status_icon = disposal.approved? ? '<i class="fas fa-check text-success"></i>' : '<i class="fas fa-exclamation-circle text-danger"></i>'
   end
 end

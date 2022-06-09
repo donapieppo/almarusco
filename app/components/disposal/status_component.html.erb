@@ -1,11 +1,7 @@
 <%= raw @status_icon %> 
 
-<% if @disposal.completed? %>  
-  <%= link_to 'archiviato', picking_path(@disposal.picking_id), data: { turbo: false } %> 
-<% elsif @disposal.delivered? %>  
-  <%= link_to 'consegnato', picking_path(@disposal.picking_id), data: { turbo: false } %>  
-<% elsif @disposal.picking_id %>  
-  <%= link_to dmicon('truck'), picking_path(@disposal.picking_id), title: 'associato a ritiro', data: { turbo: false } %>  
+<% if @disposal.picking_id %>  
+  <%= link_to @status, picking_path(@disposal.picking_id), data: { turbo: false } %> 
 <% else %>
   <% if @modal %>  
     <%= @status %>  
