@@ -4,7 +4,7 @@ class PickingDocumentsController < ApplicationController
 
   def new
     if ! @picking.date
-      redirect_to @picking, alert: "Manca la data del ritiro"
+      redirect_to [:edit, @picking], alert: "Manca la data del ritiro"
       return
     else
       @picking_document = @picking.picking_documents.new
@@ -42,7 +42,8 @@ class PickingDocumentsController < ApplicationController
   def set_picking_document_and_check_permission
     @picking_document = PickingDocument.find(params[:id])
     @picking = @picking_document.picking
-    authorize @picking, :edit?
+    # authorize @picking, :edit?
+    authorize @picking_document
   end
 
   def picking_document_params
