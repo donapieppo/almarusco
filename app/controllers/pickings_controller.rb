@@ -69,8 +69,11 @@ class PickingsController < ApplicationController
   end
 
   def deliver
-    @picking.deliver
-    redirect_to pickings_path, notice: "Il ritiro è stato consegnato."
+    if @picking.deliver
+      redirect_to pickings_path, notice: "Il ritiro è stato consegnato."
+    else
+      redirect_to [:edit, @picking], alert: @picking.errors[:base]
+    end
   end
 
   def complete
@@ -95,10 +98,10 @@ class PickingsController < ApplicationController
     res << disposal_type.physical_state_to_s
     res << disposal_type.cer_code.description
     res << "Tanica"
-    res << vols_and_kgs['volumes'].keys.map(&:to_i).sort.map do |v| 
-             "da #{v} litri: #{vols_and_kgs['volumes'][v.to_s]}"
+    res << vols_and_kgs[:volumes].keys.map(&:to_i).sort.map do |v| 
+             "da #{v} litri: #{vols_and_kgs[:volumes][v.to_s]}"
             end.join("")
-    res << vols_and_kgs['kgs']
+    res << vols_and_kgs[:kgs]
     res << disposal_type.hp_codes_to_s
     res << (disposal_type.adr ? 'si' : '')
     res << disposal_type.un_code

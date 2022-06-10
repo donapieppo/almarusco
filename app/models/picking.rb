@@ -24,15 +24,14 @@ class Picking < ApplicationRecord
   def disposal_types_volumes_and_kgs
     res = Hash.new { |hash, key| hash[key] = {} }
 
-    self.disposals.includes(:disposal_type).each do |disposal|
-      # p disposal
-      res[disposal.disposal_type]['volumes'] ||= {}
-      res[disposal.disposal_type]['volumes'][disposal.volume.to_s] = res[disposal.disposal_type]['volumes'][disposal.volume.to_s].to_i + 1
-      res[disposal.disposal_type]['kgs'] = res[disposal.disposal_type]['kgs'].to_i + disposal.kgs.to_i
-      # p res
+    self.disposals.includes(disposal_type: :cer_code).each do |disposal|
+      res[disposal.disposal_type][:cer_name] = disposal.disposal_type.cer_code.name
+      res[disposal.disposal_type][:volumes] ||= {}
+      res[disposal.disposal_type][:volumes][disposal.volume.to_s] = res[disposal.disposal_type][:volumes][disposal.volume.to_s].to_i + 1
+      res[disposal.disposal_type][:kgs] = res[disposal.disposal_type][:kgs].to_i + disposal.kgs.to_i
     end
 
-    res
+    res.sort_by { |dt, h| h[:cer_name] }
   end
 
   def delivered?
@@ -53,6 +52,7 @@ class Picking < ApplicationRecord
       self.update(delivered_at: self.date)
     else
       self.errors.add(:base, "È necessario indicare la data della consegna tra i dati del ritiro prima di confermare.")
+      return false
     end
   end
 
