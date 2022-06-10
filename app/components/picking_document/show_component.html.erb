@@ -15,9 +15,9 @@
   </div>
 
   <div class="col-md-6 text-end">
-    <% if @picking_document %>
+    <% if @picking_document_policy.edit? %>
       <%= link_to 'Modifica formulario', [:edit, @picking_document], class: 'btn btn-sm btn-success' %> 
-    <% else %>
+    <% elsif ! @picking_document %>
       <%= link_to 'Aggiungi formulario', new_picking_picking_document_path(@picking, disposal_type_id: @disposal_type.id), class: 'btn btn-sm btn-primary' %>  
     <% end %>
   </div>
