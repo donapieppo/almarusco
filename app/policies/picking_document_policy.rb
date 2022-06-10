@@ -9,18 +9,17 @@ class PickingDocumentPolicy < ApplicationPolicy
   end
 
   def show?
-    create?
+    record_organization_manager?
   end
 
   def update?
-    create?
+    if @record && @record.picking.completed?
+      return false
+    end
+    @record && current_organization_manager?
   end
 
   def print?
-    create?
-  end
-
-  def deliver?
-    create?
+    show?
   end
 end
