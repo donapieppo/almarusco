@@ -36,13 +36,13 @@ class PickingDocumentsController < ApplicationController
 
   def set_picking_and_check_permission
     @picking = current_organization.pickings.find(params[:picking_id])
+    # FIXME
     authorize @picking, :edit?
   end
 
   def set_picking_document_and_check_permission
     @picking_document = PickingDocument.find(params[:id])
     @picking = @picking_document.picking
-    # authorize @picking, :edit?
     authorize @picking_document
   end
 
