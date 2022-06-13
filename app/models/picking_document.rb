@@ -29,7 +29,7 @@ class PickingDocument < ApplicationRecord
 
   def register_number_with_year
     if ! self.register_number 
-      "??? (manca numero)"
+      self.disposal_type.adr ? "??? (manca numero)" : "Num. di registro non richiesto"
     elsif ! self.picking.date
       "??? (manca data in ritiro)"
     else
