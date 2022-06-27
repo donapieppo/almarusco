@@ -41,6 +41,9 @@
         <div class="text-muted small">
           Lab: <%= @disposal.lab %><br/>
           Richiesta del <%= l @disposal.created_at %> <br/>
+          <% if @disposal.approved? %>  
+            Accettato il <%= l @disposal.approved_at %> <br/>
+          <% end %>
           <div class="font-italic text-gray-500">
             <%= @disposal.notes %>  
           </div>
