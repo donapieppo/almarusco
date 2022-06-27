@@ -1,4 +1,15 @@
-<h1>Deposito temporaneo</h1>
+<h1>
+  Deposito temporaneo
+  <% if @at %>  
+    <br/>(apporto del <%= @at %>)
+  <% end %>
+</h1>
+
+<div class="text-center">
+<% @approved_at.each do |at| %>  
+  <%= link_to l(at), deposit_path(at: at), class: 'text-underline px-2' %>  
+<% end %>
+</div>
 
 <% tot_num = tot_kgs = tot_volume = 0 %>  
 <% @deposit.each_key.sort_by {|dt| dt.cer_code.name}.each do |dt| %>  
