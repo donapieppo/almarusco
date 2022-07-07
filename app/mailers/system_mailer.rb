@@ -4,6 +4,7 @@ class SystemMailer < ApplicationMailer
     @disposals = disposals
 
     mail(to:      @user.upn, 
-         subject: "Oggetto: conferimento rifiuti.")
+         bcc:     'pietro.donatini@unibo.it', 
+         subject: "Conferimento rifiuti.")
   end
 end
