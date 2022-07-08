@@ -1,0 +1,84 @@
+en:
+  sp: solido pulv.
+  snp: solido non pulv.
+  liq: liquido
+
+  activerecord:
+    models:
+      organization: Local Unit
+      disposal_type: Tipologia
+      lab: Laboratory
+      cer_code: CER code
+      un_code: UN code
+      cercode: CER code
+      uncode: UN code
+      picking: Picking
+      picking_document: Formulario
+
+    attributes:
+      admin:
+        user_upn: e-mail address
+        organization: Local Unit
+      organization:
+        adminmail: E-mail per notifiche
+      admin:
+        authlevel: Permisson
+      supplier:
+        pi: VAT number
+        cer_codes: Cer codes
+      barcode:
+        name: Codice a barre
+      disposal_type:
+        notes: Note
+        physical_state: Stato
+        cer_code: CER
+        un_code: UN
+        hp_codes: Codici HP
+        adrs: ADR
+        pictograms: Pittogrammi
+      disposal:
+        producer_upn: Producer 
+        kgs: Weight
+        physical_state: State
+        lab: Laboratory
+      lab:
+        name: Nome
+      un_code:
+        id: Numero
+        name: Nome
+      cer_code:
+        name: Nome
+        danger: Pericolo
+      picking:
+        supplier: Fornitore
+        date: Data ritiro
+      picking_document:
+        serial_number: Serie e numero
+        register_number: Numero registro
+        kgs: Peso
+        volume: Volume
+
+  simple_form:
+    hints:
+      disposal_type:
+        adr: Rifiuto assimilabile alle merci pericolose contenute nell’Accordo ADR.
+        notes: Descrizione visibile a chi deve creare il carico del rifiuto (opzionale)
+      disposal:
+        kgs: Quanti Kg? (numero decimale)
+        lab: Laboratorio di provenienza del rifiuto
+      picking_document:
+        serial_number: "Come compare il alto nel formulario. Per esempio: 'XBO 111111/20'."
+
+  can_operate: può operare
+  can_read:    può leggere
+  can_admin:   resposabile u.l.
+  can_manage:  delegato
+  can_dispose: produttore rifiuti
+  can_edit:    responsabile struttura (Direttore amministrativo)
+  is_cesia:    Amministratore Cesia
+
+  date:
+    formats:
+      in_list: ! '%d/%m/%y'
+
+
