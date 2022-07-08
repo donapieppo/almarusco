@@ -12,7 +12,7 @@
   <% end %>
 </div>
 
-<form class="my-2 centered disposal_cer_selector" data-controller="cer-selector" data-action="change->cer-selector#change">
+<form class="my-2 centered disposal_cer_selector" data-controller="disposal-selector" data-action="change->disposal-selector#change_cer">
   <% @disposals_cers.each do |cer_code| %>  
     <input type="radio" id="<%= cer_code.id %>" name="disposal_to_show" />
     <label for="<%= cer_code.id %>" data-cerid="<%= cer_code.id %>">
@@ -21,10 +21,12 @@
   <% end %>
 </form>
 
+<%= link_to 'Mostra solo i rifiuti a cui inserire il peso', '', data: { controller: "disposal-selector", action: "click->disposal-selector#toggle_missing_kgs" } %>  
+
 <div class="row">
   <% @disposals.each do |disposal| %>  
     <% highlight = (@highlight_id == disposal.id) ? 'disposal-highlighted' : '' %>  
-    <div class="disposal-card col-md-6 <%= highlight %>" data-cerid="<%= disposal.disposal_type.cer_code_id %>">
+    <div class="disposal-card col-md-6 <%= highlight %>" data-cerid="<%= disposal.disposal_type.cer_code_id %>" data-withkgs="<%= disposal.kgs.to_i > 0 %>">
       <%= render Disposal::CardComponent.new(current_user, disposal, with_details: false) %>
     </div>
   <% end %>
