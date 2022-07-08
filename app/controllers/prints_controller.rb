@@ -10,7 +10,7 @@ class PrintsController < ApplicationController
     else
       @disposals = current_user.disposals.undelivered.where(organization_id: current_organization.id)
     end
-    @disposals = @disposals.order(:user_id).order('created_at desc')
+    @disposals = @disposals.order(:user_id).order('created_at desc').include_all
     authorize :print
     if @disposals.empty?
       redirect_to root_path, alert: 'Non sono presenti rifiuti da stampare.'
