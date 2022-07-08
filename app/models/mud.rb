@@ -14,12 +14,12 @@ class Mud
       if disposal.delivered?
         @summary[cer_code][:disposals] ||= []
         @summary[cer_code][:disposals] << disposal
-        @summary[cer_code][:kgs] ||= 0
+        @summary[cer_code][:kgs] ||= 0.0
         @summary[cer_code][:kgs] += disposal.kgs
       elsif disposal.approved?
         @remainders[cer_code][:disposals] ||= []
         @remainders[cer_code][:disposals] << disposal
-        @remainders[cer_code][:kgs] ||= 0
+        @remainders[cer_code][:kgs] ||= 0.0
         @remainders[cer_code][:kgs] += disposal.kgs
       end
     end
