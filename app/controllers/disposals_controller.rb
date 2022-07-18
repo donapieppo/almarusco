@@ -20,6 +20,12 @@ class DisposalsController < ApplicationController
       @disposals = @disposals.user_or_producer(@user.id)
     end
 
+    if params[:uncomplete]
+      @disposals = @disposals.uncomplete 
+    elsif params[:acceptable]
+      @disposals = @disposals.complete.unapproved
+    end
+
     @disposals = @disposals.user_or_producer(current_user.id) unless policy(current_organization).manage?
 
     _disposal_types = @disposals.map(&:disposal_type_id).uniq
@@ -126,6 +132,15 @@ class DisposalsController < ApplicationController
                                      .where('YEAR(disposals.delivered_at) = ?', @year)
                                      .includes(:user, :producer, :lab, disposal_type: [:cer_code, :un_code, :hp_codes, :adrs])
     @disposal_types = current_organization.disposal_types.where(id: @disposals.map(&:disposal_type_id).sort.uniq)
+  end
+
+  # keep here (in conroller and not in model legalize_all because you legalize what you see (from deposit#logalize) 
+  def legalize
+    authorize :disposal
+    current_organization.disposals.approved.unlegalized.find(params[:disposal_ids]).each do |disposal|
+      disposal.legalize!
+    end
+    redirect_to to_legalize_path
   end
 
   private
