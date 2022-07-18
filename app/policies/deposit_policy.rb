@@ -3,7 +3,7 @@ class DepositPolicy < ApplicationPolicy
     current_organization_manager?
   end
 
-  def legalize?
+  def to_legalize?
     current_organization_manager?
   end
 end
