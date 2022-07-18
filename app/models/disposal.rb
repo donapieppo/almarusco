@@ -10,8 +10,14 @@ class Disposal < ApplicationRecord
   validates :kgs, numericality: { greater_than: 0 }, allow_blank: true
 
   scope :user_or_producer, -> (u_id) { where('user_id = ? or producer_id = ?', u_id, u_id) }
+  scope :uncomplete, -> { where(kgs: nil) }
+  scope :complete, -> { where.not(kgs: nil) }
+  scope :unapproved, -> { where(approved_at: nil) }
   scope :approved, -> { where.not(approved_at: nil) }
-  scope :delivered, -> { where.not(delivered_at: nil) }
+  scope :unlegalized, -> { where(legalized_at: nil) }
+  scope :legalized, -> { where.not(legalized_at: nil) }
+  scope :unassigned, -> { where(picking_id: nil) }
+  scope :assigned, -> { where.not(picking_id: nil) }
   scope :undelivered, -> { where(delivered_at: nil) }
   scope :include_all, -> { includes(:user, :producer, :lab, disposal_type: [:cer_code, :un_code, :hp_codes, :adrs]) }
 
@@ -31,6 +37,8 @@ class Disposal < ApplicationRecord
     { liquid: [5, 10, 20], solid: [5, 40, 60, 120] }
   end
 
+  # STATUS
+  # APPROVE. first action from responsible
   def approved?
     approved_at
   end
@@ -43,18 +51,21 @@ class Disposal < ApplicationRecord
     self.update(approved_at: nil)
   end
 
-  def status
-    if self.completed_at
-      'archiviato'
-    elsif self.delivered_at
-      'consegnato'
-    elsif self.approved_at 
-      'accettato' 
-    else
-      'da accettare'
-    end
+  # LEGALIZE. responsible writes the disposal on legal book
+  def legalized?
+    legalized_at
   end
 
+  def legalize!
+    self.update(legalized_at: Time.now)
+  end
+
+  # ASSIGN TO PICKING
+  def assigned?
+    self.picking_id
+  end
+
+  # DELIVER
   def delivered?
     delivered_at
   end
@@ -63,8 +74,23 @@ class Disposal < ApplicationRecord
     ! delivered?
   end
 
+  # COMPLETE
   def completed?
     completed_at
+  end
+
+  def status
+    if self.completed_at
+      'archiviato'
+    elsif self.delivered_at
+      'consegnato'
+    elsif self.picking_id
+      'ritiro prenotato'
+    elsif self.approved_at 
+      'accettato' 
+    else
+      'da accettare'
+    end
   end
 
   def producer_upn
