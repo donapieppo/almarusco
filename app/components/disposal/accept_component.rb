@@ -8,7 +8,7 @@ class Disposal::AcceptComponent < ViewComponent::Base
 
   # FIXME with DisposalPolicy#approve? unapprove?
   def render?
-    (! @disposal.assigned) && OrganizationPolicy.new(@current_user, @disposal.organization).manage?
+    (! @disposal.assigned?) && OrganizationPolicy.new(@current_user, @disposal.organization).manage?
   end
 end
 
