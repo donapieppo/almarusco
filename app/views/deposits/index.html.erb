@@ -1,36 +1,59 @@
 <h1>
   Deposito temporaneo
   <% if @at %>  
-    <br/>(apporto del <%= @at %>)
+    <br/>(accettati il <%= @at %>)
+  <% end %>
+  <% if @legalizable %>  
+    <br/>rifiuti da registrare
   <% end %>
 </h1>
 
-<div class="text-center">
-<% @approved_at.each do |at| %>  
-  <%= link_to l(at), deposit_path(at: at), class: 'text-underline px-2' %>  
+<% if @legalizable %>
+  <div class="info">
+    In questa pagina trovate i rifiuti accettati e presi in carico nel deposito temporaneo della vostra 
+    Unità Locale ma che devono ancora essere registrati nel Registro di Carico e Scarico cartaceo vidimato.
+  </div>
 <% end %>
-</div>
 
-<% tot_num = tot_kgs = tot_volume = 0 %>  
+<% if @approved_at %>  
+  <div class="text-center">
+    <% @approved_at.each do |at| %>  
+      <%= link_to l(at), deposit_path(at: at), class: 'text-underline px-2' %>  
+    <% end %>
+  </div>
+<% end %>
+
+<% tot_num = tot_volume = 0 %>  
+<% tot_kgs = 0.0 %>  
 <% @deposit.each_key.sort_by {|dt| dt.cer_code.name}.each do |dt| %>  
   <div class="dm-card">
-    <% num = kgs = volume = 0 %>  
+    <% ids = [] %>  
+    <% num = volume = 0 %>  
+    <% kgs = 0.0 %>  
     <div class="dm-card-title py-2">
       <%= dt %> 
       <span class="small fw-normal float-end"><%= dt.hp_codes_to_s %></span>
     </div>
     <div class="dm-card-body">
       <% @deposit[dt].each do |disposal| %>  
+        <% ids << disposal.id %>  
         <% num += 1  %>  
-        <% kgs += disposal.kgs.to_i %>  
+        <% kgs += disposal.kgs %>  
         <% volume += disposal.volume %>  
         <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
       <% end %>
     </div>
     <div class="dm-card-footer py-2">
       <span class="font-weight-bold"><%= num %> coll<%= num > 1 ? "i" : "o" %></span>: 
-      <span class="mx-1"><strong><%= volume %></strong> L. totale</span>
-      <span class="mx-1"><strong><%= kgs %></strong> Kg. totale</span>
+      <span class="mx-1"><strong><%= volume %></strong> L. </span> -
+      <span class="mx-1"><strong><%= kgs %></strong> Kg. </span> totali.
+      <% if @legalizable %>  
+        <div class='d-inline-block float-end'>
+          <%= button_to 'Ho registrato questi rifiuti', legalize_disposals_path(deposit_ids: ids), 
+                        form: { class: 'btn btn-warning',
+                                data: { turbo_confirm: 'Seiete sicuri di avere REGISTRATO tutti questi scarichi?' } } %>
+        </div>
+      <% end %>
     </div>
     <% tot_num += num %>  
     <% tot_kgs += kgs %>  
@@ -41,11 +64,8 @@
 <div class="my-4">
   <span class="alert alert-warning font-weight-bold">
     Totale: 
-    <%= tot_num %> colli per 
-    <%= tot_volume %> Litri e
-    <%= tot_kgs %> Kg. 
+    <strong><%= tot_num %></strong> colli per 
+    <strong><%= tot_volume %></strong> Litri e
+    <strong><%= tot_kgs %></strong> Kg. 
   </span>
 </div>
-
-
-
