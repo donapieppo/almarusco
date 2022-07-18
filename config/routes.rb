@@ -18,7 +18,9 @@ Rails.application.routes.draw do
     get 'dsausers/popup_find', to: 'dsausers#popup_find', as: 'popup_find_user'
     get 'dsausers/find',       to: 'dsausers#find',       as: 'find_user'
 
-    resources :prints
+    resources :prints do
+      get :labels, on: :collection
+    end
 
     post 'search', to: 'disposals#search', as: 'search'
 
@@ -39,6 +41,7 @@ Rails.application.routes.draw do
       get 'clone', on: :member
       post 'approve', on: :member
       post 'unapprove', on: :member
+      post 'legalize', on: :collection
     end
     resources :disposal_types do
       resources :disposals, only: [:new, :create]
@@ -64,6 +67,7 @@ Rails.application.routes.draw do
 
     get 'mud', to: 'mud#show', as: :mud
     get 'deposit', to: 'deposits#index', as: :deposit
+    get 'legalize', to: 'deposits#legalize', as: :legalize
   end
 
   root to: 'disposals#index'

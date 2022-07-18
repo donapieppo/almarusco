@@ -76,6 +76,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.integer "volume"
     t.date "created_at"
     t.date "approved_at"
+    t.date "legalized_at"
     t.date "delivered_at"
     t.date "completed_at"
     t.index ["disposal_type_id"], name: "fk_disposals_disposal_type"
