@@ -33,22 +33,25 @@
         <% end %>
       </div>
       <div class="col-md-9">
-        Produttore: 
+        <%= t :producer %>:
         <%= link_to @disposal.producer, disposals_path(u: @disposal.producer.id) %>
         <% if @disposal.producer_id != @disposal.user_id %>  
           <small>(da <%= link_to @disposal.user, disposals_path(u: @disposal.user_id) %>)</small> 
         <% end %> 
         <div class="text-muted small">
-          Lab: <%= @disposal.lab %><br/>
-          Richiesta del <%= l @disposal.created_at %> <br/>
+          <%= t :laboratory %> <%= @disposal.lab %><br/>
+          <%= t :created_at %> <%= l @disposal.created_at %> <br/>
           <% if @disposal.approved? %>  
-            Accettato il <%= l @disposal.approved_at %> <br/>
+            <%= t :approved_at %> <%= l @disposal.approved_at %> <br/>
           <% end %>
           <% if @disposal.legalized? %>  
-            Registrato il <%= l @disposal.legalized_at %> <br/>
+            <%= t :legalized_at %> <%= l @disposal.legalized_at %> <br/>
           <% end %>
           <% if @disposal.delivered? %>
-            Ritirato il <%= l @disposal.delivered_at %> <br/> 
+            <%= t :delivered_at %> <%= l @disposal.delivered_at %> <br/> 
+          <% end %>
+          <% if @disposal.completed? %>
+            <%= t :completed_at %> <%= l @disposal.completed_at %> <br/> 
           <% end %>
           <div class="font-italic text-gray-500">
             <%= @disposal.notes %>  
