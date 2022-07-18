@@ -18,9 +18,7 @@ Rails.application.routes.draw do
     get 'dsausers/popup_find', to: 'dsausers#popup_find', as: 'popup_find_user'
     get 'dsausers/find',       to: 'dsausers#find',       as: 'find_user'
 
-    resources :prints do
-      get :labels, on: :collection
-    end
+    resources :prints, only: [:new, :create]
 
     post 'search', to: 'disposals#search', as: 'search'
 
