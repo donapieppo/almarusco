@@ -49,7 +49,7 @@
       <span class="mx-1"><strong><%= kgs %></strong> Kg. </span> totali.
       <% if @legalizable %>  
         <div class='d-inline-block float-end'>
-          <%= button_to 'Ho registrato questi rifiuti', legalize_disposals_path(deposit_ids: ids), 
+          <%= button_to 'Ho registrato questi rifiuti', legalize_disposals_path(disposal_ids: ids), 
                         form: { class: 'btn btn-warning',
                                 data: { turbo_confirm: 'Seiete sicuri di avere REGISTRATO tutti questi scarichi?' } } %>
         </div>
