@@ -65,7 +65,7 @@ Rails.application.routes.draw do
 
     get 'mud', to: 'mud#show', as: :mud
     get 'deposit', to: 'deposits#index', as: :deposit
-    get 'legalize', to: 'deposits#legalize', as: :legalize
+    get 'to_legalize', to: 'deposits#to_legalize', as: :to_legalize
   end
 
   root to: 'disposals#index'
