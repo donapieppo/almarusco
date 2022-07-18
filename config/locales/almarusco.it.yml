@@ -2,9 +2,19 @@ it:
   sp: solido pulv.
   snp: solido non pulv.
   liq: liquido
+
+  laboratory: Laboratorio
+  created_at: Richiesta del
+  approved_at: Accettato il
+  legalized_at: Registrato il
+  delivered_at: Ritirato il
+  completed_at: Archiviato il
+
+  producer: Produttore
+
   activerecord:
     models:
-      organization: Struttura
+      organization: Unità locale
       supplier: Fornitore
       barcode: Codice a barre
       disposal: Rifiuto
