@@ -64,57 +64,30 @@ class PrintsController < ApplicationController
             pdf.image "/tmp/gr_image_#{disposal.id}.png", width: 80, height: 80
           end
 
-          pdf.bounding_box([70, y_position], width: 200, height: 120) do
+          pdf.bounding_box([70, y_position], width: 180, height: 120) do
             # pdf.stroke_bounds
             
             pdf.indent(10) do
               if dt.un_code
-                pdf.text dt.un_code.to_s, style: 'bold', size: 20
+                pdf.text dt.un_code.to_s, style: 'bold', size: 16
               end
-              pdf.text dt.cer_code.to_s, size: 20
-              pdf.text dt.hp_codes_to_s + " - " + dt.adrs_to_s, size: 13
+              pdf.text dt.cer_code.to_s, size: 16
+              pdf.text dt.hp_codes_to_s + " - " + dt.adrs_to_s, size: 8
               pdf.text dt.physical_state_to_s.upcase, size: 6
             end
           end
 
           disposal.disposal_type.pictograms.each_with_index do |pict, i|
             if pict.filename =~ /\.png/
-              pdf.image open(pict.full_filename), height: 26, at: [80+28*i, 30]
+              pdf.image open(pict.full_filename), height: 24, at: [80+26*i, 40]
             else
-              pdf.svg IO.read(pict.full_filename), height: 26, at: [80+28*i, 30]
+              pdf.svg IO.read(pict.full_filename), height: 24, at: [80+26*i, 40]
             end
           end
 
         end
       end
     end
-    send_data pdf.render, filename: "print.pdf", type: :pdf
-
-    return
-
-    cells = []
-    [1,2,3].each do |row|
-      rows = []
-      [1,2,3].each do |col| 
-        if params['paper_boxes'].include?("#{row}-#{col}")
-          if disposal = @disposals.pop
-            rows << disposal_cell_content(disposal)
-            qr = RQRCode::QRCode.new(disposal_url(disposal))
-            IO.binwrite("/tmp/gr_image_#{disposal.id}.png", qr.as_png.to_s)
-            rows << { image: "/tmp/gr_image_#{disposal.id}.png", image_width: 80, image_height: 80 }
-          else
-            rows << "--"
-            rows << "--"
-          end
-        else
-          rows << "---"
-          rows << "---"
-        end
-      end
-      cells << rows
-    end
-    pdf.table(cells, cell_style: { width: 90, height: 180, border_width: 1, size: 8 })
-
-    send_data pdf.render, filename: "print.pdf", type: :pdf
+    send_data pdf.render, filename: "etichette.pdf", type: :pdf
   end
 end
