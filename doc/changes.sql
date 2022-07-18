@@ -1,3 +1,8 @@
+alter table disposals add column `legalized_at` date DEFAULT NULL after approved_at;
+update disposals set legalized_at = delivered_at where delivered_at is not null;
+
+
+
 alter table `permissions` add column `expiry` date after `producer_id`; 
 update permissions set expiry = '2023-01-01' where producer_id is not null ;
 
