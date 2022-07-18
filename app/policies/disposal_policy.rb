@@ -36,8 +36,9 @@ class DisposalPolicy < ApplicationPolicy
     organization_manager?(@record.organization)
   end
 
+  # FIXME
   def unapprove?
-    approve?
+    approve? && (! @record.assigned?)
   end
 
   def search?
@@ -46,5 +47,9 @@ class DisposalPolicy < ApplicationPolicy
 
   def archive?
     organization_manager?(@record.organization)
+  end
+
+  def legalize?
+    current_organization_manager?
   end
 end
