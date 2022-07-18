@@ -21,8 +21,6 @@
   <% end %>
 </form>
 
-<%= link_to 'Mostra solo i rifiuti a cui inserire il peso', '', data: { controller: "disposal-selector", action: "click->disposal-selector#toggle_missing_kgs" } %>  
-
 <div class="row">
   <% @disposals.each do |disposal| %>  
     <% highlight = (@highlight_id == disposal.id) ? 'disposal-highlighted' : '' %>  
