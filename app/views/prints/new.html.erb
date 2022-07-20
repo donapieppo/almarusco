@@ -1,13 +1,13 @@
-<h1>Scegli formato</h1>
+<h1>Stampa Etichette</h1>
 
 <%= form_for :print, url: prints_path, html: { data: { turbo: false } } do |f| %>  
   <div class="row">
     <div class="col-4">
-      <h2 class="my-4">Scegli le etichette da stampare</h2>
+      <h2 class="my-2">Scegli le etichette da stampare</h2>
 
       <p class="info small">
       Immagina che questo sotto sia un foglio A4 di etichette da stampare 
-      e scegli su quali etichette vuoi che si trovino gli scarichi che hai selezionato sopra.
+      e scegli su quali etichette vuoi che si trovino gli scarichi che selezioni a fianco.
       </p>
 
       <table style="margin: auto; max-width: 300px; border: 2px solid black">
@@ -23,9 +23,12 @@
       </table>
       <%= f.submit "Crea pdf", class: "my-4" %> -   
       <%= link_to 'seleziona tutti', '#', onClick: "document.querySelectorAll('.print_positions').forEach((x) => x.checked = true)" %>  
+      <div class="alert bg-warning my-8 p-2 small">
+        Prima di stampare selezionate tra le proprietà di stampa "scala personalizzata: 100%".
+      </div>
     </div>
     <div class="col-8">
-      <h2 class="my-4">Scegli gli scarichi che vuoi stampare</h2>
+      <h2 class="my-2">Scegli gli scarichi che vuoi stampare</h2>
 
       <div class="">
         <% @disposals.each do |disposal| %>  
