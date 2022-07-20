@@ -10,7 +10,7 @@
           <li><%= link_to fwdmicon('stamp') + ' registrazione', to_legalize_path %></li>
           <li><%= link_to fwdmicon('house') + ' deposito temporaneo', deposit_path %></li>
           <li><%= link_to fwdmicon('truck') + ' ritiri', pickings_path %></li>
-          <li><%= link_to fwdmicon('print') + ' stampe', new_print_path %></li>
+          <li><%= link_to fwdmicon('print') + ' stampe etichette', new_print_path %></li>
         <% end %>
 
         <%= dropdown_menu :amm, big_dmicon('cogs') + ' Amm.' do  %>
@@ -33,7 +33,7 @@
       <% else %>
         <li><%= link_to fwdmicon('trash') + ' elenco rifiuti', disposals_path %></li>
         <li><%= link_to fwdmicon('circle-plus') + ' nuovo rifiuto', choose_disposal_type_disposals_path %></li>
-        <li><%= link_to fwdmicon('print') + ' stampe', new_print_path %></li>
+        <li><%= link_to fwdmicon('print') + ' stampe etichette', new_print_path %></li>
       <% end %>
 
       <% if current_organization && current_user.multi_organizations? %>
