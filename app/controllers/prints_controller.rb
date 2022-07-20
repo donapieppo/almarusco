@@ -38,7 +38,7 @@ class PrintsController < ApplicationController
     # :margin Sets the margin on all sides in points [0.5 inch] :left_margin :right_margin
     pdf.font_size 8
     pdf.define_grid(columns: 2, rows: 5, gutter: 0)
-    pdf.grid.show_all
+    # pdf.grid.show_all
 
     # 96 x 51mm rettangolari
     # ["1-1", "2-2", "1-5"]
@@ -53,36 +53,34 @@ class PrintsController < ApplicationController
         pdf.grid(col.to_i - 1, row.to_i - 1).bounding_box do
 
           # pdf.stroke_bounds
-          pdf.move_down 8
+          pdf.move_down 10
           pdf.indent(10) do
             pdf.text " n.#{disposal.id.to_s}    <font size='9'>#{disposal.organization.code} - #{disposal.lab}</font>", size: 14, inline_format: true
           end
 
-          y_position = pdf.cursor - 6 
+          y_position = pdf.cursor - 4
 
-          pdf.bounding_box([10, y_position], width: 80, height: 80) do
+          pdf.bounding_box([5, y_position], width: 90, height: 90) do
             # pdf.stroke_bounds
-            pdf.image "/tmp/gr_image_#{disposal.id}.png", width: 80, height: 80
+            pdf.image "/tmp/gr_image_#{disposal.id}.png", width: 90, height: 90
           end
 
-          pdf.bounding_box([90, y_position], width: 180, height: 120) do
+          pdf.bounding_box([100, y_position], width: 170, height: 130) do
             # pdf.stroke_bounds
             
-            pdf.indent(5) do
-              if dt.un_code
-                pdf.text dt.un_code.to_s, style: 'bold', size: 16
-              end
-              pdf.text dt.cer_code.to_s, size: 16
-              pdf.text dt.hp_codes_to_s + " - " + dt.adrs_to_s, size: 8
-              pdf.text dt.physical_state_to_s.upcase, size: 8
+            if dt.un_code
+              pdf.text dt.un_code.to_s, style: 'bold', size: 16
             end
+            pdf.text dt.cer_code.to_s, size: 16
+            pdf.text dt.hp_codes_to_s + " - " + dt.adrs_to_s, size: 10
+            pdf.text dt.physical_state_to_s.upcase, size: 8
           end
 
           disposal.disposal_type.pictograms.each_with_index do |pict, i|
             if pict.filename =~ /\.png/
-              pdf.image open(pict.full_filename), height: 24, at: [10+26*i, 40]
+              pdf.image open(pict.full_filename), height: 24, at: [10+26*i, 35]
             else
-              pdf.svg IO.read(pict.full_filename), height: 24, at: [10+26*i, 40]
+              pdf.svg IO.read(pict.full_filename), height: 24, at: [10+26*i, 35]
             end
           end
 
