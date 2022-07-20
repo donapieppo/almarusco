@@ -15,7 +15,7 @@
       <% organization.permissions.each do |p| %>  
         <% color = (p.authlevel > 40) ? 'text-danger' : '' %>  
         <div>
-          <span class="<%= color %>"><%= p.user %></span>
+          <span class="<%= color %>"><%= p.user %> (<%= p.authlevel %>)</span>
           <small>(<%= l p.created_at, format: :date_html5 %>)</small>
         </div>
       <% end %>
