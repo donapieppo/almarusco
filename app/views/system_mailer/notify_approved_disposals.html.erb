@@ -1,0 +1,34 @@
+<p>
+Gentile collega,
+</p>
+<p style="margin-left: 24px;">
+nella giornata di ieri sono stati accettati i seguenti rifiuti
+che risultano prodotti da Lei:
+</p>
+
+<% @disposals.each do |disposal| %> 
+  <div style="margin: 12px 0; padding: 6px; padding-left: 12px; border: 2px solid #ccc; line-height: 80%; background-color: #C8DCC8">
+    <p style="font-weight: bold">
+    <%= disposal.organization %> 
+    </p>
+    <p>
+    Id: <%= disposal.id  %>, Laboratorio: <%= disposal.lab %>
+    </p>
+    <% if disposal.producer != disposal.user %>  
+      <p>
+      Operatore: <%= disposal.user %> <small>(<%= disposal.user.upn %>)</small>
+      </p>
+    <% end %>
+    <p><%= disposal.disposal_type %></p>
+    <p style="font-weight: bold"><%= disposal.volume %> Litri - <%= disposal.kgs %> Kg.</p>
+  </div>
+<% end %>
+
+<p style="margin-top: 24px; ">
+Per qualunque domanda può contattare i responsabili delle unità 
+locali indicate sopra.
+</p>
+
+<p>
+Cordiali saluti
+</p>
