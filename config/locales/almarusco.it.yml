@@ -86,6 +86,7 @@ it:
       disposal:
         kgs: Quanti Kg? (numero decimale)
         lab: Laboratorio di provenienza del rifiuto
+        producer_upn: Inserire l'indirizzo e-mail SOLO se il produttore di rifiuti non siete VOI.
       picking_document:
         serial_number: "Come compare il alto nel formulario. Per esempio: 'XBO 111111/20'."
 
