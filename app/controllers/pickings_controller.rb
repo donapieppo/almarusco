@@ -51,8 +51,8 @@ class PickingsController < ApplicationController
     filename = "stampa_ritiro_#{@picking.supplier.name}_#{@picking.date}"
     respond_to do |format|
       format.pdf do
-        pdf = PickingPrint.new(@picking)
-        send_data pdf.render, filename: "stampa_ritiro_#{@picking.supplier.name}_#{@picking.date}.pdf", type: 'application/pdf', disposition: 'inline'
+        pdf = PickingPrint.new(@picking, @volumes_and_kgs)
+        send_data pdf.render, filename: "#{filename}.pdf", type: 'application/pdf', disposition: 'inline'
       end
       format.csv do
         res = CSV.generate(headers: true, col_sep: ";", quote_char: '"') do |csv|
@@ -61,7 +61,7 @@ class PickingsController < ApplicationController
             csv << csv_extraction(disposal_type, vols_and_kgs)
           end
         end
-        send_data res, filename: "stampa_ritiro_#{@picking.supplier.name}_#{@picking.date}.csv"
+        send_data res, filename: "#{filename}.csv"
       end
       format.html
     end
