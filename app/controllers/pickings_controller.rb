@@ -93,14 +93,13 @@ class PickingsController < ApplicationController
   end
 
   def csv_extraction(disposal_type, vols_and_kgs)
+    volumes = vols_and_kgs[:volumes].keys.map(&:to_i).sort 
     res = []
     res << disposal_type.cer_code
     res << disposal_type.physical_state_to_s
     res << disposal_type.cer_code.description
-    res << "Tanica"
-    res << vols_and_kgs[:volumes].keys.map(&:to_i).sort.map do |v| 
-             "da #{v} litri: #{vols_and_kgs[:volumes][v.to_s]}"
-            end.join("")
+    res << volumes.map {|v| v == 200 ? 'Fusto' : 'Tanica'}.sort.uniq.join(' e ')
+    res << volumes.map {|v| "da #{v} litri: #{vols_and_kgs[:volumes][v.to_s]}"}.join('')
     res << vols_and_kgs[:kgs]
     res << disposal_type.hp_codes_to_s
     res << (disposal_type.adr ? 'si' : '')
