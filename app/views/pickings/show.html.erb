@@ -20,7 +20,7 @@
 <% end %>
 
 <div class="centered my-2">
-  <%= link_to 'STAMPA', [:print, @picking], class: 'btn btn-primary' %>  
+  <%= link_to 'STAMPA', [:print, @picking, format: :pdf], class: 'btn btn-primary' %>  
   <%= link_to 'ESTRAI EXCEL', [:print, @picking, format: :csv], class: 'btn btn-primary' %> 
   <% unless @picking.completed? %>  
     <%= link_to 'MODIFICA', [:edit, @picking], class: 'btn btn-primary' %>
