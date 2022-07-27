@@ -14,7 +14,7 @@ class PickingsController < ApplicationController
       @disposals_hash[d.disposal_type] << d
     end
   end
-  
+
   def new
     @current_pickings = current_organization.pickings.undelivered.all # da fissare con all prima di aggiungere new 
     @suppliers = Supplier.where.not(id: @current_pickings.pluck(:supplier_id))
@@ -47,19 +47,16 @@ class PickingsController < ApplicationController
   end
 
   def print
-    @volumes_and_kgs = @picking.disposal_types_volumes_and_kgs
+    data = data_array(@picking.disposal_types_volumes_and_kgs)
     filename = "stampa_ritiro_#{@picking.supplier.name}_#{@picking.date}"
     respond_to do |format|
       format.pdf do
-        pdf = PickingPrint.new(@picking, @volumes_and_kgs)
+        pdf = PickingPrint.new(@picking, data)
         send_data pdf.render, filename: "#{filename}.pdf", type: 'application/pdf', disposition: 'inline'
       end
       format.csv do
         res = CSV.generate(headers: true, col_sep: ";", quote_char: '"') do |csv|
-          csv << ["CER", "Stato fisico", "Descrizione rifiuto", "Tipo di imbal.ggio", "N° e tipo di colli", "Peso (Kg)", "Caratteristiche di pericolo", "ADR", "N. ONU", "Classe ADR"]
-          @volumes_and_kgs.each do |disposal_type, vols_and_kgs|   
-            csv << csv_extraction(disposal_type, vols_and_kgs)
-          end
+          csv = data
         end
         send_data res, filename: "#{filename}.csv"
       end
@@ -92,19 +89,24 @@ class PickingsController < ApplicationController
     params[:picking].permit(:date, disposal_ids: [])
   end
 
-  def csv_extraction(disposal_type, vols_and_kgs)
-    volumes = vols_and_kgs[:volumes].keys.map(&:to_i).sort 
+  def data_array(volumes_and_kgs)
     res = []
-    res << disposal_type.cer_code
-    res << disposal_type.physical_state_to_s
-    res << disposal_type.cer_code.description
-    res << volumes.map {|v| v == 200 ? 'Fusto' : 'Tanica'}.sort.uniq.join(' e ')
-    res << volumes.map {|v| "da #{v} litri: #{vols_and_kgs[:volumes][v.to_s]}"}.join('')
-    res << vols_and_kgs[:kgs]
-    res << disposal_type.hp_codes_to_s
-    res << (disposal_type.adr ? 'si' : '')
-    res << disposal_type.un_code
-    res << disposal_type.adrs_to_s
+    res << ["CER", "Stato fisico", "Descrizione rifiuto", "Tipo di imbal.ggio", "N° e tipo di colli", "Peso (Kg)", "Caratteristiche di pericolo", "ADR", "N. ONU", "Classe ADR"]
+    volumes_and_kgs.each do |disposal_type, vols_and_kgs|   
+      volumes = vols_and_kgs[:volumes].keys.map(&:to_i).sort 
+      line = []
+      line << disposal_type.cer_code.to_s
+      line << disposal_type.physical_state_to_s
+      line << disposal_type.cer_code.description
+      line << volumes.map {|v| v == 200 ? 'Fusto' : 'Tanica'}.sort.uniq.join(' e ')
+      line << volumes.map {|v| "da #{v} litri: #{vols_and_kgs[:volumes][v.to_s]}"}.join('')
+      line << vols_and_kgs[:kgs]
+      line << disposal_type.hp_codes_to_s
+      line << (disposal_type.adr ? 'si' : '')
+      line << disposal_type.un_code.to_s
+      line << disposal_type.adrs_to_s
+      res << line
+    end
     res
   end
 end

@@ -1,12 +1,11 @@
 class PickingPrint
   include Prawn::View
 
-  def initialize(picking, volumes_and_kgs)
+  def initialize(picking, data)
     @picking = picking
-    @volumes_and_kgs = volumes_and_kgs
     @document = Prawn::Document.new(page_size: 'A4', page_layout: :landscape, font_size: 8)
     header
-    content
+    content(data)
   end
 
   def header
@@ -36,13 +35,12 @@ class PickingPrint
     res
   end
 
-  def content
+  def content(data)
     font_size 8
-    lines = [["CER", "Stato fisico", "Descrizione rifiuto", "Tipo di imbal.ggio", "N° e tipo di colli", "Peso (Kg)", "Caratteristiche di pericolo", "ADR", "N. ONU", "Classe ADR"]]
-    @volumes_and_kgs.each do |disposal_type, vols_and_kgs|   
-      lines << extraction(disposal_type, vols_and_kgs)
-    end
-    table lines do
+    # @volumes_and_kgs.each do |disposal_type, vols_and_kgs|   
+    #   lines << extraction(disposal_type, vols_and_kgs)
+    # end
+    table data do
       row(0).style {|c| c.font_style = :bold; c.background_color = 'eeeeee' }
       column(5).style {|c| c.align = :right }
     end
