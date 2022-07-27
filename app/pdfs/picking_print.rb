@@ -4,15 +4,20 @@ class PickingPrint
   def initialize(picking, volumes_and_kgs)
     @picking = picking
     @volumes_and_kgs = volumes_and_kgs
-    @document = Prawn::Document.new(page_size: 'A4', page_layout: :landscape, font_size: 9)
+    @document = Prawn::Document.new(page_size: 'A4', page_layout: :landscape, font_size: 8)
     header
     content
   end
 
   def header
-    text @picking.supplier.name.upcase, bold: true
-    text 'MODULO PRENOTAZIONE SERVIZIO', bold: true
-    text "#{@picking.organization.name} #{@picking.organization.description}"
+    text @picking.supplier.name.upcase, style: :bold
+    text 'MODULO PRENOTAZIONE SERVIZIO', style: :bold
+    move_down 10
+    text "UNITA’ LOCALE: #{@picking.organization.name} #{@picking.organization.description}"
+    text "CONTATTI RESPONSABILI UL: ........."
+    move_down 10
+    text "RITIRO PER IL GIORNO: #{I18n.l @picking.date}"
+    move_down 20
   end
 
   def extraction(disposal_type, vols_and_kgs)
@@ -37,6 +42,9 @@ class PickingPrint
     @volumes_and_kgs.each do |disposal_type, vols_and_kgs|   
       lines << extraction(disposal_type, vols_and_kgs)
     end
-    table lines
+    table lines do
+      row(0).style {|c| c.font_style = :bold; c.background_color = 'eeeeee' }
+      column(5).style {|c| c.align = :right }
+    end
   end
 end
