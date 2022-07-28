@@ -1,8 +1,9 @@
 <% 
     disposal_label = lambda do |d|
-  "id #{d.id} #{d.disposal_type.to_s_short} - #{d.volume} L. - #{d.kgs} Kg."
-end
+      "id #{d.id} #{d.disposal_type.to_s_short} - #{d.volume} L. - #{d.kgs} Kg."
+    end
 %>  
+
 <h1>
   Programmazione ritiro con <br/>
   <%= @picking.supplier %>
@@ -13,16 +14,18 @@ end
 <%= simple_form_for @picking do |f| %>  
   <%= f.input :date, as: :date, html5: true %>  
 
-  <% if @possible_disposals.empty? %>  
-    <p class="alert alert-warning">
-    Non sono disponibili rifiuti <strong>approvati</strong> per le tipologie di CER trattati dal fornitore <%= @picking.supplier %>.<br/>
-    Una volta aggiunti e approvati rifiuti al tuo deposito temporaneo con i CER che vedi nel box azzurro sotto potrai aggiungerli a questo ritiro.
-    </p>
-  <% else %>
-    <%= f.association :disposals, as: :check_boxes, 
-                               label: "Seleziona i rifiuti", 
-                          collection: @possible_disposals,
-                        label_method: disposal_label %>  
+  <% if @can_change_disposals %>  
+    <% if @possible_disposals.empty? %>  
+      <p class="alert alert-warning">
+      Non sono disponibili rifiuti <strong>approvati</strong> per le tipologie di CER trattati dal fornitore <%= @picking.supplier %>.<br/>
+      Una volta aggiunti e approvati rifiuti al tuo deposito temporaneo con i CER che vedi nel box azzurro sotto potrai aggiungerli a questo ritiro.
+      </p>
+    <% else %>
+      <%= f.association :disposals, as: :check_boxes, 
+        label: "Seleziona i rifiuti", 
+        collection: @possible_disposals,
+        label_method: disposal_label %>  
+    <% end %>
   <% end %>
 
   <%= f.submit 'Salva' %> - <%= link_to 'indietro', @picking %>    

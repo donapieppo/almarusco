@@ -35,7 +35,10 @@ class PickingsController < ApplicationController
   end
 
   def edit
-    @possible_disposals = @picking.possible_disposals.order(:id).includes(:user, :producer, disposal_type: [:un_code, :cer_code])
+    @can_change_disposals = ! @picking.delivered?
+    if @can_change_disposals
+      @possible_disposals = @picking.possible_disposals.order(:id).includes(:user, :producer, disposal_type: [:un_code, :cer_code])
+    end 
   end
 
   def update
