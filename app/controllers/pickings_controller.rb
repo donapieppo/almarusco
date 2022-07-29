@@ -10,7 +10,7 @@ class PickingsController < ApplicationController
   def show
     @disposals_hash = Hash.new { |hash, key| hash[key] = [] }
 
-    @picking.disposals.includes(disposal_type: [:un_code, :cer_code]).each do |d|
+    @picking.disposals.include_all.each do |d|
       @disposals_hash[d.disposal_type] << d
     end
   end
@@ -40,6 +40,8 @@ class PickingsController < ApplicationController
     if @can_change_disposals
       @possible_disposals = @picking.possible_disposals.order(:id).includes(:user, :producer, disposal_type: [:un_code, :cer_code])
     end 
+    @previous_contacts = current_organization.pickings.where("contact > ''").select(:contact).group(:contact).distinct.map(&:contact).sort
+    @previous_address = current_organization.pickings.where("address > ''").select(:address).group(:address).distinct.map(&:address).sort
   end
 
   def update
