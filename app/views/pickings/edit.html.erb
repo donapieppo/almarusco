@@ -15,16 +15,18 @@
   <%= simple_form_for @picking do |f| %>  
     <%= f.input :date, as: :date, html5: true %>  
     <%= f.input :address, as: :string %>  
-    <div class="offset-sm-3 my-4">
-    <% @previous_address.each do |c| %>  
-      <a class='btn btn-outline-secondary btn-sm' data-action="click->previous_picking_data#setAddress" data-previous_picking_data-address-param="<%= c %>"><%= c %></a>
-    <% end %>
+    <div class="offset-sm-3 my-2">
+      <%= '<p><small>Puoi scegliere tra i seguenti indirizzi scelti precedentemente:</small></p>'.html_safe if @previous_address.any? %>  
+      <% @previous_address.each do |c| %>  
+        <a class='btn btn-outline-secondary btn-sm' data-action="click->previous_picking_data#setAddress" data-previous_picking_data-address-param="<%= c %>"><%= c %></a>
+      <% end %>
     </div>
     <%= f.input :contact, as: :string, hint: 'Nome, cognome e telefono del contatto.' %>
-    <div class="offset-sm-3 my-4">
-    <% @previous_contacts.each do |c| %>  
-      <a class='btn btn-outline-secondary btn-sm' data-action="click->previous_picking_data#setContact" data-previous_picking_data-contact-param="<%= c %>"><%= c %></a>
-    <% end %>
+    <div class="offset-sm-3 my-2">
+      <%= '<p><small>Puoi scegliere tra i seguenti contatti scelti precedentemente:</small></p>'.html_safe if @previous_contacts.any? %>  
+      <% @previous_contacts.each do |c| %>  
+        <a class='btn btn-outline-secondary btn-sm' data-action="click->previous_picking_data#setContact" data-previous_picking_data-contact-param="<%= c %>"><%= c %></a>
+      <% end %>
     </div>
 
     <% if @can_change_disposals %>  
