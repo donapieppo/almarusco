@@ -24,7 +24,7 @@ class Picking < ApplicationRecord
   def disposal_types_volumes_and_kgs
     res = Hash.new { |hash, key| hash[key] = {} }
 
-    self.disposals.includes(disposal_type: :cer_code).each do |disposal|
+    self.disposals.include_all.each do |disposal|
       res[disposal.disposal_type][:cer_name] = disposal.disposal_type.cer_code.name
       res[disposal.disposal_type][:volumes] ||= {}
       res[disposal.disposal_type][:kgs] ||= 0.0
