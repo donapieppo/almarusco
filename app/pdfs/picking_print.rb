@@ -9,13 +9,16 @@ class PickingPrint
   end
 
   def header
-    text @picking.supplier.name.upcase, style: :bold
-    text 'MODULO PRENOTAZIONE SERVIZIO', style: :bold
+    text "#{@picking.supplier.name.upcase} MODULO PRENOTAZIONE SERVIZIO", style: :bold
     move_down 10
-    text "UNITA’ LOCALE: #{@picking.organization.name} #{@picking.organization.description}"
-    text "CONTATTI RESPONSABILI UL: ........."
-    move_down 10
-    text "RITIRO PER IL GIORNO: #{I18n.l @picking.date}"
+    table [["Unità locale: ", "#{@picking.organization.to_s.upcase} #{@picking.organization.description.to_s.upcase}"],
+           ["Ritiro per il giorno: ", "#{I18n.l @picking.date}"],
+           ["Contatti responsabili ul: ", "#{@picking.contact.to_s.upcase}"],
+           ["Luogo del ritiro: ", "#{@picking.address.to_s.upcase}"]] do
+      cells.borders = [] 
+      cells.background_color = 'eeeeee'
+      column(0).align = :right
+    end
     move_down 20
   end
 
