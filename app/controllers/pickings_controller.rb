@@ -15,6 +15,7 @@ class PickingsController < ApplicationController
     end
   end
 
+  # more a choose_supplier than a new :-)
   def new
     @current_pickings = current_organization.pickings.undelivered.all # da fissare con all prima di aggiungere new 
     @suppliers = Supplier.where.not(id: @current_pickings.pluck(:supplier_id))
@@ -89,7 +90,7 @@ class PickingsController < ApplicationController
   end
 
   def picking_params
-    params[:picking].permit(:date, disposal_ids: [])
+    params[:picking].permit(:date, :address, :contact, disposal_ids: [])
   end
 
   def data_array(volumes_and_kgs)
