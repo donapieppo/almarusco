@@ -72,6 +72,8 @@ it:
       picking:
         supplier: Fornitore
         date: Data ritiro
+        address: Indirizzo di consegna
+        contact: Nome contatto e numero di telefono
       picking_document:
         serial_number: Serie e numero
         register_number: Numero registro

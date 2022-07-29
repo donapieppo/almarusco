@@ -1,3 +1,6 @@
+alter table pickings add column `address` TEXT after `date`;
+alter table pickings add column `contact` TEXT after `address`;
+
 alter table disposals add column `legalized_at` date DEFAULT NULL after approved_at;
 update disposals set legalized_at = delivered_at where delivered_at is not null;
 
