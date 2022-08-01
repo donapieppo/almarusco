@@ -137,6 +137,8 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.integer "organization_id", null: false, unsigned: true
     t.integer "supplier_id", null: false, unsigned: true
     t.date "date"
+    t.text "address"
+    t.text "contact"
     t.datetime "created_at", precision: nil
     t.date "delivered_at"
     t.date "completed_at"
