@@ -61,10 +61,10 @@ class DisposalType < ApplicationRecord
       if self.id && dt.id == self.id
         next
       end
-      if self.physical_state == dt.physical_state && self.hp_code_ids == dt.hp_code_ids
+      if self.physical_state == dt.physical_state && self.hp_code_ids.difference(dt.hp_code_ids).empty?
         errors.add(:cer_code_id, "Esiste già una tipologia con gli stessi parametri cer/un/hp e lo stesso stato nella tua struttura.")
         return false
-        end
+      end
     end
   end
 end
