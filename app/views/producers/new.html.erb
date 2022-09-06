@@ -6,7 +6,7 @@
   <div class="info">
     Inserire l'e-mail del collega
   </div>
-  <%= form_with url: producers_path do |f| %>  
+  <%= form_with url: producers_path, data: { turbo: false } do |f| %>  
     <%= f.label 'Indirizzo e-mail' %>  
     <%= f.text_field :upn %>  
     <%= f.submit "Invia" %>  
