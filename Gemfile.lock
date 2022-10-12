@@ -1,13 +1,7 @@
 GIT
-  remote: https://github.com/donapieppo/dm_unibo_user_search.git
-  revision: c1448ac2215785f12cd619fddfd045fe8f0bc7c0
-  specs:
-    dm_unibo_user_search (0.2.0)
-      rails
-      savon
-
-PATH
-  remote: /home/rails/gems/dm_unibo_common
+  remote: https://github.com/donapieppo/dm_unibo_common.git
+  revision: 12353ebb6d21e26ee456ddbecff2936c8aa47d95
+  branch: turbo
   specs:
     dm_unibo_common (5.0.0)
       cssbundling-rails
@@ -28,6 +22,14 @@ PATH
       stimulus-rails
       turbo-rails
       view_component
+
+GIT
+  remote: https://github.com/donapieppo/dm_unibo_user_search.git
+  revision: c1448ac2215785f12cd619fddfd045fe8f0bc7c0
+  specs:
+    dm_unibo_user_search (0.2.0)
+      rails
+      savon
 
 GEM
   remote: https://rubygems.org/
@@ -297,7 +299,6 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.5.3-x86_64-linux)
     stimulus-rails (1.1.0)
       railties (>= 6.0.0)
     thor (1.2.1)
@@ -355,7 +356,6 @@ DEPENDENCIES
   selenium-webdriver
   spring
   sprockets-rails
-  sqlite3
   turbo-rails
   tzinfo-data
   web-console (>= 4.1.0)
