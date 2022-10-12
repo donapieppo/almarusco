@@ -3,8 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'dm_unibo_user_search', git: 'https://github.com/donapieppo/dm_unibo_user_search.git'
 gem 'dm_unibo_common',      git: 'https://github.com/donapieppo/dm_unibo_common.git', branch: 'turbo'
-#gem 'dm_unibo_common',      path: '/home/rails/gems/dm_unibo_common/'
+# gem 'dm_unibo_common',      path: '/home/rails/gems/dm_unibo_common/'
 
+# gem "sqlite3"
 gem "sprockets-rails"
 gem "jsbundling-rails"
 gem "cssbundling-rails", "~> 1.1"
@@ -19,6 +20,7 @@ gem "prawn-svg"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'factory_bot_rails'
 end
 
 group :development do
