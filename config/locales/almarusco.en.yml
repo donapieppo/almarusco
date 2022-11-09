@@ -69,7 +69,7 @@ en:
       picking_document:
         serial_number: "Come compare il alto nel formulario. Per esempio: 'XBO 111111/20'."
 
-  can_operate: può operare
+  can_operate: operatore
   can_read:    può leggere
   can_admin:   resposabile u.l.
   can_manage:  delegato
