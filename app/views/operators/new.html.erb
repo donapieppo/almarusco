@@ -9,17 +9,19 @@
   </div>
   <%= form_with url: producer_operators_path(@producer) do |f| %>  
     <div class="row">
-      <div class="col-md-3 py-2">
+      <div class="col-md-3 form-label">
         <%= f.label 'e-mail operatore:', class: 'float-end' %>  
       </div>
-      <div class="col-md-9 py-2">
-        <%= f.text_field :upn %>   
+      <div class="col-md-9">
+        <%= f.text_field :upn, class: "form-control" %>   
       </div>
-      <div class="col-md-3 py-2">
+    </div>
+    <div class="row my-2">
+      <div class="col-md-3 form-label">
         <%= f.label 'scadenza:', class: 'float-end' %>
       </div>
-      <div class="col-md-9 py-2">
-        <%= f.date_field :expiry, html5: true %>  
+      <div class="col-md-9">
+        <%= f.date_field :expiry, value: (Date.today + 6.month), html5: true, class: "form-control" %>  
       </div>
     </div>
     <div class="offset-md-3 col-md-9 py-2">
