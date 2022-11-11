@@ -33,10 +33,6 @@ class Disposal < ApplicationRecord
     self.disposal_type.solid?
   end
 
-  def self.available_volumes
-    { liquid: [5, 10, 20], solid: [5, 40, 60, 120] }
-  end
-
   # STATUS
   # APPROVE. first action from responsible
   def approved?

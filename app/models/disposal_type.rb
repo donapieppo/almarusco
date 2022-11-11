@@ -67,4 +67,12 @@ class DisposalType < ApplicationRecord
       end
     end
   end
+
+  def available_volumes
+    if self.liquid?
+      [5, 10, 20]
+    else
+      [5, 40, 60, 120]
+    end
+  end
 end
