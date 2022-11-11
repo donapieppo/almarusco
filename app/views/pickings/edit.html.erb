@@ -53,4 +53,4 @@
   <%= @picking.disposals.sum(:kgs) %> Kg. 
 </div>
 
-<%= render Supplier::DisposalTypesComponent.new(@picking.supplier) %>  
+<%= render Supplier::DisposalTypesComponent.new(@picking.supplier, current_organization.id) %>  
