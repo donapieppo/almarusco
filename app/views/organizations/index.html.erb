@@ -1,24 +1,28 @@
 <h1>Gestione strutture</h1>
 
 <div class="info">
-  Elenco delle strutture e permessi.
-  In rosso i responsabili.
+  Elenco delle strutture e permessi (in rosso i responsabili).
 </div>
 
-<div class="row">
+<div class="accordion" id="organizations">
   <% @organizations.each do |organization| %>
-    <div class="col-md-6 text-end">
-      <span class="text-sm font-light"><%= organization.name %></span>
-      <b><%= organization.code.upcase %></b>
-    </div>
-    <div class="col-md-6">
-      <% organization.permissions.each do |p| %>  
-        <% color = (p.authlevel > 40) ? 'text-danger' : '' %>  
-        <div>
-          <span class="<%= color %>"><%= p.user %> (<%= p.authlevel %>)</span>
-          <small>(<%= l p.created_at, format: :date_html5 %>)</small>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading<%= dom_id(organization) %>">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= dom_id(organization) %>" aria-expanded="false" aria-controls="collapse<%= dom_id(organization) %>">
+          <b><%= organization.code.upcase %></b> <small class="px-2"><%= organization.name %></small>
+        </button>
+      </h2>
+      <div id="collapse<%= dom_id(organization) %>" class="accordion-collapse collapse" aria-labelledby="heading<%= dom_id(organization) %>" data-bs-parent="#organizations">
+        <div class="accordion-body">
+          <% organization.permissions.each do |p| %>  
+            <% color = (p.authlevel > 40) ? 'text-danger' : '' %>  
+            <div>
+              <span class="<%= color %>"><%= p.user %> (<%= p.authlevel %>)</span>
+              <small>(<%= l p.created_at, format: :date_html5 %>)</small>
+            </div>
+          <% end %>
         </div>
-      <% end %>
+      </div>
     </div>
   <% end %>
 </div>
