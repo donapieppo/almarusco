@@ -16,7 +16,11 @@ class PickingPolicy < ApplicationPolicy
     create?
   end
 
-  def print?
+  def new_request?
+    create?
+  end
+
+  def print_request?
     create?
   end
 
