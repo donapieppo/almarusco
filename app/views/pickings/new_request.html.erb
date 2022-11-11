@@ -1,0 +1,37 @@
+<h1>
+  Completa la richiesta <br/>
+  <small>per <%= @picking.supplier %></small>
+</h1>
+
+<div class="info">
+  ...
+</div>
+
+<%= form_with url: [:print_request, @picking, format: :pdf] do |f| %>  
+  <% @request.disposal_types_volumes_and_kgs.each do |dt, vol_and_kg| %>  
+    <div class="card mb-1">
+      <div class="card-header">
+        <strong><%= dt %></strong><br/>
+        <small class="ms-3"><%= dt.cer_code.description %></small>
+      </div>
+
+      <div class="card-body">
+        <div>
+          <span class="pe-2">
+            <%= f.number_field "dt[#{dt.id.to_s}][kgs]", value: vol_and_kg[:kgs].ceil, size: 1 %>
+            <small>Kg.</small>
+          </span>
+          <% vol_and_kg[:volumes].keys.sort.each do |v| %>
+            <span class="pe-2">
+              <%= f.number_field "dt[#{dt.id}][volumes][#{v.to_s}]", value: vol_and_kg[:volumes][v], size: 1 %>
+              <small>da <%= v %>L.</small>
+            </span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <%# <%= f.select :format, [:pdf, :csv] %1> %>  
+  <%= f.submit "Stampa" %>  
+<% end %>

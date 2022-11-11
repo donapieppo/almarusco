@@ -23,28 +23,37 @@ class PickingPrint
     move_down 20
   end
 
-  def extraction(disposal_type, vols_and_kgs)
-    volumes = vols_and_kgs[:volumes].keys.map(&:to_i).sort 
-    res = []
-    res << disposal_type.cer_code.to_s
-    res << disposal_type.physical_state_to_s
-    res << disposal_type.cer_code.description
-    res << volumes.map {|v| v == 200 ? 'Fusto' : 'Tanica'}.sort.uniq.join(' e ')
-    res << volumes.map {|v| "da #{v} litri: #{vols_and_kgs[:volumes][v.to_s]}"}.join("\n")
-    res << vols_and_kgs[:kgs]
-    res << disposal_type.hp_codes_to_s
-    res << (disposal_type.adr ? 'si' : '')
-    res << disposal_type.un_code.to_s
-    res << disposal_type.adrs_to_s
+  def volumes_table(volumes)
+    volumes.keys.select {|v| volumes[v.to_s] != "0" }.map {|v| "#{volumes[v.to_s]} da #{v} litri"}.join("\n")
+  end
+
+  def data_array(data)
+    res = [["CER", "Stato fisico", "Descrizione rifiuto", "Tipo di imbal.ggio", "N° e tipo di colli", "Peso (Kg)", "Caratteristiche di pericolo", "ADR", "N. ONU", "Classe ADR"]] 
+
+    data[:dt].each do |dt_id, values|
+      disposal_type = DisposalType.find(dt_id.to_i)
+      next if values["kgs"] == "0"
+
+      line = []
+      line << disposal_type.cer_code.to_s
+      line << disposal_type.physical_state_to_s
+      line << disposal_type.cer_code.description
+      line << values["volumes"].keys.map {|v| v == 200 ? 'Fusto' : 'Tanica'}.sort.uniq.join(' e ')
+      line << volumes_table(values["volumes"])
+      line << values["kgs"]
+      line << disposal_type.hp_codes_to_s
+      line << (disposal_type.adr ? 'si' : '')
+      line << disposal_type.un_code.to_s
+      line << disposal_type.adrs_to_s
+      res << line
+    end
     res
   end
 
   def content(data)
-    # @volumes_and_kgs.each do |disposal_type, vols_and_kgs|   
-    #   lines << extraction(disposal_type, vols_and_kgs)
-    # end
-    table data do
+    table data_array(data) do
       row(0).style {|c| c.font_style = :bold; c.background_color = 'eeeeee' }
+      column(4).style {|c| c.align = :right }
       column(5).style {|c| c.align = :right }
     end
   end

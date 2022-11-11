@@ -1,6 +1,6 @@
 require 'csv'
 class PickingsController < ApplicationController
-  before_action :set_picking_and_check_permission, only: [:show, :edit, :update, :delete, :print, :deliver, :complete]
+  before_action :set_picking_and_check_permission, only: [:show, :edit, :update, :delete, :new_request, :print_request, :deliver, :complete]
 
   def index
     authorize :picking
@@ -52,23 +52,15 @@ class PickingsController < ApplicationController
   def destroy
   end
 
-  def print
-    data = data_array(@picking.disposal_types_volumes_and_kgs)
+  def new_request
+    authorize :picking
+    @request = PickingRequest.new(@picking)
+  end
+
+  def print_request
     filename = "stampa_ritiro_#{@picking.supplier.name}_#{@picking.date}"
-    respond_to do |format|
-      format.pdf do
-        pdf = PickingPrint.new(@picking, data)
-        send_data pdf.render, filename: "#{filename}.pdf", type: 'application/pdf', disposition: 'inline'
-      end
-      format.csv do
-        res = CSV.generate(headers: true, col_sep: ";", quote_char: '"') do |csv|
-          csv = data
-        end
-        send_data res, filename: "#{filename}.csv"
-      end
-      format.html
-    end
-    @no_menu = true
+    pdf = PickingPrint.new(@picking, params.to_unsafe_hash)
+    send_data pdf.render, filename: "#{filename}.pdf", type: 'application/pdf', disposition: 'inline'
   end
 
   def deliver
@@ -95,9 +87,11 @@ class PickingsController < ApplicationController
     params[:picking].permit(:date, :address, :contact, disposal_ids: [])
   end
 
-  def data_array(volumes_and_kgs)
+  def data_array(volumes_and_kgs, array_headers: false)
     res = []
-    res << ["CER", "Stato fisico", "Descrizione rifiuto", "Tipo di imbal.ggio", "N° e tipo di colli", "Peso (Kg)", "Caratteristiche di pericolo", "ADR", "N. ONU", "Classe ADR"]
+    if array_headers
+      res << ["CER", "Stato fisico", "Descrizione rifiuto", "Tipo di imbal.ggio", "N° e tipo di colli", "Peso (Kg)", "Caratteristiche di pericolo", "ADR", "N. ONU", "Classe ADR"]
+    end
     volumes_and_kgs.each do |disposal_type, vols_and_kgs|   
       volumes = vols_and_kgs[:volumes].keys.map(&:to_i).sort 
       line = []
@@ -114,5 +108,8 @@ class PickingsController < ApplicationController
       res << line
     end
     res
+  end
+
+  def data_arry_from_form
   end
 end
