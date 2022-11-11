@@ -33,7 +33,8 @@ class Picking < ApplicationRecord
       res[disposal.disposal_type][:kgs] = res[disposal.disposal_type][:kgs] + disposal.kgs
     end
 
-    res.sort_by { |dt, h| h[:cer_name] }
+    res
+    # res.sort_by { |dt, h| h[:cer_name] }
   end
 
   def delivered?
