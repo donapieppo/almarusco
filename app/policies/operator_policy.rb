@@ -8,6 +8,10 @@ class OperatorPolicy < ApplicationPolicy
     current_organization_manager?
   end
 
+  def edit?
+    current_organization_manager?
+  end
+
   def destroy?
     current_organization_manager?
   end

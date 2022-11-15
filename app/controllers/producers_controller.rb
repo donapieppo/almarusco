@@ -1,19 +1,26 @@
+# sigh, doesn't work without this :-(
+require_dependency "dm_unibo_common/permission_policy"
+
 # Producer for almarusco is the person who can dispose.
+# Associated to DmUniboCommon::Permission
+# maybe refactor < DmUniboCommon::Permission?
 class ProducersController < ApplicationController
   def index
-    authorize :producer
-    @producers = current_organization.permissions.where(authlevel: Rails.configuration.authlevels[:dispose]).includes(:user).order('users.surname')
+    @producer_permissions = current_organization.permissions.where(authlevel: Rails.configuration.authlevels[:dispose]).includes(:user).order('users.surname')
+    authorize [:dm_unibo_common, :permission]
   end
 
   def new
-    authorize :producer
+    @permission = current_organization.permissions.new(authlevel: Rails.configuration.authlevels[:dispose])
+    authorize @permission
   end
 
   def create
     begin
       @user = User.syncronize(params[:upn])
-      @permission = current_organization.permissions.new(authlevel: Rails.configuration.authlevels[:dispose], user_id: @user.id)
-      authorize :producer
+      @permission = current_organization.permissions.new(authlevel: Rails.configuration.authlevels[:dispose], 
+                                                         user_id: @user.id)
+      authorize @permission
       if @permission.save
         redirect_to producers_path, notice: "È stato aggiunta la delega a #{@user}."
       else
@@ -28,19 +35,13 @@ class ProducersController < ApplicationController
 
   # see app/controllers/operators_controller#destroy
   def destroy
-    current_user or raise "NO"
-    # DmUniboCommon::Permission
-    permission = current_organization.permissions.find_by_id(params[:id])
-    producer = permission.user
-    # FIXME not allowed to destroy? this DmUniboCommon::Permission
-    # even with app/policies with dmDmUniboCommon::Permission
-    skip_authorization
-    if producer && current_user && 
-       OrganizationPolicy.new(current_user, current_organization).admin? &&
-       permission.organization_id == current_organization.id && 
-       permission.authlevel == Rails.configuration.authlevels[:dispose] 
+    permission = current_organization.permissions.find_by_id(params[:id]) # DmUniboCommon::Permission
+    authorize permission
+
+    if permission.user_id && permission.authlevel == Rails.configuration.authlevels[:dispose] 
       permission.destroy
-      current_organization.permissions.where(producer_id: producer.id).destroy_all
+      # delete also all operators
+      current_organization.permissions.where(producer_id: permission.user_id).destroy_all
     end
     redirect_to producers_path
   end
