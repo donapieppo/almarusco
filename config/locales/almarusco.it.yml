@@ -53,6 +53,7 @@ it:
         hp_codes: Codici HP
         adrs: ADR
         pictograms: Pittogrammi
+        separable: Rifiuti anche registarti in lotti
       disposal:
         producer: Produttore
         producer_upn: Produttore 
@@ -61,6 +62,7 @@ it:
         notes: Note
         physical_state: Stato
         lab: Laboratorio
+        units: Numero di contenitori
       lab:
         name: Nome
       un_code:
@@ -85,6 +87,7 @@ it:
       disposal_type:
         adr: Rifiuto assimilabile alle merci pericolose contenute nell’Accordo ADR.
         notes: Descrizione visibile a chi deve creare il carico del rifiuto (opzionale)
+        separable: Se selezionato il produttore può registrare rifiuti di questa tipologia composti da più fusti/taniche.
       disposal:
         kgs: Quanti Kg? (numero decimale)
         lab: Laboratorio di provenienza del rifiuto
