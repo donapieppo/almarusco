@@ -110,17 +110,17 @@ form.disposal_cer_selector {
 }
 
 .disposal_type_cer_code, .disposal_type_un_code, .disposal_type_hp_codes, .disposal_type_adrs, .disposal_type_pictograms {
-  input {
+  .form-check input {
     display: none;
   }
   .form-check {
     display: inline-block;
   }
-  label {
+  .form-check label {
     @extend .btn;
     @extend .btn-outline-secondary;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding-top: 1px;
+    padding-bottom: 1px;
     margin-top: 4px;
     margin-left: 0 !important;
   }
