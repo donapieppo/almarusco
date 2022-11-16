@@ -6,8 +6,11 @@ application.register("disposal-selector", DisposalSelectorController)
 import PreviousPickingDataController from "./previous_picking_data_controller"
 application.register("previous_picking_data", PreviousPickingDataController)
 
-import DisposalTypeController from "./disposal_type"
+import DisposalTypeController from "./disposal_type_controller"
 application.register("disposal-type", DisposalTypeController)
+
+import LegalizeController from "./legalize_controller"
+application.register("legalize", LegalizeController)
 
 import DsaAwesomplete from "./dsa_awesomplete.js"
 application.register("dsa-awesomplete", DsaAwesomplete)
