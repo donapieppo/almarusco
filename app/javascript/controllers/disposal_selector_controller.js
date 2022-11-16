@@ -12,11 +12,4 @@ export default class extends Controller {
       d.style.display = (d.dataset.cerid === selectedId) ? 'block' : 'none';
     })
   }
-
-  toggle_missing_kgs(event) {
-    document.querySelectorAll(".disposal-card").forEach(d => {
-      d.style.display = (d.dataset.withkgs === 'true') ? 'none' : 'block';
-    })
-    event.preventDefault();
-  }
 }
