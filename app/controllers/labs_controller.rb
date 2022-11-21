@@ -3,7 +3,7 @@ class LabsController < ApplicationController
 
   def index
     authorize :lab
-    @labs = current_organization.labs
+    @labs = current_organization.labs.order(:name)
   end
 
   def show
