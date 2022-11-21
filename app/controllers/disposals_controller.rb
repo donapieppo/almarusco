@@ -1,32 +1,37 @@
 class DisposalsController < ApplicationController
   helper DisposalHelper
 
-  before_action :set_disposal_type, only: %i(new create)
-  before_action :set_permitted_producers, only: %i(new create edit update)
-  before_action :set_cache_users, only: %i(new clone edit)
-  before_action :set_disposal_and_check_permission, only: %i(show edit update destroy approve unapprove)
+  before_action :set_disposal_type, only: %i[ new create ]
+  before_action :set_permitted_producers, only: %i[ new create edit update ]
+  before_action :set_cache_users, only: %i[ new clone edit ]
+  before_action :set_disposal_and_check_permission, only: %i[ show edit update destroy approve unapprove ]
 
   def index
     authorize :disposal
     @highlight_id = params[:h].to_i
 
     @disposals = current_organization.disposals
-                                     .undelivered
+                                     .unlegalized
                                      .order("disposals.id DESC, disposals.user_id ASC")
                                      .include_all
 
-    if params[:u] && policy(current_organization).manage?
+    @manager = policy(current_organization).manage?
+    @title = @manager ? 'Rifiuti non registati' : 'Elenco rifiuti'
+
+    if params[:u] && @manager
       @user = User.find(params[:u].to_i)
       @disposals = @disposals.user_or_producer(@user.id)
     end
 
     if params[:uncomplete]
+      @title = 'Richieste incomplete'
       @disposals = @disposals.uncomplete 
     elsif params[:acceptable]
+      @title = 'Richieste da approvare'
       @disposals = @disposals.complete.unapproved
     end
 
-    @disposals = @disposals.user_or_producer(current_user.id) unless policy(current_organization).manage?
+    @disposals = @disposals.user_or_producer(current_user.id) unless @manager
 
     _disposal_types = @disposals.map(&:disposal_type_id).uniq
     @disposals_cers = current_organization.disposal_types
@@ -113,6 +118,7 @@ class DisposalsController < ApplicationController
 
   def search
     authorize :disposal
+    # Remember: can be more than number (example disposals with many units)
     requested_disposal_id = params[:search_string].to_i
     @disposal = current_organization.disposals.find_by_id(requested_disposal_id)
 
@@ -128,26 +134,33 @@ class DisposalsController < ApplicationController
     authorize :disposal
     @year = 2021
     @disposals = current_organization.disposals
+                                     .include_all
                                      .delivered
                                      .where('YEAR(disposals.delivered_at) = ?', @year)
-                                     .includes(:user, :producer, :lab, disposal_type: [:cer_code, :un_code, :hp_codes, :adrs])
     @disposal_types = current_organization.disposal_types.where(id: @disposals.map(&:disposal_type_id).sort.uniq)
   end
 
   # keep here (in conroller and not in model legalize_all because you legalize what you see (from deposit#logalize) 
+  # "disposal_ids"=>"898,1311,1349,1422,1519"
   def legalize
     authorize :disposal
-    current_organization.disposals.approved.unlegalized.find(params[:disposal_ids]).each do |disposal|
-      disposal.legalize!
+    if params[:register_number].to_i == 0
+      flash[:alert] = "Manca il numero della registrazione."
+    elsif RegisterNumber.new(params[:register_number], current_organization).invalid?
+      flash[:alert] = "Numero della registrazione già utilizato precedentemente."
+    else
+      current_organization.disposals.approved.unlegalized.find(params[:disposal_ids].split(',')).each do |disposal|
+        disposal.legalize!(params[:register_number].to_i)
+      end
     end
-    redirect_to to_legalize_path
+    redirect_to to_legalize_path # depositis#to_legalize
   end
 
   private
 
   # no producer or user!
   def disposal_params
-    params[:disposal].permit(:volume, :kgs, :lab_id, :notes)
+    params[:disposal].permit(:kgs, :units, :volume, :lab_id, :notes)
   end
 
   def set_disposal_type
