@@ -6,12 +6,14 @@
     as: :radio_buttons %>  
   </div>
 
-  <%= f.association :cer_code, collection: CerCode.order(:name), as: :radio_buttons, include_blank: false, label_method: :to_s, label: false %>
-  <%= f.association :un_code, collection: UnCode.order(:id), as: :radio_buttons, include_blank: true, label_method: :to_s, label: false %>  
-  <%= f.association :hp_codes, collection: HpCode.order(:id), as: :check_boxes, label_method: :code, label: false %>  
-  <%= f.association :adrs, collection: Adr.order(:id), as: :check_boxes, label_method: :name, label: false %>  
+  <%= f.input :separable, label: '' %>  
 
-  <%= f.association :pictograms, collection: Pictogram.order(:id), as: :check_boxes, label_method: lambda {|p| image_tag p.image, width: 80}, label: false %>  
+  <%= f.association :cer_code, collection: CerCode.order(:name), as: :radio_buttons, include_blank: false, label_method: :to_s %>
+  <%= f.association :un_code, collection: UnCode.order(:id), as: :radio_buttons, include_blank: true, label_method: :to_s %>  
+  <%= f.association :hp_codes, collection: HpCode.order(:id), as: :check_boxes, label_method: :code %>  
+  <%= f.association :adrs, collection: Adr.order(:id), as: :check_boxes, label_method: :name %>  
+
+  <%= f.association :pictograms, collection: Pictogram.order(:id), as: :check_boxes, label_method: lambda {|p| image_tag p.image, width: 80} %>  
 
   <%= f.input :notes %>  
 
