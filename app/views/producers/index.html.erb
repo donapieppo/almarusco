@@ -6,38 +6,24 @@
 
 <div class="row">
   <div class="col-md-4">
-    <div class="info my-2">
-      <p>
-      <strong>Produttore:</strong> soggetto la cui attività produce rifiuti; per produttore/detentore di rifiuti,
-      nell’organizzazione dell’Università di Bologna, deve intendersi non soltanto il soggetto (Responsabile di
-      didattica e di ricerca in laboratorio, RDRL) dalla cui attività materiale sia derivata la produzione di rifiuti,
-      ma qualora questa figura non fosse identificabile, anche il soggetto (Responsabile di Struttura) al quale
-      sia giuridicamente riferibile detta produzione ed a carico del quale sia quindi configurabile, quale
-      titolare di una posizione definibile come di garanzia, l’obbligo di provvedere allo smaltimento di detti
-      rifiuti nei modi prescritti per legge.
-      </p>
-      <p>
-      <strong>Operatore:</strong> soggetto che può operare sul software <strong>in vece</strong> di uno o più produttori.
-      </p>
-    </div>
+    <%= render partial: 'info' %>  
   </div>
   <div class="col-md-8">
-
-    <% @producers.each do |producer| %>  
-      <%= dm_card title: producer.user.cn_militar do %>  
-        <% producer %>  
-        <% current_organization.permissions.where(producer_id: producer.user_id).includes(:user).each do |permission| %>  
+    <% @producer_permissions.each do |permission| %>  
+      <%= dm_card title: permission.user.cn_militar do %>  
+        <% current_organization.permissions.where(producer_id: permission.user_id).includes(:user).each do |operator_permission| %>  
           <div class="my-1">
-            operatore: <%= permission.user %>
-            <i>(fino al <%= permission.expiry ? l(permission.expiry) : '???' %>)</i>
+            operatore: <%= operator_permission.user %>
+            <i>(fino al <%= operator_permission.expiry ? l(operator_permission.expiry) : '???' %>)</i>
             <span class="float-end">
-              <%= link_to_delete operator_path(permission.id) %>
+              <%= link_to_delete operator_path(operator_permission.id) %>
+              <%= link_to_edit edit_operator_path(operator_permission.id) %>
             </span>
           </div>
         <% end %>
         <div class="mt-2 float-end">
-          <%= link_to dmicon('plus') + ' aggiungi operatore', new_producer_operator_path(producer.user_id) %> &nbsp;  
-          <%= link_to_delete "elimina produttore", producer_path(producer) %>
+          <%= link_to dmicon('plus') + ' aggiungi operatore', new_producer_operator_path(permission.user_id) %> &nbsp;  
+          <%= link_to_delete "elimina produttore", producer_path(permission) %>
         </div>
       <% end %>
     <% end %>
