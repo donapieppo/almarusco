@@ -20,23 +20,6 @@ class Picking < ApplicationRecord
     self.save
   end
 
-  # res[disposal_type][:volumes]["20"][1]
-  def disposal_types_volumes_and_kgs
-    res = Hash.new { |hash, key| hash[key] = {} }
-
-    self.disposals.include_all.each do |disposal|
-      res[disposal.disposal_type][:cer_name] = disposal.disposal_type.cer_code.name
-      res[disposal.disposal_type][:volumes] ||= {}
-      res[disposal.disposal_type][:kgs] ||= 0.0
-
-      res[disposal.disposal_type][:volumes][disposal.volume.to_s] = res[disposal.disposal_type][:volumes][disposal.volume.to_s].to_i + 1
-      res[disposal.disposal_type][:kgs] = res[disposal.disposal_type][:kgs] + disposal.kgs
-    end
-
-    res
-    # res.sort_by { |dt, h| h[:cer_name] }
-  end
-
   def delivered?
     delivered_at
   end
