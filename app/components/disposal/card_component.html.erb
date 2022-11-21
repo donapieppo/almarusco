@@ -1,36 +1,24 @@
 <div class="dm-card" id="<%= dom_id @disposal %>">
   <% if @modal %>  
-    <div class="dm-card-title <%= @disposal.approved? ? 'border-success' : '' %>">
-      <div>
-        <%= @disposal.disposal_type.to_s %>
-        <span class="float-end"><%= @disposal.id %></span>
-      </div>
-      <div class="small fw-normal">
-        <%= @disposal.disposal_type.hp_codes_to_s %>
-      </div>
-    </div>
+    <%= render Disposal::CardTitleComponent.new(@disposal) %>  
   <% else %>
     <%= link_to disposal_path(@disposal, modal: 1), data: { turbo_frame: :modal } do %>  
-      <div class="dm-card-title <%= @disposal.approved? ? 'border-success' : '' %>">
-        <div>
-          <%= @disposal.disposal_type.to_s %>
-          <span class="float-end"><%= @disposal.id %></span>
-        </div>
-        <div class="small fw-normal">
-          <%= @disposal.disposal_type.hp_codes_to_s %>
-        </div>
-      </div>
+      <%= render Disposal::CardTitleComponent.new(@disposal) %>  
     <% end %>
   <% end %>
   <div class="dm-card-body">
     <div class="row">
-      <div class="col-md-3 fw-bold">
-        <%= @disposal.volume %> L. <br/>
-        <% if @disposal.kgs %>  
-          <%= @disposal.kgs %> Kg. 
-        <% else %>
-          <span class="text-danger">? Kg</span>
-        <% end %>
+      <div class="col-md-3">
+        <div class="fw-bold">
+          <%= @disposal.volume_tot %> L.<br/>
+        </div>
+        <div class="fw-bold">
+          <% if @disposal.kgs %>  
+            <%= @disposal.kgs %> Kg. 
+          <% else %>
+            <span class="text-danger">? Kg</span>
+          <% end %>
+        </div>
       </div>
       <div class="col-md-9">
         <%= t :producer %>:
@@ -40,19 +28,7 @@
         <% end %> 
         <div class="text-muted small">
           <%= t :laboratory %> <%= @disposal.lab %><br/>
-          <%= t :created_at %> <%= l @disposal.created_at %> <br/>
-          <% if @disposal.approved? %>  
-            <%= t :approved_at %> <%= l @disposal.approved_at %> <br/>
-          <% end %>
-          <% if @disposal.legalized? %>  
-            <%= t :legalized_at %> <%= l @disposal.legalized_at %> <br/>
-          <% end %>
-          <% if @disposal.delivered? %>
-            <%= t :delivered_at %> <%= l @disposal.delivered_at %> <br/> 
-          <% end %>
-          <% if @disposal.completed? %>
-            <%= t :completed_at %> <%= l @disposal.completed_at %> <br/> 
-          <% end %>
+          <%= render Disposal::HistoryComponent.new(@disposal) %>  
           <div class="font-italic text-gray-500">
             <%= @disposal.notes %>  
           </div>
@@ -68,6 +44,14 @@
         <strong>stato:</strong> <%= t @disposal.disposal_type.physical_state %>
       </div>
     <% end %>
+
+    <% if @disposal.units.to_i > 1 %>  
+      <div>
+        <strong><%= @disposal.units %></strong> 
+        <%= @disposal.volume_type %> da <strong><%= @disposal.volume %> L.</strong>
+      </div>
+    <% end %>
+
     <div class="row mt-2">
       <div class="col-md-6">
         <%= render Disposal::StatusComponent.new(@current_user, @disposal, modal: @modal) %>  
