@@ -7,12 +7,4 @@ class ApplicationController < DmUniboCommon::ApplicationController
   def set_locale
     I18n.locale = :it
   end
-
-  def current_user_producer?
-    current_user.authorization.authlevel(current_organization) == Rails.configuration.authlevels[:dispose]
-  end
-
-  def current_user_operator?
-    current_user.authorization.authlevel(current_organization) == Rails.configuration.authlevels[:operate]
-  end
 end
