@@ -1,0 +1,15 @@
+<%= t :created_at %> <%= l @disposal.created_at %> <br/>
+<% if @disposal.approved? %>  
+  <%= t :approved_at %> <%= l @disposal.approved_at %> <br/>
+<% end %>
+<% if @disposal.legalized? %>  
+  <%= t :legalized_at %> <%= l @disposal.legalized_at %> 
+  con numero <%= @disposal.register_number.to_i %> <br/>
+<% end %>
+<% if @disposal.delivered? %>
+  <%= t :delivered_at %> <%= l @disposal.delivered_at %> <br/> 
+<% end %>
+<% if @disposal.completed? %>
+  <%= t :completed_at %> <%= l @disposal.completed_at %> <br/> 
+<% end %>
+
