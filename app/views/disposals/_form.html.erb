@@ -1,4 +1,4 @@
-<% volumes_collection = @disposal_type.available_volumes.map { |v| ["#{v} litri", v] } %>  
+<% volumes_collection = @disposal.disposal_type.available_volumes.map { |v| ["#{v} litri", v] } %>  
 
 <%= simple_form_for [@disposal_type, @disposal], wrapper: :horizontal_form do |f| %>  
   <% if @permitted_producers && @permitted_producers.any? %>  
@@ -9,12 +9,17 @@
     <% end %>
   <% end %>
   <%= f.association :lab, collection: current_organization.labs.order(:name) %>  
+
+  <%= f.input :kgs, as: :float, input_html: { step: 0.1, style: 'max-width: 8rem' } %>  
+
   <%= f.input :volume, as: :radio_buttons, collection: volumes_collection, wrapper: :horizontal_collection %>  
-  <%= f.input :kgs, as: :float, input_html: { step: 0.1 } %>  
+  <% if @disposal.disposal_type.separable %>  
+    <%= f.input :units, as: :decimal, input_html: { style: 'max-width: 8rem' } %>  
+  <% end %>
+
   <%= f.input :notes %>  
   <div class="my-4">
     <%= f.submit %>  
     <u><%= link_to ' torna alla lista degli scarichi', disposals_path(h: @disposal.id, anchor: dom_id(@disposal)), class: 'ms-4', data: { turbo: false } %></u>
   </div>
 <% end %>
-
