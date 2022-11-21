@@ -4,6 +4,8 @@ require_dependency "dm_unibo_common/permission_policy"
 # Operator for almarusco is the person who can dispose in the name of a producer.
 # Associated to DmUniboCommon::Permission where user_id is the operator and producer_id is the producer
 # maybe refactor < DmUniboCommon::Permission?
+# 
+# Note: policy from app/policies/producer_policy.rb
 class OperatorsController < ApplicationController
   before_action :get_producer_and_check_permission, only: [:new, :create]
 
