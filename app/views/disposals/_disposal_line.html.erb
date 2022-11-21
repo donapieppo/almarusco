@@ -2,7 +2,7 @@
   <%= link_to disposal, class: "badge bg-warning" do %>  
     id <%= disposal.id %>
   <% end %>
-  <span class="px-2"><%= disposal.volume %> L. - </span>
+  <span class="px-2"><%= disposal.volume_tot %> L. - </span>
   <% if disposal.kgs %>  
     <%= disposal.kgs %> Kg. - 
   <% else %>

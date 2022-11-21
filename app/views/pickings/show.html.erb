@@ -10,7 +10,7 @@
     <div class="">
       <% @disposals_hash[disposal_type].each do |disposal| %>  
         <% (total_kgs += disposal.kgs) if disposal.kgs %>  
-        <% (total_volume += disposal.volume) if disposal.volume %>  
+        <% (total_volume += disposal.volume_tot) if disposal.volume %>  
         <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
       <% end %>
     </div>

@@ -37,9 +37,9 @@
     <div class="dm-card-body">
       <% @deposit[dt].each do |disposal| %>  
         <% ids << disposal.id %>  
-        <% num += 1  %>  
+        <% num += disposal.units %>  
         <% kgs += disposal.kgs.to_f %>  
-        <% volume += disposal.volume %>  
+        <% volume += disposal.volume_tot %>  
         <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
       <% end %>
     </div>
@@ -48,10 +48,17 @@
       <span class="mx-1"><strong><%= volume %></strong> L. </span> -
       <span class="mx-1"><strong><%= kgs.round(2) %></strong> Kg. </span> totali.
       <% if @legalizable %>  
-        <div class='d-inline-block float-end'>
-          <%= button_to 'Ho registrato questi rifiuti', legalize_disposals_path(disposal_ids: ids), 
-                        form: { class: 'btn btn-warning',
-                                data: { turbo_confirm: 'Seiete sicuri di avere REGISTRATO tutti questi scarichi?' } } %>
+        <div class='d-inline-block float-end' data-controller="legalize">
+          <%= form_with url: legalize_disposals_path, 
+                        data: { turbo_confirm: 'Seiete sicuri di avere REGISTRATO tutti questi scarichi?' } do |f| %>  
+            <%= f.hidden_field :disposal_ids, value: ids.join(',') %>  
+            <%= f.submit 'Ho registrato questi rifiuti con il num', class: 'btn btn-lg', data: { 'legalize-target': 'button' } %>  
+            <%= f.number_field :register_number, size: 1, 
+                                                 type: 'number', 
+                                                 style: 'width: 6rem', 
+                                                 class: 'd-inline form-control numeric me-1',
+                                                 data: { 'action': 'legalize#number' } %>  
+          <% end %>
         </div>
       <% end %>
     </div>
@@ -66,6 +73,6 @@
     Totale: 
     <strong><%= tot_num %></strong> colli per 
     <strong><%= tot_volume %></strong> Litri e
-    <strong><%= tot_kgs %></strong> Kg. 
+    <strong><%= tot_kgs.ceil %></strong> Kg. 
   </span>
 </div>

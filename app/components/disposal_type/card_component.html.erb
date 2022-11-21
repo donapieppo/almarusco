@@ -17,6 +17,9 @@
         <strong>UN:</strong> <%= @disposal_type.un_code.name.upcase %><br/>
       <% end %>
       <strong>CER:</strong> <%= @disposal_type.cer_code.description.upcase %><br/>
+      <% if @disposal_type.separable %>  
+        Rifiuti cumulabili
+      <% end %>
     </div>
     <% unless @disposal_type.notes.blank? %>  
       <div class="text-secondary">

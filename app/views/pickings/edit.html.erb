@@ -1,6 +1,6 @@
 <% 
     disposal_label = lambda do |d|
-      "id #{d.id} #{d.disposal_type.to_s_short} - #{d.volume} L. - #{d.kgs} Kg."
+      "id #{d.id} #{d.disposal_type.to_s_short} - #{d.volume_tot} L. - #{d.kgs} Kg."
     end
   %>  
 
@@ -45,12 +45,6 @@
 
     <%= f.submit 'Salva' %> - <%= link_to 'indietro', @picking %>    
   <% end %>
-</div>
-
-<div class="alert alert-success font-weight-bold my-4" style="font-size: 120%">
-  Totali:
-  <%= @picking.disposals.sum(:volume) %> L. -
-  <%= @picking.disposals.sum(:kgs) %> Kg. 
 </div>
 
 <%= render Supplier::DisposalTypesComponent.new(@picking.supplier, current_organization.id) %>  

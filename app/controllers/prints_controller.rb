@@ -74,6 +74,7 @@ class PrintsController < ApplicationController
             pdf.text dt.cer_code.to_s, size: 16
             pdf.text dt.hp_codes_to_s + " - " + dt.adrs_to_s, size: 10
             pdf.text dt.physical_state_to_s.upcase, size: 8
+            pdf.text disposal.volume_to_s, size: 8
           end
 
           disposal.disposal_type.pictograms.each_with_index do |pict, i|

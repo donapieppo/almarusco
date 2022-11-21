@@ -20,7 +20,10 @@ che risultano prodotti da lei:
       </p>
     <% end %>
     <p><%= disposal.disposal_type %></p>
-    <p style="font-weight: bold"><%= disposal.volume %> Litri - <%= disposal.kgs %> Kg.</p>
+    <p style="font-weight: bold">
+      <%= disposal.volume_to_s %> <br/>
+      <%= disposal.volume_tot %> Litri - <%= disposal.kgs %> Kg.
+    </p>
   </div>
 <% end %>
 

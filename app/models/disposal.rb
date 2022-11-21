@@ -7,7 +7,11 @@ class Disposal < ApplicationRecord
   belongs_to :picking, optional: true 
 
   validates :volume, presence: true, numericality: { greater_than: 0 }
+  validates :units, presence: true, numericality: { greater_than: 0 }
   validates :kgs, numericality: { greater_than: 0 }, allow_blank: true
+  # validates_with RegistrationNumberValidator
+
+  before_validation :fix_units
 
   scope :user_or_producer, -> (u_id) { where('user_id = ? or producer_id = ?', u_id, u_id) }
   scope :uncomplete, -> { where(kgs: nil) }
@@ -22,7 +26,19 @@ class Disposal < ApplicationRecord
   scope :include_all, -> { includes(:user, :producer, :lab, disposal_type: [:cer_code, :un_code, :hp_codes, :adrs]) }
 
   def to_s
-    "#{self.volume} L - #{self.kgs} Kg #{self.disposal_type.to_s_short}"
+    "#{self.volume_tot} L - #{self.kgs} Kg #{self.disposal_type.to_s_short}"
+  end
+
+  def multiple_units_to_s
+    self.units > 1 ? 'M' : ''
+  end
+
+  def volume_to_s
+    "#{self.units} #{volume_type} da #{self.volume}L."
+  end
+
+  def volume_tot
+    self.volume * self.units
   end
 
   def liquid?
@@ -52,8 +68,11 @@ class Disposal < ApplicationRecord
     legalized_at
   end
 
-  def legalize!
-    self.update(legalized_at: Time.now)
+  def legalize!(number)
+    # FIXME check number > 0
+    if number > 0
+      self.update(register_number: number, legalized_at: Time.now)
+    end
   end
 
   # ASSIGN TO PICKING
@@ -103,6 +122,24 @@ class Disposal < ApplicationRecord
     end
     if _producer
       self.producer = _producer
+    end
+  end
+
+  def fix_units
+    self.units = 1 if self.units.to_i < 1
+    unless self.disposal_type.separable
+      self.units = 1
+    end
+  end
+
+  def volume_type
+    return "" if self.volume.to_i == 0 
+    if self.units.to_i == 1
+      self.volume.to_i == 200 ? 'fusto' : 'tanica'
+    elsif self.units.to_i > 1
+      self.volume.to_i == 200 ? 'fusti' : 'taniche'
+    else
+      ""
     end
   end
 end

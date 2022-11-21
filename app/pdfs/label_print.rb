@@ -55,6 +55,7 @@ class LabelPrint
         @pdf.text dt.cer_code.to_s, size: 20
         @pdf.text dt.hp_codes_to_s + " - " + dt.adrs_to_s, size: 13
         @pdf.text dt.physical_state_to_s.upcase, size: 6
+        @pdf.text disposal.volume_to_s, size: 6
       end
     end
 

@@ -11,7 +11,8 @@ che risultano prodotti da lei:
     Operatore: <%= disposal.user %> (<%= disposal.user.upn %>)
   <% end %>
     <%= disposal.disposal_type %>  
-    <%= disposal.volume %> Litri - <%= disposal.kgs %> Kg.
+    <%= disposal.volume_to_s %>
+    <%= disposal.volume_tot %> Litri - <%= disposal.kgs %> Kg.
 ------------------------------------------------
 
 <% end %>
