@@ -4,26 +4,28 @@
 </h1>
 
 <div class="info">
-  ...
+  Scrivi qualcosa please.
 </div>
 
 <%= form_with url: [:print_request, @picking, format: :pdf] do |f| %>  
-  <% @request.disposal_types_volumes_and_kgs.each do |dt, vol_and_kg| %>  
-    <div class="card mb-1">
+  <% @request.volumes_and_kgs_ordered.each do |vol_and_kg| %>  
+    <% dt = vol_and_kg[:dt] %>  
+    <% values = vol_and_kg[:values] %>  
+    <div class="card border-secondary mb-2">
       <div class="card-header">
         <strong><%= dt %></strong><br/>
-        <small class="ms-3"><%= dt.cer_code.description %></small>
+        <small class="text-secondary"><%= dt.cer_code.description %></small>
       </div>
 
       <div class="card-body">
         <div>
           <span class="pe-2">
-            <%= f.number_field "dt[#{dt.id.to_s}][kgs]", value: vol_and_kg[:kgs].ceil, size: 1 %>
+            <%= f.number_field "dt[#{dt.id.to_s}][kgs]", value: values[:kgs].ceil, size: 1, type: 'number', style: 'width: 6rem',  class: 'd-inline form-control numeric me-1' %>
             <small>Kg.</small>
           </span>
-          <% vol_and_kg[:volumes].keys.sort.each do |v| %>
+          <% values[:volumes].keys.sort.each do |v| %>
             <span class="pe-2">
-              <%= f.number_field "dt[#{dt.id}][volumes][#{v.to_s}]", value: vol_and_kg[:volumes][v], size: 1 %>
+              <%= f.number_field "dt[#{dt.id}][volumes][#{v.to_s}]", value: values[:volumes][v], size: 1, stype: 'number', style: 'width: 4rem',  class: 'd-inline form-control numeric me-1' %>
               <small>da <%= v %>L.</small>
             </span>
           <% end %>
