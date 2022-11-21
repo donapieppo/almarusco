@@ -1,6 +1,11 @@
 <h1>Modifica carico <%= @disposal.id %></h1>
 
 <%= render DisposalType::CardComponent.new(current_user, @disposal.disposal_type, editable: false) %>  
+<div class="col-md my-3">
+  <div class="offset-md-3">
+    <%= render Disposal::HistoryComponent.new(@disposal) %>  
+  </div>
+</div>
 
 <%= render partial: 'form' %>  
 
