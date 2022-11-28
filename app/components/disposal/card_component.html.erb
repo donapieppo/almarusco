@@ -6,6 +6,7 @@
       <%= render Disposal::CardTitleComponent.new(@disposal) %>  
     <% end %>
   <% end %>
+
   <div class="dm-card-body">
     <div class="row">
       <div class="col-md-3">
@@ -19,21 +20,28 @@
             <span class="text-danger">? Kg</span>
           <% end %>
         </div>
-      </div>
+      </div><!-- col-md-3 -->
       <div class="col-md-9">
-        <%= t :producer %>:
-        <%= link_to @disposal.producer, disposals_path(u: @disposal.producer.id) %>
-        <% if @disposal.producer_id != @disposal.user_id %>  
-          <small>(da <%= link_to @disposal.user, disposals_path(u: @disposal.user_id) %>)</small> 
-        <% end %> 
-        <div class="text-muted small">
-          <%= t :laboratory %> <%= @disposal.lab %><br/>
-          <%= render Disposal::HistoryComponent.new(@disposal) %>  
-          <div class="font-italic text-gray-500">
-            <%= @disposal.notes %>  
-          </div>
+        <div>
+          <%= t :producer %>: <%= link_to @disposal.producer, disposals_path(u: @disposal.producer.id) %>
+          <% if @disposal.producer_id != @disposal.user_id %>  
+            <small>(da <%= link_to @disposal.user, disposals_path(u: @disposal.user_id) %>)</small> 
+          <% end %> 
         </div>
-      </div>
+        <% if @with_details %> 
+          <div>
+            <%= t :laboratory %>: <%= @disposal.lab %>
+          </div>
+          <div class="text-muted small my-2">
+            <%= render Disposal::HistoryComponent.new(@disposal) %>  
+            <div class="font-italic text-gray-500">
+              <%= @disposal.notes %>  
+            </div>
+          </div>
+        <% else %>
+          <%= t :created_at %> <%= l @disposal.created_at %> 
+        <% end %>
+      </div><!-- col-md-9 -->
     </div> <!-- row -->
     <% if @with_details %>  
       <div class="details p-2 small text-info">
@@ -67,4 +75,4 @@
       </div>
     </div>
   </div>
-</div> <!-- dm-card -->
+</div>
