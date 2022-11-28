@@ -13,10 +13,11 @@
 </div>
 
 <form class="my-2 centered disposal_cer_selector" data-controller="disposal-selector" data-action="change->disposal-selector#change_cer">
+  CER:
   <% @disposals_cers.each do |cer_code| %>  
     <input type="radio" id="<%= cer_code.id %>" name="disposal_to_show" />
     <label for="<%= cer_code.id %>" data-cerid="<%= cer_code.id %>">
-      CER <%= cer_code.name %>  
+      <%= cer_code.name %>  
     </label>
   <% end %>
 </form>
