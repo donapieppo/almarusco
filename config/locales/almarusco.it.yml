@@ -53,7 +53,7 @@ it:
         hp_codes: Codici HP
         adrs: ADR
         pictograms: Pittogrammi
-        separable: Rifiuti anche registarti in lotti
+        separable: Rifiuti cumulabili
       disposal:
         producer: Produttore
         producer_upn: Produttore 
@@ -87,10 +87,10 @@ it:
       disposal_type:
         adr: Rifiuto assimilabile alle merci pericolose contenute nell’Accordo ADR.
         notes: Descrizione visibile a chi deve creare il carico del rifiuto (opzionale)
-        separable: Se selezionato il produttore può registrare rifiuti di questa tipologia composti da più fusti/taniche.
+        separable: Se selezionato il produttore può registrare rifiuti composti da più fusti/taniche. I questo caso viene registrato il lotto e non il singolo rifiuto
       disposal:
-        kgs: Quanti Kg? (numero decimale)
-        lab: Laboratorio di provenienza del rifiuto
+        kgs: Quanti Kg? (numero decimale).
+        lab: Laboratorio di provenienza del rifiuto.
         producer_upn: Inserire l'indirizzo e-mail SOLO se il produttore di rifiuti non siete VOI.
       picking_document:
         serial_number: "Come compare in alto nel formulario. Per esempio: 'XBO 111111/20'."
