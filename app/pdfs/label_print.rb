@@ -32,7 +32,7 @@ class LabelPrint
     # pdf.stroke_bounds
     @pdf.move_down 8 
     @pdf.indent(10) do
-      @pdf.text " n.#{disposal.id.to_s}      <font size='9'>#{disposal.organization.code} - #{disposal.lab}</font>", size: 12, inline_format: true
+      @pdf.text " n.#{disposal.local_id_to_s}      <font size='9'>#{disposal.organization.code} - #{disposal.lab}</font>", size: 12, inline_format: true
     end
 
     y_position = @pdf.cursor - 6 
