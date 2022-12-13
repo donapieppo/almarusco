@@ -97,7 +97,7 @@ it:
 
   can_operate: operatore
   can_read:    può leggere
-  can_admin:   resposabile u.l.
+  can_admin:   resposabile U.L.
   can_manage:  delegato
   can_dispose: produttore rifiuti
   can_edit:    responsabile struttura (Direttore amministrativo)
