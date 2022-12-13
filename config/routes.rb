@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   get '/no_access',              to: "logins#no_access", as: "no_access"
 
   # cesia list (more than dm_unibo_common)
-  get '/organizations',              to: 'organizations#index', as: "organizations"
-  # get '/helps',                      to: 'helps#index' # OLD
+  resources :organizations, only: [:index, :show, :status] do 
+    get 'status', as: :status, on: :collection
+  end
 
   scope ":__org__" do
     # current_organization implicit
