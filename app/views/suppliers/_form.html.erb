@@ -8,7 +8,7 @@
   <%= f.input :name %>
   <%= f.input :pi %>
   <%= f.input :address %>
-  <%= f.association :cer_codes, as: :check_boxes %>
+  <%= f.association :cer_codes, collection: CerCode.order(:name), as: :check_boxes %>
   <%= f.submit %> - <%= link_to 'indietro', suppliers_path %>  
 <% end %>
 
