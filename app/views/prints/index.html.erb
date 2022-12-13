@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-md-4">
         <label>
-          <input type="checkbox" name="disposal_ids[]" value="<%= disposal.id %>"></input>
+          <input type="checkbox" name="disposal_ids[]" value="<%= disposal.local_id_to_s %>"></input>
           <%= l disposal.created_at %>  
           <%= disposal.volume_tot %> litri - 
           <%= disposal.kgs %> Kg

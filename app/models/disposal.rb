@@ -12,6 +12,8 @@ class Disposal < ApplicationRecord
   # validates_with RegistrationNumberValidator
 
   before_validation :fix_units
+  # TODO
+  # after_create :update_local_id
 
   scope :user_or_producer, -> (u_id) { where('user_id = ? or producer_id = ?', u_id, u_id) }
   scope :uncomplete, -> { where(kgs: nil) }
@@ -141,5 +143,19 @@ class Disposal < ApplicationRecord
     else
       ""
     end
+  end
+
+  # https://dev.mysql.com/doc/refman/5.6/en/innodb-locking-reads.html
+  # FIXME
+  def update_local_id
+    ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute("UPDATE disposals SET local_id = (SELECT next_local_id FROM organizations where id=#{self.organization_id.to_i} FOR UPDATE) WHERE id=#{self.id.to_i}")
+      ActiveRecord::Base.connection.execute("UPDATE organizations SET next_local_id=(next_local_id + 1) where id=#{self.organization_id.to_i}")
+    end
+  end
+
+  def local_id_to_s
+    # self.local_id
+    self.id.to_s
   end
 end

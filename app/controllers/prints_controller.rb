@@ -55,7 +55,7 @@ class PrintsController < ApplicationController
           # pdf.stroke_bounds
           pdf.move_down 10
           pdf.indent(10) do
-            pdf.text " n.#{disposal.id.to_s}    <font size='9'>#{disposal.organization.code} - #{disposal.lab}</font>", size: 14, inline_format: true
+            pdf.text " n.#{disposal.local_id_to_s}    <font size='9'>#{disposal.organization.code} - #{disposal.lab}</font>", size: 14, inline_format: true
           end
 
           y_position = pdf.cursor - 4
@@ -73,6 +73,9 @@ class PrintsController < ApplicationController
             end
             pdf.text dt.cer_code.to_s, size: 16
             pdf.text dt.hp_codes_to_s + " - " + dt.adrs_to_s, size: 10
+            # TODO
+            # pdf.text " n.#{disposal.local_id_to_s} (#{disposal.id})", size: 10
+            pdf.text " n.#{disposal.local_id_to_s}", size: 10
             pdf.text dt.physical_state_to_s.upcase, size: 8
             pdf.text disposal.volume_to_s, size: 8
           end
