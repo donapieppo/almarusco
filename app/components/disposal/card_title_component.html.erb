@@ -2,7 +2,7 @@
   <div class="fw-bold">
     <%= @disposal.disposal_type.to_s_short %> <small>(<%= @disposal.disposal_type.physical_state_to_s %>)</small>
     <span class="float-end">
-      <small><%= @disposal.multiple_units_to_s %></small> <%= @disposal.id %>
+      <small><%= @disposal.multiple_units_to_s %></small> <%= @disposal.local_id_to_s %>
     </span>
   </div>
   <div class="small fw-normal">
