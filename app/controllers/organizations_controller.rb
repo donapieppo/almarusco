@@ -5,6 +5,18 @@ class OrganizationsController < ApplicationController
     @organizations = Organization.order(:id).includes(permissions: :user)
   end
 
+  def status
+    authorize Organization
+    @organizations = Organization.order(:id).includes(permissions: :user)
+    @counts = Disposal.group(:organization_id).count
+  end
+
+  def show
+    authorize Organization
+    @organization = Organization.find(params[:id])
+    render layout: nil
+  end
+
   def edit
     authorize current_organization
     @permissions_hash = permissions_hash

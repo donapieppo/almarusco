@@ -2,7 +2,11 @@ class OrganizationPolicy < DmUniboCommon::OrganizationPolicy
   configure_authlevels
 
   def index?
-    @user
+    @user.is_cesia?
+  end
+
+  def status?
+    @user.is_cesia? || @user.nuter?
   end
 
   def read?
@@ -10,7 +14,7 @@ class OrganizationPolicy < DmUniboCommon::OrganizationPolicy
   end
 
   def show?
-    @user.is_cesia? || @user.can_read?(@record)
+    @user.is_cesia? || @user.nuter? ||  @user.can_read?(@record)
   end
 
   def edit?
