@@ -72,7 +72,6 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.integer "producer_id", unsigned: true
     t.integer "organization_id", unsigned: true
     t.integer "disposal_type_id", unsigned: true
-    t.integer "register_number"
     t.text "notes"
     t.decimal "kgs", precision: 10, scale: 3
     t.integer "volume"
