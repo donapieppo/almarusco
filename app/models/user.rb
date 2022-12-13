@@ -9,4 +9,7 @@ class User < ApplicationRecord
     User.find(producer_ids)
   end
 
+  def nuter?
+    NUTER.include?(self.upn)
+  end
 end
