@@ -15,8 +15,8 @@
     <%= link_to [:edit, supplier], class: 'list-group-item list-group-item-action' do %>
       <strong><%= supplier.name.upcase %> </strong>
       <span class="float-end small">(p.i. <%= supplier.pi %>)</span>
-      <div class="small"><%= supplier.cer_codes.map(&:to_s).join(", ") %></div>
-      <div class="small"><%= supplier.address %></div>
+      <div class="small mt-2"><%= supplier.address %></div>
+      <div class="small mt-2"><strong>Cer:</strong> <%= supplier.cer_codes.pluck(:name).join(", ") %></div>
     <% end %>
   <% end %>
 </div>
