@@ -6,8 +6,6 @@ class Organization < ApplicationRecord
   has_many :labs
   has_many :pickings
 
-  validates :name, uniqueness: { message: 'Struttura già presente.', case_sensitive: false }
-
   validate :check_mail_parameters
 
   before_destroy :manual_delete
