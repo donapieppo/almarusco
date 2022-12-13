@@ -8,6 +8,15 @@ module ApplicationHelper
       '<i class="fas fa-exclamation-circle text-danger"></i>'.html_safe
     end
   end
-end
 
-include DisposalHelper
+  def policy_authlevel_color(p)
+    case p.authlevel
+    when 20
+      'text-secondary'
+    when 40
+      'text-warning'
+    when 60
+      'text-danger'
+    end
+  end
+end
