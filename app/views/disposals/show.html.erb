@@ -18,6 +18,6 @@
   </div>
 
   <div class="my-4 centered">
-    <% disposal_type_pictograms(@disposal.disposal_type) %>  
+    <%= render DisposalType::PictogramsComponent.new(@disposal.disposal_type) %>  
   </div>
 <% end %>

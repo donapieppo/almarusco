@@ -27,7 +27,7 @@
       </div>
     <% end %>
     <div style="text-align: right">
-      <% disposal_type_pictograms(@disposal_type, size: 40) %>  
+      <%= render DisposalType::PictogramsComponent.new(@disposal_type, size: 40) %>  
     </div>
   </div>
 </div>
