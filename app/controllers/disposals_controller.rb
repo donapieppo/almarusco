@@ -120,10 +120,11 @@ class DisposalsController < ApplicationController
     authorize :disposal
     # Remember: can be more than number (example disposals with many units)
     requested_disposal_id = params[:search_string].to_i
+    # TODO
+    # @disposal = current_organization.disposals.find_by_local_id(requested_disposal_id)
     @disposal = current_organization.disposals.find_by_id(requested_disposal_id)
 
     if @disposal
-      @disposal = current_organization.disposals.find_by_id(requested_disposal_id)
       redirect_to @disposal
     else
       redirect_to root_path, alert: "Non esiste l'identificativo del rifiuto in questa UL."
