@@ -23,6 +23,11 @@
           <li><%= link_to fwdmicon('wrench') + ' Configurazioni', current_organization_edit_path %></li>
           <li><%= link_to fwdmicon('print') + ' MUD', mud_path %></li>
           <!-- CESIA -->
+          <% if current_user.nuter? %>  
+            <div class="dropdown-divider"></div>
+            <h6 class="dropdown-header">Nuter</h6>
+            <li><%= link_to fwdmicon('building') + ' Strutture', status_organizations_path %></li>
+          <% end %>
           <% if current_user.is_cesia? %>
             <div class="dropdown-divider"></div>
             <h6 class="dropdown-header">Cesia</h6>
