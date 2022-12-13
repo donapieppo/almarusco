@@ -67,10 +67,12 @@ class DisposalsController < ApplicationController
   end
 
   def create
+    set_producer
+
     @disposal = current_user.disposals.new(disposal_params)
     @disposal.organization_id = current_organization.id
     @disposal.disposal_type_id = @disposal_type.id
-    set_producer
+    @disposal.producer_id = @producer.id
 
     authorize @disposal
     if @disposal.save
@@ -85,6 +87,7 @@ class DisposalsController < ApplicationController
 
   def update
     set_producer
+    @disposal.producer_id = @producer.id
     if @disposal.update(disposal_params)
       redirect_to @disposal
       # redirect_to disposals_path(h: @disposal.id, anchor: @disposal.id)
@@ -203,7 +206,5 @@ class DisposalsController < ApplicationController
     else
       @producer = current_user
     end
-
-    @disposal.producer_id = @producer.id
   end
 end
