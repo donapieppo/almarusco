@@ -1,0 +1,25 @@
+<%= render DmUniboCommon::ModalComponent.new() do %>
+  <%= dm_card title: @organization do %>  
+    <div>
+      <h2>Rifiuti</h2>
+
+      <% if last_disposal = @organization.disposals.order(created_at: :desc).first %>  
+        <% first_disposal = @organization.disposals.order(created_at: :desc).last %>  
+        <div>Totali: <%= @organization.disposals.count %></div>
+        <div>Completati: <%= @organization.disposals.complete.count %></div>
+        <div>Prima operazione: <%= first_disposal.user %> il <%= l first_disposal.created_at %></div>
+        <div>Ultima operazione: <%= last_disposal.user %> il <%= l last_disposal.created_at %></div>
+      <% end %>
+
+      <h2 class="my-2">Permessi</h2>
+      <% @organization.permissions.order(authlevel: :desc).includes(:user).each do |p| %>  
+        <div class="<%= policy_authlevel_color(p) %>">
+          <%= p.user %> 
+          <small>
+            (<%= p.authlevel_string.upcase %>) (<%= l p.created_at, format: :date_html5 %>)
+          </small>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
