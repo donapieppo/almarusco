@@ -1,0 +1,2 @@
+class LegalUploadPolicy < LegalRecordPolicy
+end
