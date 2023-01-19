@@ -1,6 +1,6 @@
 class PickingDocumentsController < ApplicationController
   before_action :set_picking_and_check_permission, only: [:new, :create]
-  before_action :set_picking_document_and_check_permission, only: [:edit, :update, :destroy]
+  before_action :set_picking_document_and_check_permission, only: [:show, :edit, :update, :destroy]
 
   def new
     if ! @picking.date
@@ -19,6 +19,9 @@ class PickingDocumentsController < ApplicationController
     else
       render action: :new, status: :unprocessable_entity
     end
+  end
+
+  def show
   end
 
   def edit
