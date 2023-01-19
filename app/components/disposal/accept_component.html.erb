@@ -1,7 +1,7 @@
-<div class="centered my-2">
-  <% if @disposal.approved? %>  
-    <%= button_to 'Disaccetta', unapprove_disposal_path(@disposal), class: 'btn btn-success btn-lg' %>  
-  <% else %>
+ <div id="<%= helpers.disposal_accept_button_id(@disposal) %>" class="centered my-2">
+  <% if @policy.unapprove?%>  
+    <%= button_to 'Disaccetta', unapprove_disposal_path(@disposal), class: 'btn btn-danger btn-lg' %>  
+  <% elsif @policy.approve? %>
     <%= button_to 'Accetta', approve_disposal_path(@disposal), class: 'btn btn-success btn-lg' %>  
   <% end %>
 </div>
