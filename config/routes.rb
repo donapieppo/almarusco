@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     end
     resources :disposal_types do
       resources :disposals, only: [:new, :create]
+      resources :legal_uploads, only: [:new, :create]
     end
 
     resources :suppliers do
@@ -62,7 +63,16 @@ Rails.application.routes.draw do
       put :complete, on: :member
     end
 
-    resources :picking_documents, only: [:edit, :update]
+    resources :picking_documents, only: [:show, :edit, :update] do
+      resources :legal_downloads, only: [:new, :create]
+    end
+
+    resources :legal_records, only: [:index] do 
+      get :todo, on: :collection, as: :todo
+    end
+    resources :legal_uploads, only: [:show]
+    resources :legal_downloads, only: [:show]
+
     resources :archives
 
     get 'mud', to: 'mud#show', as: :mud

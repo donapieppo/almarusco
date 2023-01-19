@@ -1,0 +1,27 @@
+<div class="dm-card">
+  <div class="dm-card-title">
+    <h2>Dettagli registrazione n.<%= @legal_upload %> del <%= l(@legal_upload.date) %></h2>
+  </div>
+
+  <div class="dm-card-body">
+    <div class="alert alert-info fw-bold"><%= @legal_upload.disposal_type %></div>
+
+    <% if @disposals.any? %>  
+      <% tot_volume = 0 %>  
+      <% tot_kgs = 0.0 %>  
+      <% @disposals.each do |disposal| %>
+        <% tot_kgs += disposal.kgs %>  
+        <% tot_volume += disposal.volume_tot %>  
+        <%= render Disposal::BadgeComponent.new(current_user, disposal) %>
+      <% end %>
+
+      <div class="my-4 fw-bold">
+        Totale: <%= tot_volume %> L. - <%= tot_kgs %> Kg.
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="text-center">
+  <%= link_to 'indietro', legal_records_path %>  
+</div>

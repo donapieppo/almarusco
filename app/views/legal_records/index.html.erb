@@ -1,0 +1,38 @@
+<h1 class="title">Elenco registrazioni carico/scarico</h1>
+
+<table class="table table-sm">
+  <% @legal_records.each do |lr| %>  
+    <tr>
+      <th class="number">
+        <%= link_to lr do %>
+          <strong><%= lr %></strong>
+        <% end %>
+      </th>
+
+      <% if lr.is_a?(LegalDownload) %>  
+        <th><i class="fa-solid fa-upload"></i> Scarico</th>
+        <td>
+          <%= lr.picking_document.picking %> <%= " (completato)" if lr.picking_document.picking.completed? %>  
+        </td>
+      <% else %>
+        <th><i class="fa-solid fa-download"></i> Carico</th>
+        <td>
+          <% disposals = lr.disposals.to_a %>  
+
+          <% if disposals.any? %>  
+            <%= disposals.first.disposal_type %>
+
+            <% tot_volume = 0 %>  
+            <% tot_kgs = 0.0 %>  
+            <% disposals.each do |disposal| %>
+              <% tot_kgs += disposal.kgs %>  
+              <% tot_volume += disposal.volume_tot %>  
+              <small class="text-muted"><%= disposal.volume_tot %> L. <%= disposal.kgs %> Kg. </small>
+            <% end %>
+            <strong>tot: <%= tot_volume %> L. - <%= tot_kgs %> Kg.</strong>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

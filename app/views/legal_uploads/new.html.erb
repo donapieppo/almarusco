@@ -1,0 +1,36 @@
+<h1>Nuova registrazione di carico nel <br/>registro cartaceo vidimato.</h1>
+
+<div class="text-center my-4">
+  Tipologia rifiuti: <%= @disposal_type %>  <br/>
+  Ultima registrazione: 
+  <% year = Date.today.year %>  
+  <%= year %> /  <%= current_organization.legal_records.where(year: year).maximum(:number) %>
+</div>
+
+<% tot_volume = 0 %>  
+<% tot_kgs = 0.0 %>  
+
+<%= simple_form_for [@disposal_type, @legal_upload] do |f| %>
+  <%= f.input :number %>
+  <%= f.input :date, as: :date, html5: true %>  
+  <% @disposal_ids.each do |id| %>  
+    <input type="hidden" name="disposal_ids[]" value="<%= id %>"/>
+  <% end %>
+  <%= f.submit "Salva" %>  
+<% end %>
+
+<div class="my-4">
+  <h3 class="my-4">Elenco rifiuti</h3>
+  <% if @disposal_ids.any? %>
+    <% @disposals.each do |disposal| %>
+      <% tot_kgs += disposal.kgs %>  
+      <% tot_volume += disposal.volume_tot %>  
+      <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
+    <% end %>
+  <% end %>
+</div>
+
+<div class="my-4 alert alert-info fw-bold">
+  volume = <%= tot_volume %> L. <br/>
+  peso = <%= tot_kgs %> Kg. 
+</div>

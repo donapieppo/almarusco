@@ -1,0 +1,35 @@
+<h1> Rifiuti da registrare </h1>
+
+<div class="info">
+  In questa pagina trovate i rifiuti <strong>accettati</strong> e presi in carico nel deposito temporaneo della vostra 
+  Unità Locale che <strong>devono ancora essere registrati</strong> nel Registro di Carico e Scarico cartaceo vidimato. <br/>
+</div>
+
+<% @deposit.each_key.sort_by {|dt| dt.cer_code.name}.each do |dt| %>  
+  <div class="dm-card">
+    <% ids = [] %>  
+    <% num = volume = 0 %>  
+    <% kgs = 0.0 %>  
+    <div class="dm-card-title py-2">
+      <%= dt %> 
+      <span class="small fw-normal float-end"><%= dt.hp_codes_to_s %></span>
+    </div>
+    <div class="dm-card-body">
+      <% @deposit[dt].each do |disposal| %>  
+        <% ids << disposal.id %>  
+        <% num += disposal.units %>  
+        <% kgs += disposal.kgs.to_f %>  
+        <% volume += disposal.volume_tot %>  
+        <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
+      <% end %>
+    </div>
+    <div class="dm-card-footer py-2">
+      <span class="font-weight-bold"><%= num %> coll<%= num > 1 ? "i" : "o" %></span>: 
+      <span class="mx-1"><strong><%= volume %></strong> L. </span> -
+      <span class="mx-1"><strong><%= kgs.round(2) %></strong> Kg. </span> totali.
+      <div class='d-inline-block float-end'>
+        <%= link_to 'REGISTRA COMPILAZIONE', new_disposal_type_legal_upload_path(dt, disposal_ids: ids), class: :button %>  
+      </div>
+    </div>
+  </div>
+<% end %>
