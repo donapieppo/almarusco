@@ -5,6 +5,9 @@ class Organization < ApplicationRecord
   has_many :disposals
   has_many :labs
   has_many :pickings
+  has_many :legal_uploads
+  has_many :legal_downloads
+  has_many :legal_records
 
   validate :check_mail_parameters
 
