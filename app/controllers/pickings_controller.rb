@@ -64,7 +64,7 @@ class PickingsController < ApplicationController
   end
 
   def deliver
-    if @picking.deliver
+    if @picking.deliver!
       redirect_to pickings_path, notice: "Il ritiro è stato consegnato."
     else
       redirect_to [:edit, @picking], alert: @picking.errors[:base]
@@ -72,7 +72,7 @@ class PickingsController < ApplicationController
   end
 
   def complete
-    @picking.complete
+    @picking.complete!
     redirect_to pickings_path, notice: "I rifiuti associati sono archiviati."
   end
 
