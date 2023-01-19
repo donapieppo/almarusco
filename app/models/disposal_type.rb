@@ -7,6 +7,7 @@ class DisposalType < ApplicationRecord
   has_and_belongs_to_many :pictograms
 
   has_many :disposals
+  has_many :legal_records
   has_many :picking_documents
 
   # TODO uniqneness with also hps
@@ -61,7 +62,7 @@ class DisposalType < ApplicationRecord
       if self.id && dt.id == self.id
         next
       end
-      if self.physical_state == dt.physical_state && self.hp_code_ids.difference(dt.hp_code_ids).empty?
+      if self.physical_state == dt.physical_state && self.hp_code_ids.to_set == dt.hp_code_ids.to_set
         errors.add(:cer_code_id, "Esiste già una tipologia con gli stessi parametri cer/un/hp e lo stesso stato nella tua struttura.")
         return false
       end

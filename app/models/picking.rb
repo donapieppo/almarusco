@@ -12,7 +12,7 @@ class Picking < ApplicationRecord
   end
   
   def possible_disposals
-    self.supplier.contract_picking_disposals(self.organization_id).approved.undelivered
+    self.supplier.contract_picking_disposals(self.organization_id).legalized.undelivered
   end
 
   def fill_with_default_disposals
@@ -32,9 +32,10 @@ class Picking < ApplicationRecord
     completed_at
   end
 
-  def deliver
+  # return treu/false
+  def deliver!
     if self.date
-      self.disposals.update_all(delivered_at: self.date) # cache
+      self.disposals.each {|d| d.deliver!}
       self.update(delivered_at: self.date)
     else
       self.errors.add(:base, "È necessario indicare la data della consegna tra i dati del ritiro prima di confermare.")
@@ -42,18 +43,22 @@ class Picking < ApplicationRecord
     end
   end
 
-  def complete
-    self.disposals.update_all(completed_at: Date.today) # cache
+  def complete!
+    self.disposals.each {|d| d.complete!}
     self.update(completed_at: Date.today)
   end
 
   def status
-    if self.completed_at
+    if self.completed?
       'archiviato'
-    elsif self.delivered_at
+    elsif self.delivered?
       'consegnato'
     else
       'in corso'
     end
+  end
+
+  def picking_document_by_disposal_type(dt)
+    self.picking_documents.where(disposal_type: dt).first   
   end
 end

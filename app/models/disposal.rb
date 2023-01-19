@@ -1,3 +1,11 @@
+# created approved legalized delivered conpleted
+
+class DisposalHistoryError < RuntimeError
+  def to_s
+    "incorrect order in actions"
+  end
+end
+
 class Disposal < ApplicationRecord
   belongs_to :organization
   belongs_to :user
@@ -5,6 +13,7 @@ class Disposal < ApplicationRecord
   belongs_to :disposal_type
   belongs_to :lab
   belongs_to :picking, optional: true 
+  belongs_to :legal_upload, foreign_key: 'legal_record_id', optional: true
 
   validates :volume, presence: true, numericality: { greater_than: 0 }
   validates :units, presence: true, numericality: { greater_than: 0 }
@@ -58,6 +67,7 @@ class Disposal < ApplicationRecord
   end
 
   def approve!
+    self.approved_at and raise DisposalHistoryError
     self.update(approved_at: Time.now)
   end
 
@@ -70,11 +80,9 @@ class Disposal < ApplicationRecord
     legalized_at
   end
 
-  def legalize!(number)
-    # FIXME check number > 0
-    if number > 0
-      self.update(register_number: number, legalized_at: Time.now)
-    end
+  def legalize!(legal_record)
+    self.approved? or raise DisposalHistoryError
+    self.update(legalized_at: Time.now, legal_record_id: legal_record.id)
   end
 
   # ASSIGN TO PICKING
@@ -91,19 +99,29 @@ class Disposal < ApplicationRecord
     ! delivered?
   end
 
+  def deliver!
+    self.legalized? or raise DisposalHistoryError
+    self.update(delivered_at: Time.now)
+  end
+
   # COMPLETE
   def completed?
     completed_at
   end
 
+  def complete!
+    self.delivered? or raise DisposalHistoryError
+    self.update(completed_at: Time.now)
+  end
+
   def status
-    if self.completed_at
+    if self.completed?
       'archiviato'
-    elsif self.delivered_at
+    elsif self.delivered?
       'consegnato'
     elsif self.picking_id
       'ritiro prenotato'
-    elsif self.approved_at 
+    elsif self.approved?
       'accettato' 
     else
       'da accettare'
@@ -147,12 +165,12 @@ class Disposal < ApplicationRecord
 
   # https://dev.mysql.com/doc/refman/5.6/en/innodb-locking-reads.html
   # FIXME
-  def update_local_id
-    ActiveRecord::Base.transaction do
-      ActiveRecord::Base.connection.execute("UPDATE disposals SET local_id = (SELECT next_local_id FROM organizations where id=#{self.organization_id.to_i} FOR UPDATE) WHERE id=#{self.id.to_i}")
-      ActiveRecord::Base.connection.execute("UPDATE organizations SET next_local_id=(next_local_id + 1) where id=#{self.organization_id.to_i}")
-    end
-  end
+  # def update_local_id
+  #   ActiveRecord::Base.transaction do
+  #     ActiveRecord::Base.connection.execute("UPDATE disposals SET local_id = (SELECT next_local_id FROM organizations where id=#{self.organization_id.to_i} FOR UPDATE) WHERE id=#{self.id.to_i}")
+  #     ActiveRecord::Base.connection.execute("UPDATE organizations SET next_local_id=(next_local_id + 1) where id=#{self.organization_id.to_i}")
+  #   end
+  # end
 
   def local_id_to_s
     # self.local_id
