@@ -9,5 +9,9 @@ module DisposalHelper
       concat image_tag("labels/adr_#{adrc}.svg", size: 100)
     end
   end
+
+  def disposal_accept_button_id(disposal)
+    "accept_button_#{dom_id(disposal)}"
+  end
 end
 
