@@ -33,12 +33,11 @@ class DisposalPolicy < ApplicationPolicy
   end
 
   def approve?
-    organization_manager?(@record.organization)
+    (! @record.approved?) && organization_manager?(@record.organization)
   end
 
-  # FIXME
   def unapprove?
-    approve? && (! @record.assigned?)
+    @record.approved? && (! @record.legalized?) && organization_manager?(@record.organization)
   end
 
   def search?

@@ -9,7 +9,7 @@ class PickingDocumentPolicy < ApplicationPolicy
   end
 
   def show?
-    record_organization_manager?
+    current_organization_manager?
   end
 
   def update?
