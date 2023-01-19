@@ -1,24 +1,34 @@
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-8">
+    <%= render Disposal::GroupDetailsComponent.new(@disposals) %>  
     <div class="fw-bold">
-      <%= @expected_kgs %> Kg. <%= @expected_volume %> L.
+      <%= @expected_kgs %> Kg. 
+      <%= @expected_volume %> L.
     </div>
     <% if @picking_document %>  
       <div>
-        <span class="d-inline fw-bold <%= @all_ok ? 'text-success' : 'text-danger' %>">
-          <%= @picking_document.kgs %> Kg.
-          <%= @picking_document.volume %> L.
+        <span class="fw-bold <%= @all_ok ? 'text-success' : 'text-danger' %> pe-2">
+          <%= @picking_document.kgs.to_f %> Kg.
+          <%= @picking_document.volume.to_i %> L.
         </span>
-        &nbsp; da formulario <%= @picking_document.serial_number %> - <%= @picking_document.register_number_with_year %>
+        da formulario <%= @picking_document.serial_number %> - 
+        <% if ! @picking_document.legal_download %>
+          <%= @picking_document.disposal_type.adr ? "manca numero di registro di scarico" : "numero di registro di scarico non richiesto (non adr)." %>
+        <% elsif ! @picking_document.picking.date %>
+          ??? (manca data in ritiro)
+        <% else %>  
+          <%= render LegalDownload::LineComponent.new(@picking_document.legal_download) %>  
+        <% end %>
       </div>
     <% end %>
   </div>
 
-  <div class="col-md-6 text-end">
+  <div class="col-md-4 text-end">
+    <% if @picking_document && ! @picking_document.legal_download && LegalDownloadPolicy.new(@current_user, @picking_document.legal_download).create? %>  
+      <%= link_to 'Registra', new_picking_document_legal_download_path(@picking_document), class: 'btn btn-sm btn-primary' %>  
+    <% end %>
     <% if @picking_document_policy.edit? %>
-      <%= link_to 'Modifica formulario', [:edit, @picking_document], class: 'btn btn-sm btn-success' %> 
-    <% elsif ! @picking_document %>
-      <%= link_to 'Aggiungi formulario', new_picking_picking_document_path(@picking, disposal_type_id: @disposal_type.id), class: 'btn btn-sm btn-primary' %>  
+      <%= link_to 'Formulario', [:edit, @picking_document], class: 'btn btn-sm btn-success' %> 
     <% end %>
   </div>
 </div>

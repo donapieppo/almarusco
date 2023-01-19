@@ -4,6 +4,8 @@ class Disposal::AcceptComponent < ViewComponent::Base
   def initialize(current_user, disposal)
     @current_user = current_user
     @disposal = disposal
+
+    @policy = DisposalPolicy.new(@current_user, @disposal)
   end
 
   # FIXME with DisposalPolicy#approve? unapprove?

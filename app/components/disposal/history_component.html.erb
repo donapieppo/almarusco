@@ -4,7 +4,12 @@
 <% end %>
 <% if @disposal.legalized? %>  
   <%= t :legalized_at %> <%= l @disposal.legalized_at %> 
-  con numero <%= link_to @disposal.register_number.to_i, disposals_path(reg_n: @disposal.register_number.to_i) %> <br/>
+  <% if @disposal.legal_upload %>  
+    con numero <%= link_to @disposal.legal_upload, @disposal.legal_upload %>
+  <% else %>  
+    senza registro di carico
+  <% end %>
+  <br/>
 <% end %>
 <% if @disposal.delivered? %>
   <%= t :delivered_at %> <%= l @disposal.delivered_at %> <br/> 
