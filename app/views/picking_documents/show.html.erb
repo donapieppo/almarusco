@@ -1,0 +1,18 @@
+<h1>Documento di trasporto</h1>
+
+
+<div class="alert alert-info">
+  <div class="fw-bold"><%= link_to @picking_document.picking %></div>
+  <div>Tipologia: <%= @picking_document.disposal_type %></div>
+  <div>Formulario: <%= @picking_document.serial_number %></div>
+  <div>Numero: <%= @picking_document.register_number %></div>
+  <div>Peso: <%= @picking_document.kgs %> kg.</div>
+  <div>Volume: <%= @picking_document.volume %> l.</div>
+</div>
+
+<h2 class="my-4">Elenco rifiuti</h2>
+
+<% @picking_document.picking.disposals.each do |disposal| %>  
+  <%= render Disposal::BadgeComponent.new(current_user, disposal) %>
+<% end %>
+

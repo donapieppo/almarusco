@@ -3,30 +3,21 @@
   <% if @at %>  
     <br/>(accettati il <%= @at %>)
   <% end %>
-  <% if @legalizable %>  
-    <br/>rifiuti da registrare
-  <% end %>
 </h1>
-
-<% if @legalizable %>
-  <div class="info">
-    In questa pagina trovate i rifiuti <strong>accettati</strong> e presi in carico nel deposito temporaneo della vostra 
-    Unità Locale che devono ancora essere registrati nel Registro di Carico e Scarico cartaceo vidimato. <br/>
-    Una volta registrati inserire il numero nel box e cliccare su 'Ho registrato questi rifiuti con il num'.
-  </div>
-<% end %>
 
 <% if @approved_at %>  
   <div class="text-center">
     <% @approved_at.each do |at| %>  
-      <%= link_to l(at), deposit_path(at: at), class: 'text-underline px-2' %>  
+      <%= link_to l(at, format: :in_list), deposit_path(at: at), class: 'text-underline px-2' %>  
     <% end %>
   </div>
 <% end %>
 
 <% tot_num = tot_volume = 0 %>  
 <% tot_kgs = 0.0 %>  
+
 <% @deposit.each_key.sort_by {|dt| dt.cer_code.name}.each do |dt| %>  
+  <% to_legalize_ids = [] %>  
   <div class="dm-card">
     <% ids = [] %>  
     <% num = volume = 0 %>  
@@ -40,7 +31,8 @@
         <% ids << disposal.id %>  
         <% num += disposal.units %>  
         <% kgs += disposal.kgs.to_f %>  
-        <% volume += disposal.volume_tot %>  
+        <% volume += disposal.volume_tot %>
+        <% to_legalize_ids << disposal.id unless disposal.legalized? %>  
         <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
       <% end %>
     </div>
@@ -48,21 +40,14 @@
       <span class="font-weight-bold"><%= num %> coll<%= num > 1 ? "i" : "o" %></span>: 
       <span class="mx-1"><strong><%= volume %></strong> L. </span> -
       <span class="mx-1"><strong><%= kgs.round(2) %></strong> Kg. </span> totali.
-      <% if @legalizable %>  
-        <div class='d-inline-block float-end' data-controller="legalize">
-          <%= form_with url: legalize_disposals_path, 
-                        data: { turbo_confirm: 'Seiete sicuri di avere REGISTRATO tutti questi scarichi?' } do |f| %>  
-            <%= f.hidden_field :disposal_ids, value: ids.join(',') %>  
-            <%= f.submit 'Ho registrato questi rifiuti con il num', class: 'btn btn-lg', data: { 'legalize-target': 'button' } %>  
-            <%= f.number_field :register_number, size: 1, 
-                                                 type: 'number', 
-                                                 style: 'width: 6rem', 
-                                                 class: 'd-inline form-control numeric me-1',
-                                                 data: { 'action': 'legalize#number' } %>  
-          <% end %>
+
+      <% if to_legalize_ids.any? %>  
+        <div class='d-inline-block float-end'>
+          <%= link_to 'REGISTRA COMPILAZIONE', new_disposal_type_legal_upload_path(dt, disposal_ids: to_legalize_ids), class: :button %>  
         </div>
       <% end %>
     </div>
+
     <% tot_num += num %>  
     <% tot_kgs += kgs %>  
     <% tot_volume += volume %>  

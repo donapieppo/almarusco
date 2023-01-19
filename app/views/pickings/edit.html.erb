@@ -9,24 +9,34 @@
   <%= @picking.supplier %>
 </h1>
 
-<% ids = @picking.disposal_ids %>
-
 <div data-controller="previous_picking_data">
   <%= simple_form_for @picking do |f| %>  
-    <%= f.input :date, as: :date, html5: true %>  
-    <%= f.input :address, as: :string %>  
-    <div class="offset-sm-3 mb-4 ps-4">
-      <%= '<div class="small text-secondary">Puoi scegliere tra i seguenti indirizzi scelti precedentemente:</div>'.html_safe if @previous_address.any? %>  
-      <% @previous_address.each do |c| %>  
-        <a class='btn btn-outline-secondary btn-sm' data-action="click->previous_picking_data#setAddress" data-previous_picking_data-address-param="<%= c %>"><%= c %></a>
-      <% end %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :date, as: :date, html5: true %>  
+      </div>
     </div>
-    <%= f.input :contact, as: :string, hint: 'Nome, cognome e telefono del contatto.' %>
-    <div class="offset-sm-3 mb-4 ps-4">
-      <%= '<div class="small text-secondary">Puoi scegliere tra i seguenti contatti scelti precedentemente:</div>'.html_safe if @previous_contacts.any? %>  
-      <% @previous_contacts.each do |c| %>  
-        <a class='btn btn-outline-secondary btn-sm' data-action="click->previous_picking_data#setContact" data-previous_picking_data-contact-param="<%= c %>"><%= c %></a>
-      <% end %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :address, as: :string %>  
+      </div>
+      <div class="col-md-6 py-2 py-md-0">
+        <%= '<div class="small text-secondary">Puoi anche scegliere tra i seguenti indirizzi precedenti:</div>'.html_safe if @previous_address.any? %>  
+        <% @previous_address.each do |c| %>  
+          <a class='btn btn-outline-secondary btn-sm' data-action="click->previous_picking_data#setAddress" data-previous_picking_data-address-param="<%= c %>"><%= c %></a>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :contact, as: :string, hint: 'Nome, cognome e telefono del contatto.' %>
+      </div>
+      <div class="col-md-6 py-2 py-md-0">
+        <%= '<div class="small text-secondary">Puoi anche scegliere tra i seguenti contatti precedenti:</div>'.html_safe if @previous_contacts.any? %>  
+        <% @previous_contacts.each do |c| %>  
+          <a class='btn btn-outline-secondary btn-sm' data-action="click->previous_picking_data#setContact" data-previous_picking_data-contact-param="<%= c %>"><%= c %></a>
+        <% end %>
+      </div>
     </div>
 
     <% if @can_change_disposals %>  
@@ -46,5 +56,11 @@
     <%= f.submit 'Salva' %> - <%= link_to 'indietro', @picking %>    
   <% end %>
 </div>
+
+<% if ! @can_change_disposals %>  
+  <div class="my-2">
+    Non è più possible cambiare i rifiuti associati a questo ritiro.
+  </div>
+<% end %>
 
 <%= render Supplier::DisposalTypesComponent.new(@picking.supplier, current_organization.id) %>  

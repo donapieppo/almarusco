@@ -1,21 +1,23 @@
 <h1>
-  Ritiro <%= @picking.status %> con <%= @picking.supplier %>
+  Ritiro <%= @picking.status %> con <%= @picking.supplier %><br/>
   <small>(<%= @picking.date ? l(@picking.date) : 'data da definire' %>)</small>
 </h1>
 
 <% @disposals_hash.keys.sort_by{ |dt| dt.cer_code_id }.each do |disposal_type| %>  
-  <% total_kgs = 0.0 %>  
-  <% total_volume = 0.0 %>  
+  <% disposals = @disposals_hash[disposal_type] %>  
+
   <%= dm_card title: disposal_type.to_s_complete do %>  
-    <div class="">
+    <div>
       <% @disposals_hash[disposal_type].each do |disposal| %>  
-        <% (total_kgs += disposal.kgs) if disposal.kgs %>  
-        <% (total_volume += disposal.volume_tot) if disposal.volume %>  
         <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
       <% end %>
     </div>
     <hr/>
-    <%= render PickingDocument::ShowComponent.new(current_user, @picking, disposal_type, expected_kgs: total_kgs, expected_volume: total_volume) %>  
+    <% if picking_document = @picking.picking_document_by_disposal_type(disposal_type) %>  
+      <%= render PickingDocument::ShowComponent.new(current_user, picking_document, disposals: disposals) %>
+    <% else %>
+      <%= link_to 'Compila formulario', new_picking_picking_document_path(@picking, disposal_type_id: disposal_type.id), class: 'btn btn-sm btn-primary float-end' %>  
+    <% end %>
   <% end %>
 <% end %>
 

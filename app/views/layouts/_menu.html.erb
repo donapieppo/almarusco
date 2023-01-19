@@ -7,10 +7,11 @@
           <li><%= link_to fwdmicon('plus') + ' nuovo rifiuto', choose_disposal_type_disposals_path %></li>
           <li><%= link_to fwdmicon('circle-exclamation') + ' richieste incomplete', disposals_path(uncomplete: 1) %></li>
           <li><%= link_to fwdmicon('trash') + ' richieste da accettare', disposals_path(acceptable: 1) %></li>
-          <li><%= link_to fwdmicon('stamp') + ' registrazione', to_legalize_path %></li>
           <li><%= link_to fwdmicon('house') + ' deposito temporaneo', deposit_path %></li>
           <li><%= link_to fwdmicon('truck') + ' ritiri', pickings_path %></li>
           <li><%= link_to fwdmicon('print') + ' stampe etichette', new_print_path %></li>
+          <div class="dropdown-divider"></div>
+          <li><%= link_to fwdmicon('stamp') + ' registrazione', todo_legal_records_path %></li>
         <% end %>
 
         <%= dropdown_menu :amm, big_dmicon('cogs') + ' Amm.' do  %>
@@ -22,6 +23,7 @@
           <li><%= link_to fwdmicon('users') + ' Permessi', producers_path %></li>
           <li><%= link_to fwdmicon('wrench') + ' Configurazioni', current_organization_edit_path %></li>
           <li><%= link_to fwdmicon('print') + ' MUD', mud_path %></li>
+          <li><%= link_to fwdmicon('file') + ' Registrazioni', legal_records_path %></li>
           <!-- CESIA -->
           <% if current_user.nuter? %>  
             <div class="dropdown-divider"></div>

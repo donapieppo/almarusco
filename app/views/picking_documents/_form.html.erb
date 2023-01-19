@@ -1,7 +1,13 @@
+<div class="alert alert-info">
+  <%= @picking_document.disposal_type %>  
+</div>
+
 <%= dm_form_for [@picking, @picking_document], title: @picking.to_s do |f| %>
   <%= f.input :disposal_type_id, as: :hidden %>  
   <%= f.input :serial_number %>  
-  <%= f.input :register_number, as: :integer, hint: "Anno #{@picking.date ? @picking.date.year : 'da definire'}" %> 
+
+  <br/>
+
   <%= f.input :kgs %>  
   <%= f.input :volume %>  
   <%= f.submit %>  
