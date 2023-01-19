@@ -1,0 +1,9 @@
+<ul class="p-2">
+  <% @volume_data.keys.sort.each do |vol| %>  
+    <li>
+      <%= vol %> litri : <%= @volume_data[vol][:units] %> colli 
+      per <%= @volume_data[vol][:kgs] %> Kg. e <%= vol * @volume_data[vol][:units] %> litri
+    </li>
+  <% end %>
+</ul>
+
