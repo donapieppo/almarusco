@@ -21,18 +21,14 @@ class DisposalTypeTest < ActiveSupport::TestCase
 
   test "cer_and_hps_uniqueness" do
     hp = FactoryBot.create(:hp_code, id: 1)
-    p hp
     dt = FactoryBot.create(:disposal_type, physical_state: :liq)
-    p dt
     dt.hp_codes << hp
-    dt2 = FactoryBot.create(:disposal_type, physical_state: :liq,
-                                            cer_code: dt.cer_code,
-                                            un_code: dt.un_code, 
-                                            organization: dt.organization)
-    dt2.hp_codes << hp
-    p dt
-    p dt2
-    p dt.hp_codes
-    p dt2.hp_codes
+
+    dt2 = FactoryBot.build(:disposal_type, physical_state: :liq,
+                                           cer_code: dt.cer_code,
+                                           un_code: dt.un_code, 
+                                           organization: dt.organization,
+                                           hp_codes: dt.hp_codes)
+    assert_not dt2.valid?
   end
 end
