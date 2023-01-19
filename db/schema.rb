@@ -72,6 +72,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.integer "producer_id", unsigned: true
     t.integer "organization_id", unsigned: true
     t.integer "disposal_type_id", unsigned: true
+    t.integer "legal_record_id", unsigned: true
     t.text "notes"
     t.decimal "kgs", precision: 10, scale: 3
     t.integer "volume"
@@ -83,6 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.date "completed_at"
     t.index ["disposal_type_id"], name: "fk_disposals_disposal_type"
     t.index ["lab_id"], name: "fk_disposals_labs"
+    t.index ["legal_record_id"], name: "legal_record_id"
     t.index ["organization_id"], name: "fk_disposals_organizations"
     t.index ["picking_id"], name: "fk_disposals_pickings"
     t.index ["producer_id"], name: "fk_disposals_producers"
@@ -99,6 +101,22 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.integer "organization_id", unsigned: true
     t.string "name"
     t.index ["organization_id"], name: "fk_labs_organizations"
+  end
+
+  create_table "legal_records", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+    t.column "type", "enum('LegalUpload','LegalDownload')"
+    t.integer "organization_id", null: false, unsigned: true
+    t.integer "disposal_type_id", unsigned: true
+    t.integer "picking_document_id", unsigned: true
+    t.integer "year", null: false, unsigned: true
+    t.date "date"
+    t.integer "number", null: false, unsigned: true
+    t.date "created_at"
+    t.date "updated_at"
+    t.index ["disposal_type_id"], name: "disposal_type_id"
+    t.index ["number"], name: "k_number"
+    t.index ["organization_id", "year", "number"], name: "organization_id", unique: true
+    t.index ["picking_document_id"], name: "picking_document_id"
   end
 
   create_table "organizations", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
@@ -132,6 +150,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.decimal "kgs", precision: 10, scale: 3
     t.decimal "volume", precision: 10, scale: 3
     t.index ["disposal_type_id"], name: "fk_picking_document_disposal_type"
+    t.index ["picking_id", "disposal_type_id"], name: "picking_id", unique: true
     t.index ["picking_id"], name: "fk_picking_document_picking"
   end
 
@@ -187,11 +206,15 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   add_foreign_key "disposal_types_pictograms", "pictograms", name: "fk_dtp_picto"
   add_foreign_key "disposals", "disposal_types", name: "fk_disposals_disposal_type"
   add_foreign_key "disposals", "labs", name: "fk_disposals_labs"
+  add_foreign_key "disposals", "legal_records", name: "disposals_ibfk_1"
   add_foreign_key "disposals", "organizations", name: "fk_disposals_organizations"
   add_foreign_key "disposals", "pickings", name: "fk_disposals_pickings"
   add_foreign_key "disposals", "users", column: "producer_id", name: "fk_disposals_producers"
   add_foreign_key "disposals", "users", name: "fk_disposals_users"
   add_foreign_key "labs", "organizations", name: "fk_labs_organizations"
+  add_foreign_key "legal_records", "disposal_types", name: "legal_records_ibfk_2", on_delete: :cascade
+  add_foreign_key "legal_records", "organizations", name: "legal_records_ibfk_1", on_delete: :cascade
+  add_foreign_key "legal_records", "picking_documents", name: "legal_records_ibfk_3", on_delete: :cascade
   add_foreign_key "permissions", "organizations", name: "fk_organization_permission"
   add_foreign_key "permissions", "users", column: "producer_id", name: "fk_permission_producer"
   add_foreign_key "permissions", "users", name: "fk_user_permission"
