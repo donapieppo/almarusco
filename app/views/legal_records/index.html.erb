@@ -4,7 +4,7 @@
   <% @legal_records.each do |lr| %>  
     <li class="list-group-item">
       <%= link_to lr do %>
-        <div class="fw-bold pe-4" style="display: inline-block; width: 10em">
+        <div class="fw-bold pe-4" style="display: inline-block; width: 12em">
           <% if lr.is_a?(LegalDownload) %>  
             <i class="fa-solid fa-upload pe-1"></i> Scarico <%= lr %>
           <% else %>
