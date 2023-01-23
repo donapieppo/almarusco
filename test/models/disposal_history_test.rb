@@ -1,10 +1,10 @@
 require "test_helper"
 
 class DisposalHistoryTest < ActiveSupport::TestCase
-  test "disposal can not be legalized if not accepted" do
+  test "disposal can not be legalized if not approved" do
     disposal = FactoryBot.create(:disposal)
-    legal_record = FactoryBot.create(:legal_record, organization: disposal.organization)
-    assert_raise(DisposalHistoryError) { disposal.legalize!(legal_record) }
+    legal_upload = FactoryBot.create(:legal_upload, disposal_type: disposal.disposal_type, organization: disposal.organization)
+    assert_raise(DisposalHistoryError) { disposal.legalize!(legal_upload) }
   end
   
   test "disposal can not be deliverd if not legalized" do
@@ -15,10 +15,10 @@ class DisposalHistoryTest < ActiveSupport::TestCase
 
   test "disposal can not be completed if not delivered" do
     disposal = FactoryBot.create(:disposal)
-    legal_record = FactoryBot.create(:legal_record, organization: disposal.organization)
+    legal_upload = FactoryBot.create(:legal_upload, disposal_type: disposal.disposal_type, organization: disposal.organization)
 
     disposal.approve!
-    disposal.legalize!(legal_record)
+    disposal.legalize!(legal_upload)
 
     assert_raise(DisposalHistoryError) { disposal.complete! }
   end
