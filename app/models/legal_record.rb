@@ -6,7 +6,7 @@ class LegalRecord < ApplicationRecord
   validate :unique_number_in_organizations_and_year
   validates :date, :number, presence: true
 
-  after_save :set_year
+  before_validation :set_year
 
   def to_s
     "#{self.number}/#{self.year}"
@@ -22,6 +22,6 @@ class LegalRecord < ApplicationRecord
   private
 
   def set_year
-    self.year = self.date.year
+    self.year = self.date.year if self.date
   end
 end
