@@ -57,6 +57,10 @@ class DisposalType < ApplicationRecord
     end.compact
   end
 
+  def adr?
+    self.adrs.any?
+  end
+
   def cer_and_hps_uniqueness
     DisposalType.where(organization_id: self.organization_id, cer_code_id: self.cer_code_id, un_code_id: self.un_code_id).each do |dt|
       if self.id && dt.id == self.id
