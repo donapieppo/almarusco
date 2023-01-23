@@ -70,8 +70,8 @@ Rails.application.routes.draw do
     resources :legal_records, only: [:index] do 
       get :todo, on: :collection, as: :todo
     end
-    resources :legal_uploads, only: [:show]
-    resources :legal_downloads, only: [:show]
+    resources :legal_uploads, only: [:show, :edit, :update]
+    resources :legal_downloads, only: [:show, :edit, :update]
 
     resources :archives
 
