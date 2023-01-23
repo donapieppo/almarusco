@@ -15,7 +15,7 @@ class LegalDownloadsController < LegalRecordsController
                                                                date: params[:legal_download][:date])
     authorize @legal_download
     if @legal_download.save
-      redirect_to root_path
+      redirect_to @legal_download, notice: "Registrazione scarico effettuata con numero #{@legal_download.number}"
     else
       render action: :new, status: :unprocessable_entity
     end
