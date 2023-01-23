@@ -42,7 +42,7 @@ class PickingPrint
       line << volumes_table(values["volumes"])
       line << values["kgs"]
       line << disposal_type.hp_codes_to_s
-      line << (disposal_type.adr ? 'si' : '')
+      line << (disposal_type.adr? ? 'si' : '')
       line << disposal_type.un_code.to_s
       line << disposal_type.adrs_to_s
       res << line

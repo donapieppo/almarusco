@@ -17,7 +17,7 @@ class LegalUploadsController < LegalRecordsController
       @disposals.each do |disposal|
         disposal.legalize!(@legal_upload)
       end
-      redirect_to todo_legal_records_path
+      redirect_to todo_legal_records_path, notice: "I rifiuti sono stati registrati con numero #{@legal_upload.number}."
     else
       set_disposals_and_picking_document
       render action: :new, status: :unprocessable_entity
