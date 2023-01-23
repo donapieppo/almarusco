@@ -5,7 +5,7 @@
 <% if @disposal.legalized? %>  
   <%= t :legalized_at %> <%= l @disposal.legalized_at %> 
   <% if @disposal.legal_upload %>  
-    con numero <%= link_to @disposal.legal_upload, @disposal.legal_upload %>
+    con numero <%= link_to @disposal.legal_upload, @disposal.legal_upload, class: 'text-decoration-underline' %>
   <% else %>  
     senza registro di carico
   <% end %>

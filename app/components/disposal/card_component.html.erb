@@ -1,4 +1,4 @@
-<div class="dm-card" id="<%= dom_id @disposal %>">
+<div class="dm-card <%= @highlight %>  " id="<%= dom_id @disposal %>">
   <% if @modal %>  
     <%= render Disposal::CardTitleComponent.new(@disposal) %>  
   <% else %>
