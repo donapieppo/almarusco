@@ -5,16 +5,12 @@ Given('A new disposal') do
 end
 
 When('It is approved') do
-  @disposal.update(approved_at: Time.now)
-end
-
-When('It is approved') do
   @disposal.approve!
 end
 
 When('It is legalized') do
-  @legal_record = FactoryBot.create(:legal_record, organization: @disposal.organization)
-  @disposal.legalize!(@legal_record)
+  @legal_upload = FactoryBot.create(:legal_upload, disposal_type: @disposal.disposal_type, organization: @disposal.organization)
+  @disposal.legalize!(@legal_upload)
 end
 
 When('It is delivered') do
