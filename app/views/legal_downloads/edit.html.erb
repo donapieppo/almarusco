@@ -1,12 +1,5 @@
 <h1>Registrazione scarico nel <br/>registro cartaceo vidimato</h1>
 
-<div class="text-center my-4">
-  Tipologia rifiuti: <%= @disposal_type %>  <br/>
-</div>
+<%= render partial: 'form' %>  
 
-<%= simple_form_for @legal_download do |f| %>
-  <%= f.input :number %>
-  <%= f.input :date, as: :date, html5: true %>  
-  <%= f.submit "Salva" %>  
-<% end %>
 

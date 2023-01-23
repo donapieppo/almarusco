@@ -1,14 +1,4 @@
 <h1>Nuova registrazione scarico nel <br/>registro cartaceo vidimato</h1>
 
-<div class="text-center my-4">
-  Tipologia rifiuti: <%= @disposal_type %>  <br/>
-  Ultima registrazione: 
-  <% year = Date.today.year %>  
-  <%= year %> /  <%= current_organization.legal_records.where(year: year).maximum(:number) %>
-</div>
+<%= render partial: 'form' %>  
 
-<%= simple_form_for [@picking_document, @legal_download] do |f| %>
-  <%= f.input :number %>
-  <%= f.input :date, as: :date, html5: true %>  
-  <%= f.submit "Salva" %>  
-<% end %>
