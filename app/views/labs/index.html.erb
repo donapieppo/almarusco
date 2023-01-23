@@ -6,7 +6,7 @@
 
 <div class="list-group my-4">
   <% @labs.each do |lab| %>  
-    <%= link_to lab, lab, class: 'list-group-item list-group-item-action' %>
+    <%= link_to lab, [:edit, lab], class: 'list-group-item list-group-item-action' %>
   <% end %>
 </div>
 
