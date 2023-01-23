@@ -20,7 +20,9 @@
   </div>
 
   <% if policy(@legal_download).edit? %>  
-    <%= link_to 'modifica', [:edit, @legal_download] %>  
+    <div class="text-center my-2">
+      <%= link_to 'modifica', [:edit, @legal_download], class: :button %>  
+    </div>
   <% end %>
 </div>
 

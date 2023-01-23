@@ -12,23 +12,27 @@
           <%= @picking_document.volume.to_i %> L.
         </span>
         da formulario <%= @picking_document.serial_number %> - 
-        <% if ! @picking_document.legal_download %>
-          <%= @picking_document.disposal_type.adr ? "manca numero di registro di scarico" : "numero di registro di scarico non richiesto (non adr)." %>
+        <% if @picking_document.legal_download %>
+          <%= render LegalDownload::LineComponent.new(@picking_document.legal_download) %>
         <% elsif ! @picking_document.picking.date %>
           ??? (manca data in ritiro)
         <% else %>  
-          <%= render LegalDownload::LineComponent.new(@picking_document.legal_download) %>  
+          <%= @picking_document.disposal_type.adr? ? "manca numero di registro di scarico" : "numero di registro di scarico non richiesto (non adr)." %>
         <% end %>
       </div>
     <% end %>
   </div>
 
   <div class="col-md-4 text-end">
-    <% if @picking_document && ! @picking_document.legal_download && LegalDownloadPolicy.new(@current_user, @picking_document.legal_download).create? %>  
-      <%= link_to 'Registra', new_picking_document_legal_download_path(@picking_document), class: 'btn btn-sm btn-primary' %>  
-    <% end %>
-    <% if @picking_document_policy.edit? %>
-      <%= link_to 'Formulario', [:edit, @picking_document], class: 'btn btn-sm btn-success' %> 
+    <% if @picking_document %>  
+      <% if @picking_document.legal_download %>
+        <%= link_to @picking_document.legal_download %>  
+      <% elsif LegalDownloadPolicy.new(@current_user, @picking_document.build_legal_download).create? %>  
+        <%= link_to 'Registra', new_picking_document_legal_download_path(@picking_document), class: 'btn btn-sm btn-primary' %>  
+      <% end %>
+      <% if @picking_document_policy.edit? %>
+        <%= link_to 'Formulario', [:edit, @picking_document], class: 'btn btn-sm btn-success' %> 
+      <% end %>
     <% end %>
   </div>
 </div>
