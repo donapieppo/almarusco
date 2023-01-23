@@ -2,6 +2,8 @@
 -- alter table disposals add column `local_id` int(10) after `disposal_type_id`;
 -- alter table disposals add KEY `k_local_id` (`local_id`);
 
+alter table disposal_types drop column adr;
+
 delete from picking_documents where id=89;
 
 alter table disposal_types add column `separable` BOOL default 0 NOT NULL after `physical_state`;
