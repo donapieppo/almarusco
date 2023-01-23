@@ -6,6 +6,8 @@ class LegalRecord < ApplicationRecord
   validate :unique_number_in_organizations_and_year
   validates :date, :number, presence: true
 
+  after_save :set_year
+
   def to_s
     "#{self.number}/#{self.year}"
   end
@@ -15,5 +17,11 @@ class LegalRecord < ApplicationRecord
       self.errors.add(:number, "non univoco in nell'anno #{year}")
       Rails.logger.info("LegalRecord not uniq in #{year} org: #{self.organization_id} number: #{self.number}")
     end
+  end
+
+  private
+
+  def set_year
+    self.year = self.date.year
   end
 end
