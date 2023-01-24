@@ -3,6 +3,10 @@
   <small>(<%= @picking.date ? l(@picking.date) : 'data da definire' %>)</small>
 </h1>
 
+<% @picking.picking_documents.each do |pd| %>  
+  <%= link_to pd, pd, class: 'pe-2 underline' %>
+<% end %>
+
 <% @disposals_hash.keys.sort_by{ |dt| dt.cer_code_id }.each do |disposal_type| %>  
   <% disposals = @disposals_hash[disposal_type] %>  
 
