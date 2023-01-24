@@ -1,6 +1,6 @@
 class LegalDownloadsController < LegalRecordsController
   before_action :set_picking_document_and_disposal_type, only: [:new, :create]
-  before_action :set_legal_download_and_disposal_type_and_check_permission, only: [:show, :edit, :update, :delete]
+  before_action :set_legal_download_and_check_permission, only: [:show, :edit, :update, :delete]
 
   def new
     @legal_download = current_organization.legal_downloads.new(picking_document: @picking_document, disposal_type: @disposal_type, date: Date.today)
@@ -21,11 +21,10 @@ class LegalDownloadsController < LegalRecordsController
   end
 
   def show 
-    @picking_document = @legal_download.picking_document
-    @picking = @picking_document.picking
   end
 
   def edit
+    @disposal_type = @legal_download.disposal_type
   end
 
   def update
@@ -33,6 +32,7 @@ class LegalDownloadsController < LegalRecordsController
                               date: params[:legal_download][:date])
       redirect_to @legal_download, notice: "Registrazione scarico effettuata con numero #{@legal_download.number}"
     else
+      @disposal_type = @legal_download.disposal_type
       render action: :edit, status: :unprocessable_entity
     end
   end
@@ -44,9 +44,8 @@ class LegalDownloadsController < LegalRecordsController
     @disposal_type = @picking_document.disposal_type
   end
 
-  def set_legal_download_and_disposal_type_and_check_permission
+  def set_legal_download_and_check_permission
     @legal_download = current_organization.legal_downloads.find(params[:id])
-    @disposal_type = @legal_download.disposal_type
     authorize @legal_download
   end
 end
