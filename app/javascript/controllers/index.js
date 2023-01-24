@@ -9,8 +9,8 @@ application.register("previous_picking_data", PreviousPickingDataController)
 import DisposalTypeController from "./disposal_type_controller"
 application.register("disposal-type", DisposalTypeController)
 
-import LegalRecord from "./legal_record"
-application.register("legal-record", LegalRecord)
+import Accordion from "./accordion"
+application.register("accordion", Accordion)
 
 import LegalizeController from "./legalize_controller"
 application.register("legalize", LegalizeController)
