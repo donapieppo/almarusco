@@ -1,3 +1,3 @@
 class LegalDownload < LegalRecord
-  belongs_to :picking_document
+  # belongs_to :picking_document
 end

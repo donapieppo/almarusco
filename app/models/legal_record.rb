@@ -1,6 +1,8 @@
 class LegalRecord < ApplicationRecord
   belongs_to :organization
   belongs_to :disposal_type
+  belongs_to :picking_document
+  has_many :disposals, foreign_key: 'legal_record_id'
 
   # FIXME
   validate :unique_number_in_organizations_and_year
