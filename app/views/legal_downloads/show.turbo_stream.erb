@@ -1,0 +1,3 @@
+<%= turbo_stream.replace dom_id(@legal_download) do %>  
+  <%= render LegalDownload::CardComponent.new(current_user, @legal_download) %>  
+<% end %>

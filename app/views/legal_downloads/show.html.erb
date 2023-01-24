@@ -1,34 +1,4 @@
-<div class="dm-card">
-  <div class="dm-card-title">
-    <h2>Registrazione di scarico n. <%= @legal_download %> del <%= l(@legal_download.date) %></h2>
-  </div>
-
-  <div class="dm-card-body">
-    <div class="alert alert-info fw-bold"><%= @legal_download.disposal_type %></div>
-
-    <div class="fw-bold text-decoration-underline">
-      <% if @picking.completed? %>  
-        <%= link_to @picking %> (completato)  
-      <% else %>
-        <%= link_to @picking, [:edit, @picking] %>  
-      <% end %>
-    </div>
-
-    <div>
-      Formulario: <%= @picking_document %>  
-    </div>
-
-    <div>
-      <%= render Disposal::GroupDetailsComponent.new(@picking.disposals) %>  
-    </div>
-  </div>
-
-  <% if policy(@legal_download).edit? %>  
-    <div class="text-center my-2">
-      <%= link_to 'modifica', [:edit, @legal_download], class: :button %>  
-    </div>
-  <% end %>
-</div>
+<%= render LegalDownload::CardComponent.new(current_user, @legal_download) %>  
 
 <div class="text-center">
   <%= link_to 'indietro', legal_records_path %>  

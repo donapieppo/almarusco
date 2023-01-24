@@ -1,0 +1,3 @@
+<%= turbo_stream.replace dom_id(@legal_upload) do %>  
+  <%= render LegalUpload::CardComponent.new(current_user, @legal_upload) %>  
+<% end %>
