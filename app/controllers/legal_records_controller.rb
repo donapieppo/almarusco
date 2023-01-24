@@ -1,7 +1,7 @@
 class LegalRecordsController < ApplicationController
   def index
     authorize :legal_record
-    @legal_records = current_organization.legal_records.includes(:disposal_type).order(:number)
+    @legal_records = current_organization.legal_records.order(:number)
   end
 
   def todo
