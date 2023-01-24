@@ -8,15 +8,8 @@ class PickingDocument < ApplicationRecord
   validate :organization_coherence
 
   def to_s
-    "#{self.serial_number} - #{self.register_number}"
+    "#{self.serial_number}"
   end
-
-  #def register_number
-  #  self.register.try(:number)
-  #end
-
-  #def register_number=(n)
-  #end
 
   def organization_coherence
     (self.disposal_type.organization_id == self.picking.organization_id) or self.errors.add(:base, "UL incoerenti")
