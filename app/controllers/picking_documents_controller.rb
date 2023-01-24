@@ -50,6 +50,6 @@ class PickingDocumentsController < ApplicationController
   end
 
   def picking_document_params
-    params[:picking_document].permit(:disposal_type_id, :serial_number, :register_number, :kgs, :volume)
+    params[:picking_document].permit(:disposal_type_id, :serial_number, :kgs, :volume)
   end
 end
