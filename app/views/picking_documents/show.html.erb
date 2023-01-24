@@ -1,13 +1,14 @@
 <h1>Documento di trasporto</h1>
 
+<% legal_download = @picking_document.legal_download %>  
 
 <div class="alert alert-info">
-  <div class="fw-bold"><%= link_to @picking_document.picking %></div>
+  <div class="fw-bold my-2"><%= link_to @picking_document.picking, @picking_document.picking, class: 'underline' %></div>
   <div>Tipologia: <%= @picking_document.disposal_type %></div>
   <div>Formulario: <%= @picking_document.serial_number %></div>
-  <div>Numero: <%= @picking_document.register_number %></div>
-  <div>Peso: <%= @picking_document.kgs %> kg.</div>
-  <div>Volume: <%= @picking_document.volume %> l.</div>
+  <div>Peso: <%= @picking_document.kgs.to_f %> Kg.</div>
+  <div>Volume: <%= @picking_document.volume.to_i %> L.</div>
+  <div>Registro: <%= link_to(legal_download, legal_download) if legal_download %></div>
 </div>
 
 <h2 class="my-4">Elenco rifiuti</h2>
