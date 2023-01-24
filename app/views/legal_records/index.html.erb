@@ -1,38 +1,17 @@
 <h1 class="title">Elenco registrazioni carico/scarico</h1>
 
-<ul class="list-group">
+<ul class="list-group" data-controller="legal-record">
   <% @legal_records.each do |lr| %>  
     <li class="list-group-item">
-      <%= link_to lr do %>
-        <div class="fw-bold pe-4" style="display: inline-block; width: 12em">
-          <% if lr.is_a?(LegalDownload) %>  
-            <i class="fa-solid fa-upload pe-1"></i> Scarico <%= lr %>
-          <% else %>
-            <i class="fa-solid fa-download pe-1"></i> Carico <%= lr %>
-          <% end %>
-        </div>
-
-        <div class="d-inline">
-          <% if lr.is_a?(LegalDownload) %>
-            <%= lr.picking_document.picking %> 
-            <%= " (completato)" if lr.picking_document.picking.completed? %>  
-          <% else %>
-            <% disposals = lr.disposals.includes(disposal_type: [:cer_code, :un_code]).to_a %>  
-            <% if disposals.any? %>  
-              <%= disposals.first.disposal_type %>
-
-              <% tot_volume = 0 %>  
-              <% tot_kgs = 0.0 %>  
-              <% disposals.each do |disposal| %>
-                <% tot_kgs += disposal.kgs %>  
-                <% tot_volume += disposal.volume_tot %>  
-                <small class="text-muted ps-2"><%= disposal.volume_tot %> L. <%= disposal.kgs %> Kg. </small>
-              <% end %>
-              <span class="fw-bold ps-2 float-end">tot: <%= tot_volume %> L. - <%= tot_kgs %> Kg.</span>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
+      <button class="fw-bold" data-action="legal-record#toggleContent" data-legal-record-url-param="<%= lr.is_a?(LegalDownload) ? legal_download_path(lr) : legal_upload_path(lr) %>">
+        <% if (lr.is_a?(LegalDownload)) %>  
+          <i class="fa-solid fa-upload pe-1"></i> Scarico <%= lr %>
+        <% else %>
+          <i class="fa-solid fa-download pe-1"></i> Carico <%= lr %>
+        <% end %>
+      </button>
+      <div class="details" id="<%= dom_id lr %>">
+      </div>
     </li>
   <% end %>
 </ul>
