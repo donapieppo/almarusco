@@ -143,22 +143,6 @@ class DisposalsController < ApplicationController
     @disposal_types = current_organization.disposal_types.where(id: @disposals.map(&:disposal_type_id).sort.uniq)
   end
 
-  # # keep here (in conroller and not in model legalize_all because you legalize what you see (from deposit#logalize) 
-  # # "disposal_ids"=>"898,1311,1349,1422,1519"
-  # def legalize
-  #   authorize :disposal
-  #   if params[:register_number].to_i == 0
-  #     flash[:alert] = "Manca il numero della registrazione."
-  #   elsif RegisterNumber.new(params[:register_number], current_organization).invalid?
-  #     flash[:alert] = "Numero della registrazione già utilizato precedentemente."
-  #   else
-  #     current_organization.disposals.approved.unlegalized.find(params[:disposal_ids].split(',')).each do |disposal|
-  #       disposal.legalize!(params[:register_number].to_i)
-  #     end
-  #   end
-  #   redirect_to to_legalize_path # depositis#to_legalize
-  # end
-
   private
 
   # no producer or user!
