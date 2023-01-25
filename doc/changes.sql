@@ -2,6 +2,8 @@
 -- alter table disposals add column `local_id` int(10) after `disposal_type_id`;
 -- alter table disposals add KEY `k_local_id` (`local_id`);
 
+update permissions set expiry ='2023-01-31' where expiry <= '2023-01-01';
+
 alter table disposal_types drop column adr;
 
 delete from picking_documents where id=89;
@@ -35,6 +37,8 @@ create table legal_records (
 
 alter table disposals add column `legal_record_id` int(10) unsigned after `disposal_type_id`;
 alter table disposals add FOREIGN KEY (legal_record_id) REFERENCES `legal_records` (`id`);
+
+-- alter table disposals add column `aasm_state` text;
 
 -- alter table pickings add column `legal_record_id` int(10) unsigned after `supplier_id`;
 -- alter table pickings add FOREIGN KEY (legal_record_id) REFERENCES `legal_records` (`id`);
