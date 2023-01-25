@@ -1,6 +1,6 @@
 <div class="dm-card">
   <div class="dm-card-title">
-    <h2>Dettagli registrazione n.<%= @legal_upload %> del <%= l(@legal_upload.date) %></h2>
+    Dettagli registrazione n.<%= @legal_upload %> del <%= l(@legal_upload.date) %>
   </div>
 
   <div class="dm-card-body">
@@ -15,7 +15,7 @@
         <%= render Disposal::BadgeComponent.new(@current_user, disposal) %>
       <% end %>
 
-      <div class="my-4 fw-bold">
+      <div class="my-2 fw-bold">
         Totale: <%= tot_volume %> L. - <%= tot_kgs %> Kg.
       </div>
     <% end %>
