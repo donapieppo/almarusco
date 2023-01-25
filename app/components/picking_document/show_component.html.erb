@@ -28,7 +28,7 @@
       <% if @picking_document.legal_download %>
         <%= link_to @picking_document.legal_download %>  
       <% elsif LegalDownloadPolicy.new(@current_user, @picking_document.build_legal_download).create? %>  
-        <%= link_to 'Registra', new_picking_document_legal_download_path(@picking_document), class: 'btn btn-sm btn-primary' %>  
+        <%= link_to 'Registra scarico', new_picking_document_legal_download_path(@picking_document), class: 'btn btn-sm btn-primary' %>  
       <% end %>
       <% if @picking_document_policy.edit? %>
         <%= link_to 'Formulario', [:edit, @picking_document], class: 'btn btn-sm btn-success' %> 
