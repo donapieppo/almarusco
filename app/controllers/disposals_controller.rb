@@ -45,7 +45,7 @@ class DisposalsController < ApplicationController
   end
 
   def choose_disposal_type
-    @disposal_types = current_organization.disposal_types.with_all_includes.order('cer_codes.name')
+    @disposal_types = current_organization.disposal_types.with_all_includes.order('cer_codes.name').to_a
     authorize :disposal
   end
 
