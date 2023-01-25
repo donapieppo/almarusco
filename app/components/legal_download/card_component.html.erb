@@ -1,6 +1,6 @@
 <div class="dm-card">
   <div class="dm-card-title">
-    <h2>Registrazione di scarico n. <%= @legal_download %> del <%= l(@legal_download.date) %></h2>
+    Registrazione di scarico n. <%= @legal_download %> del <%= l(@legal_download.date) %>
   </div>
 
   <div class="dm-card-body">
@@ -14,21 +14,21 @@
       <% end %>
     </div>
 
-    <div>
+    <div class="my-2">
       Formulario: <%= @picking_document %>  
     </div>
 
-    <div>
+    <div class="my-2">
       <%= render Disposal::GroupDetailsComponent.new(@picking.disposals) %>  
     </div>
   </div>
 
   <% if @policy.edit? %>  
-    <div class="text-center my-2">
-      <%= link_to 'modifica', [:edit, @legal_download], class: :button %>  
+    <div class="pb-2 ps-4">
+      <%= link_to 'Modifica', [:edit, @legal_download], class: :button %>  
     </div>
   <% else %>
-    <div class="px-4 text-warning">
+    <div class="pb-2 ps-4 text-warning">
       Documento non modificabile
     </div>
   <% end %>
