@@ -28,7 +28,11 @@ class OperatorsController < ApplicationController
                                                          expiry: params[:expiry], 
                                                          producer_id: @producer.id)
       authorize @permission
-      if @permission.save
+      old_permission = current_organization.permissions.where(user_id: @user.id, producer_id: @producer.id).first
+
+      if old_permission
+        redirect_to producers_path, alert: "Questo utente è già stato associato al produttore."
+      elsif @permission.save
         redirect_to producers_path, notice: "È stato aggiunta la delega a #{@user} per #{@producer}."
       else
         redirect_to new_producer_path, alert: "Non è stato possibile salvare l'utente."
