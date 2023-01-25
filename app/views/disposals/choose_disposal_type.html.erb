@@ -25,3 +25,10 @@
   <% end %>
 </div>
 
+<% if @disposal_types.empty? %>  
+  <div class="alert alert-warning m-4">
+    <p>Prima di creare un nuovo rifiuto è necessario creare le tipologie di rifiuti trattate nella vostra UL.</p>
+    <p>Per farlo potete accedere alla pagina "tipologie di rifiuti" dal menu "Amm.".</p>
+  </div>
+<% end %>
+
