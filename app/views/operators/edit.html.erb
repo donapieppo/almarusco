@@ -2,9 +2,10 @@
   Modifica scadenza operatore <br/><small><%= @permission.user %></small>
 </h1>
 
-<div class="mx-auto" style="max-width: 600px;">
+<div class="mx-auto" style="max-width: 800px;">
   <div class="my-4">
-    Modifica la data in cui l'abilitazione ad operare per <%= @producer %> scade.
+    Modifica la data in cui deve scadere l'abilitazione di <%= @permission.user %> (<%= @permission.user.upn %>) 
+    ad operare per <%= @producer %> (<%= @producer.upn %>).
   </div>
   <%= form_with url: operator_path(@permission), method: :patch, data: { turbo: false } do |f| %>  
     <%= f.label 'scadenza:', class: 'form-label my-2' %>
