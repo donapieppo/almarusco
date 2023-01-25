@@ -1,14 +1,14 @@
 <h1>
   Deposito temporaneo
   <% if @at %>  
-    <br/>(accettati il <%= @at %>)
+    <br/><small>(accettati il <%= @at %>)</small>
   <% end %>
 </h1>
 
 <% if @approved_at %>  
   <div class="text-center">
     <% @approved_at.each do |at| %>  
-      <%= link_to l(at, format: :in_list), deposit_path(at: at), class: 'text-underline px-2' %>  
+      <%= link_to l(at, format: :in_list), deposit_path(at: at), class: 'underline px-2' %>  
     <% end %>
   </div>
 <% end %>
@@ -43,7 +43,7 @@
 
       <% if to_legalize_ids.any? %>  
         <div class='d-inline-block float-end'>
-          <%= link_to 'REGISTRA COMPILAZIONE', new_disposal_type_legal_upload_path(dt, disposal_ids: to_legalize_ids), class: :button %>  
+          <%= link_to 'Registra carico', new_disposal_type_legal_upload_path(dt, disposal_ids: to_legalize_ids), class: :button %>  
         </div>
       <% end %>
     </div>
