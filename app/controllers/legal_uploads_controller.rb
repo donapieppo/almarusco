@@ -10,7 +10,6 @@ class LegalUploadsController < LegalRecordsController
   def create
     @legal_upload = current_organization.legal_uploads.new(disposal_type: @disposal_type, 
                                                            number: params[:legal_upload][:number], 
-                                                           year: Date.today.year, 
                                                            date: params[:legal_upload][:date])
     authorize @legal_upload
     if @legal_upload.save
@@ -19,7 +18,6 @@ class LegalUploadsController < LegalRecordsController
       end
       redirect_to todo_legal_records_path, notice: "I rifiuti sono stati registrati con numero #{@legal_upload.number}."
     else
-      set_disposals_and_picking_document
       render action: :new, status: :unprocessable_entity
     end
   end
