@@ -29,7 +29,7 @@ class PickingDocumentsController < ApplicationController
 
   def update
     if @picking_document.update(picking_document_params)
-      redirect_to @picking, 'Il documento è stato aggiornato correttamente.'
+      redirect_to @picking, notice: 'Il documento è stato aggiornato correttamente.'
     else
       render action: :edit, status: :unprocessable_entity
     end
