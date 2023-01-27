@@ -99,6 +99,11 @@ class Disposal < ApplicationRecord
     ! delivered?
   end
 
+  def legal_download
+    return unless delivered?
+    self.picking.picking_document_by_disposal_type(self.disposal_type)
+  end
+
   def deliver!
     self.legalized? or raise DisposalHistoryError
     self.update(delivered_at: Time.now)
