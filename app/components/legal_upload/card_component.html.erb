@@ -10,7 +10,7 @@
       <% tot_volume = 0 %>  
       <% tot_kgs = 0.0 %>  
       <% @disposals.each do |disposal| %>
-        <% tot_kgs += disposal.kgs %>  
+        <% tot_kgs += disposal.kgs.to_f %>  
         <% tot_volume += disposal.volume_tot %>  
         <%= render Disposal::BadgeComponent.new(@current_user, disposal) %>
       <% end %>
