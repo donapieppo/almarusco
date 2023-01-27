@@ -14,7 +14,7 @@ class LegalDownloadsController < LegalRecordsController
                                                                date: params[:legal_download][:date])
     authorize @legal_download
     if @legal_download.save
-      redirect_to @legal_download, notice: "Registrazione scarico effettuata con numero #{@legal_download.number}"
+      redirect_to @legal_download.picking_document.picking, notice: "Registrazione scarico effettuata con numero #{@legal_download.number}"
     else
       render action: :new, status: :unprocessable_entity
     end
@@ -30,7 +30,7 @@ class LegalDownloadsController < LegalRecordsController
   def update
     if @legal_download.update(number: params[:legal_download][:number],
                               date: params[:legal_download][:date])
-      redirect_to @legal_download, notice: "Registrazione scarico effettuata con numero #{@legal_download.number}"
+      redirect_to @legal_download.picking_document.picking, notice: "Registrazione scarico effettuata con numero #{@legal_download.number}"
     else
       @disposal_type = @legal_download.disposal_type
       render action: :edit, status: :unprocessable_entity
