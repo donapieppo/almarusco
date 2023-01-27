@@ -1,8 +1,14 @@
+<% if @disposal.kgs.to_f > 0 %>  
  <div id="<%= helpers.disposal_accept_button_id(@disposal) %>" class="centered my-2">
   <% if @policy.unapprove?%>  
     <%= button_to 'Disaccetta', unapprove_disposal_path(@disposal), class: 'btn btn-danger btn-lg' %>  
   <% elsif @policy.approve? %>
     <%= button_to 'Accetta', approve_disposal_path(@disposal), class: 'btn btn-success btn-lg' %>  
   <% end %>
-</div>
+ </div>
+ <% else %>
+   <div class="alert alert-danger">
+     Prima di accettare il rifiuto si prega di <%= link_to 'inserire il peso', [:edit, @disposal], class: 'underline' %>.
+   </div>
+ <% end %>
 
