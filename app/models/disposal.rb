@@ -67,6 +67,8 @@ class Disposal < ApplicationRecord
   end
 
   def approve!
+    # TODO check kgs
+    self.kgs.to_f > 0 or return false
     self.approved_at and raise DisposalHistoryError
     self.update(approved_at: Time.now)
   end
