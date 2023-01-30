@@ -16,10 +16,10 @@
           <%= cer_code %>
         </th>
         <td>
-          <%= kg1 = @summary[cer_code][:kgs].to_i %> 
+          <%= kg1 = @summary[cer_code][:kgs].ceil %> 
         </td>
         <td> 
-          <%= kg2 = @remainders[cer_code][:kgs].to_i %> 
+          <%= kg2 = @remainders[cer_code][:kgs].ceil %> 
         </td>
         <td>
           <%= kg1.to_i + kg2.to_i %>
