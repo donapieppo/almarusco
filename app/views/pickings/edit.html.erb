@@ -1,15 +1,11 @@
-<% 
-    disposal_label = lambda do |d|
-      "id #{d.id} #{d.disposal_type.to_s_short} - #{d.volume_tot} L. - #{d.kgs} Kg."
-    end
-  %>  
+<% disposal_label = lambda {|d| "id #{d.id} #{d.disposal_type.to_s_short} - #{d.volume_tot} L. - #{d.kgs} Kg."} %>  
 
 <h1>
   Programmazione ritiro con <br/>
   <%= @picking.supplier %>
 </h1>
 
-<div data-controller="previous_picking_data">
+<div data-controller="picking">
   <%= simple_form_for @picking do |f| %>  
     <div class="row">
       <div class="col-md-6">
@@ -23,7 +19,7 @@
       <div class="col-md-6 py-2 py-md-0">
         <%= '<div class="small text-secondary">Puoi anche scegliere tra i seguenti indirizzi precedenti:</div>'.html_safe if @previous_address.any? %>  
         <% @previous_address.each do |c| %>  
-          <a class='btn btn-outline-secondary btn-sm' data-action="click->previous_picking_data#setAddress" data-previous_picking_data-address-param="<%= c %>"><%= c %></a>
+          <a class='btn btn-outline-secondary btn-sm' data-action="click->picking#setAddress" data-picking-address-param="<%= c %>"><%= c %></a>
         <% end %>
       </div>
     </div>
@@ -34,7 +30,7 @@
       <div class="col-md-6 py-2 py-md-0">
         <%= '<div class="small text-secondary">Puoi anche scegliere tra i seguenti contatti precedenti:</div>'.html_safe if @previous_contacts.any? %>  
         <% @previous_contacts.each do |c| %>  
-          <a class='btn btn-outline-secondary btn-sm' data-action="click->previous_picking_data#setContact" data-previous_picking_data-contact-param="<%= c %>"><%= c %></a>
+          <a class='btn btn-outline-secondary btn-sm' data-action="click->picking#setContact" data-picking-contact-param="<%= c %>"><%= c %></a>
         <% end %>
       </div>
     </div>
@@ -46,14 +42,14 @@
         Una volta aggiunti e approvati rifiuti al tuo deposito temporaneo con i CER che vedi nel box azzurro sotto potrai aggiungerli a questo ritiro.
         </p>
       <% else %>
-        <%= f.association :disposals, as: :check_boxes, 
-          label: "Seleziona i rifiuti", 
-          collection: @possible_disposals,
-          label_method: disposal_label %>  
+        <%= f.association :disposals, as: :check_boxes, label: "Seleziona i rifiuti", collection: @possible_disposals, label_method: disposal_label %>  
+        <div class="offset-sm-3 my-2" data-picking-target="all">
+          <input name="all" id="all" type="checkbox" data-action="click->picking#checkAll"/>
+          <label for="all">Seleziona tutti</label>
+        </div>
       <% end %>
+      <%= f.submit 'Salva' %> - <%= link_to 'indietro', @picking %>    
     <% end %>
-
-    <%= f.submit 'Salva' %> - <%= link_to 'indietro', @picking %>    
   <% end %>
 </div>
 
