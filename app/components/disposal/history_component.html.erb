@@ -14,7 +14,7 @@
 <% if @disposal.delivered? %>
   <%= t :delivered_at %> <%= l @disposal.delivered_at %>
   <% if ld = @disposal.legal_download %>  
-    <%= link_to ld %> 
+    con documento <%= link_to ld %> 
   <% end %>
   <br/> 
 <% end %>
