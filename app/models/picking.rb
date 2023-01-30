@@ -61,4 +61,8 @@ class Picking < ApplicationRecord
   def picking_document_by_disposal_type(dt)
     self.picking_documents.where(disposal_type: dt).first   
   end
+
+  def date_to_s
+    self.date ? I18n.l(date) : 'Data non definita'
+  end
 end
