@@ -3,7 +3,7 @@
 <ul class="list-group" data-controller="accordion">
   <% @legal_records.each do |lr| %>  
     <li class="list-group-item">
-      <button class="fw-bold" data-action="accordion#openContent" data-accordion-url-param="<%= lr.is_a?(LegalDownload) ? legal_download_path(lr) : legal_upload_path(lr) %>">
+      <button class="fw-bold w-100 d-block text-start" data-action="accordion#openContent" data-accordion-url-param="<%= lr.is_a?(LegalDownload) ? legal_download_path(lr) : legal_upload_path(lr) %>">
         <% if (lr.is_a?(LegalDownload)) %>  
           <i class="fa-solid fa-upload pe-1"></i> Scarico <%= lr %>
         <% else %>
