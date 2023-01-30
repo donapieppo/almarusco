@@ -3,9 +3,6 @@ import { application } from "./application"
 import DisposalSelectorController from "./disposal_selector_controller"
 application.register("disposal-selector", DisposalSelectorController)
 
-import PreviousPickingDataController from "./previous_picking_data_controller"
-application.register("previous_picking_data", PreviousPickingDataController)
-
 import DisposalTypeController from "./disposal_type_controller"
 application.register("disposal-type", DisposalTypeController)
 
@@ -14,6 +11,9 @@ application.register("accordion", Accordion)
 
 import LegalizeController from "./legalize_controller"
 application.register("legalize", LegalizeController)
+
+import PickingController from "./picking_controller.js"
+application.register("picking", PickingController)
 
 import DsaAwesomplete from "./dsa_awesomplete.js"
 application.register("dsa-awesomplete", DsaAwesomplete)
