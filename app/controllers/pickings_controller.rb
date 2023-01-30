@@ -1,6 +1,6 @@
 require 'csv'
 class PickingsController < ApplicationController
-  before_action :set_picking_and_check_permission, only: [:show, :edit, :update, :delete, :new_request, :print_request, :deliver, :complete]
+  before_action :set_picking_and_check_permission, only: [:show, :edit, :update, :delete, :new_print_request, :print_request, :deliver, :complete]
 
   def index
     authorize :picking
@@ -52,7 +52,7 @@ class PickingsController < ApplicationController
   def destroy
   end
 
-  def new_request
+  def new_print_request
     authorize :picking
     @request = PickingRequest.new(@picking)
   end

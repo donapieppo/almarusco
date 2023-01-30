@@ -57,7 +57,7 @@ Rails.application.routes.draw do
     resources :un_codes
     resources :pickings do
       resources :picking_documents
-      get :new_request, on: :member
+      get :new_print_request, on: :member
       post :print_request, on: :member
       put :deliver, on: :member
       put :complete, on: :member
