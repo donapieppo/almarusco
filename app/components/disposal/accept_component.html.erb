@@ -8,7 +8,6 @@
  </div>
  <% else %>
    <div class="alert alert-danger">
-     Prima di accettare il rifiuto si prega di <%= link_to 'inserire il peso', [:edit, @disposal], class: 'underline' %>.
+     Prima di accettare il rifiuto si prega di <%= link_to 'inserire il peso', [:edit, @disposal], class: 'underline', data: { turbo: false } %>.
    </div>
  <% end %>
-
