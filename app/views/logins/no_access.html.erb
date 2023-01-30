@@ -1,0 +1,17 @@
+<h1>Accesso ad AlmaRusco</h1>
+
+<% if ! current_organization %>  
+  <div class="alert alert-danger">
+    <p>Sei loggato come <%= current_user %>.</p>
+
+    <p>
+    Per accedere all'applicativo richiedete ai resposabili
+    della vostra unità locale di essere abilitati e di fornirvi l'indirizzo
+    corretto.
+    </p>
+
+    <p>
+      Ricordiamo che l'indirizzo deve essere del tipo: https://www.dm.unibo.it/almarusco/UL123
+    </p>
+  </div>
+<% end %>
