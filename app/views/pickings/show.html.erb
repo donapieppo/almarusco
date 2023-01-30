@@ -26,7 +26,7 @@
 <% end %>
 
 <div class="centered my-2">
-  <%= link_to 'STAMPA', [:new_request, @picking], class: 'btn btn-primary' %>  
+  <%= link_to 'STAMPA', [:new_print_request, @picking], class: 'btn btn-primary' %>  
   <% unless @picking.completed? %>  
     <%= link_to 'MODIFICA', [:edit, @picking], class: 'btn btn-primary', data: { turbo: false } %>
   <% end %>
