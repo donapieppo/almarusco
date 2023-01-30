@@ -13,9 +13,9 @@ class PickingPrint
     text "#{@picking.supplier.name.upcase} MODULO PRENOTAZIONE SERVIZIO", style: :bold, size: 10
     move_down 10
     table [["Unità locale: ", "#{@picking.organization.to_s.upcase} #{@picking.organization.description.to_s.upcase}"],
-           ["Ritiro per il giorno: ", "#{I18n.l @picking.date}"],
-           ["Contatti responsabili ul: ", "#{@picking.contact}"],
-           ["Luogo del ritiro: ", "#{@picking.address}"]] do
+           ["Ritiro per il giorno: ", @picking.date.to_s],
+           ["Contatti responsabili ul: ", @picking.contact.to_s],
+           ["Luogo del ritiro: ", @picking.address.to_s]] do
       cells.borders = [] 
       cells.background_color = 'FFCA2C'
       column(0).align = :right
