@@ -11,9 +11,7 @@
     <%= dm_unibo_common_headers %>  
   </head>
   <body>
-    <% unless @no_menu %>  
-      <%= render partial: 'layouts/menu' %>
-    <% end %>
+    <%= render partial: 'layouts/menu' %>
 
     <main role="main" class="container">
       <%= turbo_frame_tag "modal" %>
