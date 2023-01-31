@@ -70,7 +70,8 @@ it:
         id: Numero
         name: Nome
       cer_code:
-        name: Nome
+        name: Codice
+        description: Descrizione
         danger: Pericolo
       picking:
         supplier: Fornitore
@@ -100,6 +101,9 @@ it:
         serial_number: "Come compare in alto nel formulario. Per esempio: 'XBO 111111/20'."
         kgs: Come da quarta copia
         volume: Come da quarta copia
+      cer_code:
+        name: Inserire il codice numerico del Cer.
+
 
   can_operate: operatore
   can_read:    può leggere
