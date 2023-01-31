@@ -7,6 +7,7 @@ require_dependency "dm_unibo_common/permission_policy"
 class ProducersController < ApplicationController
   def index
     @admin_permissions    = current_organization.permissions.where(authlevel: Rails.configuration.authlevels[:admin]).includes(:user).order('users.surname')
+    @manager_permissions  = current_organization.permissions.where(authlevel: Rails.configuration.authlevels[:manage]).includes(:user).order('users.surname')
     @producer_permissions = current_organization.permissions.where(authlevel: Rails.configuration.authlevels[:dispose]).includes(:user).order('users.surname')
     authorize [:dm_unibo_common, :permission]
   end

@@ -14,6 +14,12 @@
           <li><%= permission.user %> <small>(<%= permission.user.upn %>)</small></li>
         <% end %>
       </ul>
+      <div class="fw-bold">Delegati:</div>
+      <ul>
+        <% @manager_permissions.each do |permission| %>  
+          <li><%= permission.user %> <small>(<%= permission.user.upn %>)</small></li>
+        <% end %>
+      </ul>
     </div>
   </div>
   <div class="col-md-8">
