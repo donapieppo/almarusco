@@ -1,6 +1,7 @@
 class DisposalPolicy < ApplicationPolicy
   def index?
-    @user
+    current_organization_disposer?
+    # @user
   end
 
   def show?
