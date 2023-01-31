@@ -8,6 +8,6 @@ class DisposalTypePolicy < ApplicationPolicy
   end
 
   def update?
-    @user && OrganizationPolicy.new(@user, @record.organization_id).admin?
+    @user && OrganizationPolicy.new(@user, @record.organization_id).manage?
   end
 end
