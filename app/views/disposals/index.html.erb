@@ -8,28 +8,34 @@
 
 <div class="centered">
   <% if policy(current_organization).dispose? %>  
-    <%= link_to 'NUOVO RIFIUTO', choose_disposal_type_disposals_path, class: 'btn btn-primary btn-lg' %>  
+    <%= link_to 'REGISTRA NUOVO RIFIUTO', choose_disposal_type_disposals_path, class: 'btn btn-primary btn-lg' %>  
   <% end %>
 </div>
 
-<form class="my-2 centered disposal_cer_selector" data-controller="disposal-selector" data-action="change->disposal-selector#change_cer">
-  CER:
-  <% @disposals_cers.each do |cer_code| %>  
-    <input type="radio" id="<%= cer_code.id %>" name="disposal_to_show" />
-    <label for="<%= cer_code.id %>" data-cerid="<%= cer_code.id %>">
-      <%= cer_code.name %>  
-    </label>
-  <% end %>
-</form>
+<% if @disposals_cers.any? %>  
+  <form class="my-2 centered disposal_cer_selector" data-controller="disposal-selector" data-action="change->disposal-selector#change_cer">
+    CER:
+    <% @disposals_cers.each do |cer_code| %>  
+      <input type="radio" id="<%= cer_code.id %>" name="disposal_to_show" />
+      <label for="<%= cer_code.id %>" data-cerid="<%= cer_code.id %>">
+        <%= cer_code.name %>  
+      </label>
+    <% end %>
+  </form>
+<% end %>
 
 <div class="row">
   <% tot = 0 %>  
   <% @disposals.each do |disposal| %>  
-    <div class="col-md-6" data-cerid="<%= disposal.disposal_type.cer_code_id %>">
+    <div class="disposal-card col-md-6 col-xl-4" data-cerid="<%= disposal.disposal_type.cer_code_id %>">
       <%= render Disposal::CardComponent.new(current_user, disposal, with_details: false, highlight: (@highlight_id == disposal.id)) %>
       <% tot += 1 %>  
     </div>
   <% end %>
 </div>
 
-Totale: <%= tot %> richieste  
+<% if tot > 0 %>  
+  <div class="alert alert-info">
+    Totale: <%= tot %> richieste  
+  </div>
+<% end %>
