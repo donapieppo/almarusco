@@ -1,12 +1,10 @@
-<div class="alert alert-info">
-  <%= @picking_document.disposal_type %>  
-</div>
-
 <%= dm_form_for [@picking, @picking_document], title: @picking.to_s do |f| %>
+  <div class="offset-sm-3">
+    <%= @picking_document.disposal_type %>
+  </div>
+
   <%= f.input :disposal_type_id, as: :hidden %>  
   <%= f.input :serial_number %>  
-
-  <br/>
 
   <%= f.input :kgs %>  
   <%= f.input :volume %>  
