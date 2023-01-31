@@ -1,15 +1,19 @@
 <div class="dm-card">
   <div class="dm-card-title">
-    <%= @disposal_type.to_s %>
-    <%= @disposal_type.adrs_to_s %>  
-    <% @disposal_type.hp_codes.each do |hp| %>
-      <span class="badge rounded-pill bg-warning text-dark" style="font-size: 60%" title="<%= hp.description %>">
-        <%= hp.code %>
-      </span>
-    <% end %>
-    <% if @editable %>  
-      <span class="float-end"><%= link_to_edit [:edit, @disposal_type] %></span>
-    <% end %>
+    <div>
+      <%= @disposal_type.to_s %>
+      <% if @editable %>  
+        <div class="float-end"><%= link_to_edit [:edit, @disposal_type] %></div>
+      <% end %>
+    </div>
+    <div class="fw-normal">
+      <%= @disposal_type.adrs_to_s %> &nbsp;
+      <% @disposal_type.hp_codes.each do |hp| %>
+        <span class="badge rounded-pill bg-warning text-dark" style="font-size: 65%" title="<%= hp.description %>">
+          <%= hp.code %>
+        </span>
+      <% end %>
+    </div>
   </div>
   <div class="dm-card-body">
     <div class="text-info" style="font-size: 80%">
