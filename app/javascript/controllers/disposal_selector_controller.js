@@ -7,7 +7,7 @@ export default class extends Controller {
 
   change_cer(event) {
     let selectedId = event.target.id;
-    console.log(selectedId);
+    console.log(`Change cer with ${selectedId}`);
     document.querySelectorAll(".disposal-card").forEach(d => {
       d.style.display = (d.dataset.cerid === selectedId) ? 'block' : 'none';
     })
