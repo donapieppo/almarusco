@@ -129,7 +129,7 @@ class DisposalsController < ApplicationController
     if @disposal
       redirect_to @disposal
     else
-      redirect_to root_path, alert: "Non esiste l'identificativo del rifiuto in questa UL."
+      redirect_to root_path, alert: "In questa UL non è registato nessun rifiuto con identificativo #{requested_disposal_id}."
     end
   end
 
