@@ -36,7 +36,7 @@
             <li><%= link_to fwdmicon('user') + ' Autorizzazioni', dm_unibo_common.permissions_path %></li>
           <% end %>
         <% end %>
-      <% else %>
+      <% elsif ! @no_menu %>
         <li><%= link_to fwdmicon('trash') + ' elenco rifiuti', disposals_path %></li>
         <li><%= link_to fwdmicon('circle-plus') + ' nuovo rifiuto', choose_disposal_type_disposals_path %></li>
         <li><%= link_to fwdmicon('print') + ' stampe etichette', new_print_path %></li>
@@ -50,8 +50,11 @@
         <li><%= link_to big_dmicon('list'), organizations_path %></li>
       <% end %>
     <% end %>
-    <%= form_tag search_path, class: "float-end form-inline my-2 my-lg-0 me-2", role: "search" do %>
-      <input name="search_string" size="4" class="form-control mr-sm-2" type="number" placeholder="n. ident." title="cerca da numero identificativo" aria-label="Cerca"/>
+
+    <% unless @no_menu %>
+      <%= form_tag search_path, class: "float-end form-inline my-2 my-lg-0 me-2", role: "search" do %>
+        <input name="search_string" size="4" class="form-control mr-sm-2" type="number" placeholder="n. ident." title="cerca da numero identificativo" aria-label="Cerca"/>
+      <% end %>
     <% end %>
   <% end %>  
 <% end %>
