@@ -99,8 +99,8 @@ it:
         producer_upn: Inserire l'indirizzo e-mail SOLO se il produttore di rifiuti non siete VOI.
       picking_document:
         serial_number: "Come compare in alto nel formulario. Per esempio: 'XBO 111111/20'."
-        kgs: Come da quarta copia
-        volume: Come da quarta copia
+        kgs: Come da quarta copia (da compilare dopo la consegna della quarta copia).
+        volume: Come da quarta copia (da compilare dopo la consegna della quarta copia).
       cer_code:
         name: Inserire il codice numerico del Cer.
 
