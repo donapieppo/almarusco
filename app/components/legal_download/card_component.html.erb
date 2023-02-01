@@ -6,12 +6,9 @@
   <div class="dm-card-body">
     <div class="alert alert-info fw-bold"><%= @legal_download.disposal_type %></div>
 
-    <div class="fw-bold text-decoration-underline">
-      <% if @picking.completed? %>  
-        <%= link_to @picking %> (completato)  
-      <% else %>
-        <%= link_to @picking, [:edit, @picking] %>  
-      <% end %>
+    <div>
+      <%= link_to @picking, @picking, class: 'fw-bold underline' %> 
+      <%= "(completato)" if @picking.completed? %>  
     </div>
 
     <div class="my-2">
