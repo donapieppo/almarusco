@@ -1,5 +1,11 @@
 <h1>Nuovo carico</h1>
 
-<%= render DisposalType::CardComponent.new(current_user, @disposal_type, editable: false) %>  
+<div class="row">
+  <div class="col-sm-3">
+  </div>
+  <div class="col-sm-9">
+    <%= render DisposalType::CardComponent.new(current_user, @disposal_type, editable: false) %>  
+  </div>
+</div>
 
 <%= render partial: 'form' %>  
