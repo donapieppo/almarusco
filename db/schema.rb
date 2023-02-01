@@ -42,7 +42,6 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.integer "organization_id", unsigned: true
     t.integer "cer_code_id", unsigned: true
     t.integer "un_code_id", unsigned: true
-    t.boolean "adr", default: false
     t.column "physical_state", "enum('liq','sp','snp')"
     t.boolean "separable", default: false, null: false
     t.text "notes"
@@ -74,9 +73,9 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.integer "disposal_type_id", unsigned: true
     t.integer "legal_record_id", unsigned: true
     t.text "notes"
-    t.decimal "kgs", precision: 10, scale: 3
+    t.decimal "kgs", precision: 10, scale: 3, default: "0.0"
     t.integer "volume"
-    t.integer "units", limit: 2
+    t.integer "units", limit: 2, default: 1
     t.date "created_at"
     t.date "approved_at"
     t.date "legalized_at"
