@@ -3,6 +3,9 @@
 -- alter table disposals add KEY `k_local_id` (`local_id`);
 -- update permissions set expiry ='2023-01-31' where expiry <= '2023-01-01';
 
+alter table disposals alter kgs SET DEFAULT 0;
+update disposals set kgs=0 where kgs is null;
+
 alter table disposal_types drop column adr;
 
 delete from picking_documents where id=89;
