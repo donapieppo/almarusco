@@ -21,9 +21,12 @@
           </tr>
         <% end %>
       </table>
-      <%= f.submit "Crea pdf", class: "my-4" %> -   
-      <%= link_to 'seleziona tutti', '#', onClick: "document.querySelectorAll('.print_positions').forEach((x) => x.checked = true)" %>  
-      <div class="alert bg-warning my-8 p-2 small">
+
+      <div class="centered my-2">
+        <%= link_to 'seleziona tutte', '#', onClick: "document.querySelectorAll('.print_positions').forEach((x) => x.checked = true)" %>  
+      </div>
+
+      <div class="alert bg-warning my-4 p-2 small">
         Prima di stampare selezionate tra le proprietà di stampa "scala personalizzata: 100%".
       </div>
     </div>
@@ -40,6 +43,7 @@
           </label>
         <% end %>
       </div>
+      <%= f.submit "Crea pdf", class: "my-4" %>
     </div>
   </div>
 <% end %>
