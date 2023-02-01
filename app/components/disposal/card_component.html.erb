@@ -62,7 +62,7 @@
 
     <div class="row mt-2">
       <div class="col-md-6">
-        <%= render Disposal::StatusComponent.new(@current_user, @disposal, modal: @modal) %>  
+        <%= render Disposal::StatusComponent.new(@current_user, @disposal, no_link: @modal) %>  
       </div>
       <div class="col-md-6">
         <% unless defined?(no_actions) || @disposal.delivered? %>  
