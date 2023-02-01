@@ -6,37 +6,34 @@ class DisposalsController < ApplicationController
   before_action :set_cache_users, only: %i[ new clone edit ]
   before_action :set_disposal_and_check_permission, only: %i[ show edit update destroy approve unapprove ]
 
+  # solo rifiuti prima della registrazione 
   def index
     authorize :disposal
     @highlight_id = params[:h].to_i
 
-    @disposals = current_organization.disposals
-                                     .unlegalized
-                                     .order("disposals.id DESC, disposals.user_id ASC")
-                                     .include_all
+    @disposals = current_organization.disposals.unlegalized.order("disposals.id DESC, disposals.user_id ASC").include_all
 
-    @manager = policy(current_organization).manage?
-    @title = @manager ? 'Rifiuti non registati' : 'Elenco rifiuti'
-
-    if params[:u] && @manager
-      @user = User.find(params[:u].to_i)
-      @disposals = @disposals.user_or_producer(@user.id)
+    if policy(current_organization).manage?
+      if params[:u]
+        @user = User.find(params[:u].to_i)
+        @disposals = @disposals.user_or_producer(@user.id)
+      end
+      if params[:uncomplete]
+        @title = 'Richieste incomplete'
+        @disposals = @disposals.uncomplete 
+      elsif params[:acceptable]
+        @title = 'Richieste da approvare'
+        @disposals = @disposals.complete.unapproved
+      else
+        @title = 'Rifiuti non registrati'
+      end
+    else
+      @title = 'Elenco rifiuti'
+      @disposals = @disposals.user_or_producer(current_user.id)
     end
 
-    if params[:uncomplete]
-      @title = 'Richieste incomplete'
-      @disposals = @disposals.uncomplete 
-    elsif params[:acceptable]
-      @title = 'Richieste da approvare'
-      @disposals = @disposals.complete.unapproved
-    end
-
-    @disposals = @disposals.user_or_producer(current_user.id) unless @manager
-
-    _disposal_types = @disposals.map(&:disposal_type_id).uniq
-    @disposals_cers = current_organization.disposal_types
-                                          .includes(:cer_code)
-                                          .where(id: _disposal_types).map(&:cer_code).uniq
+    _disposal_type_ids = @disposals.map(&:disposal_type_id).uniq
+    @disposals_cers = current_organization.disposal_types.includes(:cer_code).where(id: _disposal_type_ids).map(&:cer_code).uniq
   end
 
   def show
