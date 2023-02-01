@@ -5,6 +5,6 @@
   </span>
   <span class="font-monospace">   
     <strong><%= "#{@disposal.units}x" if @disposal.units > 1 %><%= @disposal.volume %></strong><span style="font-size: 70%"> L.</span>
-    <strong><%= @disposal.kgs.to_f %></strong><span style="font-size: 70%"> Kg.</span>
+    <strong><%= @disposal.kgs.to_f.round(2) %></strong><span style="font-size: 70%"> Kg.</span>
   </span>
 <% end %>

@@ -2,18 +2,18 @@
   <div class="col-md-8">
     <%= render Disposal::GroupDetailsComponent.new(@disposals) %>  
     <div class="fw-bold">
-      <%= @expected_kgs %> Kg. 
+      <%= @expected_kgs.round(2) %> Kg. 
       <%= @expected_volume %> L.
     </div>
     <% if @picking_document %>  
       <div>
         <span class="fw-bold <%= @all_ok ? 'text-success' : 'text-danger' %> pe-2">
-          <%= @picking_document.kgs.to_f %> Kg.
+          <%= @picking_document.kgs.to_f.round(2) %> Kg.
           <%= @picking_document.volume.to_i %> L.
         </span>
-        da formulario <%= @picking_document.serial_number %> - 
+        da formulario <%= @picking_document.serial_number %>  
         <% if @picking_document.legal_download %>
-          <%= render LegalDownload::LineComponent.new(@picking_document.legal_download) %>
+          con <%= render LegalDownload::LineComponent.new(@picking_document.legal_download) %>
         <% elsif ! @picking_document.picking.date %>
           ??? (manca data in ritiro)
         <% else %>  
@@ -25,9 +25,7 @@
 
   <div class="col-md-4 text-end">
     <% if @picking_document %>  
-      <% if @picking_document.legal_download %>
-        <%= link_to @picking_document.legal_download %>  
-      <% elsif LegalDownloadPolicy.new(@current_user, @picking_document.build_legal_download).create? %>  
+      <% if ! @picking_document.legal_download && LegalDownloadPolicy.new(@current_user, @picking_document.build_legal_download).create? %>  
         <%= link_to 'Registra scarico', new_picking_document_legal_download_path(@picking_document), class: 'btn btn-sm btn-primary' %>  
       <% end %>
       <% if @picking_document_policy.edit? %>

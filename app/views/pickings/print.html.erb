@@ -31,7 +31,7 @@
            da <%= v %> litri: <%= vols_and_kgs[:volumes][v.to_s] %><br/>
          <% end %>
        </td>
-       <td><%= vols_and_kgs[:kgs] %></td>
+       <td><%= vols_and_kgs[:kgs].round(2) %></td>
        <td><%= disposal_type.hp_codes_to_s %></td>
        <td><%= disposal_type.adr ? 'si' : '' %></td>
        <td nowrap><%= disposal_type.un_code %></td>
