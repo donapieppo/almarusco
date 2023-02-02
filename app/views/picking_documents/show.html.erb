@@ -13,7 +13,13 @@
 
 <h2 class="my-4">Elenco rifiuti</h2>
 
-<% @picking_document.picking.disposals.each do |disposal| %>  
-  <%= render Disposal::BadgeComponent.new(current_user, disposal) %>
+<div class="ps-4">
+  <% @picking_document.disposals.each do |disposal| %>  
+    <%= render Disposal::BadgeComponent.new(current_user, disposal) %>
+  <% end %>
+</div>
+
+<% if policy(@picking_document).edit? %>  
+  <%= link_to 'Modifica', [:edit, @picking_document], class: 'button my-4' %>
 <% end %>
 
