@@ -22,7 +22,7 @@ create table legal_records (
         `id` int(10) unsigned NOT NULL AUTO_INCREMENT, 
         `type` enum('LegalUpload', 'LegalDownload'),
         `organization_id` int(10) unsigned NOT NULL,
-        `disposal_type_id` int(10) unsigned DEFAULT NULL,
+        `disposal_type_id` int(10) unsigned NOT NULL,
         `picking_document_id` int(10) unsigned DEFAULT NULL,
         `year` int(1) unsigned NOT NULL,
         `date` date, 
