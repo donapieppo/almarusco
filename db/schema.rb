@@ -105,7 +105,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   create_table "legal_records", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.column "type", "enum('LegalUpload','LegalDownload')"
     t.integer "organization_id", null: false, unsigned: true
-    t.integer "disposal_type_id", unsigned: true
+    t.integer "disposal_type_id", null: false, unsigned: true
     t.integer "picking_document_id", unsigned: true
     t.integer "year", null: false, unsigned: true
     t.date "date"
@@ -145,7 +145,6 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.integer "picking_id", null: false, unsigned: true
     t.integer "disposal_type_id", null: false, unsigned: true
     t.string "serial_number"
-    t.integer "register_number"
     t.decimal "kgs", precision: 10, scale: 3
     t.decimal "volume", precision: 10, scale: 3
     t.index ["disposal_type_id"], name: "fk_picking_document_disposal_type"
