@@ -17,7 +17,7 @@ class Disposal < ApplicationRecord
 
   validates :volume, presence: true, numericality: { greater_than: 0 }
   validates :units, presence: true, numericality: { greater_than: 0 }
-  validates :kgs, numericality: { greater_than: 0 }, allow_blank: true
+  validates :kgs, numericality: { greater_than_or_equal_to: 0 }
   # validates_with RegistrationNumberValidator
 
   before_validation :fix_units
@@ -67,7 +67,6 @@ class Disposal < ApplicationRecord
   end
 
   def approve!
-    # TODO check kgs
     self.kgs.to_f > 0 or return false
     self.approved_at and raise DisposalHistoryError
     self.update(approved_at: Time.now)
