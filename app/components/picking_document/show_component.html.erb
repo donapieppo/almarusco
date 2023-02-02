@@ -11,13 +11,13 @@
           <%= @picking_document.kgs.to_f.round(2) %> Kg.
           <%= @picking_document.volume.to_i %> L.
         </span>
-        da formulario <%= @picking_document.serial_number %>  
+        da formulario <%= link_to @picking_document.serial_number, @picking_document %>  
         <% if @picking_document.legal_download %>
           con <%= render LegalDownload::LineComponent.new(@picking_document.legal_download) %>
         <% elsif ! @picking_document.picking.date %>
           ??? (manca data in ritiro)
         <% else %>  
-          <%= @picking_document.disposal_type.adr? ? "manca numero di registro di scarico" : "numero di registro di scarico non richiesto (non adr)." %>
+          <%= @picking_document.disposal_type.adr? ? "<small>(numero di registro di scarico ancora da inserire)</small>".html_safe : "numero di registro di scarico non richiesto (non adr)." %>
         <% end %>
       </div>
     <% end %>
