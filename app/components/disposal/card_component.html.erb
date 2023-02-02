@@ -14,7 +14,7 @@
           <%= @disposal.volume_tot %> L.<br/>
         </div>
         <div class="fw-bold">
-          <% if @disposal.kgs %>  
+          <% if @disposal.kgs > 0 %>  
             <%= @disposal.kgs %> Kg. 
           <% else %>
             <span class="text-danger">? Kg</span>
