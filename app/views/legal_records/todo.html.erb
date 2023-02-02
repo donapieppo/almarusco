@@ -18,7 +18,7 @@
       <% @deposit[dt].each do |disposal| %>  
         <% ids << disposal.id %>  
         <% num += disposal.units %>  
-        <% kgs += disposal.kgs.to_f %>  
+        <% kgs += disposal.kgs %>  
         <% volume += disposal.volume_tot %>  
         <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
       <% end %>

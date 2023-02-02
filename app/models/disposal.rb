@@ -64,7 +64,7 @@ class Disposal < ApplicationRecord
   end
 
   def approve!
-    self.kgs.to_f > 0 or return false
+    self.kgs > 0 or return false
     self.approved_at and raise DisposalHistoryError, "already approved"
     self.update(approved_at: Time.now)
   end

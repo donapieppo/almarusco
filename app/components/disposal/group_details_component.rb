@@ -6,7 +6,7 @@ class Disposal::GroupDetailsComponent < ViewComponent::Base
 
     disposals.each do |disposal|
       @volume_data[disposal.volume][:units] += disposal.units 
-      @volume_data[disposal.volume][:kgs] += disposal.kgs.to_f
+      @volume_data[disposal.volume][:kgs] += disposal.kgs
     end
   end
 end

@@ -8,7 +8,7 @@
     <% if @picking_document %>  
       <div>
         <span class="fw-bold <%= @all_ok ? 'text-success' : 'text-danger' %> pe-2">
-          <%= @picking_document.kgs.to_f.round(2) %> Kg.
+          <%= @picking_document.kgs %> Kg.
           <%= @picking_document.volume.to_i %> L.
         </span>
         da formulario <%= link_to @picking_document.serial_number, @picking_document %>  

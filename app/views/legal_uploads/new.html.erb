@@ -23,7 +23,7 @@
   <h3 class="my-4">Elenco rifiuti</h3>
   <% if @disposal_ids.any? %>
     <% @disposals.each do |disposal| %>
-      <% tot_kgs += disposal.kgs.to_f %>  
+      <% tot_kgs += disposal.kgs %>  
       <% tot_volume += disposal.volume_tot %>  
       <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
     <% end %>

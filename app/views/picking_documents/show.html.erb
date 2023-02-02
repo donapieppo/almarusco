@@ -6,7 +6,7 @@
   <div class="fw-bold my-2"><%= link_to @picking_document.picking, @picking_document.picking, class: 'underline' %></div>
   <div>Tipologia: <%= @picking_document.disposal_type %></div>
   <div>Formulario: <%= @picking_document.serial_number %></div>
-  <div>Peso: <%= @picking_document.kgs.to_f.round(2) %> Kg.</div>
+  <div>Peso: <%= @picking_document.kgs %> Kg.</div>
   <div>Volume: <%= @picking_document.volume.to_i %> L.</div>
   <div>Registro: <%= link_to(legal_download, legal_download) if legal_download %></div>
 </div>
