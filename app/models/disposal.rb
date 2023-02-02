@@ -1,9 +1,6 @@
 # created approved legalized delivered conpleted
 
 class DisposalHistoryError < RuntimeError
-  def to_s
-    "incorrect order in actions"
-  end
 end
 
 class Disposal < ApplicationRecord
@@ -68,7 +65,7 @@ class Disposal < ApplicationRecord
 
   def approve!
     self.kgs.to_f > 0 or return false
-    self.approved_at and raise DisposalHistoryError
+    self.approved_at and raise DisposalHistoryError, "already approved"
     self.update(approved_at: Time.now)
   end
 
@@ -82,7 +79,7 @@ class Disposal < ApplicationRecord
   end
 
   def legalize!(legal_record)
-    self.approved? or raise DisposalHistoryError
+    self.approved? or raise DisposalHistoryError, "not approved yet"
     self.update(legalized_at: Time.now, legal_record_id: legal_record.id)
   end
 
@@ -106,7 +103,7 @@ class Disposal < ApplicationRecord
   end
 
   def deliver!
-    self.legalized? or raise DisposalHistoryError
+    self.legalized? or raise DisposalHistoryError, "not legalized yet"
     self.update(delivered_at: Time.now)
   end
 
@@ -116,7 +113,7 @@ class Disposal < ApplicationRecord
   end
 
   def complete!
-    self.delivered? or raise DisposalHistoryError
+    self.delivered? or raise DisposalHistoryError, "not delivered yet"
     self.update(completed_at: Time.now)
   end
 
