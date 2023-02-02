@@ -145,7 +145,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.integer "picking_id", null: false, unsigned: true
     t.integer "disposal_type_id", null: false, unsigned: true
     t.string "serial_number"
-    t.decimal "kgs", precision: 10, scale: 3
+    t.decimal "kgs", precision: 10, scale: 3, default: "0.0"
     t.decimal "volume", precision: 10, scale: 3
     t.index ["disposal_type_id"], name: "fk_picking_document_disposal_type"
     t.index ["picking_id", "disposal_type_id"], name: "picking_id", unique: true
