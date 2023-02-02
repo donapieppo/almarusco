@@ -1,6 +1,6 @@
 <%= dm_form_for [@picking, @picking_document], title: @picking.to_s do |f| %>
   <div class="offset-sm-3">
-    <%= @picking_document.disposal_type %>
+    <%= @picking_document.disposal_type.to_s_complete %>
   </div>
 
   <%= f.input :disposal_type_id, as: :hidden %>  
