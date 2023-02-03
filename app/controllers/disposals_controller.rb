@@ -65,15 +65,15 @@ class DisposalsController < ApplicationController
   end
 
   def create
-    set_producer
-
     @disposal = current_user.disposals.new(disposal_params)
     @disposal.organization_id = current_organization.id
     @disposal.disposal_type_id = @disposal_type.id
-    @disposal.producer_id = @producer.id
+
+    set_producer(@disposal)
 
     authorize @disposal
-    if @disposal.save
+
+    if @disposal.producer_id && @disposal.save
       redirect_to disposals_path(h: @disposal.id, anchor: @disposal.id), notice: "Salvata la richiesta di scarico con identificativo #{@disposal.id}. Consigliamo di scrivere il numero identificativo sul collo."
     else
       render action: :new, status: :unprocessable_entity
@@ -84,9 +84,9 @@ class DisposalsController < ApplicationController
   end
 
   def update
-    set_producer
-    @disposal.producer_id = @producer.id
-    if @disposal.update(disposal_params)
+    set_producer(@disposal)
+
+    if @disposal.producer_id && @disposal.update(disposal_params)
       redirect_to @disposal
       # redirect_to disposals_path(h: @disposal.id, anchor: @disposal.id)
     else
@@ -170,9 +170,11 @@ class DisposalsController < ApplicationController
 
   # if @permitted_producers => current_user only operator and @permitted_producers array that must contain producer_id
   # else is producer itsself
-  def set_producer
+  # if errors fills disposal.errors and leave producer_id = nil
+  def set_producer(disposal)
     producer_id  = params[:disposal].delete(:producer_id)
     producer_upn = params[:disposal].delete(:producer_upn)
+
     # Operator
     if producer_id && @permitted_producers.any? 
       @producer = User.find(producer_id)
@@ -181,10 +183,18 @@ class DisposalsController < ApplicationController
       end
     # Admin
     elsif producer_upn && producer_upn =~ /(\w+\.\w+)/ && policy(current_organization).manage?
-      @producer = User.find_or_syncronize("#{$1}@unibo.it")
+      begin
+        @producer = User.find_or_syncronize("#{$1}@unibo.it")
+      rescue => e
+        Rails.logger.info "#{e.to_s} while validating producer=#{$1}@unibo.it"
+        disposal.errors.add(:producer_upn, e.to_s)
+        disposal.errors.add(:base, e.to_s)
+        return 
+      end
     # The rest
     else
       @producer = current_user
     end
+    disposal.producer_id = @producer.id
   end
 end
