@@ -188,8 +188,8 @@ class DisposalsController < ApplicationController
         disposal.errors.add(:base, e.to_s)
         return false
       end
+      disposal.producer_id = producer.id
     end
-    disposal.producer_id = producer.id
   end
 
   # if @permitted_producers => current_user only operator and @permitted_producers array that must contain producer_id
