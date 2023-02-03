@@ -168,6 +168,30 @@ class DisposalsController < ApplicationController
     @cache_users_json = current_organization.users_cache.map{|x| "#{x.to_s} (#{x.upn})"}.to_json
   end
 
+  def set_producer_by_operator(disposal, producer_id)
+    if @permitted_producers.any? 
+      producer = User.find(producer_id)
+      unless producer && @permitted_producers.include?(producer)
+        raise "PRODUCER ERRATO" 
+      end
+      disposal.producer_id = producer.id
+    end
+  end
+
+  def set_producer_by_admin(disposal, producer_upn)
+    if producer_upn =~ /(\w+\.\w+)/ && policy(current_organization).manage?
+      begin
+        producer = User.find_or_syncronize("#{$1}@unibo.it")
+      rescue => e
+        Rails.logger.info "Error: #{e.to_s} while validating producer=#{$1}@unibo.it"
+        disposal.errors.add(:producer_upn, e.to_s)
+        disposal.errors.add(:base, e.to_s)
+        return false
+      end
+    end
+    disposal.producer_id = producer.id
+  end
+
   # if @permitted_producers => current_user only operator and @permitted_producers array that must contain producer_id
   # else is producer itsself
   # if errors fills disposal.errors and leave producer_id = nil
@@ -175,26 +199,12 @@ class DisposalsController < ApplicationController
     producer_id  = params[:disposal].delete(:producer_id)
     producer_upn = params[:disposal].delete(:producer_upn)
 
-    # Operator
-    if producer_id && @permitted_producers.any? 
-      @producer = User.find(producer_id)
-      unless @producer && @permitted_producers.include?(@producer)
-        raise "PRODUCER ERRATO" 
-      end
-    # Admin
-    elsif producer_upn && producer_upn =~ /(\w+\.\w+)/ && policy(current_organization).manage?
-      begin
-        @producer = User.find_or_syncronize("#{$1}@unibo.it")
-      rescue => e
-        Rails.logger.info "#{e.to_s} while validating producer=#{$1}@unibo.it"
-        disposal.errors.add(:producer_upn, e.to_s)
-        disposal.errors.add(:base, e.to_s)
-        return 
-      end
-    # The rest
+    if producer_id
+      set_producer_by_operator(disposal, producer_id)
+    elsif producer_upn
+      set_producer_by_admin(disposal, producer_upn)
     else
-      @producer = current_user
+      disposal.producer_id = current_user.id
     end
-    disposal.producer_id = @producer.id
   end
 end
