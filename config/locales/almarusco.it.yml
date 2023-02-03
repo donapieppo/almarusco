@@ -13,6 +13,12 @@ it:
   producer: Produttore
 
   activerecord:
+    errors:
+      models:
+        disposal:
+          attributes:
+            lab: 
+              required: "Si prega di scegliere il laboratorio."
     models:
       organization: Unità locale
       supplier: Fornitore
