@@ -69,13 +69,14 @@ class DisposalsController < ApplicationController
     @disposal.organization_id = current_organization.id
     @disposal.disposal_type_id = @disposal_type.id
 
-    set_producer(@disposal)
+    set_producer
 
     authorize @disposal
 
     if @disposal.producer_id && @disposal.save
       redirect_to disposals_path(h: @disposal.id, anchor: @disposal.id), notice: "Salvata la richiesta di scarico con identificativo #{@disposal.id}. Consigliamo di scrivere il numero identificativo sul collo."
     else
+      Rails.logger.info(@disposal.errors.inspect)
       render action: :new, status: :unprocessable_entity
     end
   end
@@ -84,7 +85,7 @@ class DisposalsController < ApplicationController
   end
 
   def update
-    set_producer(@disposal)
+    set_producer
 
     if @disposal.producer_id && @disposal.update(disposal_params)
       redirect_to @disposal
@@ -168,43 +169,43 @@ class DisposalsController < ApplicationController
     @cache_users_json = current_organization.users_cache.map{|x| "#{x.to_s} (#{x.upn})"}.to_json
   end
 
-  def set_producer_by_operator(disposal, producer_id)
+  def set_producer_by_operator(producer_id)
     if @permitted_producers.any? 
       producer = User.find(producer_id)
       unless producer && @permitted_producers.include?(producer)
         raise "PRODUCER ERRATO" 
       end
-      disposal.producer_id = producer.id
+      @disposal.producer_id = producer.id
     end
   end
 
-  def set_producer_by_admin(disposal, producer_upn)
+  def set_producer_by_admin(producer_upn)
     if producer_upn =~ /(\w+\.\w+)/ && policy(current_organization).manage?
       begin
         producer = User.find_or_syncronize("#{$1}@unibo.it")
       rescue => e
         Rails.logger.info "Error: #{e.to_s} while validating producer=#{$1}@unibo.it"
-        disposal.errors.add(:producer_upn, e.to_s)
-        disposal.errors.add(:base, e.to_s)
+        @disposal.errors.add(:producer_upn, :invalid, message: e.to_s)
+        @disposal.errors.add(:base, :invalid, message: e.to_s)
         return false
       end
-      disposal.producer_id = producer.id
+      @disposal.producer_id = producer.id
     end
   end
 
   # if @permitted_producers => current_user only operator and @permitted_producers array that must contain producer_id
   # else is producer itsself
   # if errors fills disposal.errors and leave producer_id = nil
-  def set_producer(disposal)
+  def set_producer
     producer_id  = params[:disposal].delete(:producer_id)
     producer_upn = params[:disposal].delete(:producer_upn)
 
-    if producer_id
-      set_producer_by_operator(disposal, producer_id)
-    elsif producer_upn
-      set_producer_by_admin(disposal, producer_upn)
+    if producer_id.to_i > 0
+      set_producer_by_operator(producer_id)
+    elsif ! producer_upn.blank?
+      set_producer_by_admin(producer_upn)
     else
-      disposal.producer_id = current_user.id
+      @disposal.producer_id = current_user.id
     end
   end
 end
