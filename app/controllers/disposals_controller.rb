@@ -169,6 +169,7 @@ class DisposalsController < ApplicationController
     @cache_users_json = current_organization.users_cache.map{|x| "#{x.to_s} (#{x.upn})"}.to_json
   end
 
+  # Operator chooses from a select. User already in db.
   def set_producer_by_operator(producer_id)
     if @permitted_producers.any? 
       producer = User.find(producer_id)
@@ -183,13 +184,13 @@ class DisposalsController < ApplicationController
     if producer_upn =~ /(\w+\.\w+)/ && policy(current_organization).manage?
       begin
         producer = User.find_or_syncronize("#{$1}@unibo.it")
+        @disposal.producer_id = producer.id
       rescue => e
         Rails.logger.info "Error: #{e.to_s} while validating producer=#{$1}@unibo.it"
         @disposal.errors.add(:producer_upn, :invalid, message: e.to_s)
         @disposal.errors.add(:base, :invalid, message: e.to_s)
         return false
       end
-      @disposal.producer_id = producer.id
     end
   end
 
