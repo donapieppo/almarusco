@@ -42,11 +42,11 @@
         <li><%= link_to fwdmicon('print') + ' stampe etichette', new_print_path %></li>
       <% end %>
 
-      <% if current_organization && current_user.multi_organizations? %>
+      <% if current_user && current_organization && current_user.multi_organizations? %>
         <li><%= link_to fwdmicon('exchange-alt') + ' cambia struttura', choose_organization_path %></li>
       <% end %>
 
-      <% if current_user.is_cesia? %>  
+      <% if current_user && current_user.is_cesia? %>  
         <li><%= link_to big_dmicon('list'), organizations_path %></li>
       <% end %>
     <% end %>
