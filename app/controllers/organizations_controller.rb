@@ -14,6 +14,7 @@ class OrganizationsController < ApplicationController
   def show
     authorize Organization
     @organization = Organization.find(params[:id])
+    @buildings = @organization.buildings
     render layout: nil
   end
 

@@ -20,6 +20,16 @@
           </small>
         </div>
       <% end %>
+
+      <% if current_user.is_cesia? %>  
+        <h2 class="my-2">Edifici</h2>
+        <% @organization.buildings.order(:name).each do |b| %>  
+          <div>
+            <%= link_to b, [:edit, b] %>  
+          </div>
+        <% end %>
+        <%= link_to 'Nuovo edificio', new_building_path(organization_id: @organization.id), class: :button %>  
+      <% end %>
     </div>
   <% end %>
 <% end %>

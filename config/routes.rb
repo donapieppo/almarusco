@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     end
 
     resources :labs
+    resources :buildings
     resources :cer_codes
     resources :un_codes
     resources :pickings do
@@ -85,5 +86,3 @@ Rails.application.routes.draw do
   # samrtphone zxing
   get "zxing_search/(:bc)", controller: :barcodes, action: :zxing_search
 end
-
-
