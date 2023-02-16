@@ -1,0 +1,9 @@
+<%= dm_form_for @building, data: { turbo: false } do |f| %>  
+  <div class="alert alert-info">
+    <%= @building.organization %> 
+  </div>
+  <%= f.input :organization_id, as: :hidden %>  
+  <%= f.input :name %>  
+  <%= f.input :description %>  
+  <%= f.submit %>  
+<% end %>

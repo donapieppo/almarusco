@@ -21,6 +21,7 @@ it:
               required: "Si prega di scegliere il laboratorio."
     models:
       organization: Unità locale
+      building: Edificio
       supplier: Fornitore
       barcode: Codice a barre
       disposal: Rifiuto
@@ -43,6 +44,9 @@ it:
         name: Nome
         description: Descrizione 
         adminmail: E-mail per notifiche
+      building:
+        name: Nome
+        description: Descrizione
       admin:
         authlevel: Permessi
       supplier:

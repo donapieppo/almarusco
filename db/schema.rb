@@ -24,6 +24,13 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.index ["disposal_type_id"], name: "fk_adrdt_dt"
   end
 
+  create_table "buildings", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+    t.integer "organization_id", unsigned: true
+    t.string "name", null: false
+    t.text "description"
+    t.index ["organization_id"], name: "organization_id"
+  end
+
   create_table "cer_codes", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.string "name", limit: 100
     t.text "description"
@@ -97,8 +104,10 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   end
 
   create_table "labs", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+    t.integer "building_id", unsigned: true
     t.integer "organization_id", unsigned: true
     t.string "name"
+    t.index ["building_id"], name: "building_id"
     t.index ["organization_id"], name: "fk_labs_organizations"
   end
 
@@ -193,6 +202,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
 
   add_foreign_key "adrs_disposal_types", "adrs", name: "fk_adrdt_adr"
   add_foreign_key "adrs_disposal_types", "disposal_types", name: "fk_adrdt_dt"
+  add_foreign_key "buildings", "organizations", name: "buildings_ibfk_1"
   add_foreign_key "cer_codes_suppliers", "cer_codes", name: "fk_ccs_cer_code"
   add_foreign_key "cer_codes_suppliers", "suppliers", name: "fk_ccs_supplier"
   add_foreign_key "disposal_types", "cer_codes", name: "fk_disposal_types_cer"
@@ -209,6 +219,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   add_foreign_key "disposals", "pickings", name: "fk_disposals_pickings"
   add_foreign_key "disposals", "users", column: "producer_id", name: "fk_disposals_producers"
   add_foreign_key "disposals", "users", name: "fk_disposals_users"
+  add_foreign_key "labs", "buildings", name: "labs_ibfk_1"
   add_foreign_key "labs", "organizations", name: "fk_labs_organizations"
   add_foreign_key "legal_records", "disposal_types", name: "legal_records_ibfk_2", on_delete: :cascade
   add_foreign_key "legal_records", "organizations", name: "legal_records_ibfk_1", on_delete: :cascade

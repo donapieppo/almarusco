@@ -3,6 +3,40 @@
 -- alter table disposals add KEY `k_local_id` (`local_id`);
 -- update permissions set expiry ='2023-01-31' where expiry <= '2023-01-01';
 
+create table buildings (
+        `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+        `organization_id` int(10) unsigned DEFAULT NULL,
+        `name` varchar(255) NOT NULL,
+        `description` text,
+        PRIMARY KEY (`id`),
+        FOREIGN KEY (organization_id) REFERENCES `organizations` (`id`)
+);
+
+alter table labs add column `building_id` int(10) unsigned after `id`;
+alter table labs add FOREIGN KEY (building_id) REFERENCES `buildings` (`id`);
+
+
+
+
+
+---
+
+
+
+
+
+
+
+create table containers (
+        `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+        `name` varchar(255) NOT NULL,
+        `description` text,
+        PRIMARY KEY (`id`)
+);
+
+alter table disposal_types add column `container_id` int(10) unsigned DEFAULT NULL;
+alter table disposal_types add FOREIGN KEY (container_id) REFERENCES `containers` (`id`);
+
 alter table disposals alter kgs SET DEFAULT 0;
 alter table picking_documents alter kgs SET DEFAULT 0;
 

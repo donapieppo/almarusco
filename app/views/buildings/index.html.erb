@@ -1,0 +1,7 @@
+<h1>Edifici</h1>
+
+<div class="list-group my-4">
+  <% @buildings.each do |building| %>  
+    <%= link_to building, [:edit, building], class: 'list-group-item list-group-item-action' %>
+  <% end %>
+</div>
