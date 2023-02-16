@@ -4,9 +4,21 @@
   <%= link_to 'Nuovo Laboratorio', new_lab_path, class: 'btn btn-primary' %>  
 </div>
 
+<% if @buildings.any? %>  
+  <ul>
+    <% @buildings.each do |building| %>  
+      <li><%= building %> </li>
+    <% end %>
+  </ul>
+<% end %>
+
 <div class="list-group my-4">
+  <% bid = nil %>  
   <% @labs.each do |lab| %>  
+    <% if bid != lab.building_id %>  
+      <div class="mt-4 fw-bold"><%= lab.building %></div>
+      <% bid = lab.building_id %>  
+    <% end %>
     <%= link_to lab, [:edit, lab], class: 'list-group-item list-group-item-action' %>
   <% end %>
 </div>
-

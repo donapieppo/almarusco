@@ -1,4 +1,5 @@
 <%= dm_form_for @lab do |f| %>  
   <%= f.input :name %>  
+  <%= f.input :building_id, collection: @buildings, include_blank: false %>  
   <%= f.submit %>  
 <% end %>

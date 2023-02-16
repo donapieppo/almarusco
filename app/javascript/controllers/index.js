@@ -6,6 +6,9 @@ application.register("disposal-selector", DisposalSelectorController)
 import DisposalTypeController from "./disposal_type_controller"
 application.register("disposal-type", DisposalTypeController)
 
+import DisposalLabController from "./disposal_lab_controller"
+application.register("disposal-lab", DisposalLabController)
+
 import Accordion from "./accordion"
 application.register("accordion", Accordion)
 
