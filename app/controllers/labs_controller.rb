@@ -3,7 +3,8 @@ class LabsController < ApplicationController
 
   def index
     authorize :lab
-    @labs = current_organization.labs.order(:name)
+    @buildings = current_organization.buildings
+    @labs = current_organization.labs.includes(:building).order('buildings.name, labs.name')
   end
 
   def show
@@ -12,11 +13,12 @@ class LabsController < ApplicationController
 
   def new
     @lab = current_organization.labs.new
+    @buildings = current_organization.buildings.to_a
     authorize @lab
   end
 
   def create
-    @lab = current_organization.labs.new(name: params[:lab][:name])
+    @lab = current_organization.labs.new(lab_params)
     authorize @lab
     if @lab.save
       redirect_to labs_path, notice: "Laboratorio creato correttamente."
@@ -26,10 +28,11 @@ class LabsController < ApplicationController
   end
 
   def edit
+    @buildings = current_organization.buildings.to_a
   end
 
   def update
-    if @lab.update(name: params[:lab][:name])
+    if @lab.update(lab_params)
       redirect_to labs_path, notice: "Il nome del laboratorio è stato modificato."
     else
       render action: :edit, status: :unprocessable_entity
@@ -40,6 +43,10 @@ class LabsController < ApplicationController
   end
 
   private
+
+  def lab_params
+    params[:lab].permit(:name, :building_id)
+  end
 
   def set_lab_and_check_permission
     @lab = current_organization.labs.find(params[:id])
