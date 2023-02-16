@@ -147,3 +147,9 @@ form.disposal_cer_selector {
   @extend .bg-warning;
 }
 
+input.decimal {
+  width: 9em;
+}
+input.integer {
+  width: 9em;
+}
