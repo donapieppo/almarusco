@@ -21,7 +21,8 @@
   <div class="dm-card">
     <% ids = [] %>  
     <% num = volume = 0 %>  
-    <% kgs = 0.0 %>  
+    <% kgs = 0.0 %>
+    <% legal_uploads = [] %>  
     <div class="dm-card-title py-2">
       <%= dt %> 
       <span class="small fw-normal float-end"><%= dt.hp_codes_to_s %></span>
@@ -33,6 +34,7 @@
         <% kgs += disposal.kgs %>  
         <% volume += disposal.volume_tot %>
         <% to_legalize_ids << disposal.id unless disposal.legalized? %>  
+        <% legal_uploads << disposal.legal_upload if disposal.legal_upload %>  
         <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
       <% end %>
     </div>
@@ -44,6 +46,15 @@
       <% if to_legalize_ids.any? %>  
         <div class='d-inline-block float-end'>
           <%= link_to 'Registra carico', new_disposal_type_legal_upload_path(dt, disposal_ids: to_legalize_ids), class: :button %>  
+        </div>
+      <% end %>
+
+      <% if legal_uploads.any? %>  
+        <div class="float-end">
+          Elenco carichi: 
+          <% legal_uploads.sort.uniq.each do |lu| %>  
+            <%= link_to lu, lu, class: 'px-1 text-lg underline' %>  
+          <% end %>
         </div>
       <% end %>
     </div>
