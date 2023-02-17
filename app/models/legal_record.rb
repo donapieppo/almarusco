@@ -6,7 +6,8 @@ class LegalRecord < ApplicationRecord
 
   # FIXME
   validate :unique_number_in_organizations_and_year
-  validates :date, :number, presence: true
+  validates :date, presence: true
+  validates :number, numericality: { greater_than: 0 }
 
   before_validation :set_year
 
