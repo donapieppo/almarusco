@@ -19,7 +19,11 @@
         Totale: <%= tot_volume %> L. - <%= tot_kgs %> Kg.
       </div>
     <% end %>
+
+    <% if @policy.edit? %>  
+      <div>
+        <%= link_to 'Modifica', [:edit, @legal_upload], class: :button  %>  
+      </div>
+    <% end %>
   </div>
 </div>
-
-
