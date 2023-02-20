@@ -1,5 +1,7 @@
 <%= dm_form_for @lab do |f| %>  
   <%= f.input :name %>  
-  <%= f.input :building_id, collection: @buildings, include_blank: false %>  
+  <% if @buildings.any? %>  
+    <%= f.association :building, collection: @buildings, include_blank: false %>  
+  <% end %>
   <%= f.submit %>  
 <% end %>
