@@ -25,7 +25,7 @@
         <div>
           <%= t :producer %>: <%= link_to @disposal.producer, disposals_path(u: @disposal.producer.id), data: { turbo: false } %>
           <% if @disposal.producer_id != @disposal.user_id %>  
-            <small>(da <%= link_to @disposal.user, disposals_path(u: @disposal.user_id) ,data: { turbo: false } %>)</small> 
+            <small>(da <%= link_to @disposal.user, disposals_path(u: @disposal.user_id), data: { turbo: false } %>)</small> 
           <% end %> 
         </div>
         <% if @with_details %> 
