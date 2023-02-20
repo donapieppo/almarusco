@@ -5,9 +5,9 @@
 </div>
 
 <% if @buildings.any? %>  
-  <ul>
+  <ul class="info my-2">
     <% @buildings.each do |building| %>  
-      <li><%= building %> </li>
+      <li><strong><%= building.name %></strong> <span class="text-muted ps-3"><%= building.description %></span></li>
     <% end %>
   </ul>
 <% end %>
