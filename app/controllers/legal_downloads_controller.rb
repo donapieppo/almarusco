@@ -3,7 +3,9 @@ class LegalDownloadsController < LegalRecordsController
   before_action :set_legal_download_and_check_permission, only: [:show, :edit, :update, :delete]
 
   def new
-    @legal_download = current_organization.legal_downloads.new(picking_document: @picking_document, disposal_type: @disposal_type, date: Date.today)
+    @legal_download = current_organization.legal_downloads.new(picking_document: @picking_document, 
+                                                               disposal_type: @disposal_type, 
+                                                               date: Date.today)
     authorize @legal_download
   end
 
@@ -30,7 +32,7 @@ class LegalDownloadsController < LegalRecordsController
   def update
     if @legal_download.update(number: params[:legal_download][:number],
                               date: params[:legal_download][:date])
-      redirect_to @legal_download.picking_document.picking, notice: "Registrazione scarico effettuata con numero #{@legal_download.number}"
+      redirect_to @legal_download.picking_document.picking, notice: "Registrazione numero #{@legal_download.number} aggiornata correttamente."
     else
       @disposal_type = @legal_download.disposal_type
       render action: :edit, status: :unprocessable_entity
