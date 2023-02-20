@@ -9,6 +9,7 @@ export default class extends Controller {
 
   change_building(e) {
     console.log(`change building -> ${e.target.value}`);
+    this.labsTarget.value = 0;
     this.labsTarget.querySelectorAll("option").forEach( (o) => {
       o.style.display = (o.dataset.buildingId == e.target.value) ? 'block' : 'none';
     });
