@@ -1,0 +1,5 @@
+<%= simple_form_for @legal_upload, data: { turbo: false } do |f| %>
+  <%= f.input :number %>
+  <%= f.input :date, as: :date, html5: true %>  
+  <%= f.submit "Salva" %>  
+<% end %>
