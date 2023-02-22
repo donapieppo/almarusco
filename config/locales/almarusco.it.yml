@@ -46,6 +46,7 @@ it:
         adminmail: E-mail per notifiche
       building:
         name: Nome
+        address: Indirizzo
         description: Descrizione
       admin:
         authlevel: Permessi
@@ -76,6 +77,7 @@ it:
         units: Numero di contenitori
       lab:
         name: Nome
+        building: Edificio
       un_code:
         id: Numero
         name: Nome

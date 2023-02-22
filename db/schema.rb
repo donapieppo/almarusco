@@ -27,6 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   create_table "buildings", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.integer "organization_id", unsigned: true
     t.string "name", null: false
+    t.text "address"
     t.text "description"
     t.index ["organization_id"], name: "organization_id"
   end
