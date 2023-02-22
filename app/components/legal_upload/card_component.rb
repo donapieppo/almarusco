@@ -5,5 +5,6 @@ class LegalUpload::CardComponent < ViewComponent::Base
     @legal_upload = legal_upload
     @current_user = current_user
     @disposals = @legal_upload.disposals
+    @policy = LegalUploadPolicy.new(@current_user, @legal_upload)
   end
 end
