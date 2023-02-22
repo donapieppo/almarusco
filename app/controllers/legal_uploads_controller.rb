@@ -1,9 +1,11 @@
 class LegalUploadsController < LegalRecordsController
   before_action :set_disposal_type, only: [:new, :create]
   before_action :set_disposals, only: [:new, :create]
+  before_action :set_legal_upload_and_disposal_type_and_check_permission, only: [:edit, :update]
 
   def new
-    @legal_upload = current_organization.legal_uploads.new(disposal_type: @disposal_type, date: Date.today)
+    @legal_upload = current_organization.legal_uploads.new(disposal_type: @disposal_type, 
+                                                           date: Date.today)
     authorize @legal_upload
   end
 
@@ -20,6 +22,18 @@ class LegalUploadsController < LegalRecordsController
     else
       render action: :new, status: :unprocessable_entity
     end
+  end
+
+  def edit
+  end
+
+  def update
+   if @legal_upload.update(number: params[:legal_upload][:number],
+                           date: params[:legal_upload][:date])
+     redirect_to @legal_upload, notice: "Registrazione numero #{@legal_upload.number} aggiornata correttamente."
+   else
+     render action: :edit, status: :unprocessable_entity
+   end
   end
 
   def show 
@@ -40,5 +54,11 @@ class LegalUploadsController < LegalRecordsController
     if @disposal_ids.any?
       @disposals = Disposal.find(@disposal_ids)
     end
+  end
+
+  def set_legal_upload_and_disposal_type_and_check_permission
+    @legal_upload = LegalUpload.find(params[:id])
+    authorize @legal_upload
+    @disposal_type = @legal_upload.disposal_type
   end
 end
