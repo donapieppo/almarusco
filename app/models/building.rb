@@ -11,4 +11,8 @@ class Building < ApplicationRecord
   def to_s_long
     "#{self.name} - #{self.address}"
   end
+
+  def to_s_complete
+    "#{self.name} - #{self.description} - #{self.address}"
+  end
 end
