@@ -12,7 +12,7 @@
       <% end %>
 
       <h2 class="my-2">Permessi</h2>
-      <% @organization.permissions.order(authlevel: :desc).includes(:user).each do |p| %>  
+      <% @organization.permissions.includes(:user).order(authlevel: :desc).order('users.surname').each do |p| %>  
         <div class="<%= policy_authlevel_color(p) %>">
           <%= p.user %> 
           <small>
@@ -25,7 +25,7 @@
         <h2 class="my-2">Edifici</h2>
         <% @organization.buildings.order(:name).each do |b| %>  
           <div>
-            <%= link_to b, [:edit, b] %>  
+            <%= link_to b.to_s_long, [:edit, b] %>  
           </div>
         <% end %>
         <%= link_to 'Nuovo edificio', new_building_path(organization_id: @organization.id), class: :button %>  
