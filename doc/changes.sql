@@ -16,69 +16,16 @@ create table buildings (
 alter table labs add column `building_id` int(10) unsigned after `id`;
 alter table labs add FOREIGN KEY (building_id) REFERENCES `buildings` (`id`);
 
+# ./bin/rails almarusco:fix_buildings_start 
 
+update buildings set name="U.e.4", address="via Gobetti 85", description="ricerca di CHIM e CHIMIND"  where organization_id=47;
+insert into buildings values(0, 47, "U.e.4", "via Gobetti 85", "Ricerca di CHIM e CHIMIND");
+insert into buildings values(0, 47, "U.e.5", "via Gobetti 87", "Didattica + ricerca computazionale Fabit");
+insert into buildings values(0, 47, "U.e.6", "via Bignardi 15", "Ricerca Fabit");
 
+update buildings set name="ED 215", address="via dei matti 1", description="" where organization_id=23;
+insert into buildings values(0, 23, "ED 225", "via dei matti 2", "");
+insert into buildings values(0, 23, "ED 301", "via dei matti 3", "");
+insert into buildings values(0, 23, "ED 441", "via dei matti 4", "");
 
-
----
-
-
-
-
-
-
-
-create table containers (
-        `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-        `name` varchar(255) NOT NULL,
-        `description` text,
-        PRIMARY KEY (`id`)
-);
-
-alter table disposal_types add column `container_id` int(10) unsigned DEFAULT NULL;
-alter table disposal_types add FOREIGN KEY (container_id) REFERENCES `containers` (`id`);
-
-alter table disposals alter kgs SET DEFAULT 0;
-alter table picking_documents alter kgs SET DEFAULT 0;
-
-update disposals set kgs=0 where kgs is null;
-
-alter table disposal_types drop column adr;
-
-delete from picking_documents where id=89;
-
-alter table disposal_types add column `separable` BOOL default 0 NOT NULL after `physical_state`;
-alter table disposals add column `units` SMALLINT default 1 AFTER `volume`;
-update disposals set `units`=1;
-
-alter table picking_documents add UNIQUE KEY (`picking_id`, `disposal_type_id`);
-
--- legalizations
--- legal_records 
-create table legal_records (
-        `id` int(10) unsigned NOT NULL AUTO_INCREMENT, 
-        `type` enum('LegalUpload', 'LegalDownload'),
-        `organization_id` int(10) unsigned NOT NULL,
-        `disposal_type_id` int(10) unsigned NOT NULL,
-        `picking_document_id` int(10) unsigned DEFAULT NULL,
-        `year` int(1) unsigned NOT NULL,
-        `date` date, 
-        `number` int(10) unsigned NOT NULL,
-        `created_at` date,
-        `updated_at` date,
-        PRIMARY KEY (`id`),
-        KEY `k_number`(`number`),
-        FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE, 
-        FOREIGN KEY (disposal_type_id) REFERENCES disposal_types(id) ON DELETE CASCADE, 
-        FOREIGN KEY (picking_document_id) REFERENCES picking_documents(id) ON DELETE CASCADE, 
-        UNIQUE KEY (`organization_id`, `year`, `number`)
-);
-
-alter table disposals add column `legal_record_id` int(10) unsigned after `disposal_type_id`;
-alter table disposals add FOREIGN KEY (legal_record_id) REFERENCES `legal_records` (`id`);
-
--- alter table disposals add column `aasm_state` text;
-
--- alter table pickings add column `legal_record_id` int(10) unsigned after `supplier_id`;
--- alter table pickings add FOREIGN KEY (legal_record_id) REFERENCES `legal_records` (`id`);
 
