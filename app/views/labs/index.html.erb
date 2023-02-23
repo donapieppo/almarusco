@@ -4,21 +4,27 @@
   <%= link_to 'Nuovo Laboratorio', new_lab_path, class: 'btn btn-primary' %>  
 </div>
 
-<% if @buildings.any? %>  
+<% if @labs.keys.any? %>  
   <ul class="info my-2">
-    <% @buildings.each do |building| %>  
-      <li><strong><%= building.name %></strong> <span class="text-muted ps-3"><%= building.description %></span></li>
+    <% @labs.keys.each do |building| %>  
+      <li>
+        Edificio <strong><%= building.name %></strong> 
+        <%= building.address %>  
+        <span class="text-muted ps-3"><%= building.description %></span>
+      </li>
     <% end %>
   </ul>
 <% end %>
 
-<div class="list-group my-4">
-  <% bid = nil %>  
-  <% @labs.each do |lab| %>  
-    <% if bid != lab.building_id %>  
-      <div class="mt-4 fw-bold"><%= lab.building %></div>
-      <% bid = lab.building_id %>  
-    <% end %>
-    <%= link_to lab, [:edit, lab], class: 'list-group-item list-group-item-action' %>
+<div class="row">
+  <% @labs.keys.each do |building| %>  
+    <div class="col-md-6">
+      <div class="my-2 fw-bold"><%= building %></div>
+      <div class="list-group my-4">
+        <% @labs[building].each do |lab| %>  
+          <%= link_to lab, [:edit, lab], class: 'list-group-item list-group-item-action' %>
+        <% end %>
+      </div>
+    </div>
   <% end %>
 </div>

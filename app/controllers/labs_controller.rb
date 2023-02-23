@@ -3,8 +3,10 @@ class LabsController < ApplicationController
 
   def index
     authorize :lab
-    @buildings = current_organization.buildings
-    @labs = current_organization.labs.includes(:building).order('buildings.name, labs.name')
+    @labs = Hash.new{|h, k| h[k] = []}
+    current_organization.labs.includes(:building).order('buildings.name, labs.name').each do |lab|
+      @labs[lab.building] << lab
+    end
   end
 
   def show
