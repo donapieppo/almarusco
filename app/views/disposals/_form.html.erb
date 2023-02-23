@@ -15,7 +15,7 @@
             <option value=""></option>
             <% buildings.each do |b| %>  
               <% selected = b.id == current_building_id ? 'selected="selected"' : '' %>
-              <option value="<%= b.id %>" <%= selected %>><%= b %></option>
+              <option value="<%= b.id %>" <%= selected %>><%= b.to_s_complete %></option>
             <% end %>
           </select>
         </div>
