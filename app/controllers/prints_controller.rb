@@ -5,12 +5,8 @@ class PrintsController < ApplicationController
   require "prawn/measurement_extensions"
 
   def new
-    if policy(current_organization).manage?
-      @disposals = current_organization.disposals.undelivered.order(:id)
-    else
-      @disposals = current_user.disposals.undelivered.where(organization_id: current_organization.id)
-    end
-    @disposals = @disposals.order(:user_id).order('created_at desc').include_all
+    @disposals = current_organization.disposals.undelivered.order(id: :desc).include_all
+    @disposals = @disposals.user_or_producer(current_user.id) unless policy(current_organization).manage?
     authorize :print
     if @disposals.empty?
       redirect_to root_path, alert: 'Non sono presenti rifiuti da stampare.'
@@ -21,11 +17,9 @@ class PrintsController < ApplicationController
   def create
     authorize :print
 
-    if policy(current_organization).manage?
-      @disposals = current_organization.disposals.where(id: params[:disposal_ids]).to_a
-    else
-      @disposals = current_user.disposals.where(organization: current_organization).where(id: params[:disposal_ids]).to_a
-    end
+    @disposals = current_organization.disposals.undelivered.where(id: params[:disposal_ids]).include_all
+    @disposals = @disposals.user_or_producer(current_user.id) unless policy(current_organization).manage?
+    @disposals = @disposals.to_a
 
     unless params['paper_boxes']
       redirect_to new_print_path, alert: "Selezionare le etichette sul foglio"
