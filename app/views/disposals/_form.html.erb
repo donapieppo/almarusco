@@ -6,7 +6,7 @@
   <% buildings = current_organization.buildings.order(:name).to_a %>
   <% current_building_id = @disposal.lab_id ? @disposal.lab.building_id : 0 %>  
 
-  <% if buildings.any? %>  
+  <% if buildings.size > 1 %>  
     <div data-controller="disposal-lab">
       <div id="building_id" class="row mb-3 select required">
         <label class="col-sm-3 col-form-label select required" for="building_id">Edificio</label>
