@@ -1,9 +1,9 @@
 class Organization < ApplicationRecord
   include DmUniboCommon::Organization
 
+  has_many :buildings
   has_many :disposal_types
   has_many :disposals
-  has_many :buildings
   has_many :labs
   has_many :pickings
   has_many :legal_uploads
