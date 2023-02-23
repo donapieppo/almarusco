@@ -2,9 +2,20 @@
 namespace :almarusco do
 namespace :expitarions do
 
+  desc "Mostra operatori scaduti"
+  task show_expired: :environment do
+    DmUniboCommon::Permission.where("expiry < NOW()").each do |p|
+      puts p.user
+    end
+  end
+
   desc "Eliminazione permessi operatori scaduti"
   task clear_expired: :environment do
-    p DmUniboCommon::Permission.where("expiry < NOW()").inspect
+    DmUniboCommon::Permission.where("expiry < NOW()").each do |p|
+      puts p.user
+      p.delete
+      sleep 1
+    end
   end
 
   desc "Notifica operatori scaduti"
