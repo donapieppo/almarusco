@@ -7,4 +7,8 @@ class Building < ApplicationRecord
   def to_s
     self.name
   end
+
+  def to_s_long
+    "#{self.name} - #{self.address}"
+  end
 end
