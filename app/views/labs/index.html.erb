@@ -22,7 +22,13 @@
       <div class="my-2 fw-bold"><%= building %></div>
       <div class="list-group my-4">
         <% @labs[building].each do |lab| %>  
-          <%= link_to lab, [:edit, lab], class: 'list-group-item list-group-item-action' %>
+          <% used = @used_labs_ids[lab.id] %>  
+          <%= link_to [:edit, lab], class: 'list-group-item list-group-item-action' do %>
+            <%= lab %>
+            <% if n = @used_labs_ids[lab.id] %>  
+              <span class="float-end badge bg-secondary"><%= n %> rifiuti</span>
+            <% end %>
+          <% end %>
         <% end %>
       </div>
     </div>

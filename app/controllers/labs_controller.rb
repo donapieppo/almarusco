@@ -7,6 +7,7 @@ class LabsController < ApplicationController
     current_organization.labs.includes(:building).order('buildings.name, labs.name').each do |lab|
       @labs[lab.building] << lab
     end
+    @used_labs_ids = current_organization.disposals.group(:lab_id).count
   end
 
   def show
