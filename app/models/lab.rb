@@ -3,7 +3,7 @@ class Lab < ApplicationRecord
   belongs_to :building, optional: true
   has_many :disposals
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { scope: :organization_id, message: 'Lab con lo stesso nome già presente nello stesso edificio.' }
 
   def to_s
     if self.building_id
