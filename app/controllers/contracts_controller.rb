@@ -14,8 +14,9 @@ class ContractsController < ApplicationController
     @contract = @supplier.contracts.new(cer_code_id: @cer_code.id, price: params[:contract][:price])
     authorize @contract
     if @contract.save
-      render action: :destroy
+      render action: :reload
     else
+      render action: :new, status: :unprocessable_entity
     end
   end
 
@@ -24,11 +25,12 @@ class ContractsController < ApplicationController
 
   def update
     @contract.update(price: params[:contract][:price])
-    render action: :destroy
+    render action: :reload
   end
 
   def destroy
     @contract.destroy
+    render action: :reload
   end
 
   private
