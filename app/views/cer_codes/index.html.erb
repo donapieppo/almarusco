@@ -17,7 +17,10 @@
   <% @cer_codes.each do |cc| %>  
     <%= link_to [:edit, cc], class: "list-group-item list-group-item-action" do %>
       <strong><%= cc %></strong> <br/>
-      <span class="pl-2 small"><%= cc.description %></span>
+      <span class="pl-2 small fst-italic"><%= cc.description %></span><br/>
+      <% if (s = cc.suppliers.to_a).any? %>  
+        <span class="pl-2 small">ritiri con <%= s.map(&:name).join(', ') %></span>
+      <% end %>
     <% end %>
   <% end %>
 </div>
