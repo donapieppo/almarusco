@@ -1,6 +1,8 @@
 class Supplier < ApplicationRecord
   has_many :pickings
-  has_and_belongs_to_many :cer_codes
+  # has_and_belongs_to_many :cer_codes
+  has_many :contracts
+  has_many :cer_codes, through: :contracts
 
   validates :name, format: { with: /\w/, message: 'Il nome del fornitore non mi sembra corretto.' }
   validates :pi,   format: { with: /\A[0-9a-zA-Z]{11}\z/, message: 'La partita iva deve contenere 11 caratteri.' },
