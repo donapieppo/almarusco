@@ -19,13 +19,30 @@ alter table labs add FOREIGN KEY (building_id) REFERENCES `buildings` (`id`);
 # ./bin/rails almarusco:fix_buildings_start 
 
 update buildings set name="U.e.4", address="via Gobetti 85", description="ricerca di CHIM e CHIMIND"  where organization_id=47;
-insert into buildings values(0, 47, "U.e.4", "via Gobetti 85", "Ricerca di CHIM e CHIMIND");
-insert into buildings values(0, 47, "U.e.5", "via Gobetti 87", "Didattica + ricerca computazionale Fabit");
-insert into buildings values(0, 47, "U.e.6", "via Bignardi 15", "Ricerca Fabit");
+insert into buildings values(0, 47, "U.e.4", "Via Gobetti 85", "Ricerca di CHIM e CHIMIND");
+insert into buildings values(0, 47, "U.e.5", "Via Gobetti 87", "Didattica + ricerca computazionale Fabit");
+insert into buildings values(0, 47, "U.e.6", "Via Bignardi 15", "Ricerca Fabit");
 
-update buildings set name="ED 215", address="via dei matti 1", description="" where organization_id=23;
-insert into buildings values(0, 23, "ED 225", "via dei matti 2", "");
-insert into buildings values(0, 23, "ED 301", "via dei matti 3", "");
-insert into buildings values(0, 23, "ED 441", "via dei matti 4", "");
+update buildings set name="ED 225", address="Via Selmi 2", description="" where organization_id=23;
+insert into buildings values(0, 23, "ED 441", "Via S. Giacomo 7", "");
+
+create table contracts (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `supplier_id` int(10) unsigned NOT NULL,
+  `cer_code_id` int(10) unsigned NOT NULL,
+  `price` int(5) unsigned,
+  `start_date` date,
+  `end_date` date,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (supplier_id) REFERENCES `suppliers` (`id`),
+  FOREIGN KEY (cer_code_id) REFERENCES `cer_codes` (`id`)
+);
+
+INSERT INTO contracts (`supplier_id`, `cer_code_id`)
+  SELECT
+    `supplier_id`,
+    `cer_code_id`
+  FROM cer_codes_suppliers;
+
 
 
