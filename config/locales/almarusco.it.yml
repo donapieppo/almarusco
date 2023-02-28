@@ -34,6 +34,7 @@ it:
       picking: Ritiro
       picking_document: Formulario
       legal_record: Registrazione
+      contract: Contratto
 
     attributes:
       admin:
@@ -98,6 +99,8 @@ it:
       legal_record:
         number: Numero registrazione
         date: Data registrazione
+      contract:
+        price: Prezzo al kg.
 
   simple_form:
     hints:

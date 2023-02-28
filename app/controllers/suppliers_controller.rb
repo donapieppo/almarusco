@@ -3,15 +3,12 @@ class SuppliersController < ApplicationController
 
   def index
     authorize Supplier
-    # @initial = params[:in] ? params[:in][0, 1] : 'a'
-    # @suppliers = Supplier.where(['name REGEXP ?', "^#{@initial}"]).order('name asc').to_a
     @suppliers = Supplier.order(:name).all
   end
 
   def new
     @supplier = Supplier.new
     authorize @supplier
-    render layout: false if modal_page
   end
 
   def create
@@ -25,9 +22,9 @@ class SuppliersController < ApplicationController
   end
 
   def edit
-    render layout: false if modal_page
   end
 
+  # "price"=>{"1"=>"1", "2"=>"2", 
   def update
     if @supplier.update(supplier_params)
       redirect_to suppliers_path, notice: 'Il fornitore è stato aggiornato.'

@@ -46,6 +46,16 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.index ["supplier_id"], name: "fk_ccs_supplier"
   end
 
+  create_table "contracts", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+    t.integer "supplier_id", null: false, unsigned: true
+    t.integer "cer_code_id", null: false, unsigned: true
+    t.integer "price", unsigned: true
+    t.date "start_date"
+    t.date "end_date"
+    t.index ["cer_code_id"], name: "cer_code_id"
+    t.index ["supplier_id"], name: "supplier_id"
+  end
+
   create_table "disposal_types", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.integer "organization_id", unsigned: true
     t.integer "cer_code_id", unsigned: true
@@ -206,6 +216,8 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   add_foreign_key "buildings", "organizations", name: "buildings_ibfk_1"
   add_foreign_key "cer_codes_suppliers", "cer_codes", name: "fk_ccs_cer_code"
   add_foreign_key "cer_codes_suppliers", "suppliers", name: "fk_ccs_supplier"
+  add_foreign_key "contracts", "cer_codes", name: "contracts_ibfk_2"
+  add_foreign_key "contracts", "suppliers", name: "contracts_ibfk_1"
   add_foreign_key "disposal_types", "cer_codes", name: "fk_disposal_types_cer"
   add_foreign_key "disposal_types", "organizations", name: "fk_disposal_types_organization"
   add_foreign_key "disposal_types", "un_codes", name: "fk_disposal_types_un"

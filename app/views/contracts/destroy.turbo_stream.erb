@@ -1,0 +1,5 @@
+<%= turbo_stream.update "supplier_contracts" do %>
+  <%= render Supplier::ContractsFormComponent.new(@supplier) %>  
+<% end %>
+
+

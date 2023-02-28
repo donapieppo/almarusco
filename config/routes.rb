@@ -50,7 +50,9 @@ Rails.application.routes.draw do
     resources :suppliers do
       post :find, on: :collection
       get  :find, on: :collection
+      resources :contracts, only: [:new, :create]
     end
+    resources :contracts, only: [:edit, :update, :destroy]
 
     resources :labs
     resources :buildings

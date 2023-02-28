@@ -1,14 +1,7 @@
-<div class="alert alert-warning" role="alert">
-  I fornitori sono <b>comuni a tutte le strutture</b>.<br/>
-  Vi preghiamo di inserire/aggiornare questi dati con cura.
-</div>
-
 <%= dm_form_for @supplier, title: 'Dati fornitore' do |f| %>
   <%= f.dm_error_notification %>  
   <%= f.input :name %>
   <%= f.input :pi %>
   <%= f.input :address %>
-  <%= f.association :cer_codes, collection: CerCode.order(:name), as: :check_boxes %>
-  <%= f.submit %> - <%= link_to 'indietro', suppliers_path %>  
+  <%= f.submit %> - <%= link_to 'indietro', suppliers_path %>
 <% end %>
-

@@ -1,3 +1,15 @@
-<%= main_title('Modifica dati fornitore') %>
+<div class="alert alert-warning" role="alert">
+  I fornitori sono <b>comuni a tutte le strutture</b>.<br/>
+  Vi preghiamo di inserire/aggiornare questi dati con cura.
+</div>
 
-<%= render partial: 'form' %>
+<div class="row">
+  <div class="col-md-6">
+    <%= render partial: 'form' %>
+  </div>
+  <div class="col-md-6">
+    <%= turbo_frame_tag "supplier_contracts" do %>  
+      <%= render Supplier::ContractsFormComponent.new(@supplier) %>  
+    <% end %>
+  </div>
+</div>

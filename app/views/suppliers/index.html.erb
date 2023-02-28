@@ -12,13 +12,18 @@
 
 <div class="list-group">
   <% @suppliers.each do |supplier| %>  
-    <%= link_to [:edit, supplier], class: 'list-group-item list-group-item-action' do %>
+    <div class='list-group-item list-group-item'>
       <div>
-      <strong><%= supplier.name.upcase %></strong>
-      <span class="float-end small">(p.i. <%= supplier.pi %>)</span>
+        <strong><%= supplier.name.upcase %></strong>
+        <span class="float-end small">(p.i. <%= supplier.pi %>)</span>
       </div>
       <div class="small mt-2 ps-2"><%= supplier.address %></div>
       <div class="small mt-2 ps-2"><strong>Cer:</strong> <%= supplier.cer_codes.pluck(:name).join(", ") %></div>
-    <% end %>
+      <% if policy(supplier).edit? %>  
+        <div class="float-end">
+          <%= link_to_edit [:edit, supplier] %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 </div>

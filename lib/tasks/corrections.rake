@@ -24,14 +24,16 @@ namespace :almarusco do
 
   desc "Correct buildings"
   task fix_buildings_start: :environment do 
-    Organization.all.each do |organization|
+    Organization.find_each do |organization|
       if organization.buildings.empty?
         b = organization.buildings.new(name: organization.code, address: organization.name)
         b.save!
-        
-        organization.labs.each do |lab|
-          lab.update(building_id: b.id)
-        end
+      else 
+        b = organization.buildings.first
+      end
+
+      organization.labs.each do |lab|
+        lab.update(building_id: b.id)
       end
     end
   end
