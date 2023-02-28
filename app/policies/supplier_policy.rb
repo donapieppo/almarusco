@@ -11,9 +11,4 @@ class SupplierPolicy < ApplicationPolicy
   def update?
     create?
   end
-
-  def find?
-    true
-  end
 end
-
