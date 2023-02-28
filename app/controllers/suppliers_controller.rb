@@ -15,7 +15,7 @@ class SuppliersController < ApplicationController
     @supplier = Supplier.new(supplier_params)
     authorize @supplier
     if @supplier.save
-      redirect_to suppliers_path, notice: 'Il fornitore è stato creato.' 
+      redirect_to suppliers_path, notice: "Il fornitore è stato creato."
     else
       render action: :new, status: :unprocessable_entity
     end
@@ -24,38 +24,18 @@ class SuppliersController < ApplicationController
   def edit
   end
 
-  # "price"=>{"1"=>"1", "2"=>"2", 
   def update
     if @supplier.update(supplier_params)
-      redirect_to suppliers_path, notice: 'Il fornitore è stato aggiornato.'
+      redirect_to suppliers_path, notice: "Il fornitore è stato aggiornato."
     else
       render action: :edit, status: :unprocessable_entity
     end
   end
 
-  def find
-    authorize Supplier
-    @for = params[:for]
-
-    if params[:supplier] && params[:supplier][:string] && params[:supplier][:string].length >= 2
-      @suppliers = Supplier.where(['name LIKE ?', "%#{params[:supplier][:string]}%"]) 
-    elsif params[:supplier] && params[:supplier][:pi] && params[:supplier][:pi].length >= 2
-      pi = params[:supplier][:pi].to_i
-      @suppliers = Supplier.where(['pi LIKE ?', "%#{pi}%"])
-    else
-      flash[:error] = 'Raffinare i parametri di ricerca.'
-      redirect_to suppliers_path
-      return
-    end
-    @supppliers = @suppliers.order('suppliers.name').to_a
-    flash[:notice] = 'Non ci sono fornitori che soddisfino la ricerca' if @suppliers.empty?
-    render action: :index
-  end
-
   private
 
   def supplier_params
-    params[:supplier].permit(:name, :pi, :address, cer_code_ids: [])
+    params[:supplier].permit(:name, :pi, :address)
   end
 
   def set_supplier_and_check_permission
