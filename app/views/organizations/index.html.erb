@@ -1,13 +1,13 @@
 <h1>Gestione strutture</h1>
 
 <div class="info">
-  Elenco delle strutture e permessi (in rosso i responsabili).
+  Elenco delle strutture.
 </div>
 
 <div class="list-group">
   <% @organizations.each do |organization| %>
     <%= link_to organization, data: { turbo_frame: :modal }, class: "list-group-item list-group-item-action" do %>  
-      <b><%= organization.code.upcase %></b> <small class="px-2"><%= organization.name %></small>
+      <b><%= organization.code.upcase %></b> <span class="px-2"><%= organization.name %></span>
     <% end %>
   <% end %>
 </div>
