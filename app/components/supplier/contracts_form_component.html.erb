@@ -3,8 +3,8 @@
     <% @contracts.each do |contract| %>  
       <li class="d-flex flex-row">
         <div class="flex-grow-1">
-          <strong>CER <%= contract.cer_code.name %></strong>
-          prezzo al kg. <%= contract.price%>&euro;
+          <strong title="<%= contract.cer_code.description %>">CER <%= contract.cer_code.name %></strong>
+          prezzo <%= contract.price%>&euro; <small>/ kg.</small>
         </div>
         <div class="text-right">
           <%= helpers.link_to_delete contract_path(contract) %>
@@ -14,13 +14,17 @@
     <% end %>
   </ul>
 <% end %>
-<%= dm_card title: "Crea nuovo contratto" do %>
-  <div class="alert alert-secondary">Scegli il codice Cer a contratto</div>
+<%= dm_card title: "Crea nuovo contratto scgliendo il codice CER" do %>
+<div data-controller="limit-visible">
+  <div class="centered my-2">
+    <input class="form-control text" placeholder="Scrivi parte del codice CER" type="text" data-action="input->limit-visible#update"></input>
+  </div>
   <ul>
     <% @other_cer_codes.each do |cer_code| %>  
-      <li class="py-1">
-        <%= link_to cer_code, [:new, @supplier, :contract, cer_code_id: cer_code.id], class: 'btn btn-outline-secondary btn-sm', data: { turbo_frame: :modal } %>
+      <li class="" data-limit-visible-target="item" data-text="<%= cer_code.name %>">
+        <%= link_to cer_code, [:new, @supplier, :contract, cer_code_id: cer_code.id], class: 'btn btn-outline-secondary btn-sm w-50 mx-auto', data: { turbo_frame: :modal } %>
       </li>
     <% end %>
   </ul>
+</div>
 <% end %>
