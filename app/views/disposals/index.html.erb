@@ -12,26 +12,28 @@
   </div>
 <% end %>
 
-<% if @disposals_cers.size > 1 %>  
-  <form class="my-2 centered disposal_cer_selector" data-controller="disposal-selector" data-action="change->disposal-selector#change_cer">
-    <small class="text-muted">mostra solo CER</small>
-    <% @disposals_cers.each do |cer_code| %>  
-      <input type="radio" id="<%= cer_code.id %>" name="disposal_to_show" />
-      <label for="<%= cer_code.id %>" data-cerid="<%= cer_code.id %>">
-        <%= cer_code.name %>  
-      </label>
-    <% end %>
-  </form>
-<% end %>
-
-<div class="row">
-  <% tot = 0 %>  
-  <% @disposals.each do |disposal| %>  
-    <div class="disposal-card col-md-6 col-xl-4" data-cerid="<%= disposal.disposal_type.cer_code_id %>">
-      <%= render Disposal::CardComponent.new(current_user, disposal, with_details: false, highlight: (@highlight_id == disposal.id)) %>
-      <% tot += 1 %>  
-    </div>
+<div data-controller="limit-visible">
+  <% if @disposals_cers.size > 1 %>  
+    <form class="my-2 centered disposal_cer_selector" data-action="change->limit-visible#update">
+      <small class="text-muted">mostra solo CER</small>
+      <% @disposals_cers.each do |cer_code| %>  
+        <input type="radio" id="<%= cer_code.id %>" name="disposal_to_show" value="<%= cer_code.id %>" />
+        <label for="<%= cer_code.id %>">
+          <%= cer_code.name %>  
+        </label>
+      <% end %>
+    </form>
   <% end %>
+
+  <div class="row">
+    <% tot = 0 %>  
+    <% @disposals.each do |disposal| %>  
+      <div class="disposal-card col-md-6 col-xl-4" data-limit-visible-target="item" data-text="<%= disposal.disposal_type.cer_code_id %>">
+        <%= render Disposal::CardComponent.new(current_user, disposal, with_details: false, highlight: (@highlight_id == disposal.id)) %>
+        <% tot += 1 %>  
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <% if tot > 0 %>  
