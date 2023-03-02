@@ -4,6 +4,31 @@ CONN = DmUniboUserSearch::Client.new
 
 namespace :almarusco do
 
+  desc "Import CERS"
+  task import_cers: :environment do
+    File.open('./doc/cer_codes.txt') do |f|
+      for line in f.readlines do
+        # 160508* - Sostanze chimiche organiche di scarto contenenti o costituite da sostanze pericolose (cisterna anatomia)
+        (c, des) = line.strip.split('-')
+        if c 
+          danger = (c =~ /\*/)
+          code = c.strip.gsub(/[^0-9]+/, '')
+          dbcer = CerCode.where(name: code).first
+          if dbcer && !! dbcer.danger != !! danger
+            p line
+            p "ERRORE DANGER #{dbcer.inspect}"
+          end
+          if ! dbcer
+            p code.strip
+            p danger
+            p des.strip
+            CerCode.create!(name: code, description: des, danger: danger)
+          end
+        end
+      end
+    end
+  end
+
   desc "Import ULS"
   task import_uls: :environment do
 
