@@ -1,6 +1,4 @@
-<h1>
-  Codici CER
-</h1>
+<h1>Codici CER</h1>
 
 <div class="alert alert-warning" role="alert">
   I codici CER sono <b>comuni a tutte le strutture</b>.<br/>
@@ -8,19 +6,31 @@
 </div>
 
 <% if policy(:cer_code).new? %>  
-  <div class="centered my-4">
+  <div class="centered my-2">
     <%= link_to 'Aggiungi nuovo codice CER', new_cer_code_path, class: 'btn btn-primary' %>  
   </div>
 <% end %>
 
-<div class="list-group">
-  <% @cer_codes.each do |cc| %>  
-    <%= link_to [:edit, cc], class: "list-group-item list-group-item-action" do %>
-      <strong><%= cc %></strong> <br/>
-      <span class="pl-2 small fst-italic"><%= cc.description %></span><br/>
-      <% if (s = cc.suppliers.to_a).any? %>  
-        <span class="pl-2 small">ritiri con <%= s.map(&:name).join(', ') %></span>
+<div data-controller="limit-visible">
+  <div class="centered my-2">
+    <input class="form-control text" placeholder="scrivi parte del codice cer" type="text" data-action="input->limit-visible#update"></input>
+  </div>
+
+  <div class="list-group">
+    <% @cer_codes.each do |cer_code| %>  
+      <%= link_to [:edit, cer_code], class: "list-group-item list-group-item-action", data: { 'limit_visible_target': 'item', text: cer_code.name } do %>
+        <div class="d-flex">
+        <div class="font-monospace fw-bold pe-2" style="width: 14ch; font-family: monospace; font-size: 16px;">
+          <%= cer_code %>
+        </div>
+        <div class="fst-italic" style="flex: 1">
+          <%= cer_code.description %>
+          <% if (s = cer_code.suppliers.to_a).any? %>  
+            <div class="text-info">ritiri con <%= s.map(&:name).join(', ') %></div>
+          <% end %>
+        </div>
+        </div>
       <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
