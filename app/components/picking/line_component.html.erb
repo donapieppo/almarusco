@@ -4,7 +4,7 @@
     <strong><%= @picking.supplier.to_s.upcase %></strong>
     <span class="float-end"><%= @picking.status %></span>
   </div>
-  <div class="ps-4">
+  <div class="text-end">
     <% @picking.picking_documents.each do |pd| %>  
       <span class="badge bg-light text-dark"><%= pd %></span>
     <% end %>
