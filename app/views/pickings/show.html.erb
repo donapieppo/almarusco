@@ -13,19 +13,24 @@
 <% @disposals_hash.keys.sort_by{ |dt| dt.cer_code_id }.each do |disposal_type| %>  
   <% disposals = @disposals_hash[disposal_type] %>  
 
-  <%= dm_card title: disposal_type.to_s_complete do %>  
-    <div>
+  <div class="dm-card">
+    <div class="dm-card-title">
+      <%= disposal_type.to_s_complete %>  
+    </div>
+    <div class="dm-card-body">
       <% @disposals_hash[disposal_type].each do |disposal| %>  
         <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
       <% end %>
+      <%= render Disposal::GroupDetailsComponent.new(@disposals_hash[disposal_type]) %>  
     </div>
-    <hr/>
-    <% if picking_document = @picking.picking_document_by_disposal_type(disposal_type) %>  
-      <%= render PickingDocument::ShowComponent.new(current_user, picking_document, disposals: disposals) %>
-    <% else %>
-      <%= link_to 'Compila formulario', new_picking_picking_document_path(@picking, disposal_type_id: disposal_type.id), class: 'btn btn-sm btn-primary float-end' %>  
-    <% end %>
-  <% end %>
+    <div class="dm-card-footer">
+      <% if picking_document = @picking.picking_document_by_disposal_type(disposal_type) %>  
+        <%= render PickingDocument::ShowComponent.new(current_user, picking_document, disposals: disposals) %>
+      <% else %>
+        <%= link_to 'Compila formulario', new_picking_picking_document_path(@picking, disposal_type_id: disposal_type.id), class: 'btn btn-sm btn-primary float-end' %>  
+      <% end %>
+    </div>
+  </div>
 <% end %>
 
 <div class="centered my-2">
