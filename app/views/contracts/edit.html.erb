@@ -1,7 +1,8 @@
 <%= render DmUniboCommon::ModalComponent.new() do %>
   <%= dm_form_for @contract do |f| %>  
     <div class="info">
-      <%= @contract.cer_code %>  
+      <strong><%= @contract.cer_code %></strong><br/>
+      <small><i><%= @contract.cer_code.description %></i></small>
     </div>
     <%= f.input :price  %>  
     <%= f.submit %>  
