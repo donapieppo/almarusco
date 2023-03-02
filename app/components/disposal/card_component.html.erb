@@ -11,13 +11,13 @@
     <div class="row">
       <div class="col-md-3">
         <div class="fw-bold">
-          <%= @disposal.volume_tot %> L.<br/>
+          <%= @disposal.volume_tot %> <small>L.</small><br/>
         </div>
         <div class="fw-bold">
           <% if @disposal.kgs > 0 %>  
-            <%= @disposal.kgs %> Kg. 
+            <%= @disposal.kgs %> <small>Kg.</small>
           <% else %>
-            <span class="text-danger">? Kg</span>
+            <span class="text-danger">? <small>Kg.</small></span>
           <% end %>
         </div>
       </div><!-- col-md-3 -->
