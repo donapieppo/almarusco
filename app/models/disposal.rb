@@ -22,8 +22,8 @@ class Disposal < ApplicationRecord
   # after_create :update_local_id
 
   scope :user_or_producer, -> (u_id) { where('user_id = ? or producer_id = ?', u_id, u_id) }
-  scope :uncomplete, -> { where(kgs: nil) }
-  scope :complete, -> { where.not(kgs: nil) }
+  scope :uncomplete, -> { where(kgs: 0) }
+  scope :complete, -> { where.not(kgs: 0) }
   scope :unapproved, -> { where(approved_at: nil) }
   scope :approved, -> { where.not(approved_at: nil) }
   scope :unlegalized, -> { where(legalized_at: nil) }
