@@ -3,7 +3,15 @@
   <small><%= @supplier %></small>
 </h1>
 
-<% contract_hash = @supplier.contracts.inject({}) {|res, c| res[c.cer_code_id] = c.price; res} %>  
+<div class="text-center my-4">
+<% Supplier.order(:name).each do |supplier| %>  
+  <%= link_to supplier, reports_path(supplier_id: supplier.id), class: 'btn btn-outline-primary btn-sm' %>
+<% end %>
+</div>
+
+<% if @supplier %>  
+  <% contract_hash = @supplier.contracts.inject({}) {|res, c| res[c.cer_code_id] = c.price; res} %>  
+<% end %>
 <% current_organization_id = 0 %>
 
 <table class="table table-sm ms-4">
@@ -19,10 +27,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @supplier.pickings.where("date > DATE_SUB(NOW(), INTERVAL 3 MONTH)")
-      .where('completed_at is not null')
-      .includes(:organization, picking_documents: [disposal_type: :cer_code])
-      .order(:organization_id).each do |picking|  %>  
+    <% @pickings.each do |picking| %>
       <% picking.picking_documents.each do |document| %>  
         <% cer_code = document.disposal_type.cer_code %>  
         <tr class="table-info">
@@ -35,8 +40,10 @@
           <td><%= picking.date %></td>
           <td><%= cer_code %></td>
           <td class="number"><%= document.kgs %> <small>Kg.</small></td>
-          <td class="number bg-warning"><%= contract_hash[cer_code.id] %> &euro;</td>
-          <td class="number"><%= document.kgs * contract_hash[cer_code.id] %>&euro;</td>
+          <td class="number bg-warning"><%= contract_hash ? contract_hash[cer_code.id].to_f : 0 %> &euro;</td>
+          <td class="number">
+            <%= document.kgs * (contract_hash ? contract_hash[cer_code.id].to_f : 0) %>&euro;
+          </td>
         </tr>
       <% end %>
     <% end %>
