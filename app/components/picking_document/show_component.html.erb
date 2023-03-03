@@ -1,6 +1,5 @@
 <div class="row">
   <div class="col-md-8">
-    <%= render Disposal::GroupDetailsComponent.new(@disposals) %>  
     <div class="fw-bold">
       <%= @expected_kgs.round(2) %> Kg. 
       <%= @expected_volume %> L.
@@ -11,7 +10,7 @@
           <%= @picking_document.kgs %> Kg.
           <%= @picking_document.volume.to_i %> L.
         </span>
-        da formulario <%= link_to @picking_document.serial_number, @picking_document %>  
+        da formulario <%= link_to @picking_document.serial_number, @picking_document, class: 'underline' %>  
         <% if @picking_document.legal_download %>
           con <%= render LegalDownload::LineComponent.new(@picking_document.legal_download) %>
         <% elsif ! @picking_document.picking.date %>
@@ -29,7 +28,7 @@
         <%= link_to 'Registra scarico', new_picking_document_legal_download_path(@picking_document), class: 'btn btn-sm btn-primary' %>  
       <% end %>
       <% if @picking_document_policy.edit? %>
-        <%= link_to 'Formulario', [:edit, @picking_document], class: 'btn btn-sm btn-success' %> 
+        <%= link_to 'Modifica formulario', [:edit, @picking_document], class: 'btn btn-sm btn-success' %> 
       <% end %>
     <% end %>
   </div>
