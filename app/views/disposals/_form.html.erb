@@ -1,38 +1,10 @@
-<% volumes_collection = @disposal.disposal_type.available_volumes.map { |v| ["#{v} litri", v] } %>  
-
 <%= simple_form_for [@disposal_type, @disposal], wrapper: :horizontal_form do |f| %>  
   <%= f.dm_error_notification %>  
 
   <% buildings = current_organization.buildings.order(:name).to_a %>
-  <% current_building_id = @disposal.lab_id ? @disposal.lab.building_id : 0 %>  
 
   <% if buildings.size > 1 %>  
-    <div data-controller="disposal-lab">
-      <div id="building_id" class="row mb-3 select required">
-        <label class="col-sm-3 col-form-label select required" for="building_id">Edificio</label>
-        <div class="col-sm-3">
-          <select name="building" class="form-select" data-action="disposal-lab#change_building">
-            <option value=""></option>
-            <% buildings.each do |b| %>  
-              <% selected = b.id == current_building_id ? 'selected="selected"' : '' %>
-              <option value="<%= b.id %>" <%= selected %>><%= b.to_s_complete %></option>
-            <% end %>
-          </select>
-        </div>
-      </div>
-      <div id="lab_id" class="row mb-3 select required">
-        <label class="col-sm-3 col-form-label select required" for="building_id">Lab</label>
-        <div class="col-sm-3">
-          <select name="disposal[lab_id]" data-disposal-lab-target="labs" name="building" class="form-select">
-            <option value=""></option>
-            <% current_organization.labs.order(:name).each do |l| %>  
-              <% selected = l.id == @disposal.lab_id ? 'selected="selected"' : '' %>  
-              <option value="<%= l.id %>" data-building-id="<%= l.building_id %>" <%= selected %>><%= l %></option>
-            <% end %>
-          </select>
-        </div>
-      </div>
-    </div>
+    <%= render partial: 'multi_labs_form', locals: { buildings: buildings } %>  
   <% else %>
     <%= f.association :lab, collection: current_organization.labs.order(:name) %>  
   <% end %>
@@ -47,6 +19,7 @@
 
   <%= f.input :kgs, input_html: { step: 0.1, style: 'max-width: 8rem' } %>  
 
+  <% volumes_collection = @disposal.disposal_type.available_volumes.map { |v| ["#{v} litri", v] } %>  
   <%= f.input :volume, as: :radio_buttons, collection: volumes_collection, wrapper: :horizontal_collection %>  
   <% if @disposal.disposal_type.separable %>  
     <%= f.input :units, input_html: { style: 'max-width: 8rem' } %>  

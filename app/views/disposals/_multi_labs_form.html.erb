@@ -1,0 +1,28 @@
+<% current_building_id = @disposal.lab_id ? @disposal.lab.building_id : 0 %>  
+
+<div data-controller="disposal-lab">
+  <div id="building_id" class="row mb-3 select required">
+    <label class="col-sm-3 col-form-label select required" for="building_id">Edificio</label>
+    <div class="col-sm-3">
+      <select name="building" class="form-select" data-action="disposal-lab#change_building">
+        <option value=""></option>
+        <% buildings.each do |b| %>  
+          <% selected = b.id == current_building_id ? 'selected="selected"' : '' %>
+          <option value="<%= b.id %>" <%= selected %>><%= b.to_s_complete %></option>
+        <% end %>
+      </select>
+    </div>
+  </div>
+  <div id="lab_id" class="row mb-3 select required">
+    <label class="col-sm-3 col-form-label select required" for="building_id">Lab</label>
+    <div class="col-sm-3">
+      <select name="disposal[lab_id]" data-disposal-lab-target="labs" name="building" class="form-select">
+        <option value=""></option>
+        <% current_organization.labs.order(:name).each do |lab| %>  
+          <% selected = lab.id == @disposal.lab_id ? 'selected="selected"' : '' %>  
+          <option value="<%= lab.id %>" data-building-id="<%= lab.building_id %>" <%= selected %>><%= lab.name %></option>
+        <% end %>
+      </select>
+    </div>
+  </div>
+</div>
