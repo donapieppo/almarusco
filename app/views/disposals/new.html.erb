@@ -1,9 +1,7 @@
 <h1>Nuovo carico</h1>
 
 <div class="row">
-  <div class="col-sm-3">
-  </div>
-  <div class="col-sm-9">
+  <div class="offset-sm-3 col-sm-9">
     <%= render DisposalType::CardComponent.new(current_user, @disposal_type, editable: false) %>  
   </div>
 </div>
