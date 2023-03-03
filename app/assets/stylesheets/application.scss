@@ -96,7 +96,7 @@ form.status_selector {
     @extend .text-white;
   }
 }
-form.disposal_cer_selector {
+form.disposal_cer_selector, form.button-radio {
   input {
     display: none;
   }

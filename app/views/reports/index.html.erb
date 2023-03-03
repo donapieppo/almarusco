@@ -3,49 +3,77 @@
   <small><%= @supplier %></small>
 </h1>
 
-<div class="text-center my-4">
-<% Supplier.order(:name).each do |supplier| %>  
-  <%= link_to supplier, reports_path(supplier_id: supplier.id), class: 'btn btn-outline-primary btn-sm' %>
+<% if @month %>  
+  <h2>
+  <%= t Date::MONTHNAMES[@month] %>  
+  </h2>
 <% end %>
-</div>
 
-<% if @supplier %>  
-  <% contract_hash = @supplier.contracts.inject({}) {|res, c| res[c.cer_code_id] = c.price; res} %>  
-<% end %>
-<% current_organization_id = 0 %>
-
-<table class="table table-sm ms-4">
-  <thead>
-    <tr>
-      <th>UL</th>
-      <th>FORMULARIO</th>
-      <th>DATA</th>
-      <th>CER</th>
-      <th class="number">TOTALE KG.</th>
-      <th class="number">&euro; / Kg.</th>
-      <th class="number">TOTALE</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @pickings.each do |picking| %>
-      <% picking.picking_documents.each do |document| %>  
-        <% cer_code = document.disposal_type.cer_code %>  
-        <tr class="table-info">
-          <th>
-            <% if (current_organization_id != (current_organization_id = picking.organization_id)) %>
-              <%= picking.organization.code %>
-            <% end %>
-          </th>
-          <td><%= document %></td>
-          <td><%= picking.date %></td>
-          <td><%= cer_code %></td>
-          <td class="number"><%= document.kgs %> <small>Kg.</small></td>
-          <td class="number bg-warning"><%= contract_hash ? contract_hash[cer_code.id].to_f : 0 %> &euro;</td>
-          <td class="number">
-            <%= document.kgs * (contract_hash ? contract_hash[cer_code.id].to_f : 0) %>&euro;
-          </td>
-        </tr>
+<div class="d-flex">
+  <div class="">
+    <form action="<%= reports_path %>" class="button-radio">  
+      <div class="my-2">Seleziona fornitore</div>
+      <% Supplier.order(:name).each do |supplier| %>  
+        <% checked = (supplier == @supplier) ? 'checked="checked"' : "" %>  
+        <div>
+          <input id="<%= dom_id(supplier) %>" type="radio" name="supplier_id" value="<%= supplier.id %>" <%= checked %>></input>
+          <label for="<%= dom_id(supplier)  %>" class="w-100"><%= supplier %></label>
+        </div>
       <% end %>
+      <div class="my-2">Seleziona mese</div>
+      <% (1..4).each do |i| %>
+        <% month = (Date.today - i.month).month %>  
+        <% checked = (month == @month) ? 'checked="checked"' : "" %>  
+        <div>
+          <input id="<%= i %>" type="radio" name="month" value="<%= month %>" <%= checked %>></input>
+          <label for="<%= i %>" class="w-100"><%= t Date::MONTHNAMES[month] %></label>
+        </div>
+      <% end %>
+      <div class="text-center my-2">
+        <input type="submit" value="mostra" class="d-block"></input>
+      </div>
+    </form>
+  </div>
+  <div class="flex-fill">
+    <% if @supplier %>  
+      <% contract_hash = @supplier.contracts.inject({}) {|res, c| res[c.cer_code_id] = c.price; res} %>  
     <% end %>
-  </tbody>
-</table>
+    <% current_organization_id = 0 %>
+
+    <table class="table table-sm ms-4">
+      <thead>
+        <tr>
+          <th>UL</th>
+          <th>FORMULARIO</th>
+          <th>DATA</th>
+          <th>CER</th>
+          <th class="number">TOTALE KG.</th>
+          <th class="number">&euro; / Kg.</th>
+          <th class="number">TOTALE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @pickings.each do |picking| %>
+          <% picking.picking_documents.each do |document| %>  
+            <% cer_code = document.disposal_type.cer_code %>  
+            <tr class="table-info">
+              <th>
+                <% if (current_organization_id != (current_organization_id = picking.organization_id)) %>
+                  <%= picking.organization.code %>
+                <% end %>
+              </th>
+              <td><%= document %></td>
+              <td><%= picking.date %></td>
+              <td><%= cer_code %></td>
+              <td class="number"><%= document.kgs %> <small>Kg.</small></td>
+              <td class="number bg-warning"><%= contract_hash ? contract_hash[cer_code.id].to_f : 0 %> &euro;</td>
+              <td class="number">
+                <%= document.kgs * (contract_hash ? contract_hash[cer_code.id].to_f : 0) %>&euro;
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
