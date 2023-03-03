@@ -6,15 +6,17 @@
 <% contract_hash = @supplier.contracts.inject({}) {|res, c| res[c.cer_code_id] = c.price; res} %>  
 <% current_organization_id = 0 %>
 
-<table class="table table-sm table-success ms-4">
+<table class="table table-sm ms-4">
   <thead>
-    <td>UL</td>
-    <td>FORMULARIO</td>
-    <td>DATA</td>
-    <td>CER</td>
-    <td class="number">TOTALE KG.</td>
-    <td class="number">&euro; / Kg.</td>
-    <td class="number">TOTALE</td>
+    <tr>
+      <th>UL</th>
+      <th>FORMULARIO</th>
+      <th>DATA</th>
+      <th>CER</th>
+      <th class="number">TOTALE KG.</th>
+      <th class="number">&euro; / Kg.</th>
+      <th class="number">TOTALE</th>
+    </tr>
   </thead>
   <tbody>
     <% @supplier.pickings.where("date > DATE_SUB(NOW(), INTERVAL 3 MONTH)")
@@ -23,7 +25,7 @@
       .order(:organization_id).each do |picking|  %>  
       <% picking.picking_documents.each do |document| %>  
         <% cer_code = document.disposal_type.cer_code %>  
-        <tr>
+        <tr class="table-info">
           <th>
             <% if (current_organization_id != (current_organization_id = picking.organization_id)) %>
               <%= picking.organization.code %>
