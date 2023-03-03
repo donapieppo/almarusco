@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ "building", "labs" ]
+  static targets = ["building", "labs"]
 
   connect() {
     console.log("disposal lab selector connected");
@@ -9,9 +9,9 @@ export default class extends Controller {
 
   change_building(e) {
     console.log(`change building -> ${e.target.value}`);
-    this.labsTarget.value = 0;
+    this.labsTarget.value = '';
     this.labsTarget.querySelectorAll("option").forEach( (o) => {
-      o.style.display = (o.dataset.buildingId == e.target.value) ? 'block' : 'none';
+      o.style.display = ((o.dataset.buildingId == e.target.value) || e.target.value == '') ? 'block' : 'none';
     });
   }
 }
