@@ -77,6 +77,7 @@ Rails.application.routes.draw do
     resources :legal_downloads, only: [:show, :edit, :update]
 
     resources :archives
+    resources :reports
 
     get 'mud', to: 'mud#show', as: :mud
     get 'deposit', to: 'deposits#index', as: :deposit
