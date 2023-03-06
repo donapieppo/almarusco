@@ -1,7 +1,8 @@
 class LegalRecordsController < ApplicationController
   def index
     authorize :legal_record
-    @legal_records = current_organization.legal_records.order('year desc, number desc')
+    @legal_records = current_organization.legal_records.includes(disposal_type: :cer_code).order("year desc, number desc")
+    @disposal_types = @legal_records.map { |lr| lr.disposal_type }.uniq
   end
 
   def todo

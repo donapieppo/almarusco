@@ -1,20 +1,32 @@
 <h1 class="title">Elenco registrazioni carico/scarico</h1>
 
-<ul class="list-group" data-controller="accordion">
-  <% @legal_records.each do |lr| %>  
-    <li class="list-group-item">
-      <button class="fw-bold w-100 d-block text-start" data-action="accordion#openContent" data-accordion-url-param="<%= lr.is_a?(LegalDownload) ? legal_download_path(lr) : legal_upload_path(lr) %>">
-        <% if (lr.is_a?(LegalDownload)) %>  
-          <i class="fa-solid fa-upload pe-1"></i> Scarico <%= lr %>
-        <% else %>
-          <i class="fa-solid fa-download pe-1"></i> Carico <%= lr %>
-        <% end %>
-      </button>
-      <div class="details" id="<%= dom_id lr %>">
-      </div>
-    </li>
-  <% end %>
-</ul>
+<div data-controller="limit-visible">
+  <form class="my-2 centered disposal_cer_selector" data-action="change->limit-visible#update">
+    <small class="text-muted">mostra solo CER</small>
+    <% @disposal_types.each do |dt| %>  
+      <input type="radio" id="<%= dt.id %>" name="disposal_to_show" value="<%= dt.id %>" />
+      <label for="<%= dt.id %>">
+        <%= dt.cer_code.name %>  
+      </label>
+    <% end %>
+  </form>
+
+  <ul class="list-group" data-controller="accordion">
+    <% @legal_records.each do |lr| %>  
+      <li class="list-group-item" data-limit-visible-target="item" data-text="<%= lr.disposal_type_id %>">
+        <button class="fw-bold w-100 d-block text-start" data-action="accordion#openContent" data-accordion-url-param="<%= lr.is_a?(LegalDownload) ? legal_download_path(lr) : legal_upload_path(lr) %>">
+          <% if (lr.is_a?(LegalDownload)) %>  
+            <i class="fa-solid fa-upload pe-1"></i> Scarico <%= lr %>
+          <% else %>
+            <i class="fa-solid fa-download pe-1"></i> Carico <%= lr %>
+          <% end %>
+        </button>
+        <div class="details" id="<%= dom_id lr %>">
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
 
 <div class="my-4">
   <%= link_to fwdmicon('stamp') + ' Mostra i rifiuti ancora da registrare', todo_legal_records_path, class: :button %>
