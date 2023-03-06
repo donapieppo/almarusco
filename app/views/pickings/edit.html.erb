@@ -10,47 +10,45 @@
     <div class="row">
       <div class="col-md-6">
         <%= f.input :date, as: :date, html5: true %>  
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <%= f.input :address, as: :string %>  
-      </div>
-      <div class="col-md-6 py-2 py-md-0">
-        <%= '<div class="small text-secondary">Puoi anche scegliere tra i seguenti indirizzi precedenti:</div>'.html_safe if @previous_address.any? %>  
-        <% @previous_address.each do |c| %>  
-          <a class='btn btn-outline-secondary btn-sm' data-action="click->picking#setAddress" data-picking-address-param="<%= c %>"><%= c %></a>
-        <% end %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <%= f.input :contact, as: :string, hint: 'Nome, cognome e telefono del contatto.' %>
-      </div>
-      <div class="col-md-6 py-2 py-md-0">
-        <%= '<div class="small text-secondary">Puoi anche scegliere tra i seguenti contatti precedenti:</div>'.html_safe if @previous_contacts.any? %>  
-        <% @previous_contacts.each do |c| %>  
-          <a class='btn btn-outline-secondary btn-sm' data-action="click->picking#setContact" data-picking-contact-param="<%= c %>"><%= c %></a>
-        <% end %>
-      </div>
-    </div>
-
-    <% if @can_change_disposals %>  
-      <% if @possible_disposals.empty? %>  
-        <p class="alert alert-warning">
-        Non sono disponibili rifiuti <strong>approvati</strong> per le tipologie di CER trattati dal fornitore <%= @picking.supplier %>.<br/>
-        Una volta aggiunti e approvati rifiuti al tuo deposito temporaneo con i CER che vedi nel box azzurro sotto potrai aggiungerli a questo ritiro.
-        </p>
-      <% else %>
-        <%= f.association :disposals, as: :check_boxes, label: "Seleziona i rifiuti", collection: @possible_disposals, label_method: disposal_label %>  
-        <div class="offset-sm-3 my-2" data-picking-target="all">
-          <input name="all" id="all" type="checkbox" data-action="click->picking#checkAll"/>
-          <label for="all">Seleziona tutti</label>
+        <% hint = @previous_address.any? ? "Puoi anche scegliere tra i seguenti indirizzi precedenti" : "" %>  
+        <%= f.input :address, as: :string, hint: hint %>  
+        <div class="offset-sm-3">
+          <ul>
+            <% @previous_address.each do |c| %>  
+              <li><a class="underline" style="cursor: pointer" data-action="click->picking#setAddress" data-picking-address-param="<%= c %>"><%= c %></a></li>
+            <% end %>
+          </ul>
         </div>
-      <% end %>
-      <%= f.submit 'Salva' %> - <%= link_to 'indietro', @picking %>    
-    <% end %>
+
+        <% hint = @previous_contacts.any? ? "Puoi anche scegliere tra i seguenti contatti precedenti" : "" %>
+        <%= f.input :contact, as: :string, hint: "Nome, cognome e telefono del contatto." + hint %>
+        <div class="offset-sm-3">
+          <ul>
+            <% @previous_contacts.each do |c| %>  
+              <li><a class='underline' style="cursor: pointer" data-action="click->picking#setContact" data-picking-contact-param="<%= c %>"><%= c %></a></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <% if @can_change_disposals %>  
+          <% if @possible_disposals.empty? %>  
+            <p class="alert alert-warning">
+            Non sono disponibili rifiuti <strong>approvati</strong> per le tipologie di CER trattati dal fornitore <%= @picking.supplier %>.<br/>
+            Una volta aggiunti e approvati rifiuti al tuo deposito temporaneo con i CER che vedi nel box azzurro sotto potrai aggiungerli a questo ritiro.
+            </p>
+          <% else %>
+            <%= f.association :disposals, as: :check_boxes, label: "Seleziona i rifiuti", collection: @possible_disposals, label_method: disposal_label %>  
+            <div class="offset-sm-3 my-2" data-picking-target="all">
+              <input name="all" id="all" type="checkbox" data-action="click->picking#checkAll"/>
+              <label for="all">Seleziona tutti</label>
+            </div>
+          <% end %>
+      </div>
+    </div>
+    <%= f.submit 'Salva' %> - <%= link_to 'indietro', @picking %>    
   <% end %>
+<% end %>
 </div>
 
 <% if ! @can_change_disposals %>  
