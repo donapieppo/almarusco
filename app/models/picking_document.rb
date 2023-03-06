@@ -26,4 +26,8 @@ class PickingDocument < ApplicationRecord
   def disposals
     self.picking.disposals.where(disposal_type: self.disposal_type)
   end
+
+  def disposals_kgs
+    disposals.sum(:kgs)
+  end
 end
