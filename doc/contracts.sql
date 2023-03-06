@@ -15,3 +15,5 @@ INSERT INTO contracts (`supplier_id`, `cer_code_id`)
     `supplier_id`,
     `cer_code_id`
   FROM cer_codes_suppliers;
+
+drop table cer_codes_suppliers;
