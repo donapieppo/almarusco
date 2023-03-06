@@ -1,0 +1,22 @@
+<form action="<%= reports_path %>" class="button-radio">  
+  <div class="my-2">Seleziona fornitore</div>
+  <% Supplier.order(:name).each do |supplier| %>  
+    <% checked = (supplier == @supplier) ? 'checked="checked"' : "" %>  
+    <div>
+      <input id="<%= dom_id(supplier) %>" type="radio" name="supplier_id" value="<%= supplier.id %>" <%= checked %>></input>
+      <label for="<%= dom_id(supplier)  %>" class="w-100"><%= supplier %></label>
+    </div>
+  <% end %>
+  <div class="my-2">Seleziona mese</div>
+  <% (1..4).each do |i| %>
+    <% month = (Date.today - i.month).month %>  
+    <% checked = (month == @month) ? 'checked="checked"' : "" %>  
+    <div>
+      <input id="<%= i %>" type="radio" name="month" value="<%= month %>" <%= checked %>></input>
+      <label for="<%= i %>" class="w-100"><%= t Date::MONTHNAMES[month] %></label>
+    </div>
+  <% end %>
+  <div class="text-center my-2">
+    <input type="submit" value="mostra" class="d-block"></input>
+  </div>
+</form>

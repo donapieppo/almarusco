@@ -10,29 +10,8 @@
 <% end %>
 
 <div class="d-flex">
-  <div class="">
-    <form action="<%= reports_path %>" class="button-radio">  
-      <div class="my-2">Seleziona fornitore</div>
-      <% Supplier.order(:name).each do |supplier| %>  
-        <% checked = (supplier == @supplier) ? 'checked="checked"' : "" %>  
-        <div>
-          <input id="<%= dom_id(supplier) %>" type="radio" name="supplier_id" value="<%= supplier.id %>" <%= checked %>></input>
-          <label for="<%= dom_id(supplier)  %>" class="w-100"><%= supplier %></label>
-        </div>
-      <% end %>
-      <div class="my-2">Seleziona mese</div>
-      <% (1..4).each do |i| %>
-        <% month = (Date.today - i.month).month %>  
-        <% checked = (month == @month) ? 'checked="checked"' : "" %>  
-        <div>
-          <input id="<%= i %>" type="radio" name="month" value="<%= month %>" <%= checked %>></input>
-          <label for="<%= i %>" class="w-100"><%= t Date::MONTHNAMES[month] %></label>
-        </div>
-      <% end %>
-      <div class="text-center my-2">
-        <input type="submit" value="mostra" class="d-block"></input>
-      </div>
-    </form>
+  <div class="pe-3">
+    <%= render partial: "selections" %>  
   </div>
   <div class="flex-fill">
     <% if @supplier %>  
@@ -40,14 +19,15 @@
     <% end %>
     <% current_organization_id = 0 %>
 
-    <table class="table table-sm ms-4">
+    <table class="table table-sm">
       <thead>
         <tr>
           <th>UL</th>
           <th>FORMULARIO</th>
           <th>DATA</th>
           <th>CER</th>
-          <th class="number">TOTALE KG.</th>
+          <th class="number">KG. <br/>in almarusco</th>
+          <th class="number">KG. <br/>in quarta copia</th>
           <th class="number">&euro; / Kg.</th>
           <th class="number">TOTALE</th>
         </tr>
@@ -56,24 +36,33 @@
         <% @pickings.each do |picking| %>
           <% picking.picking_documents.each do |document| %>  
             <% cer_code = document.disposal_type.cer_code %>  
+            <% price = contract_hash ? contract_hash[cer_code.id].to_f : 0 %>  
+            <% my_kgs = document.disposals_kgs %>  
+            <% missing_percernt = ((my_kgs - document.kgs).abs)/document.kgs %>  
             <tr class="table-info">
               <th>
                 <% if (current_organization_id != (current_organization_id = picking.organization_id)) %>
-                  <%= picking.organization.code %>
+                  <%= link_to picking.organization.code, picking.organization, data: { turbo_frame: :modal }, class: "underline" %>
                 <% end %>
               </th>
               <td><%= document %></td>
               <td><%= picking.date %></td>
               <td><%= cer_code %></td>
-              <td class="number"><%= document.kgs %> <small>Kg.</small></td>
-              <td class="number bg-warning"><%= contract_hash ? contract_hash[cer_code.id].to_f : 0 %> &euro;</td>
+              <td class="number"><%= my_kgs %> <small>Kg.</small></td>
+              <td class="number <%= "bg-danger text-white" if (missing_percernt > 0.05) %>"><%= document.kgs %> <small>Kg.</small></td>
+              <td class="number bg-warning"><%= price %> &euro;</td>
               <td class="number">
-                <%= document.kgs * (contract_hash ? contract_hash[cer_code.id].to_f : 0) %>&euro;
+                <%= document.kgs * price %> &euro;
               </td>
             </tr>
           <% end %>
         <% end %>
       </tbody>
     </table>
+
+    <div class="text-muted">
+      In <span class="text-danger">rosso</span> quando c'e' uno scarto superore al 
+      <strong>5%</strong> tra quanto registrato in almarusco e quanto registrato nella quarta copia.
+    </div>
   </div>
 </div>
