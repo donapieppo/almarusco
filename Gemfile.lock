@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/donapieppo/dm_unibo_common.git
-  revision: 1d483cc720cc7418afaff9f78248884ce5e9e295
+  revision: 58fa340262867e0f5f98b76ca3ea49cb5e7b02b2
   branch: turbo
   specs:
     dm_unibo_common (5.0.0)
@@ -117,7 +117,7 @@ GEM
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     chunky_png (1.4.0)
-    concurrent-ruby (1.2.0)
+    concurrent-ruby (1.2.2)
     crass (1.0.6)
     css_parser (1.14.0)
       addressable
@@ -215,7 +215,7 @@ GEM
     mime-types-data (3.2023.0218.1)
     mini_magick (4.12.0)
     mini_mime (1.1.2)
-    minitest (5.17.0)
+    minitest (5.18.0)
     multi_test (1.1.0)
     multi_xml (0.6.0)
     mysql2 (0.5.5)
@@ -271,7 +271,7 @@ GEM
     pundit (2.3.0)
       activesupport (>= 3.0.0)
     racc (1.6.2)
-    rack (2.2.6.2)
+    rack (2.2.6.3)
     rack-mini-profiler (2.3.4)
       rack (>= 1.2.0)
     rack-protection (3.0.5)
@@ -352,7 +352,7 @@ GEM
     thor (1.2.1)
     timeout (0.3.2)
     ttfunk (1.7.0)
-    turbo-rails (1.3.3)
+    turbo-rails (1.4.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
