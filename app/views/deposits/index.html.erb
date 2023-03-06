@@ -45,7 +45,7 @@
 
       <% if to_legalize_ids.any? %>  
         <div class='d-inline-block float-end'>
-          <%= link_to 'Registra carico', new_disposal_type_legal_upload_path(dt, disposal_ids: to_legalize_ids), class: :button %>  
+          <%= link_to 'Registra carico', new_disposal_type_legal_upload_path(dt, disposal_ids: to_legalize_ids), class: "ms-2 btn btn-primary btn-sm" %>  
         </div>
       <% end %>
 
