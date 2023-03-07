@@ -74,12 +74,13 @@ class Disposal < ApplicationRecord
   end
 
   # LEGALIZE. responsible writes the disposal on legal book
+  # FIXME because in the beginning no legal uplodad, we can have legalized_at not null and legal_record_id null :-(
   def legalized?
     legalized_at
   end
 
   def legalize!(legal_record)
-    self.approved? or raise DisposalHistoryError, "not approved yet"
+    self.approved? or raise DisposalHistoryError, "Disposal not approved yet."
     self.update(legalized_at: Time.now, legal_record_id: legal_record.id)
   end
 
@@ -124,6 +125,8 @@ class Disposal < ApplicationRecord
       'consegnato'
     elsif self.picking_id
       'ritiro prenotato'
+    elsif self.legal_record_id
+      'registrato'
     elsif self.approved?
       'accettato' 
     else
