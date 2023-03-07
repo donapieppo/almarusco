@@ -12,12 +12,12 @@
     <% dt = vol_and_kg[:dt] %>  
     <% values = vol_and_kg[:values] %>  
     <div class="card border-secondary mb-2">
-      <div class="card-header">
-        <strong><%= dt %></strong><br/>
-        <small class="text-secondary"><%= dt.cer_code.description %></small>
+      <div class="card-header <%= 'bg-success text-white' if values[:kgs] > 0 %>">
+        <strong><%= dt %></strong>
+        <small class="text-secondary ps-2"><%= dt.cer_code.description %></small>
       </div>
 
-      <div class="card-body">
+      <div class="card-body py-2">
         <div>
           <span class="pe-2">
             <%= f.number_field "dt[#{dt.id.to_s}][kgs]", value: values[:kgs].ceil, size: 1, type: 'number', style: 'width: 6rem',  class: 'd-inline form-control numeric me-1' %>
