@@ -44,7 +44,7 @@
                     <%= link_to picking.organization.code, picking.organization, data: { turbo_frame: :modal }, class: "underline" %>
                   <% end %>
                 </th>
-                <td><%= document %></td>
+                <td class="<%= "bg-secondary text-white" unless picking.completed? %>"><%= document %></td>
                 <td><%= picking.date %></td>
                 <td><%= cer_code %></td>
                 <td class="number"><%= my_kgs %> <small>Kg.</small></td>
@@ -60,8 +60,13 @@
       </table>
 
       <div class="text-muted">
+        <p>
         In <span class="text-danger">rosso</span> quando c'e' uno scarto superore al 
         <strong>5%</strong> tra quanto registrato in almarusco e quanto registrato nella quarta copia.
+        </p>
+        <p>
+        In <span class="text-secondary">grigio</span> quando il ritiro non non è concluso.
+        </p>
       </div>
     <% end %>
   </div>
