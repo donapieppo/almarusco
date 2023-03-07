@@ -1,25 +1,30 @@
-<h1>Documento di trasporto</h1>
+<div class="dm-card">
+  <div class="dm-card-title">Documento di trasporto</div>
+  <div class="dm-card-body">
 
-<% legal_download = @picking_document.legal_download %>  
+    <% legal_download = @picking_document.legal_download %>  
 
-<div class="alert alert-info">
-  <div class="fw-bold my-2"><%= link_to @picking_document.picking, @picking_document.picking, class: 'underline' %></div>
-  <div>Tipologia: <%= @picking_document.disposal_type %></div>
-  <div>Formulario: <%= @picking_document.serial_number %></div>
-  <div>Peso: <%= @picking_document.kgs %> Kg.</div>
-  <div>Volume: <%= @picking_document.volume.to_i %> L.</div>
-  <div>Registro: <%= link_to(legal_download, legal_download) if legal_download %></div>
+    <div class="alert alert-info">
+      <div class="fw-bold my-2"><%= link_to @picking_document.picking, @picking_document.picking, class: 'underline' %></div>
+      <div>Tipologia: <%= @picking_document.disposal_type %></div>
+      <div>Formulario: <%= @picking_document.serial_number %></div>
+      <div>Peso: <%= @picking_document.kgs %> Kg.</div>
+      <div>Volume: <%= @picking_document.volume.to_i %> L.</div>
+      <div>Registro: <%= link_to(legal_download, legal_download) if legal_download %></div>
+    </div>
+
+    <h2 class="my-4">Elenco rifiuti</h2>
+
+    <div class="ps-4">
+      <% @picking_document.disposals.each do |disposal| %>  
+        <%= render Disposal::BadgeComponent.new(current_user, disposal) %>
+      <% end %>
+    </div>
+
+    <% if policy(@picking_document).edit? %>  
+      <div class="text-center">
+        <%= link_to 'Modifica', [:edit, @picking_document], class: 'button my-4 mx-auto' %>
+      </div>
+    <% end %>
+  </div>
 </div>
-
-<h2 class="my-4">Elenco rifiuti</h2>
-
-<div class="ps-4">
-  <% @picking_document.disposals.each do |disposal| %>  
-    <%= render Disposal::BadgeComponent.new(current_user, disposal) %>
-  <% end %>
-</div>
-
-<% if policy(@picking_document).edit? %>  
-  <%= link_to 'Modifica', [:edit, @picking_document], class: 'button my-4' %>
-<% end %>
-
