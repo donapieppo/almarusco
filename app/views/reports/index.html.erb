@@ -5,7 +5,7 @@
 
 <% if @month %>  
   <h2>
-  <%= t Date::MONTHNAMES[@month] %>  
+    <%= t Date::MONTHNAMES[@month] %>  
   </h2>
 <% end %>
 
@@ -16,53 +16,53 @@
   <div class="flex-fill">
     <% if @supplier %>  
       <% contract_hash = @supplier.contracts.inject({}) {|res, c| res[c.cer_code_id] = c.price; res} %>  
-    <% end %>
-    <% current_organization_id = 0 %>
+      <% current_organization_id = 0 %>
 
-    <table class="table table-sm">
-      <thead>
-        <tr>
-          <th>UL</th>
-          <th>FORMULARIO</th>
-          <th>DATA</th>
-          <th>CER</th>
-          <th class="number">Kg.</th>
-          <th class="number">Kg. 4&deg; copia</th>
-          <th class="number">&euro; / Kg.</th>
-          <th class="number">TOTALE</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @pickings.each do |picking| %>
-          <% picking.picking_documents.each do |document| %>  
-            <% cer_code = document.disposal_type.cer_code %>  
-            <% price = contract_hash ? contract_hash[cer_code.id].to_f : 0 %>  
-            <% my_kgs = document.disposals_kgs %>  
-            <% missing_percernt = ((my_kgs - document.kgs).abs)/document.kgs %>  
-            <tr class="table-info">
-              <th>
-                <% if (current_organization_id != (current_organization_id = picking.organization_id)) %>
-                  <%= link_to picking.organization.code, picking.organization, data: { turbo_frame: :modal }, class: "underline" %>
-                <% end %>
-              </th>
-              <td><%= document %></td>
-              <td><%= picking.date %></td>
-              <td><%= cer_code %></td>
-              <td class="number"><%= my_kgs %> <small>Kg.</small></td>
-              <td class="number <%= "bg-danger text-white" if (missing_percernt > 0.05) %>"><%= document.kgs %> <small>Kg.</small></td>
-              <td class="number bg-warning"><%= price %> &euro;</td>
-              <td class="number">
-                <%= document.kgs * price %> &euro;
-              </td>
-            </tr>
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th>UL</th>
+            <th>FORMULARIO</th>
+            <th>DATA</th>
+            <th>CER</th>
+            <th class="number">Kg.</th>
+            <th class="number">Kg. 4&deg; copia</th>
+            <th class="number">&euro; / Kg.</th>
+            <th class="number">TOTALE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @pickings.each do |picking| %>
+            <% picking.picking_documents.each do |document| %>  
+              <% cer_code = document.disposal_type.cer_code %>  
+              <% price = contract_hash ? contract_hash[cer_code.id].to_f : 0 %>  
+              <% my_kgs = document.disposals_kgs %>  
+              <% missing_percernt = ((my_kgs - document.kgs).abs)/document.kgs %>  
+              <tr class="table-info">
+                <th>
+                  <% if (current_organization_id != (current_organization_id = picking.organization_id)) %>
+                    <%= link_to picking.organization.code, picking.organization, data: { turbo_frame: :modal }, class: "underline" %>
+                  <% end %>
+                </th>
+                <td><%= document %></td>
+                <td><%= picking.date %></td>
+                <td><%= cer_code %></td>
+                <td class="number"><%= my_kgs %> <small>Kg.</small></td>
+                <td class="number <%= "bg-danger text-white" if (missing_percernt > 0.05) %>"><%= document.kgs %> <small>Kg.</small></td>
+                <td class="number bg-warning"><%= price %> &euro;</td>
+                <td class="number">
+                  <%= document.kgs * price %> &euro;
+                </td>
+              </tr>
+            <% end %>
           <% end %>
-        <% end %>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
 
-    <div class="text-muted">
-      In <span class="text-danger">rosso</span> quando c'e' uno scarto superore al 
-      <strong>5%</strong> tra quanto registrato in almarusco e quanto registrato nella quarta copia.
-    </div>
+      <div class="text-muted">
+        In <span class="text-danger">rosso</span> quando c'e' uno scarto superore al 
+        <strong>5%</strong> tra quanto registrato in almarusco e quanto registrato nella quarta copia.
+      </div>
+    <% end %>
   </div>
 </div>
