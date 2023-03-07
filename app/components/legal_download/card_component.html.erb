@@ -21,12 +21,12 @@
   </div>
 
   <% if @policy.edit? %>  
-    <div class="pb-2 ps-4">
+    <div class="my-2 text-center">
       <%= link_to 'Modifica', [:edit, @legal_download], class: :button %>  
     </div>
   <% else %>
     <div class="pb-2 ps-4 text-warning">
-      Documento non modificabile
+      Documento non modificabile.
     </div>
   <% end %>
 </div>
