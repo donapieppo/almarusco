@@ -17,7 +17,9 @@
   <div class="flex-fill">
     <% if @supplier %>  
       <% contract_hash = @supplier.contracts.inject({}) {|res, c| res[c.cer_code_id] = c.price; res} %>  
+
       <% current_organization_id = 0 %>
+      <% ul_sum = Hash.new{|h, k| h[k] = 0.0} %>  
 
       <table class="table table-sm">
         <thead>
@@ -52,13 +54,20 @@
                 <td class="number <%= "bg-danger text-white" if (missing_percernt > percentage) %>"><%= document.kgs %> <small>Kg.</small></td>
                 <td class="number bg-warning"><%= "%.2f" % price %> &euro;</td>
                 <td class="number">
-                  <%= document.kgs * price %> &euro;
+                  <%= tot = document.kgs * price %> &euro;
+                  <% ul_sum[picking.organization] += tot %>  
                 </td>
               </tr>
             <% end %>
           <% end %>
         </tbody>
       </table>
+
+      <ul>
+        <% ul_sum.each do |o, p| %>  
+          <li>Totale <%= o.code %>: <strong><%= p %> &euro;</strong></li>
+        <% end %>
+      </ul>
 
       <div class="text-muted">
         <p>
