@@ -1,8 +1,9 @@
+<% percentage = 0.1 %>
+
 <h1>
   Report<br/>
   <small><%= @supplier %></small>
 </h1>
-
 <% if @month %>  
   <h2>
     <%= t Date::MONTHNAMES[@month] %>  
@@ -35,7 +36,7 @@
           <% @pickings.each do |picking| %>
             <% picking.picking_documents.each do |document| %>  
               <% cer_code = document.disposal_type.cer_code %>  
-              <% price = contract_hash ? contract_hash[cer_code.id].to_f : 0 %>  
+              <% price = contract_hash ? contract_hash[cer_code.id] : 0 %>  
               <% my_kgs = document.disposals_kgs %>  
               <% missing_percernt = ((my_kgs - document.kgs).abs)/document.kgs %>  
               <tr class="table-info">
@@ -48,8 +49,8 @@
                 <td><%= picking.date %></td>
                 <td><%= cer_code %></td>
                 <td class="number"><%= my_kgs %> <small>Kg.</small></td>
-                <td class="number <%= "bg-danger text-white" if (missing_percernt > 0.05) %>"><%= document.kgs %> <small>Kg.</small></td>
-                <td class="number bg-warning"><%= price %> &euro;</td>
+                <td class="number <%= "bg-danger text-white" if (missing_percernt > percentage) %>"><%= document.kgs %> <small>Kg.</small></td>
+                <td class="number bg-warning"><%= "%.2f" % price %> &euro;</td>
                 <td class="number">
                   <%= document.kgs * price %> &euro;
                 </td>
@@ -62,7 +63,7 @@
       <div class="text-muted">
         <p>
         In <span class="text-danger">rosso</span> quando c'e' uno scarto superore al 
-        <strong>5%</strong> tra quanto registrato in almarusco e quanto registrato nella quarta copia.
+        <strong><%= percentage * 100 %>%</strong> tra quanto registrato in almarusco e quanto registrato nella quarta copia.
         </p>
         <p>
         In <span class="text-secondary">grigio</span> quando il ritiro non non è concluso.
