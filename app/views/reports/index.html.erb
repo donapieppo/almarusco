@@ -22,7 +22,7 @@
             <th>UL</th>
             <th>FORMULARIO</th>
             <th>DATA</th>
-            <th>CER</th>
+            <th colspan="2">CER</th>
             <th class="number">Kg.</th>
             <th class="number">Kg. 4&deg; copia</th>
             <th class="number">&euro; / Kg.</th>
@@ -45,6 +45,7 @@
                 <td class="<%= "bg-secondary text-white" unless picking.completed? %>"><%= document %></td>
                 <td><%= picking.date %></td>
                 <td><%= cer_code %></td>
+                <td class="number"><%= document.disposal_type.physical_state %></td>
                 <td class="number"><%= my_kgs %> <small>Kg.</small></td>
                 <td class="number <%= "bg-danger text-white" if (missing_percernt > percentage) %>"><%= document.kgs %> <small>Kg.</small></td>
                 <td class="number bg-warning"><%= "%.2f" % price %> &euro;</td>
