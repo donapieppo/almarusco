@@ -42,7 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   create_table "contracts", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.integer "supplier_id", null: false, unsigned: true
     t.integer "cer_code_id", null: false, unsigned: true
-    t.integer "price", unsigned: true
+    t.decimal "price", precision: 6, scale: 2, default: "0.0", unsigned: true
     t.date "start_date"
     t.date "end_date"
     t.index ["cer_code_id"], name: "cer_code_id"
