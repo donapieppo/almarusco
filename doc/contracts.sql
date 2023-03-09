@@ -2,7 +2,7 @@ create table contracts (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `supplier_id` int(10) unsigned NOT NULL,
   `cer_code_id` int(10) unsigned NOT NULL,
-  `price` int(5) unsigned,
+  `price` decimal(6,2) unsigned default 0,
   `start_date` date,
   `end_date` date,
   PRIMARY KEY (`id`),
