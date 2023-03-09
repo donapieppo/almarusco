@@ -4,7 +4,7 @@
       <li class="d-flex flex-row">
         <div class="flex-grow-1">
           <strong title="<%= contract.cer_code.description %>">CER <%= contract.cer_code.name %></strong>
-          prezzo <%= contract.price%>&euro; <small>/ kg.</small>
+          prezzo <%= contract.price_to_s %><small> / kg.</small>
         </div>
         <div class="text-right">
           <%= helpers.link_to_delete contract_path(contract) %>
