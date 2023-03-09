@@ -1,6 +1,7 @@
 require "csv"
 
 def update_contract(supplier, code, price)
+  puts "update_contract #{supplier.name}, #{code} #{price}"
   cer_code = CerCode.where(name: code.to_s).first
   raise "No #{supplier} #{code}" if !cer_code
   if (contract = cer_code.contracts.where(supplier_id: supplier.id).first)
@@ -15,7 +16,7 @@ end
 namespace :almarusco do
   desc "Import contract"
   task import_contract: :environment do
-    p = [
+    priority = [
       [180102, 2.0],
       [180103, 1.0],
       [180104, 2.0],
@@ -31,8 +32,8 @@ namespace :almarusco do
     ]
 
     supplier = Supplier.find(1)
-    p.each do |price|
-      update_contract(supplier, price[0], price[1])
+    priority.each do |contract|
+      update_contract(supplier, contract[0], contract[1])
     end
 
     supplier = Supplier.find(4)
