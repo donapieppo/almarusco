@@ -4,14 +4,9 @@
   Report<br/>
   <small><%= @supplier %></small>
 </h1>
-<% if @month %>  
-  <h2>
-    <%= t Date::MONTHNAMES[@month] %>  
-  </h2>
-<% end %>
 
 <div class="d-flex">
-  <div class="pe-3">
+  <div class="pe-3" style="width: 250px">
     <%= render partial: "selections" %>  
   </div>
   <div class="flex-fill">
@@ -63,7 +58,7 @@
         </tbody>
       </table>
 
-      <ul>
+      <ul class="text-end alert alert-secondary">
         <% ul_sum.each do |o, p| %>  
           <li>Totale <%= o.code %>: <strong><%= p %> &euro;</strong></li>
         <% end %>
