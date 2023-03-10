@@ -6,7 +6,7 @@ class DisposalsController < ApplicationController
   before_action :set_cache_users, only: %i[ new clone edit ]
   before_action :set_disposal_and_check_permission, only: %i[ show edit update destroy approve unapprove ]
 
-  # solo rifiuti prima della registrazione 
+  # solo rifiuti prima della registrazione
   def index
     authorize :disposal
     @highlight_id = params[:h].to_i
@@ -74,6 +74,7 @@ class DisposalsController < ApplicationController
     authorize @disposal
 
     if @disposal.producer_id && @disposal.save
+      Rails.logger.info("Disposal #{@disposal.inspect} created by #{current_user.upn}")
       redirect_to disposals_path(h: @disposal.id, anchor: @disposal.id), notice: "Salvata la richiesta di scarico con identificativo #{@disposal.id}. Consigliamo di scrivere il numero identificativo sul collo."
     else
       Rails.logger.info(@disposal.errors.inspect)
