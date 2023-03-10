@@ -9,9 +9,14 @@
   Non sono al momento programmati ritiri per al tua UL.
   </p>
 <% else %>
-  <div class="list-group">
+  <div class="list-group" data-controller="limit-visible">
+    <form class="my-2">
+      <input class="form-control text" placeholder="Scrivi parte del numero seriale del documento" type="text" data-action="input->limit-visible#update"></input>
+    </form>
     <% @pickings.each do |picking| %>  
-      <%= render Picking::LineComponent.new(picking) %>  
+      <div data-limit-visible-target="item" data-text="<%= picking.picking_documents.map(&:serial_number).join(" ") %>">
+        <%= render Picking::LineComponent.new(picking) %>  
+      </div>
     <% end %>
   </div>
 <% end %>
