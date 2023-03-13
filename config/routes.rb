@@ -64,7 +64,6 @@ Rails.application.routes.draw do
       post :print_request, on: :member
       put :deliver, on: :member
       put :complete, on: :member
-      get :nuter, on: :member
     end
 
     resources :picking_documents, only: [:show, :edit, :update] do

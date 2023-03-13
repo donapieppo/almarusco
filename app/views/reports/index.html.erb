@@ -43,7 +43,7 @@
                   <% end %>
                 </th>
                 <td class="<%= "bg-secondary text-white" unless picking.completed? %>">
-                  <%= link_to document, [:nuter, picking], class: "underline" %>
+                  <%= link_to document, picking, class: "underline" %>
                 </td>
                 <td><%= picking.date %></td>
                 <td><%= cer_code %></td>
