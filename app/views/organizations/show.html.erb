@@ -12,12 +12,14 @@
       <% end %>
 
       <h2 class="my-2">Permessi</h2>
-      <% @organization.permissions.includes(:user).order(authlevel: :desc).order('users.surname').each do |p| %>  
+      <% @organization.permissions.includes(:user).where("authlevel >= 30").order(authlevel: :desc).order('users.surname').each do |p| %>  
         <div class="<%= policy_authlevel_color(p) %>">
           <%= p.user %> 
-          <small>
-            (<%= p.authlevel_string.upcase %>) (<%= l p.created_at, format: :date_html5 %>)
-          </small>
+          <% if p.authlevel > 30 %>  
+            <small>
+              (<%= p.authlevel_string.upcase %>) (<%= l p.created_at, format: :date_html5 %>)
+            </small>
+          <% end %>
         </div>
       <% end %>
 
