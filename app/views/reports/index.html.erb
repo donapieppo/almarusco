@@ -42,7 +42,9 @@
                     <%= link_to picking.organization.code, picking.organization, data: { turbo_frame: :modal }, class: "underline" %>
                   <% end %>
                 </th>
-                <td class="<%= "bg-secondary text-white" unless picking.completed? %>"><%= document %></td>
+                <td class="<%= "bg-secondary text-white" unless picking.completed? %>">
+                  <%= link_to document, [:nuter, picking], class: "underline" %>
+                </td>
                 <td><%= picking.date %></td>
                 <td><%= cer_code %></td>
                 <td class="number"><%= document.disposal_type.physical_state %></td>
@@ -61,7 +63,7 @@
 
       <ul class="text-end alert alert-secondary">
         <% ul_sum.each do |o, p| %>  
-          <li>Totale <%= o.code %>: <strong><%= p %> &euro;</strong></li>
+          <li>Totale <%= o.code %>: <%= p %> + Iva = <strong><%= (p * 1.22).round(2) %> &euro;</strong></li>
         <% end %>
       </ul>
 
