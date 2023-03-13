@@ -1,7 +1,7 @@
 <%= dm_form_for @lab do |f| %>  
   <%= f.input :name %>  
   <% if @buildings.size > 1 %>  
-    <%= f.association :building, collection: @buildings, include_blank: false %>  
+    <%= f.association :building, collection: @buildings, label_method: lambda {|b| b.to_s_complete}, include_blank: false %>  
   <% end %>
   <%= f.submit %> - <%= link_to_back labs_path %>    
 <% end %>
