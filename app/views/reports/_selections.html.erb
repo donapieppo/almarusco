@@ -1,10 +1,15 @@
+<%# <%= simple_form_for :report do |f| %1> %>  
+<%#   <%= f.input :supplier, collection: Supplier.order(:name), label: "Seleziona fornitore" %1> %>  
+<%#   <%= f.input :month, collection: [1,2,3,4], label_method: lambda {|i| I18n.t(Date::MONTHNAMES[i])},  label: "Seleziona mese" %1> %>  
+<%# <% end %1> %>
+
 <form action="<%= reports_path %>" class="button-radio">  
   <div class="my-2">Seleziona fornitore</div>
   <% Supplier.order(:name).each do |supplier| %>  
     <% checked = (supplier == @supplier) ? 'checked="checked"' : "" %>  
     <div>
       <input id="<%= dom_id(supplier) %>" type="radio" name="supplier_id" value="<%= supplier.id %>" <%= checked %>></input>
-      <label for="<%= dom_id(supplier)  %>" class="w-100"><%= supplier %></label>
+      <label for="<%= dom_id(supplier) %>" class="w-100"><%= supplier %></label>
     </div>
   <% end %>
   <div class="my-2">Seleziona mese</div>
@@ -20,3 +25,4 @@
     <input type="submit" value="mostra" class="d-block"></input>
   </div>
 </form>
+
