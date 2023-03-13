@@ -4,8 +4,8 @@
       <div class="col-md-6">
         <dl>
           <dt>Utenti</dt>
-          <% @lab.disposals.joins(:producer).group(:producer_id).each do |d| %>  
-            <dd><%= d.producer.upn %></dd>
+          <% @lab.disposals.joins(:producer).order("users.upn").group(:producer_id).each do |d| %>  
+            <dd class="my-0 py-0"><%= d.producer.upn %></dd>
           <% end %>
         </dl>
       </div>
@@ -13,7 +13,7 @@
         <dl>
           <dt>CER</dt>
           <% @lab.disposals.joins(:disposal_type).group(:disposal_type_id).each do |d| %>  
-            <dd><%= d.disposal_type %></dd>
+            <dd class="my-0 py-0"><%= d.disposal_type %></dd>
           <% end %>
         </dl>
       </div>
