@@ -38,12 +38,13 @@
               <% missing_percernt = ((my_kgs - document.kgs).abs)/document.kgs %>  
               <tr class="table-info">
                 <th>
-                  <% if (current_organization_id != (current_organization_id = picking.organization_id)) %>
+                  <% if current_organization_id != (current_organization_id = picking.organization_id) %>
                     <%= link_to picking.organization.code, picking.organization, data: { turbo_frame: :modal }, class: "underline" %>
                   <% end %>
                 </th>
                 <td class="<%= "bg-secondary text-white" unless picking.completed? %>">
-                  <%= link_to document, picking, class: "underline" %>
+                  <%# <%= link_to document, picking, class: "underline" %1> %>
+                  <%= document %>
                 </td>
                 <td><%= picking.date %></td>
                 <td><%= cer_code %></td>
