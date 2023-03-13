@@ -38,6 +38,7 @@ class LabsController < ApplicationController
     if @lab.update(lab_params)
       redirect_to labs_path, notice: "Il nome del laboratorio è stato modificato."
     else
+      @buildings = current_organization.buildings.to_a
       render action: :edit, status: :unprocessable_entity
     end
   end
