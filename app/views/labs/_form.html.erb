@@ -3,5 +3,5 @@
   <% if @buildings.size > 1 %>  
     <%= f.association :building, collection: @buildings, include_blank: false %>  
   <% end %>
-  <%= f.submit %>  
+  <%= f.submit %> - <%= link_to_back labs_path %>    
 <% end %>

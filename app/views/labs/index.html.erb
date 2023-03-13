@@ -22,13 +22,19 @@
       <div class="my-2 fw-bold"><%= building %></div>
       <div class="list-group my-4">
         <% @labs[building].each do |lab| %>  
-          <% used = @used_labs_ids[lab.id] %>  
-          <%= link_to [:edit, lab], class: 'list-group-item list-group-item-action' do %>
-            <%= lab %>
-            <% if n = @used_labs_ids[lab.id] %>  
-              <span class="float-end badge bg-secondary"><%= n %> rifiuti</span>
-            <% end %>
-          <% end %>
+          <div class="list-group-item">
+            <%= link_to lab, lab, data: { turbo_frame: :modal } %>
+            <span class="float-end">
+              <% if n = @used_labs_ids[lab.id] %>  
+                <span class="badge bg-info">
+                  <%= link_to lab, data: { turbo_frame: :modal } do %>
+                    <%= n %> rifiuti
+                  <% end %>
+                </span>
+              <% end %>
+              <%= link_to_edit [:edit, lab] %>
+            </span>
+          </div>
         <% end %>
       </div>
     </div>
