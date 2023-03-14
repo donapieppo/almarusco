@@ -1,6 +1,6 @@
 <%= dm_form_for [@picking_document, @legal_download], title: "Tipologia rifiuti: #{@disposal_type}" do |f| %>
   <% if @legal_download.new_record? %>  
-    <div class="alert alert-info pt-2">
+    <div class="offset-sm-3 alert alert-info pt-2">
       Ultima registrazione: 
       <% year = Date.today.year %>  
       <%= year %> / <span style="font-weight: bold; font-size: 140%"><%= current_organization.legal_records.where(year: year).maximum(:number) %></span>
