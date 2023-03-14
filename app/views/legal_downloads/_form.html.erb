@@ -1,19 +1,14 @@
-<div class="my-4 alert alert-info">
-  <div>
-    Tipologia rifiuti: <strong><%= @disposal_type %></strong>
-  </div>
+<%= dm_form_for [@picking_document, @legal_download], title: "Tipologia rifiuti: #{@disposal_type}" do |f| %>
   <% if @legal_download.new_record? %>  
-    <div class="pt-2">
+    <div class="alert alert-info pt-2">
       Ultima registrazione: 
       <% year = Date.today.year %>  
       <%= year %> / <span style="font-weight: bold; font-size: 140%"><%= current_organization.legal_records.where(year: year).maximum(:number) %></span>
     </div>
   <% end %>
-</div>
-
-<%= simple_form_for [@picking_document, @legal_download] do |f| %>
   <%= f.input :number %>
   <%= f.input :date, as: :date, html5: true %>  
   <%= f.submit "Salva" %>  
 <% end %>
 
+<%= render PickingDocument::DisposalsCardComponent.new(current_user, @legal_download.picking_document) %>
