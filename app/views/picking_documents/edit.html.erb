@@ -1,17 +1,5 @@
-<h1>Documento (formulario)</h1>
+<h1>Formulario</h1>
 
 <%= render partial: 'form' %>  
 
-<div class="dm-card">
-  <div class="dm-card-title">Rifiuti associati</div>
-  <div class="dm-card-body">
-
-    <% @picking_document.disposals.each do |disposal| %>  
-      <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
-    <% end %>
-
-    <div class="my-2">
-      <%= render Disposal::GroupDetailsComponent.new(@picking_document.disposals) %>  
-    </div>
-  </div>
-</div>
+<%= render PickingDocument::DisposalsCardComponent.new(current_user, @picking_document) %>
