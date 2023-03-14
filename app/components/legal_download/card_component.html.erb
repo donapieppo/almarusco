@@ -15,7 +15,13 @@
       Formulario: <%= @picking_document %>  
     </div>
 
-    <div class="my-2">
+    <div class="my-3">
+      <% @picking_document.disposals.each do |disposal| %>  
+        <%= render Disposal::BadgeComponent.new(@current_user, disposal) %>  
+      <% end %>
+    </div>
+    <hr/>
+    <div>
       <%= render Disposal::GroupDetailsComponent.new(@picking_document.disposals) %>  
     </div>
   </div>
