@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     end
     resources :disposal_types do
       resources :disposals, only: [:new, :create]
-      resources :legal_uploads, only: [:new, :create]
+      resources :legal_uploads, only: [:new, :create, :edit, :update]
     end
 
     resources :suppliers do

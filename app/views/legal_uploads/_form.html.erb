@@ -1,0 +1,42 @@
+<%= dm_form_for [@disposal_type, @legal_upload], title: @legal_upload.disposal_type, data: { turbo: false } do |f| %>
+  <% if @legal_upload.new_record? %>  
+    <div class="offset-sm-3 alert alert-info pt-2">
+      Ultima registrazione: 
+      <% year = Date.today.year %>  
+      <%= year %> / <span style="font-weight: bold; font-size: 140%"><%= current_organization.legal_records.where(year: year).maximum(:number) %></span>
+    </div>
+  <% end %>
+  <%= f.input :number %>
+  <%= f.input :date, as: :date, html5: true %>  
+  <% if @legal_upload.new_record? %>  
+    <% @disposal_ids.each do |id| %>  
+      <input type="hidden" name="disposal_ids[]" value="<%= id %>"/>
+    <% end %>
+  <% end %>
+  <%= f.submit "Salva" %>  
+<% end %>
+
+<% tot_volume = 0 %>  
+<% tot_kgs = 0.0 %>  
+
+<%# On new rocord disposals passed as params %>
+<% unless @legal_upload.new_record? %>  
+  <% @disposals = @legal_upload.disposals %>  
+<% end %>
+
+<div class="dm-card">
+  <div class="dm-card-header">
+    Elenco rifiuti
+  </div>
+  <div class="dm-card-body">
+    <% @disposals.each do |disposal| %>
+      <% tot_kgs += disposal.kgs %>  
+      <% tot_volume += disposal.volume_tot %>  
+      <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
+    <% end %>
+  </div>
+  <div class="dm-card-footer">
+    volume = <%= tot_volume %> L. <br/>
+    peso = <%= tot_kgs.round(2) %> Kg. 
+  </div>
+</div>
