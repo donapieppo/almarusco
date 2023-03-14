@@ -11,7 +11,7 @@
     <% @permissions_hash.each do |authlevel, permissions| %>
       <dt><%= Authorization.level_description(authlevel).upcase %></dt>
       <dd>
-      <%= permissions.map{|p| p.user.to_s}.join(', ') %>
+      <%= permissions.map{|p| p.user.cn_militar}.sort.uniq.join(' - ') %>
       </dd>
     <% end %>
     <% if current_user.is_cesia? %>  
