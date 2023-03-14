@@ -5,10 +5,10 @@ class SupplierPolicy < ApplicationPolicy
 
   # administrator in some organization
   def create?
-    current_organization_manager?
+    @user.nuter?
   end
 
   def update?
-    create?
+    @user.nuter?
   end
 end
