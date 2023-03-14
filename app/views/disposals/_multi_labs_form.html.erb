@@ -25,6 +25,13 @@
           </option>
         <% end %>
       </select>
+      <% if @disposal.errors.include?(:lab)%>  
+        <div class="invalid-feedback d-block">
+          <% @disposal.errors[:lab].each do |e| %>
+            <div><%= e %></div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
