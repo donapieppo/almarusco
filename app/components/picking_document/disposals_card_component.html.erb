@@ -1,0 +1,13 @@
+<div class="dm-card">
+  <div class="dm-card-title">
+    Elenco rifiuti associati a <%= @picking_document %>  
+  </div>
+  <div class="dm-card-body">
+    <% @disposals.each do |disposal| %>  
+      <%= render Disposal::BadgeComponent.new(@current_user, disposal) %>
+    <% end %>
+    <div class="my-2">
+      <%= render Disposal::GroupDetailsComponent.new(@disposals) %>  
+    </div>
+  </div>
+</div>
