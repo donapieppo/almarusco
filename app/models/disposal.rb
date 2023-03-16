@@ -57,6 +57,10 @@ class Disposal < ApplicationRecord
     self.disposal_type.solid?
   end
 
+  def danger?
+    disposal_type.cer_code.danger
+  end
+
   # STATUS
   # APPROVE. first action from responsible
   def approved?
@@ -76,7 +80,7 @@ class Disposal < ApplicationRecord
   # LEGALIZE. responsible writes the disposal on legal book
   # FIXME because in the beginning no legal uplodad, we can have legalized_at not null and legal_record_id null :-(
   def legalized?
-    legalized_at
+    legalized_at || !danger?
   end
 
   def legalize!(legal_record)
