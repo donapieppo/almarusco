@@ -4,8 +4,7 @@ class LegalUploadsController < LegalRecordsController
   before_action :set_legal_upload_and_disposal_type_and_check_permission, only: [:edit, :update]
 
   def new
-    @legal_upload = current_organization.legal_uploads.new(disposal_type: @disposal_type, 
-                                                           date: Date.today)
+    @legal_upload = current_organization.legal_uploads.new(disposal_type: @disposal_type, date: Date.today)
     authorize @legal_upload
   end
 
