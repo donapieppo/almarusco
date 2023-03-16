@@ -9,4 +9,8 @@ class CerCode < ApplicationRecord
   def to_s
     "CER " + self.name + (self.danger ? "*" : "")
   end
+
+  def danger?
+    self.danger
+  end
 end
