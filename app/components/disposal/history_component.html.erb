@@ -3,7 +3,9 @@
   <%= t :approved_at %> <%= l @disposal.approved_at %> <br/>
 <% end %>
 <% if @disposal.legalized? %>  
-  <%= t :legalized_at %> <%= l @disposal.legalized_at %> 
+  <% if @disposal.legalized_at %>  
+    <%= t :legalized_at %> <%= l @disposal.legalized_at %>  
+  <% end %>
   <% if @disposal.legal_upload %>  
     con numero <%= link_to @disposal.legal_upload, @disposal.legal_upload, class: 'text-decoration-underline' %>
 <% else %>  

@@ -45,11 +45,7 @@
     </div> <!-- row -->
     <% if @with_details %>  
       <div class="details p-2 small text-info">
-        <% if @disposal.disposal_type.un_code %>  
-          <strong>un:</strong> <%= @disposal.disposal_type.un_code.name.upcase %><br/>  
-        <% end %>
-        <strong>cer:</strong> <%= @disposal.disposal_type.cer_code.description.upcase %><br/>
-        <strong>stato:</strong> <%= t @disposal.disposal_type.physical_state %>
+        <%= render DisposalType::InfoComponent.new(@disposal.disposal_type) %>  
       </div>
     <% end %>
 

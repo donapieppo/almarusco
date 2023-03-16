@@ -9,4 +9,3 @@ class DisposalType::CardComponent < ViewComponent::Base
     @editable = editable && DisposalTypePolicy.new(@current_user, @disposal_type).edit?
   end
 end
-

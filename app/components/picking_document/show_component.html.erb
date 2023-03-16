@@ -15,8 +15,11 @@
           con <%= render LegalDownload::LineComponent.new(@picking_document.legal_download) %>
         <% elsif ! @picking_document.picking.date %>
           ??? (manca data in ritiro)
-        <% else %>  
-          <%= @picking_document.disposal_type.adr? ? "<small>(numero di registro di scarico ancora da inserire)</small>".html_safe : "numero di registro di scarico non richiesto (non adr)." %>
+        <% elsif @picking_document.disposal_type.danger? %>  
+          <small>(numero di registro di scarico ancora da inserire)</small>
+        <% else %>
+          (numero di registro di scarico non richiesto).
+          <%= @picking_document.disposal_type.adrs_to_s %>
         <% end %>
       </div>
     <% end %>
@@ -24,7 +27,7 @@
 
   <div class="col-md-4 text-end">
     <% if @picking_document %>  
-      <% if ! @picking_document.legal_download && LegalDownloadPolicy.new(@current_user, @picking_document.build_legal_download).create? %>  
+      <% if @picking_document.disposal_type.danger? && ! @picking_document.legal_download && LegalDownloadPolicy.new(@current_user, @picking_document.build_legal_download).create? %>  
         <%= link_to 'Registra scarico', new_picking_document_legal_download_path(@picking_document), class: 'btn btn-sm btn-primary' %>  
       <% end %>
       <% if @picking_document_policy.edit? %>

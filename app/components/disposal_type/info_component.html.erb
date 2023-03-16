@@ -1,0 +1,13 @@
+<div>
+  <strong>CER:</strong> <%= @disposal_type.cer_code.description.upcase %>
+</div>
+
+<% if @disposal_type.un_code %>
+  <div>
+    <strong>UN:</strong> <%= @disposal_type.un_code.name.upcase %>
+  </div>
+<% end %>
+
+<div>
+  <strong>stato:</strong> <%= t @disposal_type.physical_state %>
+</div>
