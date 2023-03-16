@@ -14,14 +14,18 @@ class DisposalType < ApplicationRecord
   validates :physical_state, presence: true
 
   scope :with_all_includes, -> { includes(:cer_code, :hp_codes, :un_code, :pictograms, :adrs) }
-  scope :order_by_cer_and_un, -> { order('cer_codes.name, un_codes.id') }
+  scope :order_by_cer_and_un, -> { order("cer_codes.name, un_codes.id") }
 
   def liquid?
-    self.physical_state == 'liq'
+    self.physical_state == "liq"
   end
 
   def solid?
     ! liquid?
+  end
+
+  def danger?
+    self.cer_code.danger?
   end
 
   def to_s
@@ -41,12 +45,12 @@ class DisposalType < ApplicationRecord
   end
 
   def hp_codes_to_s
-    hp_codes.map(&:code).join(', ')
+    hp_codes.map(&:code).join(", ")
   end
 
   def adrs_to_s
-    adrs_string = self.adrs.map(&:name).join(', ')
-    adrs_string.empty? ? '' : "ADR #{adrs_string}"
+    adrs_string = self.adrs.map(&:name).join(", ")
+    adrs_string.empty? ? "" : "ADR #{adrs_string}"
   end
 
   def adr_classes
