@@ -6,22 +6,24 @@ end
 class Disposal < ApplicationRecord
   belongs_to :organization
   belongs_to :user
-  belongs_to :producer, class_name: 'User', optional: true
+  belongs_to :producer, class_name: "User", optional: true
   belongs_to :disposal_type
   belongs_to :lab
-  belongs_to :picking, optional: true 
-  belongs_to :legal_upload, foreign_key: 'legal_record_id', optional: true
+  belongs_to :picking, optional: true
+  belongs_to :legal_upload, foreign_key: "legal_record_id", optional: true
 
-  validates :volume, numericality: { greater_than: 0, message: "Si prega di selezionare il volume" }
-  validates :units, presence: true, numericality: { greater_than: 0 }
-  validates :kgs, numericality: { greater_than_or_equal_to: 0 }
+  validates :volume, numericality: {greater_than: 0, message: "Si prega di selezionare il volume"}
+  validates :units, presence: true, numericality: {greater_than: 0}
+  validates :kgs, numericality: {greater_than_or_equal_to: 0}
   # validates_with RegistrationNumberValidator
 
   before_validation :fix_units
   # TODO
   # after_create :update_local_id
 
-  scope :user_or_producer, -> (u_id) { where('user_id = ? or producer_id = ?', u_id, u_id) }
+  scope :danger, -> { joins(disposal_type: :cer_code).where("cer_codes.danger = 1") }
+  scope :not_danger, -> { joins(disposal_type: :cer_code).where("cer_codes.danger = 0") }
+  scope :user_or_producer, ->(u_id) { where("user_id = ? or producer_id = ?", u_id, u_id) }
   scope :uncomplete, -> { where(kgs: 0) }
   scope :complete, -> { where.not(kgs: 0) }
   scope :unapproved, -> { where(approved_at: nil) }
@@ -58,7 +60,7 @@ class Disposal < ApplicationRecord
   end
 
   def danger?
-    disposal_type.cer_code.danger
+    disposal_type.danger?
   end
 
   # STATUS
