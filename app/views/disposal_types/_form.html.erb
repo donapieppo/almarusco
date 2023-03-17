@@ -1,4 +1,6 @@
 <%= simple_form_for @disposal_type do |f| %>  
+  <%= f.dm_error_notification %>  
+
   <div id="solid-liquid">  
     <%= f.input :physical_state, collection: [['solido SNP (NON polverulento)', 'snp'], 
                                               ['solido SP  (polverulento)', 'sp'], 
@@ -9,7 +11,9 @@
   <%= f.input :separable, label: '' %>  
 
   <%= f.association :cer_code, collection: CerCode.order(:name), as: :radio_buttons, include_blank: false, label_method: :to_s %>
-  <%= f.association :un_code, collection: UnCode.order(:id), as: :radio_buttons, include_blank: true, label_method: :to_s %>  
+  <%# f.association :un_code, collection:UnCode.order(:id) label_method: :to_s, include_blank: true NON funziona %>  
+  <% c = [[" -- ", ""]] + UnCode.order(:id).map{|u| [u.to_s, u.id]} %>  
+  <%= f.association :un_code, collection: c, as: :radio_buttons %>  
   <%= f.association :hp_codes, collection: HpCode.order(:id), as: :check_boxes, label_method: :code %>  
   <%= f.association :adrs, collection: Adr.order(:id), as: :check_boxes, label_method: :name %>  
 
