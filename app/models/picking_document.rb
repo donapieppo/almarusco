@@ -15,8 +15,12 @@ class PickingDocument < ApplicationRecord
     (self.disposal_type.organization_id == self.picking.organization_id) or self.errors.add(:base, "UL incoerenti")
   end
 
+  def danger?
+    self.disposal_type.danger?
+  end
+
   def legalized?
-    self.legal_record_id
+    self.legal_record_id || !self.danger?
   end
 
   def legalize!(legal_record)
