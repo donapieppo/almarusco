@@ -44,7 +44,7 @@ class PickingPrint
   end
 
   def data_array(data)
-    res = [["CER", "Stato fisico", "Descrizione rifiuto", "Tipo di imbal.ggio", "N° e tipo di colli", "Peso (Kg)", "Caratteristiche di pericolo", {content: "ADR", width: 30}, "Classe ADR", {content: "ONU", width: 40}]]
+    res = [["CER", "Stato fisico", "Descrizione rifiuto", "Tipo di imbal.ggio", "N° e tipo di colli", "Peso (Kg)", "Classi di pericolo", {content: "ADR", width: 30}, "Classe ADR", {content: "ONU", width: 40}]]
 
     data[:dt].each do |dt_id, values|
       disposal_type = DisposalType.find(dt_id.to_i)
