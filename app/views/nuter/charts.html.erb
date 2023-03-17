@@ -1,21 +1,47 @@
-<h1>Numero di rifiuti per mese</h1>
-
 <div>
-  <canvas id="myChart"></canvas>
+  <h2>Numero di rifiuti per mese</h2>
+
+  <canvas id="disposals"></canvas>
+</div>
+
+<div class="my-4">
+  <h2>Numero di rifiuti per UL</h2>
+  <canvas id="uls"></canvas>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-  const ctx = document.getElementById('myChart');
+  const disposals = document.getElementById('disposals');
 
-  new Chart(ctx, {
+  new Chart(disposals, {
     type: 'bar',
     data: {
       labels: <%= raw @labels.to_s %>,
       datasets: [{
         label: '# di scarichi',
         data: <%= raw @disposals.to_s %>,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  const uls = document.getElementById('uls');
+
+  new Chart(uls, {
+    type: 'bar',
+    data: {
+      labels: <%= raw Organization.find(@uls.keys).map(&:code).to_s %>,
+      datasets: [{
+        label: '# di scarichi per UL',
+        data: <%= raw @uls.values.to_s %>,
         borderWidth: 1
       }]
     },
