@@ -1,4 +1,5 @@
 # created approved legalized delivered conpleted
+# for not dangerous cer (in disposal_type.cer_code) legalized = true when accepted
 
 class DisposalHistoryError < RuntimeError
 end
@@ -69,10 +70,16 @@ class Disposal < ApplicationRecord
     approved_at
   end
 
+  # if not dangerous approve is also legalized
   def approve!
     self.kgs > 0 or return false
-    self.approved_at and raise DisposalHistoryError, "already approved"
-    self.update(approved_at: Time.now)
+    self.approved_at and raise DisposalHistoryError, "Disposal already approved."
+    now = Time.now
+    if self.danger?
+      self.update(approved_at: now)
+    else
+      self.update(approved_at: now, legalized_at: now)
+    end
   end
 
   def unapprove!
@@ -82,7 +89,7 @@ class Disposal < ApplicationRecord
   # LEGALIZE. responsible writes the disposal on legal book
   # FIXME because in the beginning no legal uplodad, we can have legalized_at not null and legal_record_id null :-(
   def legalized?
-    legalized_at || !danger?
+    legalized_at 
   end
 
   def legalize!(legal_record)
