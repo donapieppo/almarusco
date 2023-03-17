@@ -3,7 +3,7 @@
 <%#   <%= f.input :month, collection: [1,2,3,4], label_method: lambda {|i| I18n.t(Date::MONTHNAMES[i])},  label: "Seleziona mese" %1> %>  
 <%# <% end %1> %>
 
-<form action="<%= reports_path %>" class="button-radio">  
+<form action="<%= report_path %>" class="button-radio">  
   <div class="my-2">Seleziona fornitore</div>
   <% Supplier.order(:name).each do |supplier| %>  
     <% checked = (supplier == @supplier) ? 'checked="checked"' : "" %>  

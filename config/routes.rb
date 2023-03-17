@@ -11,7 +11,10 @@ Rails.application.routes.draw do
     get 'status', as: :status, on: :collection
   end
 
-  get "/nuter/chart", to: "nuter#chart", as: "chart"
+  scope :nuter do
+    get "charts", to: "nuter#charts", as: :charts
+    get "report", to: "nuter#report", as: :report
+  end
 
   scope ":__org__" do
     # current_organization implicit

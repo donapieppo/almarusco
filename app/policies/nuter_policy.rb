@@ -1,5 +1,9 @@
 class NuterPolicy < ApplicationPolicy
-  def chart?
-    true
+  def charts?
+    @user.nuter?
+  end
+
+  def report?
+    @user.nuter?
   end
 end
