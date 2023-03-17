@@ -24,7 +24,7 @@
     <% values = vol_and_kg[:values] %>  
     <div class="card border-secondary mb-2">
       <div class="card-header <%= 'bg-success text-white' if values[:kgs] > 0 %>">
-        <strong><%= dt %></strong>
+        <strong><%= dt.to_s_complete %></strong>
         <small class="text-secondary ps-2"><%= dt.cer_code.description %></small>
       </div>
 
