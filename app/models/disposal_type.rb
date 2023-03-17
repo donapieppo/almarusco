@@ -11,6 +11,7 @@ class DisposalType < ApplicationRecord
   has_many :picking_documents
 
   validate :cer_and_hps_uniqueness
+  validate :danger_coherence
   validates :physical_state, presence: true
 
   scope :with_all_includes, -> { includes(:cer_code, :hp_codes, :un_code, :pictograms, :adrs) }
@@ -69,9 +70,18 @@ class DisposalType < ApplicationRecord
         next
       end
       if self.physical_state == dt.physical_state && self.hp_code_ids.to_set == dt.hp_code_ids.to_set
-        errors.add(:cer_code_id, "Esiste già una tipologia con gli stessi parametri cer/un/hp e lo stesso stato nella tua struttura.")
+        errors.add(:cer_code_id, "Esiste già una tipologia con gli stessi parametri CER/UN/HP e lo stesso stato nella tua UL.")
         return false
       end
+    end
+  end
+
+  def danger_coherence
+    if self.danger?
+      # check
+    else
+      self.hp_codes.any? and errors.add(:hp_codes, "Non è possibile associare codici HP a un rifiuto non pericoloso.")
+      self.pictograms.any? and errors.add(:pictograms, "Non è possibile associare pittogrammi a un rifiuto non pericoloso.")
     end
   end
 
