@@ -1,11 +1,15 @@
-<%= dm_form_for [@disposal_type, @legal_upload], title: @legal_upload.disposal_type, data: { turbo: false } do |f| %>
+<%= dm_form_for [@disposal_type, @legal_upload], title: @legal_upload.disposal_type.to_s_complete, data: { turbo: false } do |f| %>
+
+  <div class="my-2">
+    <%= render DisposalType::InfoComponent.new(@legal_upload.disposal_type) %>  
+  </div>
+
   <% if @legal_upload.new_record? %>  
     <div class="offset-sm-3 alert alert-info pt-2">
-      Ultima registrazione: 
-      <% year = Date.today.year %>  
-      <%= year %> / <span style="font-weight: bold; font-size: 140%"><%= current_organization.legal_records.where(year: year).maximum(:number) %></span>
+      <%= render LegalRecord::LastComponent.new(current_organization) %>  
     </div>
   <% end %>
+
   <%= f.input :number %>
   <%= f.input :date, as: :date, html5: true %>  
   <% if @legal_upload.new_record? %>  
