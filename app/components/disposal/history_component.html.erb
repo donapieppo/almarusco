@@ -1,26 +1,43 @@
-<%= t :created_at %> <%= l @disposal.created_at %> <br/>
+<div>
+  <%= t :created_at %> <%= l @disposal.created_at %>
+</div>
+
 <% if @disposal.approved? %>  
-  <%= t :approved_at %> <%= l @disposal.approved_at %> <br/>
-<% end %>
-<% if @disposal.legalized? %>  
-  <% if @disposal.legalized_at %>  
-    <%= t :legalized_at %> <%= l @disposal.legalized_at %>  
-  <% end %>
-  <% if @disposal.legal_upload %>  
-    con numero <%= link_to @disposal.legal_upload, @disposal.legal_upload, class: 'text-decoration-underline' %>
-<% else %>  
-  senza registro di carico
-<% end %>
-<br/>
-<% end %>
-<% if @disposal.delivered? %>
-  <%= t :delivered_at %> <%= l @disposal.delivered_at %>
-  <% if ld = @disposal.legal_download %>  
-    con documento <%= link_to ld %> 
-  <% end %>
-  <br/> 
-<% end %>
-<% if @disposal.completed? %>
-  <%= t :completed_at %> <%= l @disposal.completed_at %> <br/> 
+  <div>
+    <%= t :approved_at %> <%= l @disposal.approved_at %>
+  </div>
 <% end %>
 
+<div>
+  <% if @disposal.legalized_at %>
+    <% if @disposal.danger? %>  
+      <%= t :legalized_at %> <%= l @disposal.legalized_at %>  
+    <% else %>
+      Rifiuto non pericoloso
+    <% end %>
+    <% if @disposal.legal_upload %>  
+      con numero <%= link_to @disposal.legal_upload, @disposal.legal_upload, class: 'text-decoration-underline' %>
+    <% else %>  
+      senza registro di carico
+    <% end %>
+  <% end %>
+</div>
+
+<% if @disposal.delivered? %>
+  <div>
+    <%= t :delivered_at %> <%= l @disposal.delivered_at %>
+    <% if ld = @disposal.legal_download %>  
+      con documento <%= link_to ld %> 
+    <% end %>
+  </div>
+<% elsif @disposal.picking_id %>
+  <div>
+    Associato al ritiro <%= @disposal.picking %>  
+  </div>
+<% end %>
+
+<% if @disposal.completed? %>
+  <div>
+    <%= t :completed_at %> <%= l @disposal.completed_at %>
+  </div>
+<% end %>
