@@ -67,4 +67,18 @@ class Picking < ApplicationRecord
   def date_to_s
     self.date ? I18n.l(date) : 'Data non definita'
   end
+
+  def self.other_requests
+    [
+      [:taniche_10, "TANICHE 10 L."],
+      [:taniche_20, "TANICHE 20 L."],
+      [:fusti_60, "FUSTI 60 L."],
+      [:etichette_r, "ETICHETTE R"],
+      [:pittogramma_3, "PITTOGRAMMA \"3\""],
+      [:pittogramma_6, "PITTOGRAMMA \"6\""],
+      [:pittogramma_9, "PITTOGRAMMA \"9\""],
+      [:pittogramma_p_a, "PITTOGRAMMA \"pesce/albero\""],
+      [:cravatta, "TANICHE COLLO A CRAVATTA 60 L."]
+    ]
+  end
 end
