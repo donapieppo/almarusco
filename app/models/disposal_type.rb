@@ -26,7 +26,7 @@ class DisposalType < ApplicationRecord
   end
 
   def danger?
-    self.cer_code.danger?
+    self.cer_code_id && self.cer_code.danger?
   end
 
   def to_s

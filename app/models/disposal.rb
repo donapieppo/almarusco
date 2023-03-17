@@ -61,7 +61,7 @@ class Disposal < ApplicationRecord
   end
 
   def danger?
-    disposal_type.danger?
+    disposal_type_id && disposal_type.danger?
   end
 
   # STATUS
