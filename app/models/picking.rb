@@ -12,7 +12,9 @@ class Picking < ApplicationRecord
   end
   
   def possible_disposals
-    self.supplier.contract_picking_disposals(self.organization_id).where("legalized_at is not null or cer_codes.danger = 0").undelivered 
+    # for not danger disposal il already legalized whena accepted
+    # self.supplier.contract_picking_disposals(self.organization_id).where("legalized_at is not null or cer_codes.danger = 0").undelivered 
+    self.supplier.contract_picking_disposals(self.organization_id).legalized.undelivered 
   end
 
   def fill_with_default_disposals
