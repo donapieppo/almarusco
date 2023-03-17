@@ -103,6 +103,9 @@ it:
         price: Prezzo al kg.
 
   simple_form:
+    include_blanks:
+      disposal_type:
+        un_code: 'Non definito'
     hints:
       disposal_type:
         adr: Rifiuto assimilabile alle merci pericolose contenute nell’Accordo ADR.
@@ -118,7 +121,6 @@ it:
         volume: Come da quarta copia (da compilare dopo la consegna della quarta copia).
       cer_code:
         name: Inserire il codice numerico del Cer.
-
 
   can_operate: operatore
   can_read:    può leggere
