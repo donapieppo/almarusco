@@ -19,6 +19,6 @@ class Supplier < ApplicationRecord
 
   def contract_picking_disposals(oid)
     oid = oid.id if oid.is_a?(Organization)
-    Disposal.where(organization_id: oid).joins(:disposal_type).where('disposal_types.cer_code_id in (?)', self.cer_code_ids)
+    Disposal.where(organization_id: oid).joins(disposal_type: :cer_code).where('disposal_types.cer_code_id in (?)', self.cer_code_ids)
   end
 end
