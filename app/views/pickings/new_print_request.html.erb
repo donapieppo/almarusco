@@ -4,10 +4,21 @@
 </h1>
 
 <div class="info">
-  È possibile modificare manualmente la richiesta da stampare.
+  È possibile modificare e completare manualmente la richiesta da stampare.
 </div>
 
 <%= form_with url: [:print_request, @picking, format: :pdf] do |f| %>  
+  <% Picking.other_requests.each do |req| %>  
+    <div class="row my-1">
+      <div class="col-sm-3 text-end">
+        <label class="form-label"><%= req[1] %></label>
+      </div>
+      <div class="col-sm-9">
+        <%= f.text_field req[0], class: 'form-control numeric number', style: "width: 8rem" %>
+      </div>
+    </div>
+  <% end %>
+
   <% @request.volumes_and_kgs_ordered.each do |vol_and_kg| %>  
     <% dt = vol_and_kg[:dt] %>  
     <% values = vol_and_kg[:values] %>  
