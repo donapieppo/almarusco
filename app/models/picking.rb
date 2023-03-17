@@ -73,12 +73,12 @@ class Picking < ApplicationRecord
       [:taniche_10, "TANICHE 10 L."],
       [:taniche_20, "TANICHE 20 L."],
       [:fusti_60, "FUSTI 60 L."],
+      [:cravatta, "TANICHE COLLO A CRAVATTA 60 L."],
       [:etichette_r, "ETICHETTE R"],
       [:pittogramma_3, "PITTOGRAMMA \"3\""],
       [:pittogramma_6, "PITTOGRAMMA \"6\""],
       [:pittogramma_9, "PITTOGRAMMA \"9\""],
-      [:pittogramma_p_a, "PITTOGRAMMA \"pesce/albero\""],
-      [:cravatta, "TANICHE COLLO A CRAVATTA 60 L."]
+      [:pittogramma_p_a, "PITTOGRAMMA \"pesce/albero\""]
     ]
   end
 end
