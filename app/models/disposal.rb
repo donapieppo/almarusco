@@ -73,7 +73,7 @@ class Disposal < ApplicationRecord
   # if not dangerous approve is also legalized
   def approve!
     self.kgs > 0 or return false
-    self.approved_at and raise DisposalHistoryError, "Disposal already approved."
+    self.approved? and raise DisposalHistoryError, "Disposal already approved."
     now = Time.now
     if self.danger?
       self.update(approved_at: now)
@@ -117,7 +117,8 @@ class Disposal < ApplicationRecord
   end
 
   def deliver!
-    self.legalized? or raise DisposalHistoryError, "not legalized yet"
+    self.legalized? or raise DisposalHistoryError, "Disposal not legalized yet."
+    self.picking_id or raise DisposalHistoryError, "Disposal not associated to picking."
     self.update(delivered_at: Time.now)
   end
 
@@ -127,7 +128,7 @@ class Disposal < ApplicationRecord
   end
 
   def complete!
-    self.delivered? or raise DisposalHistoryError, "not delivered yet"
+    self.delivered? or raise DisposalHistoryError, "Disposal not delivered yet."
     self.update(completed_at: Time.now)
   end
 
