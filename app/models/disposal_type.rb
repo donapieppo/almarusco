@@ -78,7 +78,7 @@ class DisposalType < ApplicationRecord
 
   def danger_coherence
     if self.danger?
-      # check
+      self.hp_codes.any? or errors.add(:hp_codes, "È necessario selezionare gli HP per un rifiuto pericoloso.")
     else
       self.hp_codes.any? and errors.add(:hp_codes, "Non è possibile associare codici HP a un rifiuto non pericoloso.")
       self.pictograms.any? and errors.add(:pictograms, "Non è possibile associare pittogrammi a un rifiuto non pericoloso.")
