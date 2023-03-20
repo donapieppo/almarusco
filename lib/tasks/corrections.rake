@@ -1,9 +1,15 @@
 namespace :almarusco do
+  desc "Correct no danger no record" 
+  task no_danger_correction: :environment do
+    Disposal.approved.not_danger.each do |disposal|
+      disposal.update(legalized_at: disposal.approved_at)
+    end
+  end
 
   desc "Correct cers"
   task fix_cers_uniqueness: :environment do
-    #p c_ok = CerCode.find(26)
-    #p c_no = CerCode.find(10)
+    # p c_ok = CerCode.find(26)
+    # p c_no = CerCode.find(10)
     p c_ok = CerCode.find(19)
     p c_no = CerCode.find(20)
 
@@ -22,13 +28,28 @@ namespace :almarusco do
     c_no.delete
   end
 
+  desc "Check dangers"
+  task check_dangers: :environment do
+    DisposalType.includes(:cer_code, :un_code, :adrs).find_each do |dt|
+      if dt.cer_code.danger?
+        if dt.hp_codes.empty?
+          puts "NO ADRS in #{dt}"
+        end
+      else
+        if dt.adrs.any?
+          puts "ADRS in #{dt}"
+        end
+      end
+    end
+  end
+
   desc "Correct buildings"
-  task fix_buildings_start: :environment do 
+  task fix_buildings_start: :environment do
     Organization.find_each do |organization|
       if organization.buildings.empty?
         b = organization.buildings.new(name: organization.code, address: organization.name)
         b.save!
-      else 
+      else
         b = organization.buildings.first
       end
 
