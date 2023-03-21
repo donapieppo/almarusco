@@ -14,7 +14,7 @@
     </div>
   </div>
   <div id="lab_id" class="row mb-3 select required">
-    <label class="col-sm-3 col-form-label select required" for="building_id">Lab</label>
+    <label class="col-sm-3 col-form-label select required" for="building_id">Laboratorio</label>
     <div class="col-sm-3">
       <select name="disposal[lab_id]" data-disposal-lab-target="labs" name="building" class="form-select">
         <option value=""></option>
@@ -28,7 +28,7 @@
       <% if @disposal.errors.include?(:lab)%>  
         <div class="invalid-feedback d-block">
           <% @disposal.errors[:lab].each do |e| %>
-            <div><%= e %></div>
+            <div>Laboratorio: <%= e %></div>
           <% end %>
         </div>
       <% end %>
