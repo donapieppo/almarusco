@@ -1,8 +1,10 @@
 namespace :almarusco do
   desc "Correct no danger no record" 
   task no_danger_correction: :environment do
-    Disposal.approved.not_danger.each do |disposal|
+    Disposal.approved.not_danger.unlegalized.each do |disposal|
+      p disposal
       disposal.update(legalized_at: disposal.approved_at)
+      p disposal
     end
   end
 
