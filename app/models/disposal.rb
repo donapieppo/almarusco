@@ -13,7 +13,7 @@ class Disposal < ApplicationRecord
   belongs_to :picking, optional: true
   belongs_to :legal_upload, foreign_key: "legal_record_id", optional: true
 
-  validates :volume, numericality: {greater_than: 0, message: "Si prega di selezionare il volume"}
+  validates :volume, numericality: {greater_than: 0, message: "deve essere selezionato."}
   validates :units, presence: true, numericality: {greater_than: 0}
   validates :kgs, numericality: {greater_than_or_equal_to: 0}
   # validates_with RegistrationNumberValidator
