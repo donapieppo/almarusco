@@ -18,7 +18,11 @@ it:
         disposal:
           attributes:
             lab: 
-              required: "Si prega di scegliere il laboratorio."
+              required: "deve essere selezionato."
+        disposal_type:
+          attributes:
+            cer_code: 
+              required: "deve essere selezionato."
     models:
       organization: Unità locale
       building: Edificio
@@ -29,8 +33,6 @@ it:
       lab: Laboratorio
       cer_code: Codice CER
       un_code: Codice UN
-      cercode: Codice CER
-      uncode: Codice UN
       picking: Ritiro
       picking_document: Formulario
       legal_record: Registrazione
