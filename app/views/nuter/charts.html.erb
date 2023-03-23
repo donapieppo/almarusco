@@ -1,12 +1,21 @@
 <div>
-  <h2>Numero di rifiuti per mese</h2>
-
+  <h2>Numero di rifiuti accettati nel 2023 suddivisi per mese</h2>
   <canvas id="disposals"></canvas>
 </div>
 
 <div class="my-4">
-  <h2>Numero di rifiuti per UL</h2>
+  <h2>Numero di rifiuti accettati nel 2023 suddivisi per UL</h2>
   <canvas id="uls"></canvas>
+</div>
+
+<div class="my-4">
+  <h2>Numero di rifiuti accettati nel 2023 suddivisi per CER</h2>
+  <canvas id="cers"></canvas>
+</div>
+
+<div class="my-4">
+  <h2>Costi nel 2023 suddivisi per CER</h2>
+  <canvas id="prices"></canvas>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -42,6 +51,48 @@
       datasets: [{
         label: '# di scarichi per UL',
         data: <%= raw @uls.values.to_s %>,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  const cers = document.getElementById('cers');
+
+  new Chart(cers, {
+    type: 'bar',
+    data: {
+      labels: <%= raw CerCode.find(@cer_codes.keys).map(&:name).to_s %>,
+      datasets: [{
+        label: '# di scarichi per CER',
+        data: <%= raw @cer_codes.values.to_s %>,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  const prices = document.getElementById('prices');
+
+  new Chart(prices, {
+    type: 'bar',
+    data: {
+      labels: <%= raw CerCode.find(@prices.keys).map(&:name).to_s %>,
+      datasets: [{
+        label: '# di scarichi per CER',
+        data: <%= raw @prices.values.to_s %>,
         borderWidth: 1
       }]
     },
