@@ -29,6 +29,7 @@
             <h6 class="dropdown-header">Nuter</h6>
             <li><%= link_to fwdmicon('building') + ' Strutture', status_organizations_path %></li>
             <li><%= link_to fwdmicon('building') + ' Reports', report_path %></li>
+            <li><%= link_to fwdmicon('chart-pie') + ' Statistiche', charts_path, data: { turbo: false } %></li>
           <% end %>
           <% if current_user.is_cesia? %>
             <div class="dropdown-divider"></div>
