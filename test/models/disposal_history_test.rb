@@ -6,7 +6,7 @@ class DisposalHistoryTest < ActiveSupport::TestCase
     legal_upload = FactoryBot.create(:legal_upload, disposal_type: disposal.disposal_type, organization: disposal.organization)
     assert_raise(DisposalHistoryError) { disposal.legalize!(legal_upload) }
   end
-  
+
   test "disposal can not be deliverd if not legalized" do
     disposal = FactoryBot.create(:disposal)
     disposal.approve!
