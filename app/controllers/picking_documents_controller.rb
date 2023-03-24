@@ -21,6 +21,7 @@ class PickingDocumentsController < ApplicationController
   end
 
   def show
+    @legal_download = @picking_document.legal_download
   end
 
   def edit
