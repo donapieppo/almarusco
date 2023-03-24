@@ -31,6 +31,10 @@ class PickingDocument < ApplicationRecord
     self.picking.disposals.where(disposal_type: self.disposal_type)
   end
 
+  def legal_uploads
+    LegalUpload.where(id: self.disposals.map(&:legal_record_id))
+  end
+
   def disposals_kgs
     disposals.sum(:kgs)
   end
