@@ -1,37 +1,37 @@
-<div class="row">
+<div class="row bg-alert">
   <div class="col-md-8">
     <div class="fw-bold">
       <%= @expected_kgs.round(2) %> Kg. 
       <%= @expected_volume %> L.
     </div>
-    <% if @picking_document %>  
-      <div>
-        <span class="fw-bold <%= @all_ok ? 'text-success' : 'text-danger' %> pe-2">
-          <%= @picking_document.kgs %> Kg.
-          <%= @picking_document.volume.to_i %> L.
-        </span>
-        da formulario <%= link_to @picking_document.serial_number, @picking_document, class: 'underline' %>  
-        <% if @picking_document.legal_download %>
-          con <%= render LegalDownload::LineComponent.new(@picking_document.legal_download) %>
-        <% elsif ! @picking_document.picking.date %>
-          ??? (manca data in ritiro)
-        <% elsif @picking_document.disposal_type.danger? %>  
-          <small>(numero di registro di scarico ancora da inserire)</small>
-        <% else %>
-          (numero di registro di scarico non richiesto).
-        <% end %>
-      </div>
+    <div>
+      <span class="fw-bold <%= @all_ok ? 'text-success' : 'text-danger' %> pe-2">
+        <%= @picking_document.kgs %> Kg.
+        <%= @picking_document.volume.to_i %> L.
+      </span>
+      da formulario <%= link_to @picking_document.serial_number, @picking_document, class: 'underline' %>  
+    <% if @picking_document.legal_download %>
+      con scarico <%= link_to @picking_document.legal_download, @picking_document.legal_download, class: 'underline' %>
+    e carichi 
+    <% @picking_document.legal_uploads.each do |lu| %>
+      <%= link_to lu, lu, class: 'underline' %>  
     <% end %>
+  <% elsif ! @picking_document.picking.date %>
+    ??? (manca data in ritiro)
+  <% elsif @picking_document.disposal_type.danger? %>  
+    <small>(numero di registro di scarico ancora da inserire).</small>
+  <% else %>
+    (numero di registro di scarico non richiesto).
+  <% end %>
+    </div>
   </div>
 
   <div class="col-md-4 text-end">
-    <% if @picking_document %>  
-      <% if @picking_document.disposal_type.danger? && ! @picking_document.legal_download && LegalDownloadPolicy.new(@current_user, @picking_document.build_legal_download).create? %>  
-        <%= link_to 'Registra scarico', new_picking_document_legal_download_path(@picking_document), class: 'btn btn-sm btn-primary' %>  
-      <% end %>
-      <% if @picking_document_policy.edit? %>
-        <%= link_to 'Modifica formulario', [:edit, @picking_document], class: 'btn btn-sm btn-success' %> 
-      <% end %>
+    <% if @picking_document.disposal_type.danger? && ! @picking_document.legal_download && LegalDownloadPolicy.new(@current_user, @picking_document.build_legal_download).create? %>  
+      <%= link_to 'Registra scarico', new_picking_document_legal_download_path(@picking_document), class: 'btn btn-sm btn-primary' %>  
+    <% end %>
+    <% if @picking_document_policy.edit? %>
+      <%= link_to 'Modifica formulario', [:edit, @picking_document], class: 'btn btn-sm btn-success' %> 
     <% end %>
   </div>
 </div>
