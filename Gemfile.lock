@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/donapieppo/dm_unibo_common.git
-  revision: 2c3f96e3d3bfc5dfd7e3363f6c17a29f7835da08
+  revision: 5341260782068b5c92be38d5d6aed992c64433ec
   branch: turbo
   specs:
     dm_unibo_common (5.0.0)
@@ -17,7 +17,7 @@ GIT
       puma (~> 5.0)
       pundit
       rails (~> 7.0)
-      simple_form
+      simple_form (~> 5.1)
       sprockets-rails
       stimulus-rails
       turbo-rails
@@ -390,7 +390,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  capybara (>= 3.38)
+  capybara (~> 3.0)
   cssbundling-rails (~> 1.1)
   cucumber-rails
   database_cleaner
