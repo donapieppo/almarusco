@@ -12,10 +12,10 @@
       da formulario <%= link_to @picking_document.serial_number, @picking_document, class: 'underline' %>  
     <% if @picking_document.legal_download %>
       con scarico <%= link_to @picking_document.legal_download, @picking_document.legal_download, class: 'underline' %>
-    e carichi 
-    <% @picking_document.legal_uploads.each do |lu| %>
-      <%= link_to lu, lu, class: 'underline' %>  
-    <% end %>
+      e carichi 
+      <% @picking_document.legal_uploads.each do |lu| %>
+        <%= link_to lu, lu, class: 'ps-1 underline' %>  
+      <% end %>
   <% elsif ! @picking_document.picking.date %>
     ??? (manca data in ritiro)
   <% elsif @picking_document.disposal_type.danger? %>  

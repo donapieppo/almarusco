@@ -24,6 +24,12 @@
     <div>
       <%= render Disposal::GroupDetailsComponent.new(@picking_document.disposals) %>  
     </div>
+    <div>
+      Registri di carico associati: 
+      <% @picking_document.legal_uploads.each do |lu| %>
+        <%= link_to lu, lu, class: 'ps-1 underline' %>  
+      <% end %>
+    </div>
   </div>
 
   <% if @policy.edit? %>  
