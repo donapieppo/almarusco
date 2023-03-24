@@ -8,10 +8,9 @@ class PickingsController < ApplicationController
   end
 
   def show
-    @disposals_hash = Hash.new { |hash, key| hash[key] = [] }
-
+    @disposals_by_type_hash = Hash.new { |hash, key| hash[key] = [] }
     @picking.disposals.include_all.each do |d|
-      @disposals_hash[d.disposal_type] << d
+      @disposals_by_type_hash[d.disposal_type] << d
     end
   end
 

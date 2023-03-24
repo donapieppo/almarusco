@@ -10,8 +10,8 @@
   <% end %>
 </div>
 
-<% @disposals_hash.keys.sort_by{ |dt| dt.cer_code_id }.each do |disposal_type| %>  
-  <% disposals = @disposals_hash[disposal_type] %>  
+<% @disposals_by_type_hash.keys.sort_by{ |dt| dt.cer_code_id }.each do |disposal_type| %>  
+  <% disposals = @disposals_by_type_hash[disposal_type] %>  
   <% picking_document = @picking.picking_document_by_disposal_type(disposal_type) %>
 
   <div class="dm-card">
@@ -20,11 +20,11 @@
     </div>
     <div class="dm-card-body">
       <% unless picking_document %>  
-        <% @disposals_hash[disposal_type].each do |disposal| %>  
+        <% disposals.each do |disposal| %>  
           <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
         <% end %>
       <% end %>
-      <%= render Disposal::GroupDetailsComponent.new(@disposals_hash[disposal_type]) %>  
+      <%= render Disposal::GroupDetailsComponent.new(disposals) %>  
     </div>
     <div class="dm-card-footer">
       <% if picking_document %>  
@@ -36,7 +36,7 @@
   </div>
 <% end %>
 
-<div class="centered my-2">
+<div class="centered my-2" id="button_actions">
   <%= link_to 'STAMPA', [:new_print_request, @picking], class: 'btn btn-primary' %>  
   <% unless @picking.completed? %>  
     <%= link_to 'MODIFICA', [:edit, @picking], class: 'btn btn-primary', data: { turbo: false } %>
@@ -46,10 +46,38 @@
     <%= button_to 'CONSEGNATO', [:deliver, @picking], method: :put, class: 'btn btn-warning', form: { data: { 'turbo-confirm': 'Siete sicuri?'}, class: 'd-inline px-0 mx-0' } %>  
   <% end %>
   <% if @picking.delivered? && ! @picking.completed? %>
-    <%= button_to 'ARCHIVIA', [:complete, @picking], method: :put, class: 'btn btn-warning', form: { data: { 'turbo-confirm': 'Siete sicuri di voler archiviare i rifiuti collegati a questo scarico?'}, class: 'd-inline px-0 mx-0' } %>  
+    <button class="d-inline btn btn-warning" onClick="show_alert()">ARCHIVIA</button>
   <% end %>
 </div>
+
+<%= javascript_tag do  %>  
+  function show_alert() {
+    document.getElementById('button_alert').style.display = 'block';
+    document.getElementById('button_actions').style.display = 'none';
+    location.hash = "#button_alert";
+  }
+<% end %>
 
 <center>
   <%= link_to_back pickings_path %>  
 </center>
+
+<div class="alert alert-warning" style="display: none" id="button_alert">
+  <h2 class="text-center">Attenzione</h2>
+
+  Premendo “ARCHIVIA” confermi anche la <strong>regolarità di esecuzione</strong> del servizio da parte dell’Operatore affidatario del servizio di raccolta, trasporto, stoccaggio ed avvio al recupero e/o smaltimento di rifiuti speciali, ovvero che:
+  <ul class="my-3">
+    <li style="list-style-type: square">
+      il servizio di ritiro è stato svolto correttamente rispetto alla richiesta effettuata;
+    </li>
+    <li style="list-style-type: square">
+      le quantità verificate a destino sono state riportate nella scheda di ogni singolo rifiuto;
+    </li>
+    <li style="list-style-type: square">
+      le quarte copie dei formulari sono state ricevute entro 3 mesi dal ritiro del rifiuto.
+    </li>
+  </ul>
+  <div class="centered">
+    <%= button_to 'ARCHIVIA', [:complete, @picking], method: :put, class: 'btn btn-primary', form: { data: { 'turbo-confirm': 'Siete sicuri di voler archiviare i rifiuti collegati a questo scarico?'}, class: 'd-inline px-0 mx-0' } %>  
+  </div>
+</div>
