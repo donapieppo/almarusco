@@ -15,17 +15,17 @@ create table containers_disposal_types (
         FOREIGN KEY (disposal_type_id) REFERENCES disposal_types(id)
 );
 
-insert into containers values (1, 'tanica', 5);
-insert into containers values (2, 'tanica', 10);
-insert into containers values (3, 'tanica', 20);
-insert into containers values (4, 'fusto', 30);
-insert into containers values (5, 'polietilene', 30);
-insert into containers values (6, 'fusto', 40);
-insert into containers values (7, 'fusto', 60);
-insert into containers values (8, 'polietilene', 60);
-insert into containers values (9, 'clinipack', 60);
-insert into containers values (10, 'tanica', 120);
-insert into containers values (11, 'big bag', 500);
+insert into containers values (1, 'tanica', 5, '');
+insert into containers values (2, 'tanica', 10, '');
+insert into containers values (3, 'tanica', 20, '');
+insert into containers values (4, 'fusto', 30, '');
+insert into containers values (5, 'polietilene', 30, '');
+insert into containers values (6, 'fusto', 40, '');
+insert into containers values (7, 'fusto', 60, '');
+insert into containers values (8, 'polietilene', 60, '');
+insert into containers values (9, 'clinipack', 60, '');
+insert into containers values (10, 'tanica', 120, '');
+insert into containers values (11, 'big bag', 500, '');
 
 -- alter table organizations add column `next_local_id` int(10) default 1 after `description`;
 -- alter table disposals add column `local_id` int(10) after `disposal_type_id`;
