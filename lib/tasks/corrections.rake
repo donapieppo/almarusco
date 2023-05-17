@@ -1,4 +1,24 @@
 namespace :almarusco do
+  desc "initializa containers"
+  task initialize_containers: :environment do
+    # 5, 10, 20 liters
+    liquid_container_ids = [1,2,3]
+    # 5, 40, 60, 120 liters
+    solid_container_ids = [1,6,7,10]
+
+    DisposalType.find_each do |dt|
+      if dt.containers.any?
+        next
+      end
+      if dt.liquid?
+        dt.container_ids = liquid_container_ids
+      else
+        dt.container_ids = solid_container_ids
+      end
+      dt.save
+    end
+  end
+
   desc "Correct no danger no record" 
   task no_danger_correction: :environment do
     Disposal.approved.not_danger.unlegalized.each do |disposal|

@@ -8,6 +8,7 @@
     as: :radio_buttons %>  
   </div>
 
+  <%= f.input :hidden, label: '' %>  
   <%= f.input :separable, label: '' %>  
 
   <%= f.association :cer_code, collection: CerCode.order(:name), as: :radio_buttons, include_blank: false, label_method: :to_s %>
@@ -18,6 +19,7 @@
   <%= f.association :adrs, collection: Adr.order(:id), as: :check_boxes, label_method: :name %>  
 
   <%= f.association :pictograms, collection: Pictogram.order(:id), as: :check_boxes, label_method: lambda {|p| image_tag p.image, width: 80} %>  
+  <%= f.association :containers, collection: Container.order(:liters), label_method: :to_s, as: :check_boxes %>  
 
   <%= f.input :notes %>  
 

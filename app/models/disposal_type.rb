@@ -5,6 +5,7 @@ class DisposalType < ApplicationRecord
   has_and_belongs_to_many :hp_codes
   has_and_belongs_to_many :adrs
   has_and_belongs_to_many :pictograms
+  has_and_belongs_to_many :containers
 
   has_many :disposals
   has_many :legal_records
