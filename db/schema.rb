@@ -39,6 +39,18 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.index ["name"], name: "name"
   end
 
+  create_table "containers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "name"
+    t.integer "liters"
+  end
+
+  create_table "containers_disposal_types", id: false, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "container_id", null: false, unsigned: true
+    t.integer "disposal_type_id", null: false, unsigned: true
+    t.index ["container_id"], name: "container_id"
+    t.index ["disposal_type_id"], name: "disposal_type_id"
+  end
+
   create_table "contracts", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.integer "supplier_id", null: false, unsigned: true
     t.integer "cer_code_id", null: false, unsigned: true
@@ -55,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.integer "un_code_id", unsigned: true
     t.column "physical_state", "enum('liq','sp','snp')"
     t.boolean "separable", default: false, null: false
+    t.boolean "hidden", default: false, null: false
     t.text "notes"
     t.index ["cer_code_id"], name: "fk_disposal_types_cer"
     t.index ["organization_id"], name: "fk_disposal_types_organization"
@@ -207,6 +220,8 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   add_foreign_key "adrs_disposal_types", "adrs", name: "fk_adrdt_adr"
   add_foreign_key "adrs_disposal_types", "disposal_types", name: "fk_adrdt_dt"
   add_foreign_key "buildings", "organizations", name: "buildings_ibfk_1"
+  add_foreign_key "containers_disposal_types", "containers", name: "containers_disposal_types_ibfk_1"
+  add_foreign_key "containers_disposal_types", "disposal_types", name: "containers_disposal_types_ibfk_2"
   add_foreign_key "contracts", "cer_codes", name: "contracts_ibfk_2"
   add_foreign_key "contracts", "suppliers", name: "contracts_ibfk_1"
   add_foreign_key "disposal_types", "cer_codes", name: "fk_disposal_types_cer"
