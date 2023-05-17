@@ -42,7 +42,10 @@ class DisposalsController < ApplicationController
   end
 
   def choose_disposal_type
-    @disposal_types = current_organization.disposal_types.with_all_includes.order('cer_codes.name').to_a
+    @disposal_types = current_organization.disposal_types.with_all_includes.order('cer_codes.name')
+    unless policy(current_organization).manage?
+      @disposal_types = @disposal_types.where(hidden: false)
+    end
     authorize :disposal
   end
 
@@ -151,6 +154,9 @@ class DisposalsController < ApplicationController
 
   def set_disposal_type
     @disposal_type = current_organization.disposal_types.find(params[:disposal_type_id])
+    unless policy(current_organization).manage?
+      @disposal_type.hidden and raise "No permission on hidden type"
+    end
   end
 
   def set_disposal_and_check_permission
