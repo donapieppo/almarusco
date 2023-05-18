@@ -118,7 +118,7 @@ it:
         hidden: Se selezionato la tipologia è utilizzabile solo dai reponsabili UL e non dai produttori di rifiuti.
         containers: Segnare i possibili contenitori per questa tipologia di rifiuti.
       disposal:
-        kgs: Quanti Kg? (numero decimale).
+        kgs: Quanti Kg (numero decimale)?
         lab: Laboratorio di provenienza del rifiuto.
         producer_upn: Inserire l'indirizzo e-mail SOLO se il produttore di rifiuti non siete VOI.
       picking_document:
@@ -139,4 +139,3 @@ it:
   date:
     formats:
       in_list: ! '%d/%m/%y'
-
