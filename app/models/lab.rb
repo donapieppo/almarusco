@@ -5,6 +5,9 @@ class Lab < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { scope: :building_id, message: 'Lab con lo stesso nome già presente nello stesso edificio.' }
 
+  # TODO
+  # validate lab.organization_id == building.organization_id
+
   def to_s
     if self.building_id
       "#{self.name} - #{self.building.name}"
