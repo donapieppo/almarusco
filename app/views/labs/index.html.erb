@@ -5,15 +5,19 @@
 </div>
 
 <% if @labs.keys.any? %>  
-  <ul class="info my-2">
-    <% @labs.keys.each do |building| %>  
-      <li>
-        Edificio <strong><%= building.name %></strong> 
-        <%= building.address %>  
-        <span class="text-muted ps-3"><%= building.description %></span>
-      </li>
-    <% end %>
-  </ul>
+  <div class="info my-2">
+    <ul>
+      <% @labs.keys.each do |building| %>  
+        <% next unless building %>  
+        <li>
+          Edificio <strong><%= building.name %></strong> 
+          <%= building.address %>  
+          <span class="text-muted ps-3"><%= building.description %></span>
+        </li>
+      <% end %>
+    </ul>
+    Per creare nuovi <strong>edifici</strong> legati alla vostra UL scrivere a dipmat-gemma@unibo.it. 
+  </div>
 <% end %>
 
 <div class="row">
