@@ -25,7 +25,8 @@ insert into containers values (7, 'fusto', 60, '');
 insert into containers values (8, 'polietilene', 60, '');
 insert into containers values (9, 'clinipack', 60, '');
 insert into containers values (10, 'tanica', 120, '');
-insert into containers values (11, 'big bag', 500, '');
+insert into containers values (11, 'tanica', 200, '');
+insert into containers values (12, 'big bag', 500, '');
 
 -- alter table organizations add column `next_local_id` int(10) default 1 after `description`;
 -- alter table disposals add column `local_id` int(10) after `disposal_type_id`;
