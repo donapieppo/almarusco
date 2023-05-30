@@ -26,9 +26,6 @@
       <%= yield %>
     </main><!-- container -->
 
-    <% unless @no_menu %>  
-      <%= render partial: 'layouts/footer' %>
-    <% end %>
+    <%= render DmUniboCommon::FooterComponent.new(current_user, contacts_path: contacts_path, documentation_path: "https://www.dm.unibo.it/almarusco/help/docs/intro/") %>  
   </body>
 </html>
-
