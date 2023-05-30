@@ -1,62 +1,55 @@
-<%= dm_menu do %>  
-  <%= dm_header %>
-  <% if !@no_menu && current_user && current_organization %>  
-    <%= dm_nav do %> 
-      <% if policy(current_organization).manage? %>  
-        <%= dropdown_menu :disposal, big_dmicon('trash-alt') + ' Rifiuti.' do  %>
-          <li><%= link_to fwdmicon('plus') + ' nuovo rifiuto', choose_disposal_type_disposals_path %></li>
-          <li><%= link_to fwdmicon('circle-exclamation') + ' richieste incomplete', disposals_path(uncomplete: 1) %></li>
-          <li><%= link_to fwdmicon('trash') + ' richieste da accettare', disposals_path(acceptable: 1) %></li>
-          <li><%= link_to fwdmicon('house') + ' deposito temporaneo', deposit_path %></li>
-          <li><%= link_to fwdmicon('truck') + ' ritiri', pickings_path %></li>
-          <li><%= link_to fwdmicon('print') + ' stampe etichette', new_print_path %></li>
-          <div class="dropdown-divider"></div>
-          <li><%= link_to fwdmicon('file') + ' Registrazioni', legal_records_path %></li>
-        <% end %>
+<% search_component = DmUniboCommon::SearchComponent.new(search_path: search_path, placeholder: "n. ident.", type: "number", title: "cerca da numero identificativo") %>  
 
-        <%= dropdown_menu :amm, big_dmicon('cogs') + ' Amm.' do  %>
-          <li><%= link_to fwdmicon('trash') + ' Codici CER', cer_codes_path %></li>
-          <li><%= link_to fwdmicon('trash') + ' Codici UN', un_codes_path %></li>
-          <li><%= link_to fwdmicon('list') + ' tipologie di rifiuti', disposal_types_path %></li>
-          <li><%= link_to fwdmicon('truck') + ' Fornitori', suppliers_path %></li>
-          <li><%= link_to fwdmicon('flask') + ' Laboratori', labs_path %></li>
-          <li><%= link_to fwdmicon('users') + ' Permessi', producers_path %></li>
-          <li><%= link_to fwdmicon('wrench') + ' Configurazioni', current_organization_edit_path %></li>
-          <li><%= link_to fwdmicon('print') + ' MUD', mud_path %></li>
-          <!-- CESIA -->
-          <% if current_user.nuter? %>  
-            <div class="dropdown-divider"></div>
-            <h6 class="dropdown-header">Nuter</h6>
-            <li><%= link_to fwdmicon('building') + ' Strutture', status_organizations_path %></li>
-            <li><%= link_to fwdmicon('building') + ' Reports', report_path %></li>
-            <li><%= link_to fwdmicon('chart-pie') + ' Statistiche', charts_path, data: { turbo: false } %></li>
-          <% end %>
-          <% if current_user.is_cesia? %>
-            <div class="dropdown-divider"></div>
-            <h6 class="dropdown-header">Cesia</h6>
-            <li><%= link_to fwdmicon('building') + ' Strutture',  dm_unibo_common.organizations_path %></li>
-            <li><%= link_to fwdmicon('user') + ' Autorizzazioni', dm_unibo_common.permissions_path %></li>
-          <% end %>
-        <% end %>
-      <% elsif ! @no_menu %>
-        <li><%= link_to fwdmicon('trash') + ' elenco rifiuti', disposals_path %></li>
-        <li><%= link_to fwdmicon('circle-plus') + ' nuovo rifiuto', choose_disposal_type_disposals_path %></li>
+<%= render DmUniboCommon::MenuComponent.new(sso_user_upn, current_organization: current_organization, search_component: search_component) do %>  
+  <% if current_user && current_organization %>  
+    <% if policy(current_organization).manage? %>  
+      <%= dropdown_menu :disposal, big_dmicon('trash-alt') + ' Rifiuti.' do  %>
+        <li><%= link_to fwdmicon('plus') + ' nuovo rifiuto', choose_disposal_type_disposals_path %></li>
+        <li><%= link_to fwdmicon('circle-exclamation') + ' richieste incomplete', disposals_path(uncomplete: 1) %></li>
+        <li><%= link_to fwdmicon('trash') + ' richieste da accettare', disposals_path(acceptable: 1) %></li>
+        <li><%= link_to fwdmicon('house') + ' deposito temporaneo', deposit_path %></li>
+        <li><%= link_to fwdmicon('truck') + ' ritiri', pickings_path %></li>
         <li><%= link_to fwdmicon('print') + ' stampe etichette', new_print_path %></li>
+        <div class="dropdown-divider"></div>
+        <li><%= link_to fwdmicon('file') + ' Registrazioni', legal_records_path %></li>
       <% end %>
 
-      <% if current_user.multi_organizations? %>
-        <li><%= link_to fwdmicon('exchange-alt') + ' cambia struttura', choose_organization_path %></li>
+      <%= dropdown_menu :amm, big_dmicon('cogs') + ' Amm.' do  %>
+        <li><%= link_to fwdmicon('trash') + ' Codici CER', cer_codes_path %></li>
+        <li><%= link_to fwdmicon('trash') + ' Codici UN', un_codes_path %></li>
+        <li><%= link_to fwdmicon('list') + ' tipologie di rifiuti', disposal_types_path %></li>
+        <li><%= link_to fwdmicon('truck') + ' Fornitori', suppliers_path %></li>
+        <li><%= link_to fwdmicon('flask') + ' Laboratori', labs_path %></li>
+        <li><%= link_to fwdmicon('users') + ' Permessi', producers_path %></li>
+        <li><%= link_to fwdmicon('wrench') + ' Configurazioni', current_organization_edit_path %></li>
+        <li><%= link_to fwdmicon('print') + ' MUD', mud_path %></li>
+        <!-- CESIA -->
+        <% if current_user.nuter? %>  
+          <div class="dropdown-divider"></div>
+          <h6 class="dropdown-header">Nuter</h6>
+          <li><%= link_to fwdmicon('building') + ' Strutture', status_organizations_path %></li>
+          <li><%= link_to fwdmicon('building') + ' Reports', report_path %></li>
+          <li><%= link_to fwdmicon('chart-pie') + ' Statistiche', charts_path, data: { turbo: false } %></li>
+        <% end %>
+        <% if current_user.is_cesia? %>
+          <div class="dropdown-divider"></div>
+          <h6 class="dropdown-header">Cesia</h6>
+          <li><%= link_to fwdmicon('building') + ' Strutture',  dm_unibo_common.organizations_path %></li>
+          <li><%= link_to fwdmicon('user') + ' Autorizzazioni', dm_unibo_common.permissions_path %></li>
+        <% end %>
       <% end %>
-
-      <% if current_user.is_cesia? %>  
-        <li><%= link_to big_dmicon('list'), organizations_path %></li>
-      <% end %>
+    <% else %>
+      <li><%= link_to fwdmicon('trash') + ' elenco rifiuti', disposals_path %></li>
+      <li><%= link_to fwdmicon('circle-plus') + ' nuovo rifiuto', choose_disposal_type_disposals_path %></li>
+      <li><%= link_to fwdmicon('print') + ' stampe etichette', new_print_path %></li>
     <% end %>
 
-    <% unless @no_menu %>
-      <%= form_tag search_path, class: "float-end form-inline my-2 my-lg-0 me-2", role: "search" do %>
-        <input name="search_string" size="4" class="form-control mr-sm-2" type="number" placeholder="n. ident." title="cerca da numero identificativo" aria-label="Cerca"/>
-      <% end %>
+    <% if current_user.multi_organizations? %>
+      <li><%= link_to fwdmicon('exchange-alt') + ' cambia struttura', choose_organization_path %></li>
+    <% end %>
+
+    <% if current_user.is_cesia? %>  
+      <li><%= link_to big_dmicon('list'), organizations_path %></li>
     <% end %>
   <% end %>  
 <% end %>
