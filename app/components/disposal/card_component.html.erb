@@ -46,6 +46,7 @@
     <% if @with_details %>  
       <div class="details p-2 small text-info">
         <%= render DisposalType::InfoComponent.new(@disposal.disposal_type) %>  
+        <div><strong>Contenitore:</strong> <%= @disposal.container.name %></div>
       </div>
     <% end %>
 
