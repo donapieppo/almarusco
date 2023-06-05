@@ -15,6 +15,9 @@ create table containers_disposal_types (
         FOREIGN KEY (disposal_type_id) REFERENCES disposal_types(id)
 );
 
+alter table `disposals` add column `container_id` int(10) unsigned after `volume`;
+alter table `disposals` add FOREIGN KEY (container_id) REFERENCES `containers` (`id`);
+
 insert into containers values (1, 'tanica', 5, '');
 insert into containers values (2, 'tanica', 10, '');
 insert into containers values (3, 'tanica', 20, '');
@@ -27,6 +30,12 @@ insert into containers values (9, 'clinipack', 60, '');
 insert into containers values (10, 'tanica', 120, '');
 insert into containers values (11, 'tanica', 200, '');
 insert into containers values (12, 'big bag', 500, '');
+
+update disposals set container_id = 2 where volume = 10;
+update disposals set container_id = 3 where volume = 20;
+update disposals set container_id = 6 where volume = 40;
+update disposals set container_id = 7 where volume = 60;
+update disposals set container_id = 10 where volume = 120;
 
 -- alter table organizations add column `next_local_id` int(10) default 1 after `description`;
 -- alter table disposals add column `local_id` int(10) after `disposal_type_id`;
