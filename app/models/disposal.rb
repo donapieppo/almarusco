@@ -9,6 +9,7 @@ class Disposal < ApplicationRecord
   belongs_to :user
   belongs_to :producer, class_name: "User", optional: true
   belongs_to :disposal_type
+  belongs_to :container
   belongs_to :lab
   belongs_to :picking, optional: true
   belongs_to :legal_upload, foreign_key: "legal_record_id", optional: true
@@ -18,7 +19,7 @@ class Disposal < ApplicationRecord
   validates :kgs, numericality: {greater_than_or_equal_to: 0}
   # validates_with RegistrationNumberValidator
 
-  before_validation :fix_units
+  before_validation :fix_units, :fix_liters_from_container
   # TODO
   # after_create :update_local_id
 
@@ -170,6 +171,10 @@ class Disposal < ApplicationRecord
     unless self.disposal_type.separable
       self.units = 1
     end
+  end
+
+  def fix_liters_from_container
+    self.volume = self.container&.volume
   end
 
   def volume_type
