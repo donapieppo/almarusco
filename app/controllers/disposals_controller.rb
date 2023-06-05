@@ -1,10 +1,10 @@
 class DisposalsController < ApplicationController
   helper DisposalHelper
 
-  before_action :set_disposal_type, only: %i[ new create ]
-  before_action :set_permitted_producers, only: %i[ new create edit update ]
-  before_action :set_cache_users, only: %i[ new clone edit ]
-  before_action :set_disposal_and_check_permission, only: %i[ show edit update destroy approve unapprove ]
+  before_action :set_disposal_type, only: %i[new create]
+  before_action :set_permitted_producers, only: %i[new create edit update]
+  before_action :set_cache_users, only: %i[new clone edit]
+  before_action :set_disposal_and_check_permission, only: %i[show edit update destroy approve unapprove]
 
   # solo rifiuti prima della registrazione
   def index
@@ -19,16 +19,16 @@ class DisposalsController < ApplicationController
         @disposals = @disposals.user_or_producer(@user.id)
       end
       if params[:uncomplete]
-        @title = 'Richieste incomplete'
-        @disposals = @disposals.uncomplete 
+        @title = "Richieste incomplete"
+        @disposals = @disposals.uncomplete
       elsif params[:acceptable]
-        @title = 'Richieste da approvare'
+        @title = "Richieste da approvare"
         @disposals = @disposals.complete.unapproved
       else
-        @title = 'Rifiuti non registrati'
+        @title = "Rifiuti non registrati"
       end
     else
-      @title = 'Elenco rifiuti'
+      @title = "Elenco rifiuti"
       @disposals = @disposals.user_or_producer(current_user.id)
     end
 
@@ -42,7 +42,7 @@ class DisposalsController < ApplicationController
   end
 
   def choose_disposal_type
-    @disposal_types = current_organization.disposal_types.with_all_includes.order('cer_codes.name')
+    @disposal_types = current_organization.disposal_types.with_all_includes.order("cer_codes.name")
     unless policy(current_organization).manage?
       @disposal_types = @disposal_types.where(hidden: false)
     end
@@ -50,7 +50,7 @@ class DisposalsController < ApplicationController
   end
 
   def new
-    @disposal = current_user.disposals.new(disposal_type_id: @disposal_type.id, 
+    @disposal = current_user.disposals.new(disposal_type_id: @disposal_type.id,
                                            organization_id: current_organization.id)
     authorize @disposal
   end
@@ -149,7 +149,7 @@ class DisposalsController < ApplicationController
 
   # no producer or user!
   def disposal_params
-    params[:disposal].permit(:kgs, :units, :volume, :lab_id, :notes)
+    params[:disposal].permit(:kgs, :units, :container_id, :lab_id, :notes)
   end
 
   def set_disposal_type
@@ -168,20 +168,20 @@ class DisposalsController < ApplicationController
   def set_permitted_producers
     @permitted_producers = current_user.permitted_producers(current_organization)
     if @permitted_producers.any? && current_user.authorization.can_dispose?(current_organization)
-      @permitted_producers << current_user 
+      @permitted_producers << current_user
     end
   end
 
   def set_cache_users
-    @cache_users_json = current_organization.users_cache.map{|x| "#{x.to_s} (#{x.upn})"}.to_json
+    @cache_users_json = current_organization.users_cache.map { |x| "#{x.to_s} (#{x.upn})" }.to_json
   end
 
   # Operator chooses from a select. User already in db.
   def set_producer_by_operator(producer_id)
-    if @permitted_producers.any? 
+    if @permitted_producers.any?
       producer = User.find(producer_id)
       unless producer && @permitted_producers.include?(producer)
-        raise "PRODUCER ERRATO" 
+        raise "PRODUCER ERRATO"
       end
       @disposal.producer_id = producer.id
     end
@@ -210,7 +210,7 @@ class DisposalsController < ApplicationController
 
     if producer_id.to_i > 0
       set_producer_by_operator(producer_id)
-    elsif ! producer_upn.blank?
+    elsif !producer_upn.blank?
       set_producer_by_admin(producer_upn)
     else
       @disposal.producer_id = current_user.id
