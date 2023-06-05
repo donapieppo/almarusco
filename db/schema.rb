@@ -39,9 +39,17 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.index ["name"], name: "name"
   end
 
+  create_table "cer_codes_suppliers", id: false, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "cer_code_id", null: false, unsigned: true
+    t.integer "supplier_id", null: false, unsigned: true
+    t.index ["cer_code_id"], name: "fk_ccs_cer_code"
+    t.index ["supplier_id"], name: "fk_ccs_supplier"
+  end
+
   create_table "containers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name"
     t.integer "liters"
+    t.text "notes"
   end
 
   create_table "containers_disposal_types", id: false, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -99,12 +107,14 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.text "notes"
     t.decimal "kgs", precision: 10, scale: 3, default: "0.0"
     t.integer "volume"
+    t.integer "container_id", unsigned: true
     t.integer "units", limit: 2, default: 1
     t.date "created_at"
     t.date "approved_at"
     t.date "legalized_at"
     t.date "delivered_at"
     t.date "completed_at"
+    t.index ["container_id"], name: "container_id"
     t.index ["disposal_type_id"], name: "fk_disposals_disposal_type"
     t.index ["lab_id"], name: "fk_disposals_labs"
     t.index ["legal_record_id"], name: "legal_record_id"
@@ -220,6 +230,8 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   add_foreign_key "adrs_disposal_types", "adrs", name: "fk_adrdt_adr"
   add_foreign_key "adrs_disposal_types", "disposal_types", name: "fk_adrdt_dt"
   add_foreign_key "buildings", "organizations", name: "buildings_ibfk_1"
+  add_foreign_key "cer_codes_suppliers", "cer_codes", name: "fk_ccs_cer_code"
+  add_foreign_key "cer_codes_suppliers", "suppliers", name: "fk_ccs_supplier"
   add_foreign_key "containers_disposal_types", "containers", name: "containers_disposal_types_ibfk_1"
   add_foreign_key "containers_disposal_types", "disposal_types", name: "containers_disposal_types_ibfk_2"
   add_foreign_key "contracts", "cer_codes", name: "contracts_ibfk_2"
@@ -231,6 +243,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   add_foreign_key "disposal_types_hp_codes", "hp_codes", name: "fk_dthc_hp_code"
   add_foreign_key "disposal_types_pictograms", "disposal_types", name: "fk_dtp_dt"
   add_foreign_key "disposal_types_pictograms", "pictograms", name: "fk_dtp_picto"
+  add_foreign_key "disposals", "containers", name: "disposals_ibfk_2"
   add_foreign_key "disposals", "disposal_types", name: "fk_disposals_disposal_type"
   add_foreign_key "disposals", "labs", name: "fk_disposals_labs"
   add_foreign_key "disposals", "legal_records", name: "disposals_ibfk_1"
