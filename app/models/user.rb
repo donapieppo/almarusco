@@ -4,8 +4,10 @@ class User < ApplicationRecord
 
   # for who use can operate?
   def permitted_producers(org)
-    producer_ids = org.permissions.where(authlevel: Rails.configuration.authlevels[:operate], 
-                                         user_id: self.id).map(&:producer_id).uniq
+    producer_ids = org.permissions
+      .where(authlevel: Rails.configuration.authlevels[:operate], user_id: self.id)
+      .map(&:producer_id)
+      .uniq
     User.find(producer_ids)
   end
 

@@ -30,13 +30,13 @@
             operatore: <%= operator_permission.user %>
           <i>(fino al <%= operator_permission.expiry ? l(operator_permission.expiry) : '???' %>)</i>
           <span class="float-end">
-            <%= link_to_delete operator_path(operator_permission.id) %>
-            <%= link_to_edit edit_operator_path(operator_permission.id) %>
+            <%= link_to_delete "", operator_path(operator_permission.id) %>
+            <%= link_to_edit "", edit_operator_path(operator_permission.id) %>
           </span>
           </div>
         <% end %>
         <div class="mt-2 float-end">
-          <%= link_to dmicon('plus') + ' aggiungi operatore', new_producer_operator_path(permission.user_id) %> &nbsp;  
+          <%= link_to dm_icon('plus', text: 'aggiungi operatore'), new_producer_operator_path(permission.user_id) %> &nbsp;  
           <%= link_to_delete "elimina produttore", producer_path(permission) %>
         </div>
       <% end %>

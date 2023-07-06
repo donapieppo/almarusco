@@ -4,17 +4,17 @@ class Picking < ApplicationRecord
   has_many :disposals
   has_many :picking_documents
 
-  scope :undelivered, -> { where('pickings.delivered_at IS NULL') }
-  scope :uncompleted, -> { where('pickings.completed_at IS NULL') }
+  scope :undelivered, -> { where("pickings.delivered_at IS NULL") }
+  scope :uncompleted, -> { where("pickings.completed_at IS NULL") }
 
   def to_s
     "Ritiro #{self.supplier} del #{self.date}"
   end
-  
+
   def possible_disposals
     # for not danger disposal il already legalized whena accepted
-    # self.supplier.contract_picking_disposals(self.organization_id).where("legalized_at is not null or cer_codes.danger = 0").undelivered 
-    self.supplier.contract_picking_disposals(self.organization_id).legalized.undelivered 
+    # self.supplier.contract_picking_disposals(self.organization_id).where("legalized_at is not null or cer_codes.danger = 0").undelivered
+    self.supplier.contract_picking_disposals(self.organization_id).legalized.undelivered
   end
 
   def fill_with_default_disposals
@@ -27,7 +27,7 @@ class Picking < ApplicationRecord
   end
 
   def undelivered?
-    ! delivered?
+    !delivered?
   end
 
   def completed?
@@ -37,7 +37,7 @@ class Picking < ApplicationRecord
   # return treu/false
   def deliver!
     if self.date
-      self.disposals.each {|d| d.deliver!}
+      self.disposals.each { |d| d.deliver! }
       self.update(delivered_at: self.date)
     else
       self.errors.add(:base, "È necessario indicare la data della consegna tra i dati del ritiro prima di confermare.")
@@ -46,26 +46,26 @@ class Picking < ApplicationRecord
   end
 
   def complete!
-    self.disposals.each {|d| d.complete!}
+    self.disposals.each { |d| d.complete! }
     self.update(completed_at: Date.today)
   end
 
   def status
     if self.completed?
-      'archiviato'
+      "archiviato"
     elsif self.delivered?
-      'consegnato'
+      "consegnato"
     else
-      'in corso'
+      "in corso"
     end
   end
 
   def picking_document_by_disposal_type(dt)
-    self.picking_documents.where(disposal_type: dt).first   
+    self.picking_documents.where(disposal_type: dt).first
   end
 
   def date_to_s
-    self.date ? I18n.l(date) : 'Data non definita'
+    self.date ? I18n.l(date) : "Data non definita"
   end
 
   def self.other_requests

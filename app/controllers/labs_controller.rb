@@ -3,8 +3,8 @@ class LabsController < ApplicationController
 
   def index
     authorize :lab
-    @labs = Hash.new{|h, k| h[k] = []}
-    current_organization.labs.includes(:building).order('buildings.name, labs.name').each do |lab|
+    @labs = Hash.new { |h, k| h[k] = [] }
+    current_organization.labs.includes(:building).order("buildings.name, labs.name").each do |lab|
       @labs[lab.building] << lab
     end
     @used_labs_ids = current_organization.disposals.group(:lab_id).count

@@ -7,18 +7,22 @@
   È possibile modificare e completare manualmente la richiesta da stampare.
 </div>
 
-<%= form_with url: [:print_request, @picking, format: :pdf] do |f| %>  
+<%= form_with url: [:print_request, @picking, format: :pdf], class: "py-2 my-2" do |f| %>  
+  <p class="fw-bold">Richieste aggiuntive</p>
+  <div>
   <% Picking.other_requests.each do |req| %>  
     <div class="row my-1">
-      <div class="col-sm-3 text-end">
-        <label class="form-label"><%= req[1] %></label>
+      <div class="col-sm-6 text-end">
+        <label class="form-label">Numero di <%= req[1] %></label>
       </div>
-      <div class="col-sm-9">
+      <div class="col-sm-6">
         <%= f.text_field req[0], class: 'form-control numeric number', style: "width: 8rem" %>
       </div>
     </div>
   <% end %>
+  </div>
 
+  <p class="fw-bold">Richieste</p>
   <% @request.volumes_and_kgs_ordered.each do |vol_and_kg| %>  
     <% dt = vol_and_kg[:dt] %>  
     <% values = vol_and_kg[:values] %>  

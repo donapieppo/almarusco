@@ -17,7 +17,7 @@
       <div class="small mt-2 ps-2"><strong>Cer:</strong> <%= supplier.cer_codes.pluck(:name).join(", ") %></div>
       <% if policy(supplier).edit? %>  
         <div class="float-end">
-          <%= link_to_edit [:edit, supplier] %>
+          <%= link_to_edit "", [:edit, supplier] %>
         </div>
       <% end %>
     </div>

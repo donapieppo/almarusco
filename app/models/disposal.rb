@@ -42,7 +42,7 @@ class Disposal < ApplicationRecord
   end
 
   def multiple_units_to_s
-    self.units > 1 ? 'M' : ''
+    self.units > 1 ? "M" : ""
   end
 
   def volume_to_s
@@ -90,7 +90,7 @@ class Disposal < ApplicationRecord
   # LEGALIZE. responsible writes the disposal on legal book
   # FIXME because in the beginning no legal uplodad, we can have legalized_at not null and legal_record_id null :-(
   def legalized?
-    legalized_at 
+    legalized_at
   end
 
   def legalize!(legal_record)
@@ -109,7 +109,7 @@ class Disposal < ApplicationRecord
   end
 
   def undelivered?
-    ! delivered?
+    !delivered?
   end
 
   def legal_download
@@ -135,17 +135,17 @@ class Disposal < ApplicationRecord
 
   def status
     if self.completed?
-      'archiviato'
+      "archiviato"
     elsif self.delivered?
-      'consegnato'
+      "consegnato"
     elsif self.picking_id
-      'ritiro prenotato'
+      "ritiro prenotato"
     elsif self.legal_record_id
-      'registrato'
+      "registrato"
     elsif self.approved?
-      'accettato' 
+      "accettato"
     else
-      'da accettare'
+      "da accettare"
     end
   end
 
@@ -156,7 +156,7 @@ class Disposal < ApplicationRecord
   # possiamo passare 'pietro.donatini' 'pietro.donatini@unibo.it' 'Pietro donatini pietro.donatini@unibo.it'
   # FIXME check before use :-) For now see disposals_controller set_producer
   def producer_upn=(upn)
-    if upn =~ /(\w+\.\w+)/ 
+    if upn =~ /(\w+\.\w+)/
       _producer = User.find_or_syncronize("#{$1}@unibo.it")
     else
       _producer = User.find_or_syncronize(upn)
@@ -178,11 +178,11 @@ class Disposal < ApplicationRecord
   end
 
   def volume_type
-    return "" if self.volume.to_i == 0 
+    return "" if self.volume.to_i == 0
     if self.units.to_i == 1
-      self.volume.to_i == 200 ? 'fusto' : 'tanica'
+      (self.volume.to_i == 200) ? "fusto" : "tanica"
     elsif self.units.to_i > 1
-      self.volume.to_i == 200 ? 'fusti' : 'taniche'
+      (self.volume.to_i == 200) ? "fusti" : "taniche"
     else
       ""
     end

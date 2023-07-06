@@ -1,55 +1,57 @@
-<% search_component = DmUniboCommon::SearchComponent.new(search_path: search_path, placeholder: "n. ident.", type: "number", title: "cerca da numero identificativo") %>  
+<% if true_user && current_user %>  
+  <% search_component = DmUniboCommon::SearchComponent.new(search_path: search_path, placeholder: "n. ident.", type: "number", title: "Cerca da numero identificativo") %>
+<% end %>
 
 <%= render DmUniboCommon::MenuComponent.new(sso_user_upn, current_organization: current_organization, search_component: search_component) do %>  
-  <% if current_user && current_organization %>  
+  <% if true_user && current_user && current_organization %>  
     <% if policy(current_organization).manage? %>  
-      <%= dropdown_menu :disposal, big_dmicon('trash-alt') + ' Rifiuti.' do  %>
-        <li><%= link_to fwdmicon('plus') + ' nuovo rifiuto', choose_disposal_type_disposals_path %></li>
-        <li><%= link_to fwdmicon('circle-exclamation') + ' richieste incomplete', disposals_path(uncomplete: 1) %></li>
-        <li><%= link_to fwdmicon('trash') + ' richieste da accettare', disposals_path(acceptable: 1) %></li>
-        <li><%= link_to fwdmicon('house') + ' deposito temporaneo', deposit_path %></li>
-        <li><%= link_to fwdmicon('truck') + ' ritiri', pickings_path %></li>
-        <li><%= link_to fwdmicon('print') + ' stampe etichette', new_print_path %></li>
+      <%= dropdown_menu :disposal, dm_icon('trash-can', text: 'Rifiuti.', fw: true, size: :lg) do  %>
+        <li><%= link_to dm_icon('plus', fw: true, text: 'Nuovo rifiuto'), choose_disposal_type_disposals_path %></li>
+        <li><%= link_to dm_icon('circle-exclamation', fw: true, text: 'Richieste incomplete'), disposals_path(uncomplete: 1) %></li>
+        <li><%= link_to dm_icon('trash', fw: true, text: 'Richieste da accettare'), disposals_path(acceptable: 1) %></li>
+        <li><%= link_to dm_icon('house', fw: true, text: 'Deposito temporaneo'), deposit_path %></li>
+        <li><%= link_to dm_icon('truck', fw: true, text: 'Ritiri'), pickings_path %></li>
+        <li><%= link_to dm_icon('print', fw: true, text: 'stampe etichette'), new_print_path %></li>
         <div class="dropdown-divider"></div>
-        <li><%= link_to fwdmicon('file') + ' Registrazioni', legal_records_path %></li>
+        <li><%= link_to dm_icon('file', fw: true, text: 'Registrazioni'), legal_records_path %></li>
       <% end %>
 
-      <%= dropdown_menu :amm, big_dmicon('cogs') + ' Amm.' do  %>
-        <li><%= link_to fwdmicon('trash') + ' Codici CER', cer_codes_path %></li>
-        <li><%= link_to fwdmicon('trash') + ' Codici UN', un_codes_path %></li>
-        <li><%= link_to fwdmicon('list') + ' tipologie di rifiuti', disposal_types_path %></li>
-        <li><%= link_to fwdmicon('truck') + ' Fornitori', suppliers_path %></li>
-        <li><%= link_to fwdmicon('flask') + ' Laboratori', labs_path %></li>
-        <li><%= link_to fwdmicon('users') + ' Permessi', producers_path %></li>
-        <li><%= link_to fwdmicon('wrench') + ' Configurazioni', current_organization_edit_path %></li>
-        <li><%= link_to fwdmicon('print') + ' MUD', mud_path %></li>
+      <%= dropdown_menu :amm, dm_icon('gears', text: 'Amm.', fw: true, size: :lg) do  %>
+        <li><%= link_to dm_icon('trash', fw: true, text: 'Codici CER'), cer_codes_path %></li>
+        <li><%= link_to dm_icon('trash', fw: true, text: 'Codici UN'), un_codes_path %></li>
+        <li><%= link_to dm_icon('list', fw: true, text: 'Tipologie di rifiuti'), disposal_types_path %></li>
+        <li><%= link_to dm_icon('truck', fw: true, text: 'Fornitori'), suppliers_path %></li>
+        <li><%= link_to dm_icon('flask', fw: true, text: 'Laboratori'), labs_path %></li>
+        <li><%= link_to dm_icon('users', fw: true, text: 'Permessi'), producers_path %></li>
+        <li><%= link_to dm_icon('wrench', fw: true, text: 'Configurazioni'), current_organization_edit_path %></li>
+        <li><%= link_to dm_icon('print', fw: true, text: 'MUD'), mud_path %></li>
         <!-- CESIA -->
         <% if current_user.nuter? %>  
           <div class="dropdown-divider"></div>
           <h6 class="dropdown-header">Nuter</h6>
-          <li><%= link_to fwdmicon('building') + ' Strutture', status_organizations_path %></li>
-          <li><%= link_to fwdmicon('building') + ' Reports', report_path %></li>
-          <li><%= link_to fwdmicon('chart-pie') + ' Statistiche', charts_path, data: { turbo: false } %></li>
+          <li><%= link_to dm_icon('building', fw: true, text: 'Strutture'), status_organizations_path %></li>
+          <li><%= link_to dm_icon('building', fw: true, text: 'Reports'), report_path %></li>
+          <li><%= link_to dm_icon('chart-pie', fw: true, text: 'Statistiche'), charts_path, data: { turbo: false } %></li>
         <% end %>
         <% if current_user.is_cesia? %>
           <div class="dropdown-divider"></div>
           <h6 class="dropdown-header">Cesia</h6>
-          <li><%= link_to fwdmicon('building') + ' Strutture',  dm_unibo_common.organizations_path %></li>
-          <li><%= link_to fwdmicon('user') + ' Autorizzazioni', dm_unibo_common.permissions_path %></li>
+          <li><%= link_to dm_icon('building', fw: true, text: 'Strutture'),  dm_unibo_common.organizations_path %></li>
+          <li><%= link_to dm_icon('user', fw: true, text: 'Autorizzazioni'), dm_unibo_common.permissions_path %></li>
         <% end %>
       <% end %>
     <% else %>
-      <li><%= link_to fwdmicon('trash') + ' elenco rifiuti', disposals_path %></li>
-      <li><%= link_to fwdmicon('circle-plus') + ' nuovo rifiuto', choose_disposal_type_disposals_path %></li>
-      <li><%= link_to fwdmicon('print') + ' stampe etichette', new_print_path %></li>
+      <li><%= link_to dm_icon('trash', fw: true, text: 'Elenco rifiuti'), disposals_path %></li>
+      <li><%= link_to dm_icon('circle-plus', fw: true, text: 'Nuovo rifiuto'), choose_disposal_type_disposals_path %></li>
+      <li><%= link_to dm_icon('print', fw: true, text: 'Stampe etichette'), new_print_path %></li>
     <% end %>
 
     <% if current_user.multi_organizations? %>
-      <li><%= link_to fwdmicon('exchange-alt') + ' cambia struttura', choose_organization_path %></li>
+      <li><%= link_to dm_icon('exchange-alt', fw: true, text: 'Cambia struttura', size: :lg), choose_organization_path %></li>
     <% end %>
 
     <% if current_user.is_cesia? %>  
-      <li><%= link_to big_dmicon('list'), organizations_path %></li>
+      <li><%= link_to dm_icon('list', fw: true, size: :xl), organizations_path %></li>
     <% end %>
   <% end %>  
 <% end %>

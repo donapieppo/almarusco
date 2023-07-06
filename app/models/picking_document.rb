@@ -3,8 +3,8 @@ class PickingDocument < ApplicationRecord
   belongs_to :disposal_type
   has_one :legal_download
 
-  validates :disposal_type_id, uniqueness: { scope: :picking_id, message: 'Documento già inserito per la tipologia di rifuti.' }
-  validates :serial_number, uniqueness: true 
+  validates :disposal_type_id, uniqueness: {scope: :picking_id, message: "Documento già inserito per la tipologia di rifuti."}
+  validates :serial_number, uniqueness: true
   validate :organization_coherence
 
   def to_s
