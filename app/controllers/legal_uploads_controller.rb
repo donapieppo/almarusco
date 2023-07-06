@@ -9,10 +9,11 @@ class LegalUploadsController < LegalRecordsController
   end
 
   def create
-    @legal_upload = current_organization.legal_uploads.new(disposal_type: @disposal_type, 
-                                                           number: params[:legal_upload][:number], 
-                                                           date: params[:legal_upload][:date])
+    @legal_upload = current_organization
+      .legal_uploads
+      .new(disposal_type: @disposal_type, number: params[:legal_upload][:number], date: params[:legal_upload][:date])
     authorize @legal_upload
+
     if @legal_upload.save
       @disposals.each do |disposal|
         disposal.legalize!(@legal_upload)
@@ -27,15 +28,14 @@ class LegalUploadsController < LegalRecordsController
   end
 
   def update
-   if @legal_upload.update(number: params[:legal_upload][:number],
-                           date: params[:legal_upload][:date])
-     redirect_to @legal_upload, notice: "Registrazione numero #{@legal_upload.number} aggiornata correttamente."
-   else
-     render action: :edit, status: :unprocessable_entity
-   end
+    if @legal_upload.update(number: params[:legal_upload][:number], date: params[:legal_upload][:date])
+      redirect_to @legal_upload, notice: "Registrazione numero #{@legal_upload.number} aggiornata correttamente."
+    else
+      render action: :edit, status: :unprocessable_entity
+    end
   end
 
-  def show 
+  def show
     @legal_upload = current_organization.legal_uploads.find(params[:id])
     @disposals = @legal_upload.disposals
     authorize @legal_upload
@@ -48,7 +48,7 @@ class LegalUploadsController < LegalRecordsController
   end
 
   def set_disposals
-    @disposal_ids = params[:disposal_ids] 
+    @disposal_ids = params[:disposal_ids]
 
     if @disposal_ids.any?
       @disposals = Disposal.find(@disposal_ids)
