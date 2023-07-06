@@ -2,7 +2,10 @@
 
 <div data-controller="disposal-lab">
   <div id="building_id" class="row mb-3 select required">
-    <label class="col-sm-3 col-form-label select required" for="building_id">Edificio</label>
+    <label class="col-sm-3 col-form-label select required" for="building_id">
+      Edificio
+      <abbr title="richiesto">*</abbr>
+    </label>
     <div class="col-sm-3">
       <select name="building" class="form-select" data-action="disposal-lab#change_building">
         <option value=""></option>
@@ -14,7 +17,10 @@
     </div>
   </div>
   <div id="lab_id" class="row mb-3 select required">
-    <label class="col-sm-3 col-form-label select required" for="building_id">Laboratorio</label>
+    <label class="col-sm-3 col-form-label select required" for="building_id">
+      Laboratorio
+      <abbr title="richiesto">*</abbr>
+    </label>
     <div class="col-sm-3">
       <select name="disposal[lab_id]" data-disposal-lab-target="labs" name="building" class="form-select">
         <option value=""></option>
