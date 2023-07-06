@@ -18,7 +18,7 @@ class DisposalTest < ActiveSupport::TestCase
   end
 
   test "A disposal with not danger cer is legalized when approved" do
-    cer_code = FactoryBot.create(:cer_code, danger: true)
+    cer_code = FactoryBot.create(:cer_code, danger: false)
     dt = FactoryBot.create(:disposal_type, cer_code: cer_code)
     d = FactoryBot.create(:disposal, organization: dt.organization, disposal_type: dt)
 
@@ -28,7 +28,7 @@ class DisposalTest < ActiveSupport::TestCase
   end
 
   test "A disposal with danger cer is not legalized when approved" do
-    cer_code = FactoryBot.create(:cer_code, danger: false)
+    cer_code = FactoryBot.create(:cer_code, danger: true)
     dt = FactoryBot.create(:disposal_type, cer_code: cer_code)
     d = FactoryBot.create(:disposal, organization: dt.organization, disposal_type: dt)
 
