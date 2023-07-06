@@ -1,21 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Gestione Rifiuti Speciali. Università di Bologna.">
-    <meta name="author" content="Dipartimento di Matematica - Unibo - Pietro Donatini">
-    <title>AlmaRusco - Gestione Rifiuti Speciali - Università di Bologna</title>
-
-    <%= dm_unibo_common_headers %>  
-  </head>
+  <%= render DmUniboCommon::HeaderComponent.new %>
   <body>
     <%= render partial: 'layouts/menu' %>
 
     <main role="main" class="container">
-      <%= turbo_frame_tag "modal" %>
+      <%= render DmUniboCommon::PrivacyAlertComponent.new(cookies) %>  
       <%= bootstrap_flash %>
+      <%= turbo_frame_tag "modal" %>
 
       <% if current_organization %>  
         <h2 class="centered">
@@ -24,8 +16,9 @@
       <% end %>
 
       <%= yield %>
-    </main><!-- container -->
+    </main>
 
     <%= render DmUniboCommon::FooterComponent.new(current_user, contacts_path: contacts_path, documentation_path: "https://www.dm.unibo.it/almarusco/help/docs/intro/") %>  
+    <%= render DmUniboCommon::ImpersonationComponent.new(current_user, true_user) %>  
   </body>
 </html>
