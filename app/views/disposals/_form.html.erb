@@ -19,8 +19,7 @@
 
   <%= f.input :kgs, input_html: { step: 0.1, style: 'max-width: 8rem' } %>  
 
-  <% containers_collection = @disposal.disposal_type.containers.order(:liters, :name).map { |c| [c.to_s, c.liters] } %>  
-  <%= f.input :volume, as: :radio_buttons, collection: containers_collection, wrapper: :horizontal_collection %>  
+  <%= f.association :container, collection: @disposal.disposal_type.containers.order(:volume, :name), label_method: :to_s, include_blank: false, as: :radio_buttons %>  
   <% if @disposal.disposal_type.separable %>  
     <%= f.input :units, input_html: { style: 'max-width: 8rem' } %>  
   <% end %>
