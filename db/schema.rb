@@ -48,7 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
 
   create_table "containers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name"
-    t.integer "liters"
+    t.integer "volume"
     t.text "notes"
   end
 
