@@ -2,8 +2,8 @@ alter table disposal_types add column `hidden` bool not null default 0 after `se
 
 create table containers (
         `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-        `name` varchar(255),
-        `liters` int(2),
+        `name` ENUM("tanica", "bidone polietilene", "clinipack", "fusto", "big bag"),
+        `volume` int(2),
         `notes` text,
         PRIMARY KEY (`id`)
 );
@@ -22,10 +22,10 @@ insert into containers values (1, 'tanica', 5, '');
 insert into containers values (2, 'tanica', 10, '');
 insert into containers values (3, 'tanica', 20, '');
 insert into containers values (4, 'fusto', 30, '');
-insert into containers values (5, 'polietilene', 30, '');
+insert into containers values (5, 'bidone polietilene', 30, '');
 insert into containers values (6, 'fusto', 40, '');
 insert into containers values (7, 'fusto', 60, '');
-insert into containers values (8, 'polietilene', 60, '');
+insert into containers values (8, 'bidone polietilene', 60, '');
 insert into containers values (9, 'clinipack', 60, '');
 insert into containers values (10, 'tanica', 120, '');
 insert into containers values (11, 'tanica', 200, '');
