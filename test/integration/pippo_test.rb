@@ -28,8 +28,9 @@ class PippoTest < ActionDispatch::IntegrationTest
 
   def manager_creates_disposal_type
     sign_in_as(:manager)
-    get new_disposal_types_url
-    fill_in "status", with: "Creating an Article"
+    get new_disposal_type_url
+    click_on :disposal_type_physical_state_snp
+    click_om :disposal_type_cer_code_id_36
   end
 
   test "pippo" do

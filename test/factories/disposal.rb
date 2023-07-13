@@ -6,7 +6,6 @@ FactoryBot.define do
     disposal_type { association :disposal_type, organization: organization }
     lab { association :lab, organization: organization }
     kgs { 2 }
-    volume { 10 }
+    container
   end
 end
-
