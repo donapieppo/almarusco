@@ -50,19 +50,23 @@ class DisposalsController < ApplicationController
   end
 
   def new
-    @disposal = current_user.disposals.new(disposal_type_id: @disposal_type.id,
-                                           organization_id: current_organization.id)
+    @disposal = current_user.disposals.new(
+      disposal_type_id: @disposal_type.id,
+      organization_id: current_organization.id
+    )
     authorize @disposal
   end
 
   def clone
     @orig = Disposal.find(params[:id])
     @disposal_type = @orig.disposal_type
-    @disposal = current_user.disposals.new(disposal_type_id: @disposal_type.id,
-                                           organization_id: current_organization.id,
-                                           lab_id: @orig.lab_id,
-                                           volume: @orig.volume,
-                                           producer_id: @orig.producer_id)
+    @disposal = current_user.disposals.new(
+      disposal_type_id: @disposal_type.id,
+      organization_id: current_organization.id,
+      lab_id: @orig.lab_id,
+      volume: @orig.volume,
+      producer_id: @orig.producer_id
+    )
     authorize @disposal
     render action: :new
   end
@@ -139,9 +143,9 @@ class DisposalsController < ApplicationController
     authorize :disposal
     @year = 2021
     @disposals = current_organization.disposals
-                                     .include_all
-                                     .delivered
-                                     .where('YEAR(disposals.delivered_at) = ?', @year)
+      .include_all
+      .delivered
+      .where("YEAR(disposals.delivered_at) = ?", @year)
     @disposal_types = current_organization.disposal_types.where(id: @disposals.map(&:disposal_type_id).sort.uniq)
   end
 
@@ -205,7 +209,7 @@ class DisposalsController < ApplicationController
   # else is producer itsself
   # if errors fills disposal.errors and leave producer_id = nil
   def set_producer
-    producer_id  = params[:disposal].delete(:producer_id)
+    producer_id = params[:disposal].delete(:producer_id)
     producer_upn = params[:disposal].delete(:producer_upn)
 
     if producer_id.to_i > 0
