@@ -9,9 +9,12 @@
   Non sono al momento programmati ritiri per al tua UL.
   </p>
 <% else %>
-  <div class="list-group" data-controller="limit-visible">
+  <div class="list-group" data-controller="limit-visible" data-limit-visible-substring-value="true">
     <form class="my-2">
-      <input class="form-control text" placeholder="Scrivi parte del numero seriale del documento" type="text" data-action="input->limit-visible#update"></input>
+      <input class="form-control text" 
+             placeholder="Scrivi parte del numero seriale del documento" 
+             type="text" 
+             data-action="input->limit-visible#update"></input>
     </form>
     <% @pickings.each do |picking| %>  
       <div data-limit-visible-target="item" data-text="<%= picking.picking_documents.pluck(:serial_number).join(" ") %>">
