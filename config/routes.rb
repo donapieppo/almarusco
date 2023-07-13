@@ -1,13 +1,10 @@
 Rails.application.routes.draw do
   mount DmUniboCommon::Engine => "/dm_unibo_common"
 
-  get '/logins/logout',  to: 'dm_unibo_common/logins#logout'
-
-  get '/choose_organization',    to: "organizations#choose_organization", as: "choose_organization"
-  get '/no_access',              to: "logins#no_access", as: "no_access"
+  get "/choose_organization", to: "organizations#choose_organization", as: "choose_organization"
 
   # cesia list (more than dm_unibo_common)
-  resources :organizations, only: [:index, :show, :status] do 
+  resources :organizations, only: [:index, :show, :status] do
     get 'status', as: :status, on: :collection
   end
 
@@ -18,8 +15,8 @@ Rails.application.routes.draw do
 
   scope ":__org__" do
     # current_organization implicit
-    get  '/edit',           to: 'organizations#edit',   as: "current_organization_edit"
-    patch '/update',        to: 'organizations#update', as: "current_organization_update"
+    get "/edit", to: "organizations#edit", as: "current_organization_edit"
+    patch "/update", to: "organizations#update", as: "current_organization_update"
 
     get 'dsausers/popup_find', to: 'dsausers#popup_find', as: 'popup_find_user'
     get 'dsausers/find',       to: 'dsausers#find',       as: 'find_user'
