@@ -14,6 +14,7 @@ class DisposalType < ApplicationRecord
   validate :cer_and_hps_uniqueness
   validate :danger_coherence
   validates :physical_state, presence: true
+  validates :containers, presence: true
 
   scope :with_all_includes, -> { includes(:cer_code, :hp_codes, :un_code, :pictograms, :adrs) }
   scope :order_by_cer_and_un, -> { order("cer_codes.name, un_codes.id") }
@@ -23,7 +24,7 @@ class DisposalType < ApplicationRecord
   end
 
   def solid?
-    ! liquid?
+    !liquid?
   end
 
   def danger?
@@ -31,11 +32,11 @@ class DisposalType < ApplicationRecord
   end
 
   def to_s
-    "#{self.cer_code} - #{self.un_code ? self.un_code.to_s + ' - ' : ''} (#{self.physical_state_to_s})" 
+    %{#{self.cer_code} - #{self.un_code ? self.un_code.to_s + " -" : ""} (#{self.physical_state_to_s})}
   end
 
   def to_s_short
-    "#{self.cer_code} #{self.un_code ? ' - ' + self.un_code.to_s : ''}" 
+    %(#{self.cer_code} #{self.un_code ? " - " + self.un_code.to_s : ""})
   end
 
   def to_s_complete
@@ -86,6 +87,7 @@ class DisposalType < ApplicationRecord
     end
   end
 
+  # TODO old
   def available_volumes
     if self.liquid?
       [5, 10, 20]
