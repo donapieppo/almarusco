@@ -8,7 +8,11 @@ class User < ApplicationRecord
       .where(authlevel: Rails.configuration.authlevels[:operate], user_id: self.id)
       .map(&:producer_id)
       .uniq
-    User.find(producer_ids)
+    if producer_ids.any?
+      User.find(producer_ids)
+    else
+      []
+    end
   end
 
   def nuter?
