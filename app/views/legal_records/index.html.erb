@@ -1,10 +1,10 @@
 <h1 class="title">Elenco registrazioni carico/scarico</h1>
 
 <div data-controller="limit-visible">
-  <form class="my-2 centered disposal_cer_selector" data-action="change->limit-visible#update">
+  <form class="my-2 centered disposal_cer_selector">
     <small class="text-muted">mostra solo CER</small>
     <% @disposal_types.each do |dt| %>  
-      <input type="radio" id="<%= dt.id %>" name="disposal_to_show" value="<%= dt.id %>" />
+      <input type="radio" id="<%= dt.id %>" name="disposal_to_show" value="<%= dt.id %>" data-action="change->limit-visible#update" />
       <label for="<%= dt.id %>">
         <%= dt.cer_code.name %>  
       </label>
