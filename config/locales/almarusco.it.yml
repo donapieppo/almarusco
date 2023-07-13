@@ -76,6 +76,7 @@ it:
         producer_upn: Produttore 
         kgs: Peso
         volume: Volume
+        container: Contenitore
         notes: Note
         physical_state: Stato
         lab: Laboratorio
