@@ -64,9 +64,9 @@
       <div class="col-md-6">
         <% unless defined?(no_actions) || @disposal.delivered? %>  
           <div class="text-end">
-            <%= link_to(fwdmicon('clone', size: 21), [:clone, @disposal], title: 'Crea nuovo rifiuto simile') %>
-            <%= link_to(fwdmicon('edit', size: 21), [:edit, @disposal], title: 'Modifica il rifiuto') if @policy.edit? %>  
-            <%= helpers.link_to_delete(@disposal) if @policy.destroy? %>
+            <%= link_to(dm_icon('clone', fw: true), [:clone, @disposal], title: 'Crea nuovo rifiuto simile') %>
+            <%= link_to(dm_icon('edit', fw: true), [:edit, @disposal], title: 'Modifica il rifiuto') if @policy.edit? %>  
+            <%= helpers.link_to_delete("", @disposal) if @policy.destroy? %>
           </div>
         <% end %>
       </div>
