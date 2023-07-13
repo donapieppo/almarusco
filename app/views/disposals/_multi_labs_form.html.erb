@@ -24,7 +24,7 @@
     <div class="col-sm-3">
       <select name="disposal[lab_id]" data-disposal-lab-target="labs" name="building" class="form-select">
         <option value=""></option>
-        <% current_organization.labs.order(:name).each do |lab| %>  
+        <% current_organization.labs.includes(:building).order(:name).each do |lab| %>  
           <% selected = lab.id == @disposal.lab_id ? 'selected="selected"' : '' %>  
           <option value="<%= lab.id %>" data-building-id="<%= lab.building_id %>" <%= selected %>>
           <%= lab.name %> (<%= lab.building %>)
