@@ -6,7 +6,7 @@
   <% if buildings.size > 1 %>  
     <%= render partial: 'multi_labs_form', locals: { buildings: buildings } %>  
   <% else %>
-    <%= f.association :lab, collection: current_organization.labs.order(:name) %>  
+    <%= f.association :lab, collection: current_organization.labs.includes(:building).order(:name) %>  
   <% end %>
 
   <% if @permitted_producers && @permitted_producers.any? %>  
