@@ -11,14 +11,19 @@
   </div>
 <% end %>
 
-<div data-controller="limit-visible">
+<div data-controller="limit-visible" data-limit-visible-substring-value="true">
   <div class="centered my-3">
-    <input class="form-control text" placeholder="scrivi parte del codice cer" type="text" data-action="input->limit-visible#update"></input>
+    <input class="form-control text" 
+           placeholder="scrivi parte del codice cer" 
+           type="text" 
+           data-action="input->limit-visible#update"></input>
   </div>
 
   <div class="list-group">
     <% @cer_codes.each do |cer_code| %>  
-      <%= link_to [:edit, cer_code], class: "list-group-item list-group-item-action", data: { 'limit_visible_target': 'item', text: cer_code.name } do %>
+      <%= link_to [:edit, cer_code], 
+                  class: "list-group-item list-group-item-action", 
+                  data: {'limit_visible_target': 'item', text: cer_code.name} do %>
         <div class="d-flex">
         <div class="font-monospace fw-bold pe-2" style="width: 14ch; font-family: monospace; font-size: 16px;">
           <%= cer_code %>
