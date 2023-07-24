@@ -1,32 +1,30 @@
-# sigh, doesn't work without this :-(
-require_dependency "dm_unibo_common/permission_policy"
-
 # Operator for almarusco is the person who can dispose in the name of a producer.
 # Associated to DmUniboCommon::Permission where user_id is the operator and producer_id is the producer
-# maybe refactor < DmUniboCommon::Permission?
-# 
-# Note: policy from app/policies/producer_policy.rb
+# Note: policy from app/policies/dm_unibo_common/permission_policy.rb
 class OperatorsController < ApplicationController
   before_action :get_producer_and_check_permission, only: [:new, :create]
 
   def new
-    @permission = current_organization.permissions.new(authlevel: Rails.configuration.authlevels[:operate])
+    @permission = current_organization.permissions.new(authlevel: Rails.configuration.authlevels[:operate]) # DmUniboCommon::Permission
+    # see app/policies/dm_unibo_common/permission_policy.rb
     authorize @permission
   end
 
   # FIXME check operator not already producer in organization
   def create
     if params[:expiry].blank? || params[:upn].blank?
-      redirect_to producers_path, alert: 'Si prega di fornire e-mail e data di scadenza.'
+      redirect_to producers_path, alert: "Si prega di fornire e-mail e data di scadenza."
       return
     end
     begin
       check_producer(@producer)
       @user = User.syncronize(params[:upn])
-      @permission = current_organization.permissions.new(authlevel: Rails.configuration.authlevels[:operate], 
-                                                         user_id: @user.id,
-                                                         expiry: params[:expiry], 
-                                                         producer_id: @producer.id)
+      @permission = current_organization.permissions.new(
+        authlevel: Rails.configuration.authlevels[:operate],
+        user_id: @user.id,
+        expiry: params[:expiry],
+        producer_id: @producer.id
+      )
       authorize @permission
       old_permission = current_organization.permissions.where(user_id: @user.id, producer_id: @producer.id).first
 
@@ -62,12 +60,11 @@ class OperatorsController < ApplicationController
     end
   end
 
-  # see app/controllers/producers_controller#destroy
   def destroy
     permission = current_organization.permissions.find_by_id(params[:id]) # DmUniboCommon::Permission
     authorize permission
 
-    if permission.user_id && permission.authlevel == Rails.configuration.authlevels[:operate] 
+    if permission.user_id && permission.authlevel == Rails.configuration.authlevels[:operate]
       permission.destroy
     end
     redirect_to producers_path
@@ -80,8 +77,9 @@ class OperatorsController < ApplicationController
   end
 
   def check_producer(p)
-    ok = current_organization.permissions.where(authlevel: Rails.configuration.authlevels[:dispose],
-                                                user_id: p.id).any?
+    ok = current_organization.permissions
+      .where(authlevel: Rails.configuration.authlevels[:dispose], user_id: p.id)
+      .any?
     ok or raise DmUniboCommon::NoUser, "Utente no amministratore"
   end
 end
