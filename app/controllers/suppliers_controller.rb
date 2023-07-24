@@ -15,7 +15,7 @@ class SuppliersController < ApplicationController
     @supplier = Supplier.new(supplier_params)
     authorize @supplier
     if @supplier.save
-      redirect_to suppliers_path, notice: "Il fornitore è stato creato."
+      redirect_to suppliers_path, notice: "Il destinatario è stato creato."
     else
       render action: :new, status: :unprocessable_entity
     end
@@ -26,7 +26,7 @@ class SuppliersController < ApplicationController
 
   def update
     if @supplier.update(supplier_params)
-      redirect_to suppliers_path, notice: "Il fornitore è stato aggiornato."
+      redirect_to suppliers_path, notice: "Il destinatario è stato aggiornato."
     else
       render action: :edit, status: :unprocessable_entity
     end

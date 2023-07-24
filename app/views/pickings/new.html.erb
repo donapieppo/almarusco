@@ -15,7 +15,7 @@
 <h2 class="my-4">Nuovo ritiro</h2>
 
 <% if @suppliers.any? %>  
-  <p class="font-weight-bold">Scegli il fornitore:</p>
+  <p class="font-weight-bold">Scegli il destinatario:</p>
 
   <div class="list-group">
     <% @suppliers.each do |supplier| %>  
@@ -24,6 +24,6 @@
   </div>
 <% else %>
   <div class="alert alert-warning">
-    Non sono presenti altri fornitori da scegliere per il ritiro.
+    Non sono presenti altri destinatari da scegliere per il ritiro.
   </div>
 <% end %>

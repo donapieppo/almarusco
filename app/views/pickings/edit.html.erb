@@ -34,7 +34,7 @@
         <% if @can_change_disposals %>  
           <% if @possible_disposals.empty? %>  
             <p class="alert alert-warning">
-            Non sono disponibili rifiuti <strong>approvati</strong> per le tipologie di CER trattati dal fornitore <%= @picking.supplier %>.<br/>
+            Non sono disponibili rifiuti <strong>approvati</strong> per le tipologie di CER trattati dal destinatario <%= @picking.supplier %>.<br/>
             Una volta aggiunti e approvati rifiuti al tuo deposito temporaneo con i CER che vedi nel box azzurro sotto potrai aggiungerli a questo ritiro.
             </p>
           <% else %>

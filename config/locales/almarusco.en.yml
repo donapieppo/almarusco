@@ -50,7 +50,7 @@ en:
         name: Nome
         danger: Pericolo
       picking:
-        supplier: Fornitore
+        supplier: Destinatario
         date: Data ritiro
       picking_document:
         serial_number: Serie e numero
