@@ -1,12 +1,14 @@
 namespace :almarusco do
   desc "initializa containers"
   task initialize_containers: :environment do
-    liquid_container_ids = [1, 2, 3]
-    solid_container_ids = [6, 7]
+    # select distinct volume from disposals left join disposal_types on disposal_type_id = disposal_types.id where physical_state = 'liq';
+    liquid_container_ids = [1, 2, 3] # tanica 5, 10, 20
+    # select distinct volume from disposals left join disposal_types on disposal_type_id = disposal_types.id where physical_state != 'liq';
+    solid_container_ids = [6, 7] # fusto 40, 60
 
     DisposalType.find_each do |dt|
       next if dt.containers.any?
-      liquid_container_ids = if dt.liquid?
+      dt.container_ids = if dt.liquid?
         liquid_container_ids
       else
         solid_container_ids
