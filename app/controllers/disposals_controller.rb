@@ -2,7 +2,7 @@ class DisposalsController < ApplicationController
   helper DisposalHelper
 
   before_action :set_disposal_type, only: %i[new create]
-  before_action :set_permitted_producers, only: %i[new create edit update]
+  before_action :set_permitted_producers, only: %i[new create edit update clone]
   before_action :set_cache_users, only: %i[new clone edit]
   before_action :set_disposal_and_check_permission, only: %i[show edit update destroy approve unapprove]
 
@@ -32,8 +32,8 @@ class DisposalsController < ApplicationController
       @disposals = @disposals.user_or_producer(current_user.id)
     end
 
-    _disposal_type_ids = @disposals.map(&:disposal_type_id).uniq
-    @disposals_cers = current_organization.disposal_types.includes(:cer_code).where(id: _disposal_type_ids).map(&:cer_code).uniq
+    disposal_type_ids = @disposals.map(&:disposal_type_id).uniq
+    @disposals_cers = current_organization.disposal_types.includes(:cer_code).where(id: disposal_type_ids).map(&:cer_code).uniq
   end
 
   def show
