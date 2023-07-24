@@ -26,7 +26,7 @@ it:
     models:
       organization: Unità locale
       building: Edificio
-      supplier: Fornitore
+      supplier: Destinatario
       barcode: Codice a barre
       disposal: Rifiuto
       disposal_type: Tipologia
@@ -54,7 +54,7 @@ it:
       admin:
         authlevel: Permessi
       supplier:
-        name: Nome fornitore
+        name: Nome destinatario
         pi: Partita IVA
         address: Indirizzo
         cer_codes: Codici Cer
@@ -92,7 +92,7 @@ it:
         description: Descrizione
         danger: Pericolo
       picking:
-        supplier: Fornitore
+        supplier: Destinatario
         date: Data ritiro
         address: Indirizzo di consegna
         contact: Contatto 
