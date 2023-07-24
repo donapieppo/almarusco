@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/donapieppo/dm_unibo_common.git
-  revision: c32eb0af3c2fccd33c68ff809e98f609fa41b8b3
+  revision: 93bbb566d1bced90f00ce78370e8a7c9a701359c
   branch: master
   specs:
-    dm_unibo_common (5.1.1)
+    dm_unibo_common (5.1.2)
       cssbundling-rails
       importmap-rails
       jbuilder
@@ -258,10 +258,10 @@ GEM
       prawn (>= 1.3.0, < 3.0.0)
     pretender (0.5.0)
       actionpack (>= 6.1)
-    public_suffix (5.0.1)
+    public_suffix (5.0.3)
     puma (5.6.6)
       nio4r (~> 2.0)
-    pundit (2.3.0)
+    pundit (2.3.1)
       activesupport (>= 3.0.0)
     racc (1.7.1)
     rack (2.2.7)
@@ -350,7 +350,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     version_gem (1.1.3)
-    view_component (3.3.0)
+    view_component (3.4.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
