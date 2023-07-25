@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  mount DmUniboCommon::Engine => "/dm_unibo_common"
+  mount DmUniboCommon::Engine => "/dm_unibo_common", :as => "dm_unibo_common"
 
   get "/choose_organization", to: "organizations#choose_organization", as: "choose_organization"
 
   # cesia list (more than dm_unibo_common)
   resources :organizations, only: [:index, :show, :status] do
-    get 'status', as: :status, on: :collection
+    get "status", as: :status, on: :collection
   end
 
   scope :nuter do
@@ -18,31 +18,31 @@ Rails.application.routes.draw do
     get "/edit", to: "organizations#edit", as: "current_organization_edit"
     patch "/update", to: "organizations#update", as: "current_organization_update"
 
-    get 'dsausers/popup_find', to: 'dsausers#popup_find', as: 'popup_find_user'
-    get 'dsausers/find',       to: 'dsausers#find',       as: 'find_user'
+    get "dsausers/popup_find", to: "dsausers#popup_find", as: "popup_find_user"
+    get "dsausers/find", to: "dsausers#find", as: "find_user"
 
     resources :prints, only: [:new, :create]
 
-    post 'search', to: 'disposals#search', as: 'search'
+    post "search", to: "disposals#search", as: "search"
 
     # get  'helps',          to: 'helps#index'
-    get  'helps/contacts', to: 'helps#contacts', as: 'contacts'
-    get  'helps/images',   to: 'helps#images', as: 'help_images'
+    get "helps/contacts", to: "helps#contacts", as: "contacts"
+    get "helps/images", to: "helps#images", as: "help_images"
 
-    get '/', to: 'disposals#index', as: 'current_organization_root'
+    get "/", to: "disposals#index", as: "current_organization_root"
 
-    resources :producers do 
+    resources :producers do
       resources :operators, only: [:new, :create]
     end
     resources :operators, only: [:edit, :update, :destroy]
 
     resources :disposals do
-      get 'choose_disposal_type', as: :choose_disposal_type, on: :collection
-      get 'archive', as: :archive, on: :collection
-      get 'clone', on: :member
-      post 'approve', on: :member
-      post 'unapprove', on: :member
-      post 'legalize', on: :collection
+      get "choose_disposal_type", as: :choose_disposal_type, on: :collection
+      get "archive", as: :archive, on: :collection
+      get "clone", on: :member
+      post "approve", on: :member
+      post "unapprove", on: :member
+      post "legalize", on: :collection
     end
     resources :disposal_types do
       resources :disposals, only: [:new, :create]
@@ -51,7 +51,7 @@ Rails.application.routes.draw do
 
     resources :suppliers do
       post :find, on: :collection
-      get  :find, on: :collection
+      get :find, on: :collection
       resources :contracts, only: [:new, :create]
     end
     resources :contracts, only: [:edit, :update, :destroy]
@@ -72,7 +72,7 @@ Rails.application.routes.draw do
       resources :legal_downloads, only: [:new, :create]
     end
 
-    resources :legal_records, only: [:index] do 
+    resources :legal_records, only: [:index] do
       get :todo, on: :collection, as: :todo
     end
     resources :legal_uploads, only: [:show, :edit, :update]
@@ -81,12 +81,12 @@ Rails.application.routes.draw do
     resources :archives
     resources :reports
 
-    get 'mud', to: 'mud#show', as: :mud
-    get 'deposit', to: 'deposits#index', as: :deposit
-    get 'to_legalize', to: 'deposits#to_legalize', as: :to_legalize
+    get "mud", to: "mud#show", as: :mud
+    get "deposit", to: "deposits#index", as: :deposit
+    get "to_legalize", to: "deposits#to_legalize", as: :to_legalize
   end
 
-  root to: 'disposals#index'
+  root to: "disposals#index"
 
   # samrtphone zxing
   get "zxing_search/(:bc)", controller: :barcodes, action: :zxing_search
