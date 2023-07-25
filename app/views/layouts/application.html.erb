@@ -18,7 +18,11 @@
       <%= yield %>
     </main>
 
-    <%= render DmUniboCommon::FooterComponent.new(current_user, contacts_path: contacts_path, documentation_path: "https://www.dm.unibo.it/almarusco/help/docs/intro/") %>  
-    <%= render DmUniboCommon::ImpersonationComponent.new(current_user, true_user) %>  
+    <%= render DmUniboCommon::FooterComponent.new(current_user, 
+                                                  contacts_path: contacts_path, 
+                                                  documentation_path: "https://www.dm.unibo.it/almarusco/help/docs/intro/") %>  
+    <%= render DmUniboCommon::ImpersonationComponent.new(current_user, true_user, 
+                                                         who_impersonate_path: dm_unibo_common.who_impersonate_path, 
+                                                         stop_impersonating_path: dm_unibo_common.stop_impersonating_path) %>
   </body>
 </html>
