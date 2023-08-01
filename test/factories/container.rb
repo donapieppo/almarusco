@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :container do
     name { "tanica" }
-    volume { 5 }
+    sequence(:volume) { |n| n }
   end
 end

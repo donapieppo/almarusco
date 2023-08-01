@@ -128,6 +128,6 @@ class NewDisposalsTest < ApplicationSystemTestCase
 
   def uncomplete_disposals
     prepare_users_and_organizations
-    d = FactoryBot.create(:disposal, user: @user[:operator], kg)
+    d = FactoryBot.create(:disposal, user: @user[:operator])
   end
 end

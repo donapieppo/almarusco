@@ -6,9 +6,10 @@ FactoryBot.define do
     physical_state { "liq" } # enum('liq','sp','snp')"
     notes { "" }
     before(:create) do |dt|
+      dt.containers << Container.where(name: "tanica").find_or_create_by(volume: 5)
+      dt.containers << Container.where(name: "fusto").find_or_create_by(volume: 10)
       if dt.cer_code.danger?
-        hp = FactoryBot.create(:hp_code, id: 123)
-        dt.hp_codes << hp
+        dt.hp_codes << HpCode.where(name: "Hp1", description: "ddd").find_or_create_by(id: 123)
       end
     end
   end

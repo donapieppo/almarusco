@@ -5,4 +5,3 @@ FactoryBot.define do
     pi { "1234567890#{id}" }
   end
 end
-

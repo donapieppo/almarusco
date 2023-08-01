@@ -5,6 +5,6 @@ class ContractTest < ActiveSupport::TestCase
     supplier = FactoryBot.create(:supplier)
     cer_code = FactoryBot.create(:cer_code)
     c = supplier.contracts.new(cer_code_id: cer_code.id, price: 100)
-    c.save
+    assert c.save
   end
 end
