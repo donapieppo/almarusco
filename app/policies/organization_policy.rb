@@ -14,7 +14,7 @@ class OrganizationPolicy < DmUniboCommon::OrganizationPolicy
   end
 
   def show?
-    @user.is_cesia? || @user.nuter? ||  @user.can_read?(@record)
+    @user.is_cesia? || @user.nuter? || @user.can_read?(@record)
   end
 
   def edit?
@@ -37,4 +37,3 @@ class OrganizationPolicy < DmUniboCommon::OrganizationPolicy
     @user && @user.authorization.can_operate?(@record)
   end
 end
-

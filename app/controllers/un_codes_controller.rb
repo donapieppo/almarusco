@@ -17,7 +17,7 @@ class UnCodesController < ApplicationController
     if _id > 0
       if UnCode.find_by_id(_id)
         skip_authorization
-        redirect_to un_codes_path, alert: 'Codice già esistente.'
+        redirect_to un_codes_path, alert: "Codice già esistente."
       else
         @un_code = UnCode.new(un_code_params)
         authorize @un_code
