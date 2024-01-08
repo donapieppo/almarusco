@@ -42,7 +42,7 @@ class Disposal < ApplicationRecord
   end
 
   def multiple_units_to_s
-    self.units > 1 ? "M" : ""
+    (self.units > 1) ? "M" : ""
   end
 
   def volume_to_s
