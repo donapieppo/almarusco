@@ -1,8 +1,8 @@
 class DisposalTypesController < ApplicationController
-  before_action :set_disposal_type_and_check_permission, only: %i(edit update destroy)
+  before_action :set_disposal_type_and_check_permission, only: [:edit, :update, :destroy]
 
   def index
-    @disposal_types = current_organization.disposal_types.includes(:cer_code, :un_code, :hp_codes, :adrs, :pictograms).order('cer_codes.name, un_codes.name')
+    @disposal_types = current_organization.disposal_types.includes(:cer_code, :un_code, :hp_codes, :adrs, :pictograms).order("cer_codes.name, un_codes.name")
     authorize :disposal_type
   end
 
@@ -30,6 +30,9 @@ class DisposalTypesController < ApplicationController
     else
       render action: :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
   end
 
   private
