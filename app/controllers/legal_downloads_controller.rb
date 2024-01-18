@@ -1,6 +1,6 @@
 class LegalDownloadsController < LegalRecordsController
   before_action :set_picking_document_and_disposal_type, only: [:new, :create]
-  before_action :set_legal_download_and_check_permission, only: [:show, :edit, :update, :destroy]
+  before_action :set_legal_download_and_check_permission, only: [:show, :edit, :update]
 
   def new
     @legal_download = current_organization.legal_downloads.new(picking_document: @picking_document,
