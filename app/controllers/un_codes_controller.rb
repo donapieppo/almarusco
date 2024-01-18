@@ -1,5 +1,5 @@
 class UnCodesController < ApplicationController
-  before_action :set_un_code_and_check_permission, only: [:show, :edit, :update, :delete]
+  before_action :set_un_code_and_check_permission, only: [:edit, :update, :destroy]
 
   def index
     authorize :un_code

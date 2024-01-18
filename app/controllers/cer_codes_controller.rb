@@ -1,5 +1,5 @@
 class CerCodesController < ApplicationController
-  before_action :set_cer_code_and_check_permission, only: [:show, :edit, :update, :delete]
+  before_action :set_cer_code_and_check_permission, only: [:edit, :update, :destroy]
 
   def index
     authorize :cer_code
