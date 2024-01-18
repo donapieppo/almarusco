@@ -2,7 +2,7 @@ class NuterController < ApplicationController
   def charts
     authorize :nuter
     @labels = (1..12).map { |month| Date::MONTHNAMES[month] }
-    @disposals = (1..Date.today.month).map do |month|
+    @disposals = (1..12).map do |month|
       Disposal.where("approved_at >= ? and approved_at <= ?", "2023/#{month}/01", "2023/#{month}/31").count
     end
 
