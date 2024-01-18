@@ -24,11 +24,12 @@ class DisposalTypeTest < ActiveSupport::TestCase
     dt = FactoryBot.create(:disposal_type, physical_state: :liq)
     dt.hp_codes << hp
 
-    dt2 = FactoryBot.build(:disposal_type, physical_state: :liq,
-                                           cer_code: dt.cer_code,
-                                           un_code: dt.un_code, 
-                                           organization: dt.organization,
-                                           hp_codes: dt.hp_codes)
+    dt2 = FactoryBot.build(:disposal_type,
+      physical_state: :liq,
+      cer_code: dt.cer_code,
+      un_code: dt.un_code,
+      organization: dt.organization,
+      hp_codes: dt.hp_codes)
     assert_not dt2.valid?
   end
 end
