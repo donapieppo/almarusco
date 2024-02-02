@@ -9,7 +9,7 @@ class PrintsController < ApplicationController
     @disposals = @disposals.user_or_producer(current_user.id) unless policy(current_organization).manage?
     authorize :print
     if @disposals.empty?
-      redirect_to root_path, alert: 'Non sono presenti rifiuti da stampare.'
+      redirect_to root_path, alert: "Non sono presenti rifiuti da stampare."
     end
   end
 
@@ -21,14 +21,14 @@ class PrintsController < ApplicationController
     @disposals = @disposals.user_or_producer(current_user.id) unless policy(current_organization).manage?
     @disposals = @disposals.to_a
 
-    unless params['paper_boxes']
+    unless params["paper_boxes"]
       redirect_to new_print_path, alert: "Selezionare le etichette sul foglio"
       return
     end
 
     # pdf = Prawn::Document.new(page_size: 'A4', margin: 20) # 595.28 x 841.89
     # pdf = Prawn::Document.new(page_size: 'A4', margin_top: 1.mm, margin_bottom: 1.mm, margin_left: 6.mm, margin_right: 8.mm) # 595.28 x 841.89
-    pdf = Prawn::Document.new(page_size: 'A4', margin: 6.mm) # 595.28 x 841.89
+    pdf = Prawn::Document.new(page_size: "A4", margin: 6.mm) # 595.28 x 841.89
     # :margin Sets the margin on all sides in points [0.5 inch] :left_margin :right_margin
     pdf.font_size 8
     pdf.define_grid(columns: 2, rows: 5, gutter: 0)
@@ -36,16 +36,15 @@ class PrintsController < ApplicationController
 
     # 96 x 51mm rettangolari
     # ["1-1", "2-2", "1-5"]
-    params['paper_boxes'].each do |rc|
-      row, col = rc.split('-')
+    params["paper_boxes"].each do |rc|
+      row, col = rc.split("-")
       if disposal = @disposals.pop
         dt = disposal.disposal_type
         qr = RQRCode::QRCode.new(disposal_url(disposal))
         IO.binwrite("/tmp/gr_image_#{disposal.id}.png", qr.as_png(size: 240).to_s)
 
-        # :rows, :columns, :gutter, :row_gutter, :column_gutter 
+        # :rows, :columns, :gutter, :row_gutter, :column_gutter
         pdf.grid(col.to_i - 1, row.to_i - 1).bounding_box do
-
           # pdf.stroke_bounds
           pdf.move_down 10
           pdf.indent(10) do
@@ -61,9 +60,8 @@ class PrintsController < ApplicationController
 
           pdf.bounding_box([100, y_position], width: 170, height: 130) do
             # pdf.stroke_bounds
-            
             if dt.un_code
-              pdf.text dt.un_code.to_s, style: 'bold', size: 16
+              pdf.text dt.un_code.to_s, style: "bold", size: 16
             end
             pdf.text dt.cer_code.to_s, size: 16
             pdf.text dt.hp_codes_to_s + " - " + dt.adrs_to_s, size: 10
@@ -76,12 +74,11 @@ class PrintsController < ApplicationController
 
           disposal.disposal_type.pictograms.each_with_index do |pict, i|
             if pict.filename =~ /\.png/
-              pdf.image open(pict.full_filename), height: 24, at: [10+26*i, 35]
+              pdf.image open(pict.full_filename), height: 24, at: [10 + 26 * i, 35]
             else
-              pdf.svg IO.read(pict.full_filename), height: 24, at: [10+26*i, 35]
+              pdf.svg IO.read(pict.full_filename), height: 24, at: [10 + 26 * i, 35]
             end
           end
-
         end
       end
     end
