@@ -29,6 +29,9 @@
       <div class="alert bg-warning my-4 p-2 small">
         Prima di stampare selezionate tra le proprietà di stampa "scala personalizzata: 100%".
       </div>
+      <div class="centered">
+        <%= f.submit "Crea pdf", class: "my-4" %>
+      </div>
     </div>
     <div class="col-8">
       <h2 class="my-2">Scegli gli scarichi che vuoi stampare</h2>
@@ -43,7 +46,6 @@
           </label>
         <% end %>
       </div>
-      <%= f.submit "Crea pdf", class: "my-4" %>
     </div>
   </div>
 <% end %>
