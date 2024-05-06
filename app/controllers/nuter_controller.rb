@@ -1,16 +1,17 @@
 class NuterController < ApplicationController
   def charts
     authorize :nuter
+    @year = 2024
     @labels = (1..12).map { |month| Date::MONTHNAMES[month] }
     @disposals = (1..12).map do |month|
-      Disposal.where("approved_at >= ? and approved_at <= ?", "2023/#{month}/01", "2023/#{month}/31").count
+      Disposal.where("approved_at >= ? and approved_at <= ?", "#{@year}/#{month}/01", "#{@year}/#{month}/31").count
     end
 
-    @uls = Disposal.where("approved_at >= ? and approved_at <= ?", "2023/01/01", "2023/12/31").includes(:organization).group(:organization_id).count
+    @uls = Disposal.where("approved_at >= ? and approved_at <= ?", "#{@year}/01/01", "#{@year}/12/31").includes(:organization).group(:organization_id).count
 
-    @cer_codes = Disposal.where("approved_at >= ? and approved_at <= ?", "2023/01/01", "2023/12/31").joins(:disposal_type).group(:cer_code_id).count
+    @cer_codes = Disposal.where("approved_at >= ? and approved_at <= ?", "#{@year}/01/01", "#{@year}/12/31").joins(:disposal_type).group(:cer_code_id).count
 
-    @cer_code_prices = Disposal.where("approved_at >= ? and approved_at <= ?", "2023/01/01", "2023/12/31").joins(:disposal_type).group(:cer_code_id).sum(:kgs)
+    @cer_code_prices = Disposal.where("approved_at >= ? and approved_at <= ?", "#{@year}/01/01", "#{@year}/12/31").joins(:disposal_type).group(:cer_code_id).sum(:kgs)
     @prices = {}
     @cer_code_prices.each do |cer_code_id, number|
       contract = Contract.where(cer_code_id: cer_code_id).first
