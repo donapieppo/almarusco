@@ -4,7 +4,7 @@ class Mud
 
   # @summary[cer][:disposals] = [d1, d2...]
   # @summary[cer][:kgs] = 123
-  def initialize(organization, year: 2022)
+  def initialize(organization, year: 2023)
     @organization = organization
     @year = year
     @summary = Hash.new { |hash, key| hash[key] = {} }
