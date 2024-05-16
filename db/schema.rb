@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_23_153320) do
+ActiveRecord::Schema[7.1].define(version: 0) do
   create_table "adrs", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -76,6 +76,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_23_153320) do
     t.column "physical_state", "enum('liq','sp','snp')"
     t.boolean "separable", default: false, null: false
     t.boolean "hidden", default: false, null: false
+    t.boolean "legalizable", default: false, null: false
     t.text "notes"
     t.index ["cer_code_id"], name: "fk_disposal_types_cer"
     t.index ["organization_id"], name: "fk_disposal_types_organization"
