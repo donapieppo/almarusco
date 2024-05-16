@@ -71,12 +71,12 @@ class Disposal < ApplicationRecord
     approved_at
   end
 
-  # if not dangerous approve is also legalized
+  # if not dangerous or not legalizable approve is also legalized
   def approve!
     self.kgs > 0 or return false
     self.approved? and raise DisposalHistoryError, "Disposal already approved."
     now = Time.now
-    if self.danger?
+    if self.disposal_type_id && self.disposal_type.legalizable?
       self.update(approved_at: now)
     else
       self.update(approved_at: now, legalized_at: now)
