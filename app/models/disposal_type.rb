@@ -31,6 +31,10 @@ class DisposalType < ApplicationRecord
     self.cer_code_id && self.cer_code.danger?
   end
 
+  def legalizable?
+    self.legalizable || self.danger?
+  end
+
   def to_s
     %{#{self.cer_code} - #{self.un_code ? self.un_code.to_s + " -" : ""} (#{self.physical_state_to_s})}
   end
