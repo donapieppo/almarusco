@@ -117,7 +117,7 @@ it:
         adr: Rifiuto assimilabile alle merci pericolose contenute nell’Accordo ADR.
         notes: Descrizione visibile a chi deve creare il carico del rifiuto (opzionale)
         separable: Se selezionato il produttore può registrare rifiuti composti da più fusti/taniche. I questo caso viene registrato il lotto e non il singolo rifiuto
-        legalizable: Se selezionato il rifiuto deve essere registrato anche se non pericoloso (per tutte le tipologie CER pericolose non e' necessario selezionare)
+        legalizable: Se selezionato il rifiuto deve essere registrato anche se non pericoloso (per tutte le tipologie CER pericolose non è necessario selezionare)
         hidden: Se selezionato la tipologia è utilizzabile solo dai reponsabili UL e non dai produttori di rifiuti.
         containers: Segnare i possibili contenitori per questa tipologia di rifiuti.
       disposal:
