@@ -105,7 +105,7 @@ class DisposalsController < ApplicationController
 
   def approve
     respond_to do |format|
-      res = @disposal.approve!
+      _res = @disposal.approve!
       format.html { redirect_to @disposal }
       format.turbo_stream
     end
@@ -113,7 +113,7 @@ class DisposalsController < ApplicationController
 
   def unapprove
     respond_to do |format|
-      res = @disposal.unapprove!
+      _res = @disposal.unapprove!
       format.html { redirect_to @disposal }
       format.turbo_stream
     end
