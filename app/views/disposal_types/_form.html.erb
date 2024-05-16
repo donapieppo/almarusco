@@ -22,6 +22,7 @@
   <%= f.association :containers, collection: Container.order(:volume), label_method: :to_s, as: :check_boxes %>  
 
   <%= f.input :notes %>  
+  <%= f.input :legalizable, label: '' %>  
 
   <%= f.submit %>  
 <% end %>

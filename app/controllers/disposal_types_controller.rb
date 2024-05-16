@@ -39,7 +39,7 @@ class DisposalTypesController < ApplicationController
 
   def disposal_type_params
     params[:disposal_type].permit(
-      :cer_code_id, :un_code_id, :physical_state, :separable, :hidden, :notes,
+      :cer_code_id, :un_code_id, :physical_state, :separable, :hidden, :notes, :legalizable,
       hp_code_ids: [], adr_ids: [], pictogram_ids: [], container_ids: []
     )
   end
