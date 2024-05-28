@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   get "/choose_organization", to: "organizations#choose_organization", as: "choose_organization"
 
+  get "up123", to: "rails/health#show", as: :rails_health_check
+
   # cesia list (more than dm_unibo_common)
   resources :organizations, only: [:index, :show, :status] do
     get "status", as: :status, on: :collection
