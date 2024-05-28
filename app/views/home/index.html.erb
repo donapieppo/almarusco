@@ -1,0 +1,20 @@
+<h1 class="h1">
+  AlmaRUSCO <br/>
+  <small>Applicazione per la tracciabilità dei rifiuti in UNIBO</small>
+</h1>
+
+<% if current_user %>
+  <h3 class="my-2">Scegli la UL su cui sei abilitato ad operare</h3>
+
+  <div class="row my-4">
+  <% Organization.order(:id).each do |o| %>
+    <div class="col-sm-6 col-md-2 py-1">
+      <%= link_to o.code, root_path(__org__: o.code), class: "btn btn-outline-primary w-100" %>
+    </div>
+  <% end %>
+    </div>
+<% else %>
+  <%# <%= form_with url: "/dm_unibo_common/auth/azure_activedirectory_v2", data: {turbo: false} do |f| %> 
+  <%#   <%= f.submit "Azure AD unibo" %> 
+  <%# <% end %>
+<% end %>
