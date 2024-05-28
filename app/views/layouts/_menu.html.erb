@@ -1,4 +1,4 @@
-<% if true_user && current_user %>  
+<% if true_user && current_user && current_organization %>  
   <% search_component = DmUniboCommon::SearchComponent.new(search_path: search_path, placeholder: "n. ident.", type: "number", title: "Cerca da numero identificativo") %>
 <% end %>
 
