@@ -1,20 +1,16 @@
-require "omniauth-shibboleth"
+require "omniauth-azure-activedirectory-v2"
 require "dm_unibo_common/omniauth/strategies/test"
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   configure do |config|
     config.path_prefix = "/dm_unibo_common/auth"
+    # config.allowed_request_methods = [:get, :post]
   end
 
-  provider :shibboleth, {
-    request_type: "header",
-    uid_field: "eppn",
-    info_fields: {
-      email: "eppn",
-      name: "givenName",
-      last_name: "sn"
-    },
-    extra_fields: [:idAnagraficaUnica, :isMemberOf, :codiceFiscale]
+  provider :azure_activedirectory_v2, {
+    client_id: ENV["ALMARUSCO_AAD_CLIENT_ID"],
+    client_secret: ENV["ALMARUSCO_AAD_CLIENT_SECRET"],
+    tenant_id: ENV["ALMARUSCO_AAD_TENANT_ID"]
   }
 
   if Rails.env.development?
