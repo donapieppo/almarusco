@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     get "report", to: "nuter#report", as: :report
   end
 
+  get "helps/contacts", to: "helps#contacts", as: "contacts"
+  get "/home", to: "home#index", as: "home"
+
   scope ":__org__" do
     # current_organization implicit
     get "/edit", to: "organizations#edit", as: "current_organization_edit"
@@ -26,7 +29,6 @@ Rails.application.routes.draw do
     post "search", to: "disposals#search", as: "search"
 
     # get  'helps',          to: 'helps#index'
-    get "helps/contacts", to: "helps#contacts", as: "contacts"
     get "helps/images", to: "helps#images", as: "help_images"
 
     get "/", to: "disposals#index", as: "current_organization_root"
