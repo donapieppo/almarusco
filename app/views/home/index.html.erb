@@ -4,17 +4,26 @@
 </h1>
 
 <% if current_user %>
-  <h3 class="my-2">Scegli la UL su cui sei abilitato ad operare</h3>
+  <h3 class="my-3">Scegli la UL su cui vuoi operare</h3>
 
   <div class="row my-4">
-  <% Organization.order(:id).each do |o| %>
-    <div class="col-sm-6 col-md-2 py-1">
-      <%= link_to o.code, root_path(__org__: o.code), class: "btn btn-outline-primary w-100" %>
-    </div>
-  <% end %>
-    </div>
+    <% current_user.organizations_with_permissions.each do |o| %>
+      <div class="col-sm-6 col-md-2 py-1">
+        <%= link_to o.code, root_path(__org__: o.code), class: "btn btn-outline-primary btn-lg w-100" %>
+      </div>
+    <% end %>
+  </div>
 <% else %>
-  <%# <%= form_with url: "/dm_unibo_common/auth/azure_activedirectory_v2", data: {turbo: false} do |f| %> 
-  <%#   <%= f.submit "Azure AD unibo" %> 
-  <%# <% end %>
+  <div class="text-center my-3">
+    <h3 class="my-3">Per accedere usare le credenziali Unibo</h3>
+    <% if Rails.env.development? && Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer %>
+      <%= form_with url: "/dm_unibo_common/auth/developer", data: {turbo: false} do |f| %> 
+        <%= f.button dm_icon('sign-in', text: " Developer login", size: :lg), class: "btn btn-primary" %> 
+      <% end %>
+    <% elsif Rails.env.production? && Rails.configuration.dm_unibo_common[:omniauth_provider] == :azure_activedirectory_v2 %>
+      <%= form_with url: "/dm_unibo_common/auth/azure_activedirectory_v2", data: {turbo: false} do |f| %> 
+        <%= f.button dm_icon('sign-in', text: " Unibo login", size: :lg), class: "btn btn-primary" %> 
+      <% end %>
+    <% end %>
+  </div>
 <% end %>
