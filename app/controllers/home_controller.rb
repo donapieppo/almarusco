@@ -3,5 +3,8 @@ class HomeController < ApplicationController
 
   def index
     skip_authorization
+    if current_user&.current_organization
+      redirect_to disposals_path(__org__: current_user.current_organization.code) and return
+    end
   end
 end
