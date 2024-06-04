@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/donapieppo/dm_unibo_common.git
-  revision: b5d2a01d9e1e29353ad62c9dff30c48a8e4c6c8b
+  revision: 939ffcc7fa2df3873c52709454a3174e69bb9beb
   branch: master
   specs:
     dm_unibo_common (5.1.3)
@@ -399,7 +399,7 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
-    sorbet-runtime (0.5.11406)
+    sorbet-runtime (0.5.11409)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
