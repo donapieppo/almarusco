@@ -26,7 +26,7 @@ class OrganizationsController < ApplicationController
   def update
     authorize current_organization
     if current_organization.update(organization_params)
-      redirect_to current_organization_edit_path, notice: 'La Struttura è stata modificata.'
+      redirect_to current_organization_edit_path, notice: "La Struttura è stata modificata."
     else
       @permissions_hash = permissions_hash
       render action: :edit, status: :unprocessable_entity
