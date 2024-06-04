@@ -1,6 +1,6 @@
 <h1 class="h1">
   AlmaRUSCO <br/>
-  <small>Applicazione per la tracciabilità dei rifiuti in UNIBO</small>
+  <small>Applicazione per la tracciabilità dei rifiuti in Ateneo</small>
 </h1>
 
 <% if current_user %>
@@ -27,3 +27,7 @@
     <% end %>
   </div>
 <% end %>
+
+<div class="alert alert-light my-3">
+  <%= Rails.configuration.home_description %>
+</div>
