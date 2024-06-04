@@ -9,7 +9,7 @@ class PrintsController < ApplicationController
     @disposals = @disposals.user_or_producer(current_user.id) unless policy(current_organization).manage?
     authorize :print
     if @disposals.empty?
-      redirect_to root_path, alert: "Non sono presenti rifiuti da stampare."
+      redirect_to disposals_path(__org__: current_organization.code), alert: "Non sono presenti rifiuti da stampare."
     end
   end
 
@@ -22,7 +22,7 @@ class PrintsController < ApplicationController
     @disposals = @disposals.to_a
 
     unless params["paper_boxes"]
-      redirect_to new_print_path, alert: "Selezionare le etichette sul foglio"
+      redirect_to new_print_path(__org__: current_organization.code), alert: "Selezionare le etichette sul foglio"
       return
     end
 

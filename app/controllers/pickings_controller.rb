@@ -30,7 +30,7 @@ class PickingsController < ApplicationController
       @picking.fill_with_default_disposals
       redirect_to edit_picking_path(@picking), notice: "Il ritiro è stato correttamente creato."
     else
-      redirect_to root_path, alert: "ERRORE"
+      redirect_to disposals_path(__org__: current_organization.code), alert: "ERRORE"
     end
   end
 
