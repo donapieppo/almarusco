@@ -90,7 +90,7 @@ Rails.application.routes.draw do
     get "to_legalize", to: "deposits#to_legalize", as: :to_legalize
   end
 
-  root to: "disposals#index"
+  root to: "home#index"
 
   # samrtphone zxing
   get "zxing_search/(:bc)", controller: :barcodes, action: :zxing_search
