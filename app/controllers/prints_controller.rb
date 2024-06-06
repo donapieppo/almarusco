@@ -63,12 +63,12 @@ class PrintsController < ApplicationController
             if dt.un_code
               pdf.text dt.un_code.to_s, style: "bold", size: 12
             end
-            pdf.text dt.cer_code.to_s, size: 9
+            pdf.text dt.cer_code.to_s, style: "bold", size: 12
             pdf.text dt.hp_codes_to_s + " - " + dt.adrs_to_s, size: 9
             # TODO
             # pdf.text " n.#{disposal.local_id_to_s} (#{disposal.id})", size: 10
-            pdf.text " n.#{disposal.local_id_to_s}", size: 9
             pdf.text dt.physical_state_to_s.upcase, size: 9
+            pdf.text "n.#{disposal.local_id_to_s} - #{disposal.volume_to_s}", size: 9
             pdf.text disposal.volume_to_s, size: 9
             pdf.text "Prod.: #{disposal.producer.cn}", size: 9
             pdf.move_down 4
