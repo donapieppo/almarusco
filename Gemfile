@@ -16,6 +16,7 @@ gem "prawn"
 gem "prawn-table"
 gem "prawn-svg"
 
+gem 'sprockets-rails', "=3.4.2", require: 'sprockets/railtie'
 gem "omniauth-rails_csrf_protection"
 
 # gem 'aasm'
