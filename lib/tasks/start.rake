@@ -1,7 +1,5 @@
 require "csv"
 
-CONN = DmUniboUserSearch::Client.new
-
 namespace :almarusco do
   desc "Import CERS"
   task import_cers: :environment do
@@ -93,7 +91,7 @@ def find_or_create_user_by_employee_id(user_emplyeid)
   if user = User.find_by(employee_id: user_emplyeid)
     user
   else
-    CONN.find_user(user_emplyeid).users.each do |dsauser|
+    DmUniboUserSearch::Client.new.find_user(user_emplyeid).users.each do |dsauser|
       if same_employeeid?(dsauser.employee_id, user_emplyeid)
         puts("Creating #{dsauser.inspect}")
         return User.create!(id: dsauser.id_anagrafica_unica.to_i,
