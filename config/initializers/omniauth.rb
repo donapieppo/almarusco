@@ -1,17 +1,12 @@
-require "omniauth-azure-activedirectory-v2"
+# require "omniauth-shibboleth"
+# require "omniauth-azure-activedirectory-v2"
+# require "omniauth-google-oauth2"
 require "dm_unibo_common/omniauth/strategies/test"
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   configure do |config|
     config.path_prefix = "/dm_unibo_common/auth"
-    # config.allowed_request_methods = [:get, :post]
   end
-
-  provider :azure_activedirectory_v2, {
-    client_id: ENV["ALMARUSCO_AAD_CLIENT_ID"],
-    client_secret: ENV["ALMARUSCO_AAD_CLIENT_SECRET"],
-    tenant_id: ENV["ALMARUSCO_AAD_TENANT_ID"]
-  }
 
   if Rails.env.development?
     provider :developer, {
@@ -23,6 +18,4 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   if Rails.env.test?
     provider :test
   end
-
-  # provider :google_oauth2, ENV["GOT_GOOGLE_APP_ID"], ENV["GOT_GOOGLE_APP_SECRET"], {scope: "email"}
 end
