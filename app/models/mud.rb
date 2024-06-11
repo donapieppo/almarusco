@@ -11,19 +11,21 @@ class Mud
     @remainders = Hash.new { |hash, key| hash[key] = {} }
 
     # @summary is the weight from the supplier in pickings in @year
-    organization.pickings.where("YEAR(pickings.date) = ?", @year).includes(picking_documents: :disposal_type).each do |picking|
+    organization.pickings
+      .where("YEAR(pickings.date) = ?", @year)
+      .includes(picking_documents: :disposal_type).each do |picking|
       picking.picking_documents.each do |picking_document|
         cer_code = picking_document.disposal_type.cer_code
         @summary[cer_code][:kgs] ||= 0.0
         @summary[cer_code][:kgs] += picking_document.kgs
       end
     end
-    
+
     # remainders is the weight of disposals non delivered in @year
     # FIXME think about picking.date != disposal.delivered_at
     organization.disposals
-                .where("YEAR(disposals.approved_at) = ? AND YEAR(disposals.delivered_at) != ?", @year, @year)
-                .includes(disposal_type: :cer_code).each do |disposal|
+      .where("YEAR(disposals.approved_at) = ? AND YEAR(disposals.delivered_at) != ?", @year, @year)
+      .includes(disposal_type: :cer_code).each do |disposal|
       cer_code = disposal.disposal_type.cer_code
       @remainders[cer_code][:kgs] ||= 0.0
       @remainders[cer_code][:kgs] += disposal.kgs
