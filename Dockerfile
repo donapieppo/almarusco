@@ -20,11 +20,11 @@ FROM base as build
 
 # Install packages needed to build gems and node modules
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential curl git libvips node-gyp pkg-config python-is-python3 libmariadb3 libmariadb-dev
+    apt-get install --no-install-recommends -y build-essential curl default-libmysqlclient-dev libvips node-gyp pkg-config python-is-python3
 
 # Install JavaScript dependencies
-ARG NODE_VERSION=20.5.1
-ARG YARN_VERSION=1.22.19
+ARG NODE_VERSION=20.12.0
+ARG YARN_VERSION=1.22.22
 ENV PATH=/usr/local/node/bin:$PATH
 RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
     /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
@@ -48,16 +48,14 @@ COPY . .
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 RAILS_RELATIVE_URL_ROOT="/almarusco" ./bin/rails assets:precompile
-
-RUN ls -l /rails/public/assets
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 # Final stage for app image
 FROM base
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libsqlite3-0 libmariadb3 libvips && \
+    apt-get install --no-install-recommends -y curl default-mysql-client libvips && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application
@@ -73,8 +71,8 @@ RUN echo 'alias ll="ls -l"' >> ~/.bashrc
 RUN echo 'PS1="DOCKER \w: "' >> ~/.bashrc
 
 # Entrypoint prepares the database.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+# ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD ["./bin/rails", "server", "-b", "127.0.0.1", "-p", "3001"]
+CMD ["./bin/rails", "server"]
