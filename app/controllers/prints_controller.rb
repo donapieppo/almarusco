@@ -38,7 +38,7 @@ class PrintsController < ApplicationController
     # ["1-1", "2-2", "1-5"]
     params["paper_boxes"].each do |rc|
       row, col = rc.split("-")
-      if disposal = @disposals.pop
+      if (disposal = @disposals.pop)
         dt = disposal.disposal_type
         qr = RQRCode::QRCode.new(disposal_url(disposal))
         IO.binwrite("/tmp/gr_image_#{disposal.id}.png", qr.as_png(size: 240).to_s)
