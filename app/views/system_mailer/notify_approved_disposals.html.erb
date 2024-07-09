@@ -16,7 +16,7 @@ che risultano prodotti da lei:
     </p>
     <% if disposal.producer != disposal.user %>  
       <p>
-      Operatore: <%= disposal.user %> <small>(<%= disposal.user.upn %>)</small>
+      Operatore: <%= disposal.user.cn %> <small>(<%= disposal.user.upn %>)</small>
       </p>
     <% end %>
     <p><%= disposal.disposal_type %></p>
