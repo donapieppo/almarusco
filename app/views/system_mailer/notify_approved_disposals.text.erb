@@ -8,7 +8,7 @@ che risultano prodotti da lei:
 <%= disposal.organization %> 
     Id: <%= disposal.id  %>, Laboratorio: <%= disposal.lab %>
   <% if disposal.producer != disposal.user %>  
-    Operatore: <%= disposal.user %> (<%= disposal.user.upn %>)
+    Operatore: <%= disposal.user.cn %> (<%= disposal.user.upn %>)
   <% end %>
     <%= disposal.disposal_type %>  
     <%= disposal.volume_to_s %>
