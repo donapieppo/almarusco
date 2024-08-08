@@ -46,7 +46,7 @@ class Disposal < ApplicationRecord
   end
 
   def volume_to_s
-    "#{self.units} #{volume_type} da #{self.volume}L."
+    "#{self.units} #{container}"
   end
 
   def volume_tot
@@ -114,7 +114,11 @@ class Disposal < ApplicationRecord
 
   def legal_download
     return unless delivered?
-    self.picking.picking_document_by_disposal_type(self.disposal_type)
+    if (p = self.picking)
+      self.picking.picking_document_by_disposal_type(self.disposal_type)
+    else
+      # FIXME 
+    end
   end
 
   def deliver!
@@ -175,17 +179,6 @@ class Disposal < ApplicationRecord
 
   def fix_liters_from_container
     self.volume = self.container&.volume
-  end
-
-  def volume_type
-    return "" if self.volume.to_i == 0
-    if self.units.to_i == 1
-      (self.volume.to_i == 200) ? "fusto" : "tanica"
-    elsif self.units.to_i > 1
-      (self.volume.to_i == 200) ? "fusti" : "taniche"
-    else
-      ""
-    end
   end
 
   # https://dev.mysql.com/doc/refman/5.6/en/innodb-locking-reads.html
