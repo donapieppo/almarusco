@@ -69,7 +69,6 @@ class PrintsController < ApplicationController
             # pdf.text " n.#{disposal.local_id_to_s} (#{disposal.id})", size: 10
             pdf.text dt.physical_state_to_s.upcase, size: 9
             pdf.text "n.#{disposal.local_id_to_s} - #{disposal.volume_to_s}", size: 9
-            pdf.text disposal.volume_to_s, size: 9
             pdf.text "Prod.: #{disposal.producer.cn}", size: 9
             pdf.move_down 4
             pdf.text "Data consegna: ______________________"
