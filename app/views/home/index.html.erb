@@ -15,7 +15,7 @@
   </div>
 <% else %>
   <div class="text-center my-3">
-    <h3 class="my-3">Per accedere usare le credenziali Unibo</h3>
+    <h3 class="my-3">Per accedere usare le credenziali di Ateneo.</h3>
     <% if Rails.env.development? && Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer %>
       <%= form_with url: "/dm_unibo_common/auth/developer", data: {turbo: false} do |f| %> 
         <%= f.button dm_icon('sign-in', text: " Developer login", size: :lg), class: "btn btn-primary" %> 
