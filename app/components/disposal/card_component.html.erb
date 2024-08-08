@@ -9,7 +9,7 @@
 
   <div class="dm-card-body">
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-3 pe-1">
         <div class="fw-bold">
           <%= @disposal.volume_tot %> <small>L.</small><br/>
         </div>
@@ -43,17 +43,16 @@
         <% end %>
       </div><!-- col-md-9 -->
     </div> <!-- row -->
+
     <% if @with_details %>  
       <div class="details p-2 small text-info">
         <%= render DisposalType::InfoComponent.new(@disposal.disposal_type) %>  
-        <div><strong>Contenitore:</strong> <%= @disposal.container.name %></div>
+        <div><strong>Contenitore:</strong> <%= @disposal.container %> (<%= @disposal.units %>)</div>
       </div>
-    <% end %>
-
-    <% if @disposal.units.to_i > 1 %>  
+    <% else %>
       <div>
-        <strong><%= @disposal.units %></strong> 
-        <%= @disposal.volume_type %> da <strong><%= @disposal.volume %> L.</strong>
+        <strong><%= @disposal.units %></strong>
+        <%= @disposal.container %>
       </div>
     <% end %>
 
