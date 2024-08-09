@@ -35,7 +35,7 @@ class Disposal < ApplicationRecord
   scope :unassigned, -> { where(picking_id: nil) }
   scope :assigned, -> { where.not(picking_id: nil) }
   scope :undelivered, -> { where(delivered_at: nil) }
-  scope :include_all, -> { includes(:user, :producer, :lab, disposal_type: [:cer_code, :un_code, :hp_codes, :adrs]) }
+  scope :include_all, -> { includes(:user, :producer, :lab, :container, disposal_type: [:cer_code, :un_code, :hp_codes, :adrs]) }
 
   def to_s
     "#{self.volume_tot} L - #{self.kgs} Kg #{self.disposal_type.to_s_short}"
