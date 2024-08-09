@@ -115,9 +115,9 @@ class Disposal < ApplicationRecord
   def legal_download
     return unless delivered?
     if (p = self.picking)
-      self.picking.picking_document_by_disposal_type(self.disposal_type)
+      p.picking_document_by_disposal_type(self.disposal_type)
     else
-      # FIXME 
+      # FIXME
     end
   end
 
