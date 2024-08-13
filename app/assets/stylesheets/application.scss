@@ -118,6 +118,7 @@ form.disposal_cer_selector, form.button-radio {
   }
   .form-check {
     display: inline-block;
+    padding-left: 6px;
   }
   .form-check label {
     @extend .btn;
@@ -127,19 +128,13 @@ form.disposal_cer_selector, form.button-radio {
     margin-top: 4px;
     margin-left: 0 !important;
   }
-  //label.collection_radio_buttons{
-  //  @extend .btn-outline-warning;
-  //}
-  .form-check {
-    padding-left: 6px;
-  }
   .form-check-label {
     color: #333 !important;
   }
   // label:selected {
   input:checked+label {
     @extend .btn-info;
-    color: #eee !important;;
+    color: #eee !important;
   }
 }
 
