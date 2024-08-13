@@ -12,11 +12,11 @@ module ApplicationHelper
   def policy_authlevel_color(p)
     case p.authlevel
     when 20
-      'text-secondary'
+      "text-secondary"
     when 40
-      'text-warning'
+      "text-warning"
     when 60
-      'text-danger'
+      "text-danger"
     end
   end
 end
