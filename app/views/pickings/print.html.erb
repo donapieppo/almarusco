@@ -20,13 +20,13 @@
     <% @volumes_and_kgs.each do |disposal_type, vols_and_kgs| %>  
       <% volumes = vols_and_kgs[:volumes].keys.map(&:to_i).sort %>  
       <tr>
-       <td nowrap><%= disposal_type.cer_code %></td>
+       <td class="text-nowrap"><%= disposal_type.cer_code %></td>
        <td><%= disposal_type.physical_state_to_s %></td>
        <td><%= disposal_type.cer_code.description %></td>
        <td>
          <%= volumes.map {|v| v == 200 ? 'Fusto' : 'Tanica'}.sort.uniq.join(' e ') %>  
        </td>
-       <td nowrap>
+       <td class="text-nowrap">
          <% volumes.each do |v| %>
            da <%= v %> litri: <%= vols_and_kgs[:volumes][v.to_s] %><br/>
          <% end %>
@@ -34,8 +34,8 @@
        <td><%= vols_and_kgs[:kgs].round(2) %></td>
        <td><%= disposal_type.hp_codes_to_s %></td>
        <td><%= disposal_type.adr ? 'si' : '' %></td>
-       <td nowrap><%= disposal_type.un_code %></td>
-       <td nowrap><%= disposal_type.adrs_to_s %></td>
+       <td class="text-nowrap"><%= disposal_type.un_code %></td>
+       <td class="text-nowrap"><%= disposal_type.adrs_to_s %></td>
       </tr>
     <% end %>
   </tbody>
