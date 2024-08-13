@@ -48,6 +48,7 @@
   <% if @picking.delivered? && ! @picking.completed? %>
     <button class="d-inline btn btn-warning" onClick="show_alert()">ARCHIVIA</button>
   <% end %>
+  - <%= link_to_back pickings_path %>  
 </div>
 
 <%= javascript_tag do  %>  
@@ -58,9 +59,6 @@
   }
 <% end %>
 
-<center>
-  <%= link_to_back pickings_path %>  
-</center>
 
 <div class="alert alert-warning" style="display: none" id="button_alert">
   <h2 class="text-center">Attenzione</h2>
