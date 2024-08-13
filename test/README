@@ -1,0 +1,23 @@
+System tests allow you to test user interactions with your application, running tests in either a real or a headless browser. 
+System tests use Capybara under the hood.
+
+The take_screenshot helper method can be included anywhere in your tests to take a screenshot of the browser.
+
+class ArticlesTest < ApplicationSystemTestCase
+  test "viewing the index" do
+    visit articles_path
+    click_on "New Article"
+    assert_selector "h1", text: "Articles"
+  end
+end
+
+========================
+Integration tests are used to test how various parts of our application interact. 
+They are generally used to test important workflows within our application.
+
+class BlogFlowTest < ActionDispatch::IntegrationTest
+  test "can see the welcome page" do
+    get "/"
+    assert_select "h1", "Welcome#index"
+  end
+end
