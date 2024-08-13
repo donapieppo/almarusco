@@ -9,6 +9,6 @@ export default class extends Controller {
   }
 
   number(event) {
-    this.buttonTarget.disabled = !(parseInt(event.target.value) > 0)
+    this.buttonTarget.disabled = (parseInt(event.target.value) <= 0)
   }
 }
