@@ -17,6 +17,8 @@ module ApplicationHelper
       "text-warning"
     when 60
       "text-danger"
+    else
+      ""
     end
   end
 end
