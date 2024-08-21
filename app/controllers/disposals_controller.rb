@@ -72,11 +72,12 @@ class DisposalsController < ApplicationController
   end
 
   def create
-    @disposal = current_user.disposals.new(disposal_params)
+    @disposal = current_user.disposals.new
     @disposal.organization_id = current_organization.id
     @disposal.disposal_type_id = @disposal_type.id
 
     set_producer
+    @disposal.assign_attributes(disposal_params)
 
     authorize @disposal
 
@@ -84,7 +85,7 @@ class DisposalsController < ApplicationController
       Rails.logger.info("Disposal #{@disposal.inspect} created by #{current_user.upn}")
       redirect_to disposals_path(h: @disposal.id, anchor: @disposal.id), notice: "Salvata la richiesta di scarico con identificativo #{@disposal.id}. Consigliamo di scrivere il numero identificativo sul collo."
     else
-      Rails.logger.info(@disposal.errors.inspect)
+      # Rails.logger.info(@disposal.errors.inspect)
       render action: :new, status: :unprocessable_entity
     end
   end
