@@ -30,8 +30,8 @@ Rails.application.routes.draw do
 
     post "search", to: "disposals#search", as: "search"
 
-    # get  'helps',          to: 'helps#index'
-    get "helps/images", to: "helps#images", as: "help_images"
+    # get "helps", to: "helps#index"
+    # get "helps/images", to: "helps#images", as: "help_images"
 
     get "/", to: "disposals#index", as: "current_organization_root"
 
