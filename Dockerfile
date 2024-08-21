@@ -70,9 +70,6 @@ USER rails:rails
 RUN echo 'alias ll="ls -l"' >> ~/.bashrc
 RUN echo 'PS1="DOCKER \w: "' >> ~/.bashrc
 
-# Entrypoint prepares the database.
-# ENTRYPOINT ["/rails/bin/docker-entrypoint"]
-
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
