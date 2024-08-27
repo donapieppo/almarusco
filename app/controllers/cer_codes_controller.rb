@@ -22,6 +22,7 @@ class CerCodesController < ApplicationController
   end
 
   def edit
+    @year = Date.today.year
   end
 
   def update
