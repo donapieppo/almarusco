@@ -2,8 +2,11 @@
   <div class="dm-card-title">
     <div>
       <%= @disposal_type.to_s %>
-      <% if @editable %>  
+      <% if @editable && @policy.edit? %>  
         <div class="float-end"><%= link_to_edit "", [:edit, @disposal_type] %></div>
+      <% end %>
+      <% if @policy.show? %>
+        <div class="float-end"><%= link_to_show "", @disposal_type %></div>
       <% end %>
     </div>
     <div class="fw-normal">

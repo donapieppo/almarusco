@@ -6,6 +6,7 @@ class DisposalType::CardComponent < ViewComponent::Base
     @disposal_type = disposal_type
     @with_details = with_details
 
-    @editable = editable && DisposalTypePolicy.new(@current_user, @disposal_type).edit?
+    @editable = editable
+    @policy = DisposalTypePolicy.new(@current_user, @disposal_type)
   end
 end
