@@ -1,6 +1,5 @@
 class CerCode < ApplicationRecord
   has_many :disposal_types
-  has_many :disposals
   has_many :contracts
   has_many :suppliers, through: :contracts
 
@@ -12,5 +11,9 @@ class CerCode < ApplicationRecord
 
   def danger?
     self.danger
+  end
+
+  def disposals(org)
+    Disposal.where(disposal_type_id: self.disposal_types.where(organization_id: org.id).ids)
   end
 end
