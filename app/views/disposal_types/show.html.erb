@@ -1,0 +1,14 @@
+<h1><%= @disposal_type %></h1>
+
+<dl>
+  <dt class="my-2">Elenco rifiuti <strong><%= @year %></strong></dt>
+  <dd>
+    <% @disposal_type.disposals.select(:id).where("YEAR(created_at) = ?", @year).each do |disposal| %>
+      <%= link_to disposal.id, disposal_path(disposal, modal: 1), data: {turbo_frame: "modal"}, class: "d-inline-block btn btn-sm btn-info" %>
+    <% end %>
+  </dd>
+</dl>
+
+<% if @disposal_type.disposals.empty? %>
+  <%= link_to_delete 'Elimina la tipologia', @disposal_type, button: true %>
+<% end %>

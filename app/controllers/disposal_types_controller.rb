@@ -1,9 +1,13 @@
 class DisposalTypesController < ApplicationController
-  before_action :set_disposal_type_and_check_permission, only: [:edit, :update, :destroy]
+  before_action :set_disposal_type_and_check_permission, only: [:show, :edit, :update, :destroy]
 
   def index
     @disposal_types = current_organization.disposal_types.includes(:cer_code, :un_code, :hp_codes, :adrs, :pictograms).order("cer_codes.name, un_codes.name")
     authorize :disposal_type
+  end
+
+  def show
+    @year = Date.today.year
   end
 
   def new
@@ -33,6 +37,10 @@ class DisposalTypesController < ApplicationController
   end
 
   def destroy
+    if @disposal_type.organization == current_organization
+      @disposal_type.destroy
+    end
+    redirect_to disposal_types_path
   end
 
   private
