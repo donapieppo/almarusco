@@ -9,6 +9,12 @@
   </dd>
 </dl>
 
-<% if @disposal_type.disposals.empty? %>
+<% if policy(@disposal_type).edit? %>
+  <%= link_to [:edit, @disposal_type] do %>
+    <button class="btn btn-primary">Modifica</button>
+  <% end %>
+<% end %>
+
+<% if policy(@disposal_type).destroy? && @disposal_type.disposals.empty? %>
   <%= link_to_delete 'Elimina la tipologia', @disposal_type, button: true %>
 <% end %>
