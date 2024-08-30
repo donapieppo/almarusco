@@ -15,7 +15,7 @@
   <% picking_document = @picking.picking_document_by_disposal_type(disposal_type) %>
 
   <div class="dm-card">
-    <div class="dm-card-title">
+    <div class="dm-card-title py-2">
       <%= disposal_type.to_s_complete %>  
     </div>
     <div class="dm-card-body">
@@ -58,7 +58,6 @@
     location.hash = "#button_alert";
   }
 <% end %>
-
 
 <div class="alert alert-warning" style="display: none" id="button_alert">
   <h2 class="text-center">Attenzione</h2>

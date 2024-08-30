@@ -1,0 +1,9 @@
+<h1>Frasi H (CLP)</h1>
+
+<dl>
+  <% @hazards.each do |item| %>
+    <dt><%= item.code %></dt>
+    <dd><%= item.phrase %></dd>
+  <% end %>
+</dl>
+

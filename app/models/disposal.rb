@@ -49,6 +49,14 @@ class Disposal < ApplicationRecord
     "#{self.units} #{container}"
   end
 
+  def producer_to_s
+    if multiple_users
+      "Punto di raccolta generico:"
+    else
+      "Produttore:"
+    end
+  end
+
   def volume_tot
     self.volume * self.units
   end

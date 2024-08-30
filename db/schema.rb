@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_23_153320) do
   create_table "adrs", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -46,6 +46,29 @@ ActiveRecord::Schema[7.1].define(version: 0) do
     t.index ["supplier_id"], name: "fk_ccs_supplier"
   end
 
+  create_table "component_details", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "disposal_description_id", null: false, unsigned: true
+    t.text "name"
+    t.integer "percentage", unsigned: true
+    t.integer "un_code_id", unsigned: true
+    t.index ["disposal_description_id"], name: "fk_component_details_disposal_description"
+    t.index ["un_code_id"], name: "fk_component_details_un_code"
+  end
+
+  create_table "component_details_hazards", id: false, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "component_detail_id", null: false, unsigned: true
+    t.integer "hazard_id", null: false, unsigned: true
+    t.index ["component_detail_id"], name: "fk_component_details_hazards_component_detail"
+    t.index ["hazard_id"], name: "fk_component_details_hazards_hazards"
+  end
+
+  create_table "component_details_hp_codes", id: false, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "component_detail_id", null: false, unsigned: true
+    t.integer "hp_code_id", null: false, unsigned: true
+    t.index ["component_detail_id"], name: "fk_component_details_hp_codes_component"
+    t.index ["hp_code_id"], name: "fk_component_details_hp_codes_hp_code"
+  end
+
   create_table "containers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.column "name", "enum('tanica','bidone polietilene','clinipack','fusto','big bag')"
     t.integer "volume"
@@ -67,6 +90,16 @@ ActiveRecord::Schema[7.1].define(version: 0) do
     t.date "end_date"
     t.index ["cer_code_id"], name: "cer_code_id"
     t.index ["supplier_id"], name: "supplier_id"
+  end
+
+  create_table "disposal_descriptions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "organization_id", null: false, unsigned: true
+    t.integer "user_id", null: false, unsigned: true
+    t.text "name"
+    t.integer "lab_id", unsigned: true
+    t.index ["lab_id"], name: "fk_disposal_descriptions_labs"
+    t.index ["organization_id"], name: "fk_disposal_descriptions_organizations"
+    t.index ["user_id"], name: "fk_disposal_descriptions_users"
   end
 
   create_table "disposal_types", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -115,6 +148,7 @@ ActiveRecord::Schema[7.1].define(version: 0) do
     t.date "legalized_at"
     t.date "delivered_at"
     t.date "completed_at"
+    t.boolean "multiple_users", default: false
     t.index ["container_id"], name: "container_id"
     t.index ["disposal_type_id"], name: "fk_disposals_disposal_type"
     t.index ["lab_id"], name: "fk_disposals_labs"
@@ -123,6 +157,12 @@ ActiveRecord::Schema[7.1].define(version: 0) do
     t.index ["picking_id"], name: "fk_disposals_pickings"
     t.index ["producer_id"], name: "fk_disposals_producers"
     t.index ["user_id"], name: "fk_disposals_users"
+  end
+
+  create_table "hazards", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "code", limit: 20, null: false
+    t.text "phrase", null: false
+    t.column "category", "enum('Fisico','Salute','Ambiente')", null: false
   end
 
   create_table "hp_codes", id: { type: :integer, unsigned: true, default: nil }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -233,10 +273,19 @@ ActiveRecord::Schema[7.1].define(version: 0) do
   add_foreign_key "buildings", "organizations", name: "buildings_ibfk_1"
   add_foreign_key "cer_codes_suppliers", "cer_codes", name: "fk_ccs_cer_code"
   add_foreign_key "cer_codes_suppliers", "suppliers", name: "fk_ccs_supplier"
+  add_foreign_key "component_details", "disposal_descriptions", name: "fk_component_details_disposal_description"
+  add_foreign_key "component_details", "un_codes", name: "fk_component_details_un_code"
+  add_foreign_key "component_details_hazards", "component_details", name: "fk_component_details_hazards_component_detail"
+  add_foreign_key "component_details_hazards", "hazards", name: "fk_component_details_hazards_hazards"
+  add_foreign_key "component_details_hp_codes", "component_details", name: "fk_component_details_hp_codes_component"
+  add_foreign_key "component_details_hp_codes", "hp_codes", name: "fk_component_details_hp_codes_hp_code"
   add_foreign_key "containers_disposal_types", "containers", name: "containers_disposal_types_ibfk_1"
   add_foreign_key "containers_disposal_types", "disposal_types", name: "containers_disposal_types_ibfk_2"
   add_foreign_key "contracts", "cer_codes", name: "contracts_ibfk_2"
   add_foreign_key "contracts", "suppliers", name: "contracts_ibfk_1"
+  add_foreign_key "disposal_descriptions", "labs", name: "fk_disposal_descriptions_labs"
+  add_foreign_key "disposal_descriptions", "organizations", name: "fk_disposal_descriptions_organizations"
+  add_foreign_key "disposal_descriptions", "users", name: "fk_disposal_descriptions_users"
   add_foreign_key "disposal_types", "cer_codes", name: "fk_disposal_types_cer"
   add_foreign_key "disposal_types", "organizations", name: "fk_disposal_types_organization"
   add_foreign_key "disposal_types", "un_codes", name: "fk_disposal_types_un"

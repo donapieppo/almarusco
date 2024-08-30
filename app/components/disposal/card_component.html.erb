@@ -23,7 +23,12 @@
       </div><!-- col-md-3 -->
       <div class="col-md-9">
         <div>
-          <%= t :producer %>: <%= link_to @disposal.producer, disposals_path(u: @disposal.producer.id), data: { turbo: false } %>
+          <% if @disposal.multiple_users %>
+            Punto di raccolta generico:
+          <% else %>
+            <%= t :producer %>:
+          <% end %>
+          <%= link_to @disposal.producer, disposals_path(u: @disposal.producer.id), data: { turbo: false } %>
           <% if @disposal.producer_id != @disposal.user_id %>  
             <small>(da <%= link_to @disposal.user, disposals_path(u: @disposal.user_id), data: { turbo: false } %>)</small> 
           <% end %> 

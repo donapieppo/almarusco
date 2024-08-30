@@ -25,7 +25,7 @@ class DisposalPolicy < ApplicationPolicy
   end
 
   def update?
-    @user && ((! @record.approved? && @record.undelivered? && @user.owns?(@record)) || organization_manager?(@record.organization))
+    @user && ((!@record.approved? && @record.undelivered? && @user.owns?(@record)) || organization_manager?(@record.organization))
   end
 
   # ONLY MANAGER and only not delivered FIXME puo' succedere il contrario?
@@ -34,11 +34,11 @@ class DisposalPolicy < ApplicationPolicy
   end
 
   def approve?
-    (! @record.approved?) && organization_manager?(@record.organization)
+    (!@record.approved?) && organization_manager?(@record.organization)
   end
 
   def unapprove?
-    @record.approved? && (! @record.legalized?) && organization_manager?(@record.organization)
+    @record.approved? && (!@record.legalized?) && organization_manager?(@record.organization)
   end
 
   def search?

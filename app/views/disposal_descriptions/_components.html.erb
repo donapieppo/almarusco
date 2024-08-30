@@ -1,0 +1,29 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Componente</th>
+      <th>Frasi H (CLP)</th>
+      <th>Stima di conc%</th>
+      <th>HP</th>
+      <th>ADR(UN)</th>
+      <th>ADR classe</th>
+      <th>ADR<br/>Gruppo imballaggio</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% component_details.each do |item| %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.hazards_to_s %></td>
+        <td><%= item.percentage %></td>
+        <td><%= item.hp_codes.map(&:code).join(" - ") %></td>
+        <td><%= item.un_code %></td>
+        <td><%= item.adrs.map(&:name).join(" - ") %></td>
+        <td><%= item.percentage %></td>
+        <td><%= link_to_edit "", [:edit, item.disposal_description, item] %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

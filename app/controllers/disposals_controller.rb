@@ -154,7 +154,7 @@ class DisposalsController < ApplicationController
 
   # no producer or user!
   def disposal_params
-    params[:disposal].permit(:kgs, :units, :container_id, :lab_id, :notes)
+    params[:disposal].permit(:kgs, :units, :container_id, :lab_id, :notes, :multiple_users)
   end
 
   def set_disposal_type

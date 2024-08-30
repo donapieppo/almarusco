@@ -85,6 +85,11 @@ Rails.application.routes.draw do
     resources :archives
     resources :reports
 
+    resources :disposal_descriptions do
+      resources :component_details
+    end
+    resources :hazards, only: [:index]
+
     get "mud", to: "mud#show", as: :mud
     get "deposit", to: "deposits#index", as: :deposit
     get "to_legalize", to: "deposits#to_legalize", as: :to_legalize

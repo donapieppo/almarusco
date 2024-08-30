@@ -1,0 +1,7 @@
+<%= render "form" %>
+
+<h2>Componenti</h2>
+
+<%= render 'components', component_details: @disposal_description.component_details %>
+
+<%= link_to "AGGIUNGI COMPONENTE", [:new, @disposal_description, :component_detail], class: "btn btn-primary" %>

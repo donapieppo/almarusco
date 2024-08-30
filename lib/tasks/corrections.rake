@@ -78,4 +78,15 @@ namespace :almarusco do
       end
     end
   end
+
+  desc "Correct users"
+  task fix_users_missing_name: :environment do
+    dsa = DmUniboUserSearch::Client.new
+    User.where(name: nil).each do |u|
+      res = dsa.find_user(u.upn).users[0]
+      u.update(name: res.name, surname: res.sn)
+      p u
+      x = gets
+    end
+  end
 end

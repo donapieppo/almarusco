@@ -1,0 +1,9 @@
+<h1>Schede descrittive rifiuti</h1>
+
+<ul class="list-group">
+  <% @disposal_descriptions.each do |item| %>
+    <li class="list-group-item"><%= link_to item %></li>
+  <% end %>
+</ul>
+
+<%= link_to "Nuova SDR", new_disposal_description_path, class: "my-2 btn btn-primary" %>

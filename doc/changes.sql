@@ -1,52 +1,61 @@
-alter table disposal_types add column `hidden` bool not null default 0 after `separable`;
+-- ALTER TABLE disposals ADD COLUMN `multiple_users` bool default false;
 
-create table containers (
-        `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-        `name` ENUM("tanica", "bidone polietilene", "clinipack", "fusto", "big bag"),
-        `volume` int(2),
-        `notes` text,
-        PRIMARY KEY (`id`)
+DROP TABLE `component_details_hazards`;
+DROP TABLE `component_details_hp_codes`;
+DROP TABLE `adrs_component_details`;
+DROP TABLE `component_details`;
+DROP TABLE `disposal_descriptions`;
+create table `disposal_descriptions` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `organization_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `name` text,
+  `lab_id` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_disposal_descriptions_organizations` FOREIGN KEY (organization_id) REFERENCES organizations(id),
+  CONSTRAINT `fk_disposal_descriptions_users` FOREIGN KEY (user_id) REFERENCES users(id),
+  CONSTRAINT `fk_disposal_descriptions_labs` FOREIGN KEY (`lab_id`) REFERENCES `labs` (`id`)
 );
 
-create table containers_disposal_types (
-        `container_id` int(10) unsigned NOT NULL,
-        `disposal_type_id` int(10) unsigned NOT NULL,
-        FOREIGN KEY (container_id) REFERENCES containers (id),
-        FOREIGN KEY (disposal_type_id) REFERENCES disposal_types(id)
+create table `component_details` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `disposal_description_id` int(10) unsigned NOT NULL,
+  `name` text,
+  `percentage` int(2) unsigned,
+  `un_code_id` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_component_details_disposal_description` FOREIGN KEY (disposal_description_id) REFERENCES disposal_descriptions(id),
+  CONSTRAINT `fk_component_details_un_code` FOREIGN KEY (un_code_id) REFERENCES un_codes(id)
 );
 
-alter table `disposals` add column `container_id` int(10) unsigned after `volume`;
-alter table `disposals` add FOREIGN KEY (container_id) REFERENCES `containers` (`id`);
+create table `component_details_hazards` (
+  `component_detail_id` int(10) unsigned NOT NULL, 
+  `hazard_id` int(10) unsigned NOT NULL,
+  CONSTRAINT `fk_component_details_hazards_component_detail` FOREIGN KEY (component_detail_id) REFERENCES component_details(id),
+  CONSTRAINT `fk_component_details_hazards_hazards` FOREIGN KEY (hazard_id) REFERENCES hazards(id)
+);
 
-insert into containers values (1, 'tanica', 5, '');
-insert into containers values (2, 'tanica', 10, '');
-insert into containers values (3, 'tanica', 20, '');
-insert into containers values (4, 'fusto', 30, '');
-insert into containers values (5, 'bidone polietilene', 30, '');
-insert into containers values (6, 'fusto', 40, '');
-insert into containers values (7, 'fusto', 60, '');
-insert into containers values (8, 'bidone polietilene', 60, '');
-insert into containers values (9, 'clinipack', 60, '');
-insert into containers values (10, 'tanica', 120, '');
-insert into containers values (11, 'tanica', 200, '');
-insert into containers values (12, 'big bag', 500, '');
+create table `component_details_hp_codes` (
+  `component_detail_id` int(10) unsigned NOT NULL, 
+   `hp_code_id` int(10) unsigned NOT NULL,
+  CONSTRAINT `fk_component_details_hp_codes_component` FOREIGN KEY (component_detail_id) REFERENCES component_details(id),
+  CONSTRAINT `fk_component_details_hp_codes_hp_code` FOREIGN KEY (hp_code_id) REFERENCES hp_codes(id)
+);
 
-update disposals set container_id = 2 where volume = 10;
-update disposals set container_id = 3 where volume = 20;
-update disposals set container_id = 6 where volume = 40;
-update disposals set container_id = 7 where volume = 60;
-update disposals set container_id = 10 where volume = 120;
+create table `adrs_component_details` (
+  `component_detail_id` int(10) unsigned NOT NULL, 
+   `adr_id` int(10) unsigned NOT NULL,
+  CONSTRAINT `fk_component_details_adrs_component` FOREIGN KEY (component_detail_id) REFERENCES component_details(id),
+  CONSTRAINT `fk_component_details_adrs_adr` FOREIGN KEY (adr_id) REFERENCES adrs(id)
+);
 
--- alter table organizations add column `next_local_id` int(10) default 1 after `description`;
--- alter table disposals add column `local_id` int(10) after `disposal_type_id`;
--- alter table disposals add KEY `k_local_id` (`local_id`);
--- update permissions set expiry ='2023-01-31' where expiry <= '2023-01-01';
+-- Componenti  
+-- Frasi H (CLP) 
+-- Stima di conc% 
+-- HP 
+-- ADR (UN) 
+-- ADR  
+-- classe 
+-- ADR 
+-- Gruppo imballaggio 
 
--- select * from disposals where legalized_at is null and delivered_at is not null;
--- select * from disposals where legalized_at is null and delivered_at is not null;
--- select * from disposals where legalized_at is not null and legal_record_id is null order by legalized_at;
-
--- select * from disposals where legalized_at > delivered_at and legal_record_id is not null;
--- update disposals set legal_record_id = NULL      where legalized_at > delivered_at and legal_record_id is not null;
--- update disposals set legalized_at = delivered_at where legalized_at > delivered_at and legal_record_id is null;
--- update disposals set legalized_at = delivered_at where delivered_at is not null and legalized_at is null;

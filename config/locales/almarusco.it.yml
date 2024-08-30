@@ -37,6 +37,9 @@ it:
       picking_document: Formulario
       legal_record: Registrazione
       contract: Contratto
+      disposal_description: Scheda descrittiva rifiuto
+      component_detail: Componente rifiuto
+      hazard: Frasi H (CLP)
 
     attributes:
       admin:
@@ -82,6 +85,7 @@ it:
         physical_state: Stato
         lab: Laboratorio
         units: Numero di contenitori
+        multiple_users: Più produttori
       lab:
         name: Nome
         building: Edificio
@@ -107,6 +111,15 @@ it:
         date: Data registrazione
       contract:
         price: Prezzo al kg.
+      disposal_description:
+        name: Titolo
+      component_detail:
+        name: Componente
+        percentage: Stima di concentrazione
+        un_code: Adr (UN)
+        hp_codes: Codici HP
+        hazards: Frasi H (CLP)
+        adrs: Classi Adr
 
   simple_form:
     include_blanks:
@@ -123,7 +136,7 @@ it:
       disposal:
         kgs: Quanti Kg (numero decimale)?
         lab: Laboratorio di provenienza del rifiuto.
-        producer_upn: Inserire l'indirizzo e-mail SOLO se il produttore di rifiuti non siete VOI.
+        producer_upn: Inserire l'indirizzo e-mail SOLO se il produttore di rifiuti NON SIETE VOI.
       picking_document:
         serial_number: "Come compare in alto nel formulario. Per esempio: 'XBO 111111/20'."
         kgs: Come da quarta copia (da compilare dopo la consegna della quarta copia).

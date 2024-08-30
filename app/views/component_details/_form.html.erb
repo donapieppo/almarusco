@@ -1,0 +1,17 @@
+<%= dm_form_for [@disposal_description, @component_detail] do |f|%>
+  <%= f.input :name, as: :string, input_html: { list: "all_components" } %>
+  <datalist id="all_components">
+    <% ComponentDetail.select(:name).order(:name).each do |c| %>
+      <option value="<%= c.name %>"></option>
+    <% end %>
+  </datalist>
+
+  <%= f.association :hazards, collection: Hazard.order(:code).all, as: :check_boxes, label_method: :code %>  
+
+  <%= f.input :percentage, hint: "Percentuale concentrazione. Per concentrazioni minori di 1%..." %>
+  <% c = [[" -- ", ""]] + UnCode.order(:id).map{|u| [u.to_s, u.id]} %>  
+  <%= f.association :un_code, collection: c, as: :radio_buttons %>  
+  <%= f.association :hp_codes, collection: HpCode.order(:id), as: :check_boxes, label_method: :code %>  
+  <%= f.association :adrs, collection: Adr.order(:id), as: :check_boxes, label_method: :name %>  
+  <%= f.submit "Salva" %>
+<% end %>
