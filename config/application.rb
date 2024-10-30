@@ -11,6 +11,8 @@ module Almarusco
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
 
+    config.hosts += ENV.fetch("ALLOWED_HOSTS", "").split(",")
+
     config.time_zone = "Rome"
     config.i18n.default_locale = :it
 
@@ -21,8 +23,6 @@ module Almarusco
       manage: 40,  # delegati
       admin: 60    # responsabili ul
     }
-
-    config.lograge.enabled = true
 
     config.action_mailer.default_url_options = {protocol: "https"}
     config.dm_unibo_common = ActiveSupport::HashWithIndifferentAccess.new config_for(:dm_unibo_common)
