@@ -1,6 +1,7 @@
 <%= simple_form_for @disposal_type do |f| %>  
   <%= f.dm_error_notification %>  
 
+  <%= f.association :compliance %>
   <div id="solid-liquid">  
     <%= f.input :physical_state, collection: [['solido SNP (NON polverulento)', 'snp'], 
                                               ['solido SP  (polverulento)', 'sp'], 

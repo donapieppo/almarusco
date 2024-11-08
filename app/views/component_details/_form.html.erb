@@ -6,12 +6,31 @@
     <% end %>
   </datalist>
 
-  <%= f.association :hazards, collection: Hazard.order(:code).all, as: :check_boxes, label_method: :code %>  
-
   <%= f.input :percentage, hint: "Percentuale concentrazione. Per concentrazioni minori di 1%..." %>
+
+  <%= f.association :hazards, collection: Hazard.order(:code).all, as: :check_boxes, label_method: :code %>  
+  <div class="offset-3 mb-3">
+    <%= link_to "mostra tabella frasi", hazards_path, data: {turbo_frame: :modal}, class: "underline" %>
+  </div>
+
   <% c = [[" -- ", ""]] + UnCode.order(:id).map{|u| [u.to_s, u.id]} %>  
   <%= f.association :un_code, collection: c, as: :radio_buttons %>  
   <%= f.association :hp_codes, collection: HpCode.order(:id), as: :check_boxes, label_method: :code %>  
   <%= f.association :adrs, collection: Adr.order(:id), as: :check_boxes, label_method: :name %>  
   <%= f.submit "Salva" %>
+<% end %>
+
+<%= javascript_tag do  %>
+  function get_code(s) {
+    return (s.replace("EU", "").substring(0, 2));
+  }
+
+  let old_start_code = "";
+
+  document.querySelectorAll('.component_detail_hazards .form-check-label').forEach ( e => {
+    if (old_start_code != get_code(e.innerText)) {
+      e.parentElement.insertAdjacentElement('beforebegin', document.createElement("div"));
+      old_start_code = get_code(e.innerText);
+    }
+  })
 <% end %>

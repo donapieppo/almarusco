@@ -15,11 +15,11 @@
   </div>
 </form>
 
-<div class="row">
+<div class="">
   <% @disposal_types.each do |disposal_type| %>
-    <div class="col-md-6 col-xl-4 choosable-disposal-type status_<%= disposal_type.physical_state %>">
+    <div class="choosable-disposal-type status_<%= disposal_type.physical_state %>">
       <%= link_to new_disposal_type_disposal_path(disposal_type), class: 'href-card' do %>  
-        <%= render DisposalType::CardComponent.new(current_user, disposal_type, editable: false) %>  
+        <%= render DisposalType::CardComponent.new(current_user, disposal_type, editable: false, with_links: false) %>  
       <% end %>
     </div>
   <% end %>

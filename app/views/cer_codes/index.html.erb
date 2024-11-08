@@ -31,7 +31,7 @@
         <div class="fst-italic" style="flex: 1">
           <%= cer_code.description %>
           <% if (s = cer_code.suppliers.to_a).any? %>  
-            <div class="text-info">ritiri con <%= s.map(&:name).join(', ') %></div>
+            <div class="text-body-secondary">ritiri con <%= s.map(&:name).join(', ') %></div>
           <% end %>
         </div>
         </div>

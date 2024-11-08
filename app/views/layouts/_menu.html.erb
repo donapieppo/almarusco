@@ -4,7 +4,7 @@
 
 <%= render DmUniboCommon::MenuComponent.new(sso_user_upn, current_organization: current_organization, search_component: search_component) do %>  
   <% if true_user && current_user && current_organization %>  
-    <% if policy(current_organization).manage? %>  
+    <% if policy(current_organization).manage? || current_user.nuter? %>  
       <%= dropdown_menu :disposal, dm_icon('trash-can', text: 'Rifiuti.', fw: true, size: :lg) do  %>
         <li><%= link_to dm_icon('plus', fw: true, text: 'Nuovo rifiuto'), choose_disposal_type_disposals_path %></li>
         <li><%= link_to dm_icon('circle-exclamation', fw: true, text: 'Richieste incomplete'), disposals_path(uncomplete: 1) %></li>
@@ -19,6 +19,7 @@
       <%= dropdown_menu :amm, dm_icon('gears', text: 'Amm.', fw: true, size: :lg) do  %>
         <li><%= link_to dm_icon('trash', fw: true, text: 'Codici CER'), cer_codes_path %></li>
         <li><%= link_to dm_icon('trash', fw: true, text: 'Codici UN'), un_codes_path %></li>
+        <li><%= link_to dm_icon('book', fw: true, text: 'Omologhe'), compliances_path %></li>
         <li><%= link_to dm_icon('list', fw: true, text: 'Tipologie di rifiuti'), disposal_types_path %></li>
         <li><%= link_to dm_icon('truck', fw: true, text: 'Destinatari'), suppliers_path %></li>
         <li><%= link_to dm_icon('flask', fw: true, text: 'Laboratori'), labs_path %></li>
@@ -29,14 +30,14 @@
         <% if current_user.nuter? %>  
           <div class="dropdown-divider"></div>
           <h6 class="dropdown-header">Nuter</h6>
-          <li><%= link_to dm_icon('building', fw: true, text: 'Strutture'), status_organizations_path %></li>
+          <li><%= link_to dm_icon('building', fw: true, text: 'Strutture'), organizations_path %></li>
           <li><%= link_to dm_icon('building', fw: true, text: 'Reports'), report_path %></li>
-          <li><%= link_to dm_icon('chart-pie', fw: true, text: 'Statistiche'), charts_path, data: { turbo: false } %></li>
+          <li><%= link_to dm_icon('chart-pie', fw: true, text: 'Statistiche'), charts_path, data: {turbo: false} %></li>
         <% end %>
         <% if current_user.is_cesia? %>
           <div class="dropdown-divider"></div>
           <h6 class="dropdown-header">Cesia</h6>
-          <li><%= link_to dm_icon('building', fw: true, text: 'Strutture'),  dm_unibo_common.organizations_path %></li>
+          <li><%= link_to dm_icon('building', fw: true, text: 'DM UNIBO Strutture'), dm_unibo_common.organizations_path %></li>
           <li><%= link_to dm_icon('user', fw: true, text: 'Autorizzazioni'), dm_unibo_common.permissions_path %></li>
         <% end %>
       <% end %>
@@ -48,10 +49,6 @@
 
     <% if current_user.multi_organizations? %>
       <li><%= link_to dm_icon('exchange-alt', fw: true, text: 'Cambia struttura', size: :lg), choose_organization_path %></li>
-    <% end %>
-
-    <% if current_user.is_cesia? %>  
-      <li><%= link_to dm_icon('list', fw: true, size: :xl), organizations_path %></li>
     <% end %>
   <% end %>  
 <% end %>

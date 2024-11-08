@@ -1,9 +1,18 @@
-<h1>Frasi H (CLP)</h1>
+<%= render DmUniboCommon::ModalComponent.new() do %>
+  <h1>Frasi H (CLP)</h1>
 
-<dl>
-  <% @hazards.each do |item| %>
-    <dt><%= item.code %></dt>
-    <dd><%= item.phrase %></dd>
-  <% end %>
-</dl>
-
+  <% category = nil%>
+  <table class="table table-sm">
+    <% @hazards.each do |item| %>
+      <% if category != (category = item.category)%>
+        <tr>
+          <th class="bg-light text-primary" colspan="2"><strong><%= category %></strong></th>
+        </tr>
+      <% end %>
+      <tr>
+        <th><%= item.code %></th>
+        <td><%= item.phrase %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

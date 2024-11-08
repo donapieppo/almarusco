@@ -17,7 +17,7 @@
       <%= f.input :url, as: :string %>
     </div>
     <div data-showhide-target="hide">
-      <% if @compliance.document.attached? %>  
+      <% if @compliance.document.attached? && !@compliance.document.new_record? %>  
         <div class="info offset-sm-3">
           A questa omologa è già stato associato un 
           <%= link_to "documento", url_for(@compliance.document), class: "text-decoration-underline", target: "_new" %>.<br/>
