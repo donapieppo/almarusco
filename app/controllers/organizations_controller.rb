@@ -3,11 +3,6 @@ class OrganizationsController < ApplicationController
   def index
     authorize Organization
     @organizations = Organization.order(:id).includes(permissions: :user)
-  end
-
-  def status
-    authorize Organization
-    @organizations = Organization.order(:id).includes(permissions: :user)
     @counts = Disposal.group(:organization_id).count
   end
 
