@@ -40,6 +40,7 @@ it:
       disposal_description: Scheda descrittiva rifiuto
       component_detail: Componente rifiuto
       hazard: Frasi H (CLP)
+      compliance: Scheda Omologa di Ateneo
 
     attributes:
       admin:
@@ -75,6 +76,7 @@ it:
         hidden: Nascosto
         containers: Contenitori
         legalizable: Da registrare anche se non pericoloso
+        compliance: Omologa
       disposal:
         producer: Produttore
         producer_upn: Produttore 
@@ -113,6 +115,11 @@ it:
         price: Prezzo al kg.
       disposal_description:
         name: Titolo
+        department: Dipartimento
+        chief: Direttore
+        place: Sede
+        pictograms: Pittogrammi
+        lab: Laboratorio
       component_detail:
         name: Componente
         percentage: Stima di concentrazione
@@ -120,6 +127,13 @@ it:
         hp_codes: Codici HP
         hazards: Frasi H (CLP)
         adrs: Classi Adr
+      compliance:
+        id: Numero univoco
+        name: Nome
+        description: Abstract
+        year: Anno
+        url: Indirizzo web
+        document: Documento
 
   simple_form:
     include_blanks:
@@ -133,6 +147,7 @@ it:
         legalizable: Se selezionato il rifiuto deve essere registrato anche se non pericoloso (per tutte le tipologie CER pericolose non è necessario selezionare)
         hidden: Se selezionato la tipologia è utilizzabile solo dai reponsabili UL e non dai produttori di rifiuti.
         containers: Segnare i possibili contenitori per questa tipologia di rifiuti.
+        compliance: Sono se...
       disposal:
         kgs: Quanti Kg (numero decimale)?
         lab: Laboratorio di provenienza del rifiuto.
