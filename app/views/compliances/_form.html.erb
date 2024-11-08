@@ -1,0 +1,31 @@
+<div data-controller="showhide" data-showhide-show-if-value="checked">
+  <%= dm_form_for @compliance, title: "Scheda omologa" do |f| %>
+    <% if current_user.nuter? %>
+      <%= 
+        f.input :common, 
+          as: :boolean, 
+          label: "Omologa di Ateneo", 
+          hint: "Se non selezionato sarà visibile solo nella struttura #{current_organization.code}", 
+          input_html: {"data-showhide-target": "input"}
+      %>
+    <% end %>
+    <%= f.input :id %>
+    <%= f.input :name, as: :string %>
+    <%= f.input :description %>
+    <%= f.input :year %>
+    <div data-showhide-target="show">
+      <%= f.input :url, as: :string %>
+    </div>
+    <div data-showhide-target="hide">
+      <% if @compliance.document.attached? %>  
+        <div class="info offset-sm-3">
+          A questa omologa è già stato associato un 
+          <%= link_to "documento", url_for(@compliance.document), class: "text-decoration-underline", target: "_new" %>.<br/>
+          Per modificarlo selezionare un nuovo file.
+        </div>
+      <% end %>
+      <%= f.input :document, as: :file %>  
+    </div>
+    <%= f.submit %>
+  <% end %>
+</div>

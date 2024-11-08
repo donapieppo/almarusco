@@ -1,0 +1,32 @@
+<h1>Schede omologhe</h1>
+
+<div class="notice">
+  Schede omologhe di Ateneo disponibili al link:
+  <a href="https://intranet.unibo.it/spaziict/web3/Pagine/GestioneRifiutiPericolosiProcedura.aspx">https://intranet.unibo.it/spaziict/web3/Pagine/GestioneRifiutiPericolosiProcedura.aspx</a>.
+</div>
+
+<% if policy(current_organization.compliances.new).create? %>  
+  <div class="centered my-2">
+    <%= link_to "Nuova omologa", new_compliance_path, class: "button" %>  
+  </div>
+<% end %>
+
+<h2>OMOLGHE DI ATENEO</h2>
+<div class="list-group">
+  <% @common_compliances.each do |compliance| %>
+    <div class="list-group-item">
+      <%= render Compliance::ItemComponent.new(compliance, edit: policy(compliance).edit?) %>
+    </div>
+  <% end %>
+</div>
+
+<h2 class="mt-4 mb-2">Omologhe <%= current_organization %></h2>
+
+<div class="list-group">
+  <% @compliances.each do |compliance| %>
+    <div class="list-group-item">
+      <%= render Compliance::ItemComponent.new(compliance, edit: policy(compliance).edit?) %>
+    </div>
+  <% end %>
+</div>
+

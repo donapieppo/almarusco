@@ -1,0 +1,9 @@
+<%= render DmUniboCommon::ModalComponent.new() do %>
+  <div class="bg-primary w-100 text-white text-center my-3 py-3 rounded">Omologa <%= @compliance.id %></div>
+  <%= @compliance.name %> - 
+  <%= link_to dm_icon("download"), @compliance.url %>
+  <% unless @compliance.description.blank? %>
+    <div class="text-muted ps-3 my-3"><%= @compliance.description %></div>
+  <% end %>
+<% end %>
+
