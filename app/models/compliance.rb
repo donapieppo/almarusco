@@ -6,7 +6,6 @@ class Compliance < ApplicationRecord
   has_one_attached :document
 
   validates :name, presence: true, uniqueness: true
-  validates :url, uniqueness: true
 
   def to_s
     name
