@@ -1,29 +1,32 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th>Componente</th>
-      <th>Frasi H (CLP)</th>
-      <th>Stima di conc%</th>
-      <th>HP</th>
-      <th>ADR(UN)</th>
-      <th>ADR classe</th>
-      <th>ADR<br/>Gruppo imballaggio</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% component_details.each do |item| %>
-      <tr>
-        <td><%= item.name %></td>
-        <td><%= item.hazards_to_s %></td>
-        <td><%= item.percentage %></td>
-        <td><%= item.hp_codes.map(&:code).join(" - ") %></td>
-        <td><%= item.un_code %></td>
-        <td><%= item.adrs.map(&:name).join(" - ") %></td>
-        <td><%= item.percentage %></td>
-        <td><%= link_to_edit "", [:edit, item.disposal_description, item] %>
-      </tr>
+<% component_details.each do |item| %>
+  <div class="card">
+    <div class="card-header bg-light fw-bold"><%= item.name %></div>
+    <div class="card-body">
+      <dl class="dl-horizontal">
+        <dt>Frasi H (CLP)</dt>
+        <% item.hazards.each do |hazard| %>
+          <dd>
+            <strong><%= hazard.code %></strong> <small>(<%= hazard.category %>)</small>
+            <small class="ps-1"><%= hazard.phrase %></small>
+          </dd>
+        <% end %>
+        <dt>Stima di concentrazione</dt>
+        <dd><%= item.percentage %>%</dd>
+        <dt>HP</dt>
+        <dd><%= item.hp_codes.map(&:code).join(" - ") %></dd>
+        <dt>ADR(UN)</dt>
+        <dd><%= item.un_code %></dd>
+        <dt>ADR classe</dt>
+        <dd><%= item.adrs.map(&:name).join(" - ") %></dd>
+        <dt>ADR Gruppo imballaggio</dt>
+        <dd></dd>
+      </dl>
+    </div>
+    <% if policy(item).edit? %>
+      <div class="card-footer">
+        <%= link_to "Modifica", [:edit, item.disposal_description, item], class: "btn btn-primary float-end" %>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+<% end %>
 

@@ -1,4 +1,9 @@
 <%= dm_form_for @disposal_description do |f| %>
   <%= f.input :name, as: :string %>
+  <%= f.input :department, as: :string %>
+  <%= f.input :place, as: :string %>
+  <%= f.input :chief, as: :string %>
+  <%= f.input :lab, as: :string %>
+  <%= f.association :pictograms, collection: Pictogram.order(:id), as: :check_boxes, label_method: lambda {|p| image_tag p.image, width: 80} %>  
   <%= f.submit %>
 <% end %>

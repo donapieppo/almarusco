@@ -1,3 +1,20 @@
 <h1>SCHEDA DESCRITTIVA RIFIUTO (SDR)</h1>
 
+<%= dm_card title: @disposal_description do %>
+  <dl class="dl-horizontal">
+    <% [:department, :place, :chief, :lab].each do |a| %>
+      <dt><%= I18n.t "activerecord.attributes.disposal_description.#{a}" %></dt>
+      <dd><%= @disposal_description.send(a) %></dd>
+    <% end %>
+  </dl>
+<% end %>
+
+<h2>Componenti</h2>
+
 <%= render 'components', component_details: @disposal_description.component_details %>
+
+<% if policy(@disposal_description).edit? %>
+  <div class="my-2 text-end">
+    <%= link_to "aggiungi componente", new_disposal_description_component_detail_path(@disposal_description), class: "btn btn-primary" %>
+  </div>
+<% end %>

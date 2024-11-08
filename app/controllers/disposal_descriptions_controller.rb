@@ -3,7 +3,7 @@ class DisposalDescriptionsController < ApplicationController
 
   def index
     authorize :disposal_description
-    @disposal_descriptions = DisposalDescription.all
+    @disposal_descriptions = DisposalDescription.includes(:organization, :user).order("organizations.name, users.upn").all
   end
 
   def show
@@ -27,6 +27,11 @@ class DisposalDescriptionsController < ApplicationController
   end
 
   def update
+    if @disposal_description.update(disposal_description_params)
+      redirect_to [:edit, @disposal_description]
+    else
+      render action: :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -35,7 +40,7 @@ class DisposalDescriptionsController < ApplicationController
   private
 
   def disposal_description_params
-    params[:disposal_description].permit(:name)
+    params[:disposal_description].permit(:name, :department, :place, :chief, :lab, pictogram_ids: [])
   end
 
   def set_disposal_description_and_check_permission
