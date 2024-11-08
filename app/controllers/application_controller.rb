@@ -10,10 +10,12 @@ class ApplicationController < DmUniboCommon::ApplicationController
     :set_locale
 
   def after_current_user_and_organization
-    if !current_user || !current_organization || !OrganizationPolicy.new(current_user, current_organization).dispose?
+    if !current_user || !current_organization || !(OrganizationPolicy.new(current_user, current_organization).dispose? || current_user.nuter?)
       skip_authorization
       redirect_to home_path(__org__: nil), alert: "Non hai accesso alla risorsa richiesta."
+      return
     end
+    @alert_permissions = current_user.permissions.where(organization_id: current_organization.id).where("expiry < ?", Date.today + 40.days).load
   end
 
   def set_locale

@@ -2,19 +2,19 @@ class OrganizationPolicy < DmUniboCommon::OrganizationPolicy
   configure_authlevels
 
   def index?
-    @user.is_cesia?
+    @user.nuter?
   end
 
   def status?
-    @user.is_cesia? || @user.nuter?
+    @user.nuter?
   end
 
   def read?
-    @user && @user.current_organization && @user.authorization.can_read?(@user.current_organization)
+    @user&.current_organization && (@user.authorization.can_read?(@user.current_organization) || @user.nuter?)
   end
 
   def show?
-    @user.is_cesia? || @user.nuter? || @user.can_read?(@record)
+    @user.nuter? || @user.can_read?(@record)
   end
 
   def edit?
@@ -22,7 +22,7 @@ class OrganizationPolicy < DmUniboCommon::OrganizationPolicy
   end
 
   def update?
-    @user.is_cesia? || @user.can_manage?(@record)
+    @user.nuter? || @user.can_manage?(@record)
   end
 
   def destroy?

@@ -1,7 +1,6 @@
 class DisposalPolicy < ApplicationPolicy
   def index?
-    current_organization_disposer?
-    # @user
+    current_organization_disposer? || @user.nuter?
   end
 
   def show?
@@ -34,11 +33,11 @@ class DisposalPolicy < ApplicationPolicy
   end
 
   def approve?
-    (!@record.approved?) && organization_manager?(@record.organization)
+    !@record.approved? && organization_manager?(@record.organization)
   end
 
   def unapprove?
-    @record.approved? && (!@record.legalized?) && organization_manager?(@record.organization)
+    @record.approved? && !@record.legalized? && organization_manager?(@record.organization)
   end
 
   def search?

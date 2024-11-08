@@ -3,6 +3,10 @@ class ApplicationPolicy < DmUniboCommon::ApplicationPolicy
     @user && OrganizationPolicy.new(@user, o).dispose?
   end
 
+  def current_organization_manager?
+    @user.nuter? || super
+  end
+
   def current_organization_disposer?
     organization_disposer?(@user.current_organization)
   end

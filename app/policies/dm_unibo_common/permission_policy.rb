@@ -4,14 +4,14 @@ class DmUniboCommon::PermissionPolicy < ApplicationPolicy
   end
 
   def create?
-    organization_manager?(@record.organization)
+    organization_manager?(@record.organization) || @user.nuter?
   end
 
   def update?
-    organization_manager?(@record.organization)
+    organization_manager?(@record.organization) || @user.nuter?
   end
 
   def destroy?
-    organization_manager?(@record.organization)
+    organization_manager?(@record.organization) || @user.nuter?
   end
 end

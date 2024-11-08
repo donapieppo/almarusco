@@ -1,11 +1,11 @@
 class ComponentDetailPolicy < ApplicationPolicy
   # FIXME
   def create?
-    @user
+    @user.nuter? || (@user && @user.owns?(@record.disposal_description))
   end
 
   # FIXME
   def update?
-    @user
+    @user.nuter? || (@user && @user.owns?(@record.disposal_description))
   end
 end

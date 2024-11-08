@@ -8,18 +8,18 @@ class BuildingPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.is_cesia?
+    @user.nuter?
   end
 
   def create?
-    @user.is_cesia?
+    @user.nuter?
   end
 
   def update?
-    @user.is_cesia?
+    @user.nuter?
   end
 
   def destroy?
-    @user.is_cesia?
+    @user.nuter?
   end
 end
