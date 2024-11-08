@@ -1,9 +1,9 @@
 # syntax = docker/dockerfile:1
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
-ARG RUBY_VERSION=3.2.2
+ARG RUBY_VERSION=3.3.5
 FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim AS base
-MAINTAINER Donapieppo <donapieppo@yahoo.it>
+LABEL org.opencontainers.image.authors="Pietro Donatini <pietro.donatini@unibo.ir>"
 
 # Rails app lives here
 WORKDIR /rails
@@ -23,7 +23,7 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git curl default-libmysqlclient-dev libvips node-gyp pkg-config python-is-python3
 
 # Install JavaScript dependencies
-ARG NODE_VERSION=20.12.0
+ARG NODE_VERSION=20.17.0
 ARG YARN_VERSION=1.22.22
 ENV PATH=/usr/local/node/bin:$PATH
 RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \

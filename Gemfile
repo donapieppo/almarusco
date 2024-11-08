@@ -16,10 +16,10 @@ gem "prawn"
 gem "prawn-table"
 gem "prawn-svg"
 
-gem "lograge"
-
 gem "sprockets-rails", "=3.4.2", require: "sprockets/railtie"
 gem "omniauth-rails_csrf_protection"
+
+gem "aws-sdk-s3", require: false
 
 # gem 'aasm'
 

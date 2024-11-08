@@ -4,7 +4,7 @@
   "dependencies": {
     "@rails/request.js": "^0.0.8",
     "awesomplete": "^1.1.5",
-    "dm_unibo_common": "donapieppo/dm_unibo_common.git"
+    "dm_unibo_common": "donapieppo/dm_unibo_common.git#css"
   },
   "scripts": {
     "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules",
