@@ -4,7 +4,7 @@
   <dt class="my-2">Elenco rifiuti <strong><%= @year %></strong></dt>
   <dd>
     <% @disposal_type.disposals.select(:id).where("YEAR(created_at) = ?", @year).each do |disposal| %>
-      <%= link_to disposal.id, disposal_path(disposal, modal: 1), data: {turbo_frame: "modal"}, class: "d-inline-block btn btn-sm btn-info" %>
+      <%= link_to disposal.id, disposal_path(disposal, modal: 1), data: {turbo_frame: "modal"}, class: "d-inline-block btn btn-sm btn-info my-1" %>
     <% end %>
   </dd>
 </dl>

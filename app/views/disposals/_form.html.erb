@@ -5,8 +5,10 @@
 
   <% if buildings.size > 1 %>  
     <%= render partial: 'multi_labs_form', locals: { buildings: buildings } %>  
-  <% else %>
+  <% elsif current_organization.labs.any? %>
     <%= f.association :lab, collection: current_organization.labs.includes(:building).order(:name) %>  
+  <% else %>
+    <div class="offset-sm-3 text-muted my-2 text-end">Non sono presenti laboratori da selezionare.</div>
   <% end %>
 
   <% if @permitted_producers && @permitted_producers.any? %>  
@@ -22,7 +24,7 @@
 
   <%= f.association :container, collection: @disposal.disposal_type.containers.order(:volume, :name), label_method: :to_s, include_blank: false, as: :radio_buttons %>  
   <% if @disposal.disposal_type.separable %>  
-    <%= f.input :units, input_html: { style: 'max-width: 8rem' } %>  
+    <%= f.input :units, input_html: {style: 'max-width: 8rem'} %>  
   <% end %>
 
   <%= f.input :notes %>  

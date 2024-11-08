@@ -30,7 +30,7 @@
             <%= link_to lab, lab, data: { turbo_frame: :modal } %>
             <span class="float-end">
               <% if n = @used_labs_ids[lab.id] %>  
-                <span class="badge bg-info">
+                <span class="badge bg-info-subtle">
                   <%= link_to lab, data: { turbo_frame: :modal } do %>
                     <%= n %> rifiuti
                   <% end %>

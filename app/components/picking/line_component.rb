@@ -4,7 +4,7 @@ class Picking::LineComponent < ViewComponent::Base
   def initialize(picking)
     @picking = picking
     @bg = if @picking.completed?
-      "list-group-item-secondary text-secondary"
+      "list-group-item-secondary text-body-secondary"
     elsif @picking.delivered?
       "list-group-item-info"
     else

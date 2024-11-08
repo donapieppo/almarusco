@@ -22,7 +22,7 @@
   <ul>
     <% @other_cer_codes.each do |cer_code| %>  
       <li class="" data-limit-visible-target="item" data-text="<%= cer_code.name %>">
-        <%= link_to cer_code, [:new, @supplier, :contract, cer_code_id: cer_code.id], class: 'btn btn-outline-secondary btn-sm w-50 mx-auto', data: { turbo_frame: :modal } %>
+        <%= link_to cer_code, [:new, @supplier, :contract, cer_code_id: cer_code.id], class: 'btn btn-outline-primary btn-sm w-50 mx-auto', data: { turbo_frame: :modal } %>
       </li>
     <% end %>
   </ul>

@@ -1,9 +1,9 @@
 <%= link_to disposal_path(@disposal, modal: 1), 
-            class: "btn btn-outline-secondary mb-3 me-1", 
+            class: "btn btn-outline-primary mb-3 me-1", 
             style: "position: relative", 
             id: dom_id(@disposal),
             data: {turbo_frame: 'modal'} do %>  
-  <span class="badge <%= @badge_color %> p-1" style="position: absolute; top: -10px; right: -5px">
+  <span class="badge <%= @badge_color %> p-1" style="position: absolute; top: -12px; right: -7px">
     <small><%= @disposal.multiple_units_to_s %></small>
     <%= @disposal.local_id_to_s %>
   </span>
