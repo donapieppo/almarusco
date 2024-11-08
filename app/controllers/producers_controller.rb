@@ -3,11 +3,11 @@
 # maybe refactor < DmUniboCommon::Permission?
 class ProducersController < ApplicationController
   def index
+    authorize :producer
     permissions = current_organization.permissions.includes(:user).order("users.surname")
     @admin_permissions = permissions.where(authlevel: Rails.configuration.authlevels[:admin])
     @manager_permissions = permissions.where(authlevel: Rails.configuration.authlevels[:manage])
     @producer_permissions = permissions.where(authlevel: Rails.configuration.authlevels[:dispose])
-    authorize current_organization, :manage?
   end
 
   def new
