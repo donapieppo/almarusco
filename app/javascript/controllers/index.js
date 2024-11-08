@@ -18,8 +18,10 @@ application.register("picking", PickingController)
 import DsaAwesomplete from "./dsa_awesomplete.js"
 application.register("dsa-awesomplete", DsaAwesomplete)
 
+import showhideController from "./showhide_controller.js"
+application.register("showhide", showhideController)
+
 import { DmTest, TurboModalController, LimitVisibleController } from "dm_unibo_common"
 application.register("turbo-modal", TurboModalController)
 application.register("limit-visible", LimitVisibleController)
-
 
