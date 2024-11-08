@@ -1,3 +1,8 @@
+<% if @disposal_type.compliance %>
+  <div class="text-success fw-bold">
+    Omologa <%= @disposal_type.compliance %>
+  </div>
+<% end %>
 <div>
   <strong>CER:</strong> <%= @disposal_type.cer_code.description.upcase %>
 </div>

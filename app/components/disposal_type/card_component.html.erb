@@ -10,6 +10,9 @@
           <div class="float-end"><%= link_to_show "", @disposal_type %></div>
         <% end %>
       <% end %>
+      <div class="float-end">
+      <%= render DisposalType::PictogramsComponent.new(@disposal_type, size: 40) %>  
+    </div>
     </div>
     <div class="fw-normal">
       <%= @disposal_type.adrs_to_s %> &nbsp;
@@ -21,7 +24,15 @@
     </div>
   </div>
   <div class="dm-card-body">
-    <div class="text-info" style="font-size: 80%">
+    <div class="text-primary" style="font-size: 80%">
+      <% if @disposal_type.compliance %>
+        <strong>OMOLOGA:</strong> 
+        <% if @with_links %>
+          <%= link_to @disposal_type.compliance, [@disposal_type.compliance, modal: 1], data: {turbo_frame: "modal"} %>
+        <% else %>
+          <%= @disposal_type.compliance %>
+        <% end %><br/>
+      <% end %>
       <% if @disposal_type.un_code %>  
         <strong>UN:</strong> <%= @disposal_type.un_code.name.upcase %><br/>
       <% end %>
@@ -31,12 +42,9 @@
       <% end %>
     </div>
     <% unless @disposal_type.notes.blank? %>  
-      <div class="text-secondary">
-        note: <%= @disposal_type.notes %>  
+      <div class="text-body-secondary fst-italic ps-2">
+        <%= @disposal_type.notes %>
       </div>
     <% end %>
-    <div style="text-align: right">
-      <%= render DisposalType::PictogramsComponent.new(@disposal_type, size: 40) %>  
-    </div>
   </div>
 </div>
