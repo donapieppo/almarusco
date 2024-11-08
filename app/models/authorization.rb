@@ -1,6 +1,6 @@
 # il livello e' solo un numero definito da costanti
 #
-# TO_READ:    può solo leggere 
+# TO_READ:    può solo leggere
 # TO_OPERATE: può caricare rifiuto a nome del produttore
 # TO_DISPOSE: responsabile rifiuto
 # TO_MANAGE:  può configurare l'UL
@@ -12,4 +12,3 @@ class Authorization
 
   configure_authlevels
 end
-

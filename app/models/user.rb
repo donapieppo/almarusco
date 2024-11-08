@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   include DmUniboCommon::User
   has_many :disposals
+  has_many :disposal_descriptions
 
   # for who use can operate?
   def permitted_producers(org)
@@ -17,5 +18,11 @@ class User < ApplicationRecord
 
   def nuter?
     NUTER.include?(self.upn)
+  end
+
+  # refactor
+  def can_manage?
+    nuter? and return true
+    super
   end
 end

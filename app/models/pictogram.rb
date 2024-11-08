@@ -1,5 +1,6 @@
 class Pictogram < ApplicationRecord
   has_and_belongs_to_many :disposal_types
+  has_and_belongs_to_many :disposal_descriptions
 
   def image
     self.filename
