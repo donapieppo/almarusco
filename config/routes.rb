@@ -6,9 +6,7 @@ Rails.application.routes.draw do
   get "up123", to: "rails/health#show", as: :rails_health_check
 
   # cesia list (more than dm_unibo_common)
-  resources :organizations, only: [:index, :show, :status] do
-    get "status", as: :status, on: :collection
-  end
+  resources :organizations, only: [:index, :show]
 
   scope :nuter do
     get "charts", to: "nuter#charts", as: :charts
@@ -89,6 +87,7 @@ Rails.application.routes.draw do
       resources :component_details
     end
     resources :hazards, only: [:index]
+    resources :compliances
 
     get "mud", to: "mud#show", as: :mud
     get "deposit", to: "deposits#index", as: :deposit
