@@ -1,5 +1,6 @@
 class DisposalType < ApplicationRecord
   belongs_to :organization
+  belongs_to :compliance, optional: true
   belongs_to :cer_code
   belongs_to :un_code, optional: true
   has_and_belongs_to_many :hp_codes
@@ -35,16 +36,20 @@ class DisposalType < ApplicationRecord
     self.legalizable || self.danger?
   end
 
+  def compliance_to_s
+    compliance ? "(om: #{compliance.id})" : ""
+  end
+
   def to_s
-    %{#{self.cer_code} - #{self.un_code ? self.un_code.to_s + " -" : ""} (#{self.physical_state_to_s})}
+    %{#{self.cer_code} - #{self.un_code ? self.un_code.to_s + " -" : ""} (#{self.physical_state_to_s}) #{compliance_to_s}}
   end
 
   def to_s_short
-    %(#{self.cer_code} #{self.un_code ? " - " + self.un_code.to_s : ""})
+    %(#{cer_code} #{un_code ? " - " + un_code.to_s : ""} #{compliance_to_s})
   end
 
   def to_s_complete
-    "#{self.to_s} #{self.hp_codes_to_s}"
+    "#{self} #{self.hp_codes_to_s}"
   end
 
   def physical_state_to_s
