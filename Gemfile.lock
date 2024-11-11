@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/donapieppo/dm_unibo_common.git
-  revision: f7d659085e1ba08872f651d41e8abee9082fad9e
+  revision: fa2459a249ddcb8b87c3b6d244eb3bd5f98fca7c
   branch: master
   specs:
     dm_unibo_common (5.1.3)
@@ -122,7 +122,7 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     aws-eventstream (1.3.0)
-    aws-partitions (1.1002.0)
+    aws-partitions (1.1003.0)
     aws-sdk-core (3.212.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
@@ -276,7 +276,7 @@ GEM
     mysql2 (0.5.6)
     net-http (0.5.0)
       uri
-    net-imap (0.5.0)
+    net-imap (0.5.1)
       date
       net-protocol
     net-pop (0.1.2)
@@ -420,7 +420,7 @@ GEM
       nokogiri (>= 1.8.1)
       nori (~> 2.4)
       wasabi (>= 3.7, < 6)
-    securerandom (0.3.1)
+    securerandom (0.3.2)
     selenium-webdriver (4.10.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -431,7 +431,7 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
-    sorbet-runtime (0.5.11642)
+    sorbet-runtime (0.5.11645)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)

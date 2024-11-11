@@ -36,7 +36,5 @@
 /node_modules
 /doc
 
-config/initializers/almarusco.rb
-config/dm_unibo_common.yml
-config/credentials.yml.enc
-tags
+/config/unibo_common.yml
+
