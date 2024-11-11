@@ -1,0 +1,30 @@
+shared:
+  html_title:          AlmaRusco - Gestione Rifiuti Speciali
+  html_description:    Gestione Rifiuti Speciali.
+  header_title:        AlmaRusco
+  header_subtitle:     Rifiuti Speciali
+  header_icon:         dumpster
+
+development:
+  superusers:          ["adam.foo@example.com"]
+  omniauth_provider:   :developer
+  searchable_provider: true
+  host:                locahost
+  smtp_unibo:          false
+  smtp_address:        test.example.com
+  smtp_domain:         example.com
+  support_mail:        supportoweb@example.com
+  domain_name:         example.com
+  contact_mail:        dipmat-gemma@example.com
+  default_from:        AlmaRusco <notifica.inviodlist.08218@example.com>
+  reply_to:            dipmat-gemma@example.com
+  login_method:        :allow_if_email
+  no_students:         true
+  message_footer:      ""
+  impersonate_admins: 
+    - donatini@example.com
+  interceptor_mails:  
+    - donatini@example.com
+  main_impersonations: 
+    - alberto@example.com
+    - luca@example.com

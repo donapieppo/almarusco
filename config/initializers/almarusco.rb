@@ -1,5 +1,5 @@
 # upn di amministratori del programma (Array di upn)
-NUTER = ["nome.cognome@example.com"]
+NUTER = ["daria.prandstraller@unibo.it", "alberto.filetti2@unibo.it", "pietro.donatini@unibo.it"]
 
 module Almarusco
   class Application < Rails::Application
