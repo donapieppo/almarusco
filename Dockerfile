@@ -4,6 +4,7 @@
 ARG RUBY_VERSION=3.3.5
 FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim AS base
 LABEL org.opencontainers.image.authors="Pietro Donatini <pietro.donatini@unibo.ir>"
+LABEL org.opencontainers.image.source="https://github.com/donapieppo/almarusco" 
 
 # Rails app lives here
 WORKDIR /rails
