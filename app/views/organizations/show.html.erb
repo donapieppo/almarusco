@@ -1,37 +1,36 @@
 <%= render DmUniboCommon::ModalComponent.new() do %>
   <%= dm_card title: @organization do %>  
-    <div>
-      <h2>Rifiuti</h2>
+    <%= link_to "VAI ALLA PAGINA", disposals_path("__org__": @organization.code), class: "float-end btn btn-secondary" %>
 
-      <% if last_disposal = @organization.disposals.order(created_at: :desc).first %>  
-        <% first_disposal = @organization.disposals.order(created_at: :desc).last %>  
-        <div>Totali: <%= @organization.disposals.count %></div>
-        <div>Completati: <%= @organization.disposals.complete.count %></div>
-        <div>Prima operazione: <%= first_disposal.user %> il <%= l first_disposal.created_at %></div>
-        <div>Ultima operazione: <%= last_disposal.user %> il <%= l last_disposal.created_at %></div>
-      <% end %>
+    <h2>Rifiuti</h2>
+    <% if last_disposal = @organization.disposals.order(created_at: :desc).first %>  
+      <% first_disposal = @organization.disposals.order(created_at: :desc).last %>  
+      <div>Totali: <%= @organization.disposals.count %></div>
+      <div>Completati: <%= @organization.disposals.complete.count %></div>
+      <div>Prima operazione: <%= first_disposal.user %> il <%= l first_disposal.created_at %></div>
+      <div>Ultima operazione: <%= last_disposal.user %> il <%= l last_disposal.created_at %></div>
+    <% end %>
 
-      <h2 class="my-2">Permessi</h2>
-      <% @organization.permissions.includes(:user).where("authlevel >= 30").order(authlevel: :desc).order('users.surname').each do |p| %>  
-        <div class="<%= policy_authlevel_color(p) %>">
-          <%= p.user %> 
-          <% if p.authlevel > 30 %>  
-            <small>
-              (<%= p.authlevel_string.upcase %>) (<%= l p.created_at, format: :date_html5 %>)
-            </small>
-          <% end %>
+    <h2 class="my-2">Permessi</h2>
+    <% @organization.permissions.includes(:user).where("authlevel >= 30").order(authlevel: :desc).order('users.surname').each do |p| %>  
+      <div class="<%= policy_authlevel_color(p) %>">
+        <%= p.user %> <small><%= p.user.upn %></small>
+        <% if p.authlevel > 30 %>  
+          <small>
+            (<%= p.authlevel_string.upcase %> (<%= l p.created_at, format: :date_html5 %>)
+          </small>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if current_user.is_cesia? %>  
+      <h2 class="my-2">Edifici</h2>
+      <% @organization.buildings.order(:name).each do |b| %>  
+        <div>
+          <%= link_to b.to_s_long, [:edit, b] %>  
         </div>
       <% end %>
-
-      <% if current_user.is_cesia? %>  
-        <h2 class="my-2">Edifici</h2>
-        <% @organization.buildings.order(:name).each do |b| %>  
-          <div>
-            <%= link_to b.to_s_long, [:edit, b] %>  
-          </div>
-        <% end %>
-        <%= link_to 'Nuovo edificio', new_building_path(organization_id: @organization.id), class: :button %>  
-      <% end %>
-    </div>
+      <%= link_to 'Nuovo edificio', new_building_path(organization_id: @organization.id), class: :button %>  
+    <% end %>
   <% end %>
 <% end %>
