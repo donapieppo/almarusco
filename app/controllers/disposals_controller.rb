@@ -132,6 +132,9 @@ class DisposalsController < ApplicationController
     # TODO
     # @disposal = current_organization.disposals.find_by_local_id(requested_disposal_id)
     @disposal = current_organization.disposals.find_by_id(requested_disposal_id)
+    if @disposal && !policy(current_organization).manage? && @disposal.user_id != current_user.id && @disposal.producer_id != current_user.id
+      @disposal = nil
+    end
 
     if @disposal
       redirect_to @disposal
