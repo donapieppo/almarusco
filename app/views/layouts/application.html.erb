@@ -5,9 +5,9 @@
     <%= render partial: 'layouts/menu' %>
 
     <main role="main" class="container">
+      <%= render PermissionAlertComponent.new(@alert_permissions) %>  
       <%= render DmUniboCommon::PrivacyAlertComponent.new(cookies) %>  
       <%= render DmUniboCommon::BootstrapAlertComponent.new(flash) %>  
-      <%= render PermissionAlertComponent.new(@alert_permissions) %>  
 
       <%= turbo_frame_tag "modal" %>
 
