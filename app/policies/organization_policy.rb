@@ -36,4 +36,9 @@ class OrganizationPolicy < DmUniboCommon::OrganizationPolicy
   def dispose?
     @user && @user.authorization.can_operate?(@record)
   end
+
+  # dm_unibo_common/app/policies/dm_unibo_common/organization_policy.rb
+  def manage?
+    @user && (@user.authorization.can_manage?(@record) || @user.nuter?)
+  end
 end
