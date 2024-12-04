@@ -14,9 +14,9 @@ module ApplicationHelper
     when 20
       "text-secondary"
     when 40
-      "text-warning"
+      "text-success"
     when 60
-      "text-danger"
+      "text-success"
     else
       ""
     end

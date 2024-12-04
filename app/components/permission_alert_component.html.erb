@@ -1,4 +1,4 @@
-<div class="alert alert-danger text-center">
+<div class="alert alert-danger text-center py-4 my-4">
   <%= dm_icon("circle-exclamation", size: :xl) %> LA SUA ABILITAZIONE AD OPERARE SU QUESTA STRUTTURA È IN SCADENZA. LA INVIATIAMO A CONTATTARE <br/>
   <% @permissions.each do |p| %>
     <%= User.find(p.producer_id) %> <small>(<%= l p.expiry %>)</small> <br/>

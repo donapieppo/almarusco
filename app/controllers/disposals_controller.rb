@@ -139,7 +139,7 @@ class DisposalsController < ApplicationController
     if @disposal
       redirect_to @disposal
     else
-      redirect_to disposals_path(__org__: current_organization.code), alert: "In questa UL non è registato nessun rifiuto con identificativo #{requested_disposal_id}."
+      redirect_to disposals_path(__org__: current_organization.code), notice: "In questa UL non è registato nessun rifiuto con identificativo #{requested_disposal_id}."
     end
   end
 
