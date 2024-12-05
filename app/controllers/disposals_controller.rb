@@ -22,7 +22,7 @@ class DisposalsController < ApplicationController
         @title = "Richieste incomplete"
         @disposals = @disposals.uncomplete
       elsif params[:acceptable]
-        @title = "Richieste da approvare"
+        @title = "Richieste da accettare"
         @disposals = @disposals.complete.unapproved
       else
         @title = "Rifiuti non registrati"
