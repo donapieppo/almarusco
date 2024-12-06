@@ -4,9 +4,9 @@
 </h1>
 
 <% if current_user %>
-  <h3 class="my-3">Scegli la UL su cui vuoi operare</h3>
+  <h2 class="my-3 text-center">Scegli la UL su cui vuoi operare</h2>
 
-  <div class="row my-4">
+  <div class="row my-4 text-center">
     <% current_user.my_organizations(ordering: :code).each do |o| %>
       <div class="col-sm-6 col-md-2 py-1">
         <%= link_to o.code, disposals_path(__org__: o.code), class: "btn btn-outline-primary btn-lg w-100" %>
@@ -15,13 +15,13 @@
   </div>
 <% else %>
   <div class="text-center my-3">
-    <h3 class="my-3">Per accedere usare le credenziali di Ateneo.</h3>
+    <h2 class="my-3">Per accedere usare le credenziali di Ateneo.</h2>
     <% if Rails.env.development? && Rails.configuration.unibo_common.omniauth_provider == :developer %>
       <%= form_with url: "/dm_unibo_common/auth/developer", data: {turbo: false} do |f| %> 
         <%= f.button dm_icon('sign-in', text: " Developer login", size: :lg), class: "btn btn-primary" %> 
       <% end %>
-    <% elsif Rails.env.production? && Rails.configuration.unibo_common.omniauth_provider == :azure_activedirectory_v2 %>
-      <%= form_with url: "/dm_unibo_common/auth/azure_activedirectory_v2", data: {turbo: false} do |f| %> 
+    <% elsif Rails.env.production? && Rails.configuration.unibo_common.omniauth_provider == :entra_id %>
+      <%= form_with url: "/dm_unibo_common/auth/entra_id", data: {turbo: false} do |f| %> 
         <%= f.button dm_icon('sign-in', text: " Unibo login", size: :lg), class: "btn btn-primary" %> 
       <% end %>
     <% end %>
@@ -29,5 +29,5 @@
 <% end %>
 
 <div class="alert alert-light my-3">
-  <%= Rails.configuration.unibo_common.home_description %>
+  <%= Rails.configuration.unibo_common.home_description.html_safe %>
 </div>
