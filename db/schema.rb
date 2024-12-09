@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_28_084240) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_28_084240) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -43,13 +43,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_084240) do
     t.string "name"
     t.text "description"
     t.index ["name"], name: "name"
-  end
-
-  create_table "adrs_component_details", id: false, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.integer "component_detail_id", null: false, unsigned: true
-    t.integer "adr_id", null: false, unsigned: true
-    t.index ["adr_id"], name: "fk_component_details_adrs_adr"
-    t.index ["component_detail_id"], name: "fk_component_details_adrs_component"
   end
 
   create_table "adrs_disposal_types", id: false, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -89,29 +82,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_084240) do
     t.text "url"
   end
 
-  create_table "component_details", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.integer "disposal_description_id", null: false, unsigned: true
-    t.text "name"
-    t.integer "percentage", unsigned: true
-    t.integer "un_code_id", unsigned: true
-    t.index ["disposal_description_id"], name: "fk_component_details_disposal_description"
-    t.index ["un_code_id"], name: "fk_component_details_un_code"
-  end
-
-  create_table "component_details_hazards", id: false, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.integer "component_detail_id", null: false, unsigned: true
-    t.integer "hazard_id", null: false, unsigned: true
-    t.index ["component_detail_id"], name: "fk_component_details_hazards_component_detail"
-    t.index ["hazard_id"], name: "fk_component_details_hazards_hazards"
-  end
-
-  create_table "component_details_hp_codes", id: false, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.integer "component_detail_id", null: false, unsigned: true
-    t.integer "hp_code_id", null: false, unsigned: true
-    t.index ["component_detail_id"], name: "fk_component_details_hp_codes_component"
-    t.index ["hp_code_id"], name: "fk_component_details_hp_codes_hp_code"
-  end
-
   create_table "containers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.column "name", "enum('tanica','bidone polietilene','clinipack','fusto','big bag')"
     t.integer "volume"
@@ -135,27 +105,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_084240) do
     t.index ["supplier_id"], name: "supplier_id"
   end
 
-  create_table "disposal_descriptions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.integer "organization_id", null: false, unsigned: true
-    t.integer "user_id", null: false, unsigned: true
-    t.text "name"
-    t.text "department"
-    t.text "place"
-    t.string "chief"
-    t.text "lab"
-    t.index ["organization_id"], name: "fk_disposal_descriptions_organizations"
-    t.index ["user_id"], name: "fk_disposal_descriptions_users"
-  end
-
-  create_table "disposal_descriptions_pictograms", id: false, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.integer "disposal_description_id", unsigned: true
-    t.integer "pictogram_id", unsigned: true
-    t.index ["disposal_description_id"], name: "fk_ddp_dt"
-    t.index ["pictogram_id"], name: "fk_ddp_picto"
-  end
-
   create_table "disposal_types", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.integer "organization_id", unsigned: true
+    t.integer "compliance_id", unsigned: true
     t.integer "cer_code_id", unsigned: true
     t.integer "un_code_id", unsigned: true
     t.column "physical_state", "enum('liq','sp','snp')"
@@ -163,7 +115,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_084240) do
     t.boolean "hidden", default: false, null: false
     t.boolean "legalizable", default: false, null: false
     t.text "notes"
-    t.integer "compliance_id", unsigned: true
     t.text "compliance_alert"
     t.timestamp "created_at"
     t.index ["cer_code_id"], name: "fk_disposal_types_cer"
@@ -191,6 +142,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_084240) do
     t.integer "lab_id", unsigned: true
     t.integer "picking_id", unsigned: true
     t.integer "producer_id", unsigned: true
+    t.boolean "multiple_users", default: false
     t.integer "organization_id", unsigned: true
     t.integer "disposal_type_id", unsigned: true
     t.integer "legal_record_id", unsigned: true
@@ -204,7 +156,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_084240) do
     t.date "legalized_at"
     t.date "delivered_at"
     t.date "completed_at"
-    t.boolean "multiple_users", default: false
     t.index ["container_id"], name: "container_id"
     t.index ["disposal_type_id"], name: "fk_disposals_disposal_type"
     t.index ["lab_id"], name: "fk_disposals_labs"
@@ -326,27 +277,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_084240) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "adrs_component_details", "adrs", name: "fk_component_details_adrs_adr"
-  add_foreign_key "adrs_component_details", "component_details", name: "fk_component_details_adrs_component"
   add_foreign_key "adrs_disposal_types", "adrs", name: "fk_adrdt_adr"
   add_foreign_key "adrs_disposal_types", "disposal_types", name: "fk_adrdt_dt"
   add_foreign_key "buildings", "organizations", name: "buildings_ibfk_1"
   add_foreign_key "cer_codes_suppliers", "cer_codes", name: "fk_ccs_cer_code"
   add_foreign_key "cer_codes_suppliers", "suppliers", name: "fk_ccs_supplier"
-  add_foreign_key "component_details", "disposal_descriptions", name: "fk_component_details_disposal_description"
-  add_foreign_key "component_details", "un_codes", name: "fk_component_details_un_code"
-  add_foreign_key "component_details_hazards", "component_details", name: "fk_component_details_hazards_component_detail"
-  add_foreign_key "component_details_hazards", "hazards", name: "fk_component_details_hazards_hazards"
-  add_foreign_key "component_details_hp_codes", "component_details", name: "fk_component_details_hp_codes_component"
-  add_foreign_key "component_details_hp_codes", "hp_codes", name: "fk_component_details_hp_codes_hp_code"
   add_foreign_key "containers_disposal_types", "containers", name: "containers_disposal_types_ibfk_1"
   add_foreign_key "containers_disposal_types", "disposal_types", name: "containers_disposal_types_ibfk_2"
   add_foreign_key "contracts", "cer_codes", name: "contracts_ibfk_2"
   add_foreign_key "contracts", "suppliers", name: "contracts_ibfk_1"
-  add_foreign_key "disposal_descriptions", "organizations", name: "fk_disposal_descriptions_organizations"
-  add_foreign_key "disposal_descriptions", "users", name: "fk_disposal_descriptions_users"
-  add_foreign_key "disposal_descriptions_pictograms", "disposal_types", column: "disposal_description_id", name: "fk_ddp_dt"
-  add_foreign_key "disposal_descriptions_pictograms", "pictograms", name: "fk_ddp_picto"
   add_foreign_key "disposal_types", "cer_codes", name: "fk_disposal_types_cer"
   add_foreign_key "disposal_types", "compliances", name: "fw_compliances_disposal_types"
   add_foreign_key "disposal_types", "organizations", name: "fk_disposal_types_organization"
