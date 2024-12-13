@@ -21,6 +21,9 @@ gem "omniauth-rails_csrf_protection"
 
 gem "aws-sdk-s3", require: false
 
+gem "lograge"
+gem "logstash-event"
+
 # gem 'aasm'
 
 group :development, :test do
