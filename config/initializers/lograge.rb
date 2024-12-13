@@ -1,14 +1,17 @@
 Rails.application.configure do
   config.lograge.enabled = true
   config.lograge.formatter = Lograge::Formatters::Logstash.new
+  config.lograge.ignore_actions = ["Rails::HealthController#show"]
   config.lograge.custom_payload do |controller|
-    res = {
-      host: controller.request.host,
-      current_user: controller.current_user&.upn,
-      current_organization: controller.current_organization&.code
-    }
-    if controller.current_user != controller.true_user
-      res[:true_user] = controller.true_user&.upn
+    if !controller.is_a?(Rails::HealthController)
+      res = {
+        host: controller.request.host,
+        current_user: controller.current_user&.upn,
+        current_organization: controller.current_organization&.code
+      }
+      if controller.current_user != controller.true_user
+        res[:true_user] = controller.true_user&.upn
+      end
     end
     res
   end
