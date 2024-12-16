@@ -3,6 +3,7 @@ class DisposalTypesController < ApplicationController
 
   def index
     @disposal_types = current_organization.disposal_types.includes(:cer_code, :un_code, :hp_codes, :adrs, :pictograms, :compliance).order("cer_codes.name, un_codes.name")
+    @disposals_cers = @disposal_types.map(&:cer_code).uniq
     authorize :disposal_type
   end
 

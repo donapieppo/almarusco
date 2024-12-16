@@ -10,9 +10,25 @@
   </div>
 <% end %>
 
-<div class="row">
+<div class="" data-controller="limit-visible">
+  <% if @disposals_cers.size > 1 %>  
+    <form class="my-2 centered disposal_cer_selector">
+      <small class="text-muted">mostra solo CER</small>
+      <% @disposals_cers.each do |cer_code| %>  
+        <input type="radio" 
+               id="<%= dom_id(cer_code) %>" 
+               name="disposal_to_show" 
+               value="c_<%= cer_code.id %>" 
+               data-action="change->limit-visible#update" />
+        <label for="<%= dom_id(cer_code) %>">
+          <%= cer_code.name %>  
+        </label>
+      <% end %>
+    </form>
+  <% end %>
+
   <% @disposal_types.each do |disposal_type| %>  
-    <div class="col-6 col-md-6">
+    <div data-limit-visible-target="item" data-text="c_<%= disposal_type.cer_code_id %>">
       <%= render DisposalType::CardComponent.new(current_user, disposal_type) %>
     </div>
   <% end %>
