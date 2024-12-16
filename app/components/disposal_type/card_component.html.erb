@@ -4,15 +4,15 @@
       <strong><%= @disposal_type.to_s %></strong>
       <% if @editable %>
         <% if @policy.edit? %>  
-          <div class="float-end"><%= link_to_edit "", [:edit, @disposal_type] %></div>
+          <div class="float-end fs-5 ps-1"><%= link_to_edit "", [:edit, @disposal_type] %></div>
         <% end %>
         <% if @policy.show? %>
-          <div class="float-end"><%= link_to_show "", @disposal_type %></div>
+          <div class="float-end fs-5 ps-1"><%= link_to_show "", @disposal_type %></div>
         <% end %>
       <% end %>
       <div class="float-end">
-      <%= render DisposalType::PictogramsComponent.new(@disposal_type, size: 40) %>  
-    </div>
+        <%= render DisposalType::PictogramsComponent.new(@disposal_type, size: 40) %>  
+      </div>
     </div>
     <div class="fw-normal">
       <%= @disposal_type.adrs_to_s %> &nbsp;
