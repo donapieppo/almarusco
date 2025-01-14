@@ -32,6 +32,10 @@ class Organization < ApplicationRecord
                              ORDER BY surname"
   end
 
+  def all_compliances
+    Compliance.where("organization_id is null or organization_id = ?", id)
+  end
+
   private
 
   def check_mail_parameters

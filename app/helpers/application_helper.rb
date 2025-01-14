@@ -21,4 +21,12 @@ module ApplicationHelper
       ""
     end
   end
+
+  def compliance_download(compliance)
+    if compliance.common?
+      link_to dm_icon("download"), compliance.url
+    else
+      link_to dm_icon("download"), compliance.document
+    end
+  end
 end

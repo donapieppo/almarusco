@@ -12,15 +12,12 @@ class Compliance < ApplicationRecord
     name
   end
 
+  # necessary form simple_form
   def common
     !organization_id
   end
 
-  # Compliance.new(common: true) means it belongs (can be used)
-  # to all all organizations
-  def common=(x)
-    if x
-      self.organization_id = nil
-    end
+  def common?
+    common
   end
 end

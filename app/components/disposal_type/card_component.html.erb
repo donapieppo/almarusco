@@ -26,7 +26,7 @@
   <div class="dm-card-body">
     <div class="text-primary" style="font-size: 80%">
       <% if @disposal_type.compliance %>
-        <strong>OMOLOGA:</strong> 
+        <strong class="text-success">OMOLOGA:</strong> 
         <% if @with_links %>
           <%= link_to @disposal_type.compliance, [@disposal_type.compliance, modal: 1], data: {turbo_frame: "modal"} %>
         <% else %>

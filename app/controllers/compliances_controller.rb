@@ -36,6 +36,7 @@ class CompliancesController < ApplicationController
   end
 
   def update
+    # can not change organization_id and common
     if @compliance.update(compliance_params)
       redirect_to compliances_path, notice: "OK."
     end

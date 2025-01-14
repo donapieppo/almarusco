@@ -1,10 +1,21 @@
 <%= simple_form_for @disposal_type do |f| %>  
   <%= f.dm_error_notification %>  
 
-  <%= f.association :compliance %>
+  <% if (compliance = @disposal_type.compliance) %>
+    <div class="alert alert-warning">
+      Tipologia di rifiuti associata a <strong>omologa</strong>
+      <%= link_to compliance, [compliance, modal: 1], data: {turbo_frame: "modal"}, class: "underline" %>
+      del <%= compliance.year %>.<br/>
+      Non è possibile cambiare l'omologa associata ma potete creare una nuova tipologia 
+      (ed eventualmente rendere questa nascosta).
+    </div>
+  <% else %>
+    <%= f.association :compliance, collection: current_organization.all_compliances %>
+  <% end %>
+  
   <div id="solid-liquid">  
     <%= f.input :physical_state, collection: [['solido SNP (NON polverulento)', 'snp'], 
-                                              ['solido SP  (polverulento)', 'sp'], 
+                                              ['solido SP (polverulento)', 'sp'], 
                                               ['liquido', 'liq']], 
     as: :radio_buttons %>  
   </div>
@@ -25,5 +36,5 @@
   <%= f.input :notes %>  
   <%= f.input :legalizable, label: '' %>  
 
-  <%= f.submit %>  
+  <%= f.submit %> - <%= link_to_back disposal_types_path %>  
 <% end %>
