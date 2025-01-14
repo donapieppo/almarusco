@@ -1,6 +1,10 @@
 <span class="badge bg-primary"><%= @compliance.id %></span>
 <%= @compliance.name %> - 
-<%= link_to dm_icon("download"), @compliance.document %>
+<% if @compliance.document.attached? %>
+  <%= link_to dm_icon("download"), @compliance.document %>
+<% else %>
+  <%= link_to dm_icon("download"), @compliance.url %>
+<% end %>
 <% if @edit %>
   <%= link_to dm_icon("edit"), edit_compliance_path(@compliance) %>
 <% end %>
