@@ -32,8 +32,8 @@ class PickingRequest
   def volumes_and_kgs_ordered
     res = []
     @volumes_and_kgs.each do |dt, h|
-      res << { name: dt.cer_code.name, dt: dt, values: h }
+      res << {name: dt.cer_code.name, dt: dt, values: h}
     end
-    res.sort_by {|x| x[:name]}
+    res.sort_by { |x| x[:name] }
   end
 end
