@@ -27,7 +27,7 @@
     <% dt = vol_and_kg[:dt] %>  
     <% values = vol_and_kg[:values] %>  
     <div class="card border-secondary mb-2">
-      <div class="card-header <%= 'bg-success text-white' if values[:kgs] > 0 %>">
+      <div class="card-header <%= 'bg-secondary' if values[:kgs] > 0 %>">
         <strong><%= dt.to_s_complete %></strong>
         <small class="text-body-secondary ps-2"><%= dt.cer_code.description %></small>
       </div>
@@ -35,12 +35,12 @@
       <div class="card-body py-2">
         <div>
           <span class="pe-2">
-            <%= f.number_field "dt[#{dt.id.to_s}][kgs]", value: values[:kgs].ceil, size: 1, type: 'number', style: 'width: 6rem',  class: 'd-inline form-control numeric me-1' %>
-            <small>Kg.</small>
+            <%= f.number_field "dt[#{dt.id}][kgs]", value: values[:kgs].round, size: 1, type: 'number', style: 'width: 6rem', class: 'd-inline form-control numeric me-1' %>
+            <small>Kg. totali per </small>
           </span>
           <% values[:volumes].keys.sort.each do |v| %>
             <span class="pe-2">
-              <%= f.number_field "dt[#{dt.id}][volumes][#{v.to_s}]", value: values[:volumes][v], size: 1, stype: 'number', style: 'width: 4rem',  class: 'd-inline form-control numeric me-1' %>
+              <%= f.number_field "dt[#{dt.id}][volumes][#{v.to_s}]", value: values[:volumes][v], size: 1, stype: 'number', style: 'width: 4rem', class: 'd-inline form-control numeric me-1' %>
               <small>da <%= v %>L.</small>
             </span>
           <% end %>
