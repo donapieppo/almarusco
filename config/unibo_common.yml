@@ -1,30 +1,32 @@
 shared:
-  html_title:          AlmaRusco - Gestione Rifiuti Speciali
-  html_description:    Gestione Rifiuti Speciali.
+  superusers:          ["username@example.com"]
+  html_title:          AlmaRusco - Gestione Rifiuti Speciali - Università di Bologna
+  html_description:    Gestione Rifiuti Speciali. Università di Bologna.
   header_title:        AlmaRusco
   header_subtitle:     Rifiuti Speciali
   header_icon:         dumpster
+  no_students:         true
+  lograge:             true
 
 development:
-  superusers:          ["adam.foo@example.com"]
   omniauth_provider:   :developer
   searchable_provider: true
   host:                locahost
-  smtp_unibo:          false
-  smtp_address:        test.example.com
-  smtp_domain:         example.com
-  support_mail:        supportoweb@example.com
-  domain_name:         example.com
-  contact_mail:        dipmat-gemma@example.com
-  default_from:        AlmaRusco <notifica.inviodlist.08218@example.com>
-  reply_to:            dipmat-gemma@example.com
+  smtp_unibo:          true
+  domain_name:         unibo.it
+  support_mail:        dipmat-gemma@unibo.it
+  reply_to:            dipmat-gemma@unibo.it
+  contact_mail:        dipmat-gemma@unibo.it
+  default_from:        AlmaRusco <notifica.inviodlist.08218@unibo.it>
   login_method:        :allow_if_email
-  no_students:         true
   message_footer:      ""
   impersonate_admins: 
-    - donatini@example.com
+    - username1@unibo.it
   interceptor_mails:  
-    - donatini@example.com
+    - username2@unibo.it
   main_impersonations: 
-    - alberto@example.com
-    - luca@example.com
+    - username2@unibo.it
+  home_description: |
+    <p>Ogni rifiuto gestito attraverso l’applicazione è registrato separatamente in funzione della sua classificazione EER (Elenco Europeo dei Rifiuti), dello stato fisico, della eventuale pericolosità HP e ADR e dei quantitativi prodotti.</p>
+    <p>L'applicazione consente: al produttore del rifiuto di stampare le etichette dei contenitori e prenotare la consegna del rifiuto presso il Deposito Temporaneo prima della Raccolta, mentre ai Responsabili di Unità  Locale /Delegati alle Operazioni di tracciare puntualmente i rifiuti in Deposito, semplificandone e velocizzandone le operazioni di gestione, diminuendo al contempo il rischio di errore.</p>
+    <p>La puntuale tracciatura facilita inoltre la rendicontazione dei rifiuti prodotti, sia ai fini della gestione interna che a quelli legati agli obblighi di legge e alla rendicontazione ambientale.</p>
