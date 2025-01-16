@@ -18,6 +18,9 @@ class LabsController < ApplicationController
     @lab = current_organization.labs.new
     @buildings = current_organization.buildings.to_a
     authorize @lab
+    if @buildings.empty?
+      redirect_to labs_path, alert: "Non sono ancora stati definiti gli edifici della struttura. Si prega di contattare il Nuter."
+    end
   end
 
   def create
