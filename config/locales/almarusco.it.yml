@@ -4,7 +4,7 @@ it:
   liq: liquido
 
   laboratory: Laboratorio
-  created_at: Etichetta crata il
+  created_at: Etichetta creata il
   approved_at: Accettato il
   legalized_at: Registrato il
   delivered_at: Ritirato il
@@ -40,7 +40,7 @@ it:
       disposal_description: Scheda descrittiva rifiuto
       component_detail: Componente rifiuto
       hazard: Frasi H (CLP)
-      compliance: Scheda Omologa di Ateneo
+      compliance: Scheda Omologa
 
     attributes:
       admin:
