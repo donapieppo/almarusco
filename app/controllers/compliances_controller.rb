@@ -3,7 +3,7 @@ class CompliancesController < ApplicationController
 
   def index
     authorize :compliance
-    @compliances = current_organization.compliances.order(:name)
+    @organization_compliances = current_organization.compliances.order(:name)
     @common_compliances = Compliance.where("organization_id is NULL").order(:name)
   end
 
@@ -16,14 +16,14 @@ class CompliancesController < ApplicationController
     common = params[:compliance].delete(:common)
     @compliance = current_organization.compliances.new(compliance_params)
 
-    if current_user.nuter? && common == 1
+    if current_user.nuter? && common.to_i > 0
       @compliance.organization_id = nil
       @compliance.document = nil
     end
 
     authorize @compliance
     if @compliance.save
-      redirect_to compliances_path, notice: "OK."
+      redirect_to compliances_path, notice: "Omologa salvata correttamente."
     else
       render :new, status: :unprocessable_entity
     end
@@ -33,12 +33,14 @@ class CompliancesController < ApplicationController
   end
 
   def edit
+    # can not change between omologa di ateneo / omologa di ul
+    @protect_type = true
   end
 
   def update
     # can not change organization_id and common
     if @compliance.update(compliance_params)
-      redirect_to compliances_path, notice: "OK."
+      redirect_to compliances_path, notice: "Omologa aggiornata correttamente."
     end
   end
 

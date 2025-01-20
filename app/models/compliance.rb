@@ -20,4 +20,12 @@ class Compliance < ApplicationRecord
   def common?
     common
   end
+
+  def type_to_s
+    if common?
+      "Omologa di Ateneo"
+    else
+      "Omologa locale"
+    end
+  end
 end

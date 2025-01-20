@@ -23,7 +23,7 @@
 <h2 class="mt-4 mb-2">Omologhe <%= current_organization %></h2>
 
 <div class="list-group">
-  <% @compliances.each do |compliance| %>
+  <% @organization_compliances.each do |compliance| %>
     <div class="list-group-item">
       <%= render Compliance::ItemComponent.new(compliance, edit: policy(compliance).edit?) %>
     </div>

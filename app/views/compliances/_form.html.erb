@@ -1,14 +1,18 @@
 <div data-controller="showhide" data-showhide-show-if-value="checked">
   <%= dm_form_for @compliance, title: "Scheda omologa" do |f| %>
-    <% disabled = !@compliance.new_record? %>
-    <% if current_user.nuter? %>
+    <% if current_user.nuter? && !@protect_type %>
       <%= 
         f.input :common, 
           as: :boolean, 
           label: "Omologa di Ateneo", 
           hint: "Se non selezionato sarà visibile solo nella struttura #{current_organization.code}", 
-          input_html: {"data-showhide-target": "input", disabled: disabled}
+          input_html: {"data-showhide-target": "input"}
       %>
+    <% end %>
+    <% if !@compliance.new_record? %>
+      <div class="offset-sm-3 fs-5 mb-2">
+        <%= @compliance.type_to_s %>
+      </div>
     <% end %>
     <%= f.input :id %>
     <%= f.input :name, as: :string %>
