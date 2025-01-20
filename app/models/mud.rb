@@ -1,23 +1,25 @@
 # Modello Unico di Dichiarazione Ambientale
 class Mud
-  attr_reader :organization, :summary, :remainders
+  attr_reader :organization, :picked_kgs, :remainders_kgs
 
-  # @summary[cer][:disposals] = [d1, d2...]
-  # @summary[cer][:kgs] = 123
-  def initialize(organization, year: 2023)
+  # @picked_kgs[cer][supplier] = 100
+  # @picked_kgs[cer][supplier2] = 23
+  # @remainders_kgs[cer] = 12
+  def initialize(organization, year)
     @organization = organization
     @year = year
-    @summary = Hash.new { |hash, key| hash[key] = {} }
-    @remainders = Hash.new { |hash, key| hash[key] = {} }
+    # picked_kgs[cer][supplier] = 0.0.
+    @picked_kgs = Hash.new { |hash, key| hash[key] = Hash.new { |hash, key| hash[key] = 0.0 } }
+    @remainders_kgs = Hash.new { |hash, key| hash[key] = 0.0 }
 
-    # @summary is the weight from the supplier in pickings in @year
+    # @picked_kgs is the weight from the supplier in pickings in @year
     organization.pickings
       .where("YEAR(pickings.date) = ?", @year)
-      .includes(picking_documents: :disposal_type).each do |picking|
+      .includes(:supplier, picking_documents: :disposal_type).each do |picking|
+      supplier = picking.supplier
       picking.picking_documents.each do |picking_document|
         cer_code = picking_document.disposal_type.cer_code
-        @summary[cer_code][:kgs] ||= 0.0
-        @summary[cer_code][:kgs] += picking_document.kgs
+        @picked_kgs[cer_code][supplier] += picking_document.kgs
       end
     end
 
@@ -27,27 +29,26 @@ class Mud
       .where("YEAR(disposals.approved_at) = ? AND YEAR(disposals.delivered_at) != ?", @year, @year)
       .includes(disposal_type: :cer_code).each do |disposal|
       cer_code = disposal.disposal_type.cer_code
-      @remainders[cer_code][:kgs] ||= 0.0
-      @remainders[cer_code][:kgs] += disposal.kgs
+      @remainders_kgs[cer_code] += disposal.kgs
     end
 
     # organization.disposals.where("YEAR(disposals.approved_at) = ?", @year).includes(disposal_type: :cer_code).each do |disposal|
     #   cer_code = disposal.disposal_type.cer_code
     #   if disposal.delivered_at && disposal.delivered_at.year == @year
-    #     @summary[cer_code][:disposals] ||= []
-    #     @summary[cer_code][:disposals] << disposal
-    #     @summary[cer_code][:kgs] ||= 0.0
-    #     @summary[cer_code][:kgs] += disposal.kgs
+    #     @picked_kgs[cer_code][:disposals] ||= []
+    #     @picked_kgs[cer_code][:disposals] << disposal
+    #     @picked_kgs[cer_code][:kgs] ||= 0.0
+    #     @picked_kgs[cer_code][:kgs] += disposal.kgs
     #   elsif disposal.approved?
-    #     @remainders[cer_code][:disposals] ||= []
-    #     @remainders[cer_code][:disposals] << disposal
-    #     @remainders[cer_code][:kgs] ||= 0.0
-    #     @remainders[cer_code][:kgs] += disposal.kgs
+    #     @remainders_kgs[cer_code][:disposals] ||= []
+    #     @remainders_kgs[cer_code][:disposals] << disposal
+    #     @remainders_kgs[cer_code][:kgs] ||= 0.0
+    #     @remainders_kgs[cer_code][:kgs] += disposal.kgs
     #   end
     # end
   end
 
   def all_cers
-    _all ||= (@summary.keys + @remainders.keys).sort.uniq
+    (@picked_kgs.keys + @remainders_kgs.keys).sort.uniq
   end
 end

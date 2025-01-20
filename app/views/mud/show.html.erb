@@ -16,10 +16,18 @@
           <%= cer_code %>
         </th>
         <td>
-          <%= kg1 = @summary[cer_code][:kgs] ? @summary[cer_code][:kgs].round(1) : 0 %> 
+          <% kg1 = 0.0 %>
+          <% @picked_kgs[cer_code].each do |supplier, kgs| %>
+            <% kgs ||= 0.0 %>
+            <div>
+              <div class="d-inline text-end"><%= supplier %>:</div>
+              <div class="d-inline-block fw-bold" style="width: 5em"><%= kgs.round(1) %></div>
+            </div>
+            <% kg1 += kgs.round(1) %> 
+          <% end %>
         </td>
         <td> 
-          <%= kg2 = @remainders[cer_code][:kgs] ? @remainders[cer_code][:kgs].round(1) : 0 %> 
+          <%= kg2 = @remainders_kgs[cer_code] ? @remainders_kgs[cer_code].round(1) : 0 %> 
         </td>
         <td>
           <%= kg1 + kg2 %>

@@ -1,9 +1,9 @@
 class MudController < ApplicationController
   def show
     authorize :mud
-    @year = 2023
-    @mud = Mud.new(current_organization, year: @year)
-    @summary = @mud.summary
-    @remainders = @mud.remainders
+    @year = 2024
+    @mud = Mud.new(current_organization, @year)
+    @picked_kgs = @mud.picked_kgs
+    @remainders_kgs = @mud.remainders_kgs
   end
 end
