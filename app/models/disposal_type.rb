@@ -12,7 +12,7 @@ class DisposalType < ApplicationRecord
   has_many :legal_records
   has_many :picking_documents
 
-  validate :cer_and_hps_uniqueness
+  validate :cer_and_hps_and_compliance_uniqueness
   validate :danger_coherence
   validates :physical_state, presence: true
   validates :containers, presence: true
@@ -75,13 +75,18 @@ class DisposalType < ApplicationRecord
     self.adrs.any?
   end
 
-  def cer_and_hps_uniqueness
-    DisposalType.where(organization_id: self.organization_id, cer_code_id: self.cer_code_id, un_code_id: self.un_code_id).each do |dt|
+  def cer_and_hps_and_compliance_uniqueness
+    DisposalType.where(
+      organization_id: self.organization_id,
+      cer_code_id: self.cer_code_id,
+      un_code_id: self.un_code_id,
+      compliance_id: self.compliance_id
+    ).each do |dt|
       if self.id && dt.id == self.id
         next
       end
       if self.physical_state == dt.physical_state && self.hp_code_ids.to_set == dt.hp_code_ids.to_set
-        errors.add(:cer_code_id, "Esiste già una tipologia con gli stessi parametri CER/UN/HP e lo stesso stato nella tua UL.")
+        errors.add(:cer_code_id, "Esiste già una tipologia con gli stessi parametri CER/UN/HP/OMOLOGA e lo stesso stato nella tua UL.")
         return false
       end
     end
