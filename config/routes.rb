@@ -47,6 +47,7 @@ Rails.application.routes.draw do
       post "legalize", on: :collection
     end
     resources :disposal_types do
+      get "clone", on: :member
       resources :disposals, only: [:new, :create]
       resources :legal_uploads, only: [:new, :create, :edit, :update]
     end
