@@ -1,4 +1,14 @@
 <h1>Modifica tipologia di rifiuti</h1>
 
+<% if (compliance = @disposal_type.compliance) %>
+  <div class="alert alert-warning">
+    Tipologia di rifiuti associata a <strong>omologa</strong>
+    <%= link_to compliance, [compliance, modal: 1], data: {turbo_frame: "modal"}, class: "underline" %>
+    del <%= compliance.year %>.<br/>
+    Non è possibile cambiare l'omologa associata ma potete creare una nuova tipologia 
+    (ed eventualmente rendere questa nascosta).
+  </div>
+<% end %>
+
 <%= render partial: 'form' %>  
 

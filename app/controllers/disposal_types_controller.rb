@@ -26,6 +26,24 @@ class DisposalTypesController < ApplicationController
     end
   end
 
+  def clone
+    @orig = DisposalType.find(params[:id])
+    @disposal_type = DisposalType.new(
+      organization_id: current_organization.id,
+      cer_code_id: @orig.cer_code_id,
+      un_code_id: @orig.un_code_id,
+      physical_state: @orig.physical_state,
+      separable: @orig.separable,
+      legalizable: @orig.legalizable,
+      hp_code_ids: @orig.hp_code_ids,
+      adr_ids: @orig.adr_ids,
+      pictogram_ids: @orig.pictogram_ids,
+      container_ids: @orig.container_ids
+    )
+    authorize @disposal_type
+    render action: :new
+  end
+
   def edit
   end
 

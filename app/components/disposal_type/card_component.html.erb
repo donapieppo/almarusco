@@ -9,6 +9,11 @@
         <% if @policy.show? %>
           <div class="float-end fs-5 ps-1"><%= link_to_show "", @disposal_type %></div>
         <% end %>
+        <% if @policy.new? %>
+          <div class="float-end fs-5 ps-1">
+            <%= link_to(dm_icon('clone', fw: true), [:clone, @disposal_type], title: 'Crea una nuova tipologia simile') %>
+          </div>
+        <% end %>
       <% end %>
       <div class="float-end">
         <%= render DisposalType::PictogramsComponent.new(@disposal_type, size: 40) %>  
@@ -24,7 +29,7 @@
     </div>
   </div>
   <div class="dm-card-body">
-    <div class="text-primary" style="font-size: 80%">
+    <div class="" style="font-size: 85%">
       <% if @disposal_type.compliance %>
         <strong class="text-success">OMOLOGA:</strong> 
         <% if @with_links %>

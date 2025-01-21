@@ -11,6 +11,10 @@ class DisposalTypePolicy < ApplicationPolicy
     @user && current_organization_manager?
   end
 
+  def clone?
+    create?
+  end
+
   def update?
     @user && OrganizationPolicy.new(@user, @record.organization_id).manage?
   end
