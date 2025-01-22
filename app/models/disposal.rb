@@ -146,7 +146,9 @@ class Disposal < ApplicationRecord
   end
 
   def status
-    if self.completed?
+    if self.kgs.to_i == 0
+      "manca il peso"
+    elsif self.completed?
       "archiviato"
     elsif self.delivered?
       "consegnato"
