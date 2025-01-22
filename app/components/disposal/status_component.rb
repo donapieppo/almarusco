@@ -6,7 +6,7 @@ class Disposal::StatusComponent < ViewComponent::Base
     @disposal = disposal
     @no_link = no_link
 
-    @status = @disposal.status
+    @status = @disposal.status.capitalize
     @status_icon = disposal.approved? ? '<i class="fas fa-check text-success"></i>' : '<i class="fas fa-exclamation-circle text-danger"></i>'
 
     @policy = DisposalPolicy.new(@current_user, @disposal)
