@@ -8,7 +8,7 @@
   <% end %>
 
   <div class="dm-card-body">
-    <div class="row">
+    <div class="row mb-2">
       <div class="col-md-3 pe-1">
         <div class="fw-bold">
           <%= @disposal.volume_tot %> <small>L.</small><br/>
@@ -23,15 +23,14 @@
       </div><!-- col-md-3 -->
       <div class="col-md-9">
         <div>
-          <% if @disposal.multiple_users %>
-            Punto di raccolta generico:
-          <% else %>
-            <%= t :producer %>:
-          <% end %>
+          <%= t :producer %>:
           <%= link_to @disposal.producer, disposals_path(u: @disposal.producer.id), data: {turbo: false} %>
           <% if @disposal.producer_id != @disposal.user_id %>  
             <small>(da <%= link_to @disposal.user, disposals_path(u: @disposal.user_id), data: {turbo: false} %>)</small> 
           <% end %> 
+          <% if @disposal.multiple_users %>
+            <small>(Punto di raccolta generico)</small>
+          <% end %>
         </div>
         <% if @with_details %> 
           <div>
@@ -43,37 +42,31 @@
               <%= @disposal.notes %>  
             </div>
           </div>
-        <% else %>
-          <%= t :created_at %> <%= l @disposal.created_at %> 
         <% end %>
       </div><!-- col-md-9 -->
     </div> <!-- row -->
 
-    <% if @with_details %>  
-      <div class="details p-2 small text-info">
+    <div class="details text-primary my-2">
+      <% if @with_details %>  
         <%= render DisposalType::InfoComponent.new(@disposal.disposal_type) %>  
         <div><strong>Contenitore:</strong> <%= @disposal.container %> (<%= @disposal.units %>)</div>
-      </div>
-    <% else %>
-      <div>
+      <% else %>
         <strong><%= @disposal.units %></strong>
         <%= @disposal.container %>
+      <% end %>
+    </div>
+
+    <%= render Disposal::StatusComponent.new(@current_user, @disposal, no_link: @modal) %>  
+  </div>
+
+  <div class="dm-card-footer bg-white py-1">
+    <small> <%= t :created_at %> <%= l @disposal.created_at %> </small>
+    <% unless defined?(no_actions) || @disposal.delivered? %>  
+      <div class="float-end">
+        <%= link_to(dm_icon('clone', fw: true), [:clone, @disposal], title: 'Crea nuovo rifiuto simile') %>
+        <%= link_to(dm_icon('edit', fw: true), [:edit, @disposal], title: 'Modifica il rifiuto') if @policy.edit? %>  
+        <%= helpers.link_to_delete("", @disposal) if @policy.destroy? %>
       </div>
     <% end %>
-
-    <div class="row mt-2">
-      <div class="col-md-6">
-        <%= render Disposal::StatusComponent.new(@current_user, @disposal, no_link: @modal) %>  
-      </div>
-      <div class="col-md-6">
-        <% unless defined?(no_actions) || @disposal.delivered? %>  
-          <div class="text-end">
-            <%= link_to(dm_icon('clone', fw: true), [:clone, @disposal], title: 'Crea nuovo rifiuto simile') %>
-            <%= link_to(dm_icon('edit', fw: true), [:edit, @disposal], title: 'Modifica il rifiuto') if @policy.edit? %>  
-            <%= helpers.link_to_delete("", @disposal) if @policy.destroy? %>
-          </div>
-        <% end %>
-      </div>
-    </div>
   </div>
 </div>
