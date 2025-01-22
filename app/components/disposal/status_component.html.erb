@@ -1,13 +1,14 @@
-<%= raw @status_icon %> 
-
-<% if @no_link %>  
-  <%= @status %>  
-<% elsif @disposal.picking_id %>  
-  <%= link_to @status, picking_path(@disposal.picking_id), data: { turbo: false } %> 
-<% elsif @disposal.kgs <= 0 && @policy.edit? %>
-  <%= link_to 'manca il peso', edit_disposal_path(@disposal), data: { turbo: false } %>  
-<% elsif @disposal.kgs > 0 && @policy.approve? %>
-  <%= link_to @status, disposal_path(@disposal, modal: 1), data: { turbo_frame: :modal } %>
-<% else %>
-  <%= @status %>  
-<% end %>
+<div class="text-end">
+  <% if @no_link %>  
+    <%= @status %>  
+  <% elsif @disposal.picking_id %>  
+    <%= link_to @status, picking_path(@disposal.picking_id), data: {turbo: false} %> 
+  <% elsif @disposal.kgs <= 0 && @policy.edit? %>
+    <%= link_to @status, edit_disposal_path(@disposal), data: {turbo: false} %>  
+  <% elsif @disposal.kgs > 0 && @policy.approve? %>
+    <%= link_to @status, disposal_path(@disposal, modal: 1), data: {turbo_frame: :modal} %>
+  <% else %>
+    <%= @status %>  
+  <% end %>
+  <%= raw @status_icon %> 
+</div>
