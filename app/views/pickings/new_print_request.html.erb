@@ -35,7 +35,7 @@
       <div class="card-body py-2">
         <div>
           <span class="pe-2">
-            <%= f.number_field "dt[#{dt.id}][kgs]", value: values[:kgs].round, size: 1, type: 'number', style: 'width: 6rem', class: 'd-inline form-control numeric me-1' %>
+            <%= f.number_field "dt[#{dt.id}][kgs]", value: values[:kgs].round(2), size: 1, type: 'number', style: 'width: 6rem', class: 'd-inline form-control numeric me-1' %>
             <small>Kg. totali per </small>
           </span>
           <% values[:volumes].keys.sort.each do |v| %>
