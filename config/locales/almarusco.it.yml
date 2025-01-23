@@ -101,7 +101,7 @@ it:
       picking:
         supplier: Destinatario
         date: Data ritiro
-        address: Indirizzo di consegna
+        address: Indirizzo di ritiro
         contact: Contatto 
       picking_document:
         serial_number: Serie e numero
