@@ -18,7 +18,7 @@ class SystemMailer < ApplicationMailer
 
     mail(
       to: @user.upn,
-      bcc: "pietro.donatini@unibo.it",
+      # bcc: "pietro.donatini@unibo.it",
       subject: "Conferimento rifiuti."
     )
   end
