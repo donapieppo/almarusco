@@ -19,7 +19,7 @@
     <% end %>
   <% end %>
 
-  <%= f.input :multiple_users, as: :boolean, hint: "Selezionare in caso di <strong>punto di raccolta generico</strong>.<br/>Inserire nelle note l'elenco dei produttori.".html_safe %>
+  <%= f.input :multiple_users, as: :boolean, hint: "Selezionare in caso di <strong>punto di raccolta generico</strong>.<br/>Inserire nelle <strong>note</strong> l'elenco dei produttori.".html_safe %>
   <%= f.input :kgs, input_html: { step: 0.1, style: 'max-width: 8rem' } %>  
 
   <%= f.association :container, collection: @disposal.disposal_type.containers.order(:volume, :name), label_method: :to_s, include_blank: false, as: :radio_buttons %>  
