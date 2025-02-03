@@ -1,5 +1,5 @@
 <div class="dm-card">
-  <div class="card-header">
+  <div class="card-header <%= "border-2 border-danger" if @disposal_type.hidden %>">
     <div>
       <strong><%= @disposal_type.to_s %></strong>
       <% if @editable %>
@@ -15,8 +15,9 @@
           </div>
         <% end %>
       <% end %>
-      <div class="float-end">
+      <div class="float-end text-end">
         <%= render DisposalType::PictogramsComponent.new(@disposal_type, size: 40) %>  
+        <%= "<br/>nascosta".html_safe if @disposal_type.hidden %>
       </div>
     </div>
     <div class="fw-normal">
