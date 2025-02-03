@@ -1,12 +1,11 @@
 # approved_at = SUBDATE(CURDATE(),1) = ieri -> inviare alle 10 di ogni giorno
 namespace :almarusco do
 namespace :notifications do
-
   desc "invio notifiche carichi di ieri"
   task day: :environment do
     disposals_hash = Hash.new { |hash, key| hash[key] = [] }
 
-    Disposal.includes(:producer).where('approved_at = SUBDATE(CURDATE(),1)').order(:organization_id).each do |d|
+    Disposal.includes(:producer).where("approved_at = SUBDATE(CURDATE(), 1)").order(:organization_id).each do |d|
       disposals_hash[d.producer] << d
     end
 
@@ -19,6 +18,5 @@ namespace :notifications do
       sleep 25
     end
   end
-
 end
 end
