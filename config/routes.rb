@@ -8,15 +8,15 @@ Rails.application.routes.draw do
   # cesia list (more than dm_unibo_common)
   resources :organizations, only: [:index, :show]
 
-  scope :nuter do
-    get "charts", to: "nuter#charts", as: :charts
-    get "report", to: "nuter#report", as: :report
-  end
-
   get "helps/contacts", to: "helps#contacts", as: "contacts"
   get "/home", to: "home#index", as: "home"
 
   scope ":__org__" do
+    scope :nuter do
+      get "charts", to: "nuter#charts", as: :charts
+      get "report", to: "nuter#report", as: :report
+    end
+
     # current_organization implicit
     get "/edit", to: "organizations#edit", as: "current_organization_edit"
     patch "/update", to: "organizations#update", as: "current_organization_update"
