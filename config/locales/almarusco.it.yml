@@ -73,7 +73,7 @@ it:
         adrs: ADR
         pictograms: Pittogrammi
         separable: Rifiuti cumulabili
-        hidden: Nascosto
+        hidden: Nascosta
         containers: Contenitori
         legalizable: Da registrare anche se non pericoloso
         compliance: Omologa
@@ -147,7 +147,7 @@ it:
         legalizable: Se selezionato il rifiuto deve essere registrato anche se non pericoloso (per tutte le tipologie CER pericolose non è necessario selezionare)
         hidden: Se selezionato la tipologia è utilizzabile solo dai reponsabili UL e non dai produttori di rifiuti.
         containers: Segnare i possibili contenitori per questa tipologia di rifiuti.
-        compliance: Sono se...
+        compliance: Scheda omologa
       disposal:
         kgs: Quanti Kg (numero decimale)?
         lab: Laboratorio di provenienza del rifiuto.

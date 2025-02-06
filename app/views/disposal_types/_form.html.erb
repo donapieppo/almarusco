@@ -1,8 +1,8 @@
 <%= simple_form_for @disposal_type do |f| %>  
   <%= f.dm_error_notification %>  
 
-  <% if @disposal_type.new_record? %>
-    <%= f.association :compliance, collection: current_organization.all_compliances %>
+  <% if @disposal_type.new_record? || !@disposal_type.compliance_id %>
+    <%= f.association :compliance, collection: current_organization.all_compliances, hint: "Attiva, se selzionata, la cosiddetta 'procedura di omologa', ossia la verifica di corrispondenza delle caratteristiche del rifiuto in accettazione all’impianto con quelle fornite in fase di programmazione del conferimento." %>
   <% end %>
   
   <div id="solid-liquid">  
