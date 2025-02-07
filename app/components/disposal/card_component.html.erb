@@ -46,7 +46,7 @@
       </div><!-- col-md-9 -->
     </div> <!-- row -->
 
-    <div class="details text-primary my-2">
+    <div class="details my-2">
       <% if @with_details %>  
         <%= render DisposalType::InfoComponent.new(@disposal.disposal_type) %>  
         <div><strong>Contenitore:</strong> <%= @disposal.container %> (<%= @disposal.units %>)</div>
