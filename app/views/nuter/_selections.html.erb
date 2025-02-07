@@ -4,7 +4,7 @@
 <%# <% end %1> %>
 
 <form action="<%= report_path %>" class="button-radio">  
-  <div class="my-2">Seleziona destinatario</div>
+  <div class="fw-bold my-2">Seleziona destinatario</div>
   <% Supplier.order(:name).each do |supplier| %>  
     <% checked = (supplier == @supplier) ? 'checked="checked"' : "" %>  
     <div>
@@ -12,7 +12,7 @@
       <label for="<%= dom_id(supplier) %>" class="w-100"><%= supplier %></label>
     </div>
   <% end %>
-  <div class="my-2">Seleziona mese</div>
+  <div class="fw-bold my-2">Seleziona mese</div>
   <% (1..4).each do |i| %>
     <% month = (Date.today - i.month).month %>  
     <% checked = (month == @month) ? 'checked="checked"' : "" %>  
@@ -25,4 +25,3 @@
     <input type="submit" value="mostra" class="d-block"></input>
   </div>
 </form>
-
