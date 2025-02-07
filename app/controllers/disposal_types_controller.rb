@@ -48,6 +48,10 @@ class DisposalTypesController < ApplicationController
   end
 
   def update
+    # as in view
+    if !@disposal_type.new_record? && @disposal_type.compliance_id
+      params[:disposal_type][:compliance_id] = nil
+    end
     if @disposal_type.update(disposal_type_params)
       redirect_to disposal_types_path
     else
