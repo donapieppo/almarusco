@@ -1,19 +1,25 @@
-<span class="badge bg-primary"><%= @compliance.id %></span>
-<%= @compliance.name %> - 
-<% if @compliance.document.attached? %>
-  <%= link_to dm_icon("download"), @compliance.document %>
-<% else %>
-  <%= link_to dm_icon("download"), @compliance.url %>
-<% end %>
-<% if @edit %>
-  <%= link_to dm_icon("edit"), edit_compliance_path(@compliance) %>
-<% end %>
-<div class="text-muted ps-3">
-  <% if (o = @compliance.organization) %>
-    "Relativa alla struttura <%= o %>."
-  <% else %>
-    "OMOLOGA DI ATENEO."
-  <% end %>
-  <%= @compliance.description %>
-</div>
+<div>
+  <div class="my-1">
+    <span class="badge p-2 bg-primary"><%= @compliance.id %></span>
+    <strong><%= @compliance.name %></strong>
 
+  </div>
+  <div class="text-muted ps-4">
+    <% if (o = @compliance.organization) %>
+      "Relativa alla struttura <%= o %>."
+    <% else %>
+      "OMOLOGA DI ATENEO."
+    <% end %>
+    <%= @compliance.description %>
+  </div>
+    <div class="text-end">
+      <% if @compliance.document.attached? %>
+        <%= link_to dm_icon("download", size: :lg), @compliance.document %>
+      <% else %>
+        <%= link_to dm_icon("download", size: :lg), @compliance.url %>
+      <% end %>
+      <% if @edit %>
+        <%= link_to dm_icon("edit", size: :lg), edit_compliance_path(@compliance) %>
+      <% end %>
+    </div>
+</div>
