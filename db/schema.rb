@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_28_084240) do
+ActiveRecord::Schema[7.2].define(version: 2023_11_23_153320) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -74,7 +74,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_28_084240) do
     t.index ["supplier_id"], name: "fk_ccs_supplier"
   end
 
-  create_table "compliances", id: { type: :integer, unsigned: true, default: nil }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "compliances", id: { type: :integer, unsigned: true, default: nil }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "organization_id", unsigned: true
     t.text "name"
     t.text "description"
@@ -116,7 +116,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_28_084240) do
     t.boolean "legalizable", default: false, null: false
     t.text "notes"
     t.text "compliance_alert"
-    t.timestamp "created_at"
+    t.timestamp "created_at", default: -> { "current_timestamp() ON UPDATE current_timestamp()" }, null: false
     t.index ["cer_code_id"], name: "fk_disposal_types_cer"
     t.index ["compliance_id"], name: "fw_compliances_disposal_types"
     t.index ["organization_id"], name: "fk_disposal_types_organization"
@@ -166,7 +166,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_28_084240) do
     t.index ["user_id"], name: "fk_disposals_users"
   end
 
-  create_table "hazards", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "hazards", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "code", limit: 20, null: false
     t.text "phrase", null: false
     t.column "category", "enum('Fisico','Salute','Ambiente')", null: false
