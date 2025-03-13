@@ -44,14 +44,14 @@
               <label for="all">Seleziona tutti</label>
             </div>
           <% end %>
+        <% end %>
       </div>
     </div>
     <%= f.submit 'Salva' %> - <%= link_to 'indietro', @picking %>    
   <% end %>
-<% end %>
 </div>
 
-<% if ! @can_change_disposals %>  
+<% if !@can_change_disposals %>  
   <div class="my-2">
     Non è più possible cambiare i rifiuti associati a questo ritiro.
   </div>
