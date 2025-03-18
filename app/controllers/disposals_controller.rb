@@ -42,11 +42,8 @@ class DisposalsController < ApplicationController
   end
 
   def choose_disposal_type
-    @hidden = params[:hidden]
+    @hidden = policy(current_organization).manage? ? params[:hidden].to_i : 0
     @disposal_types = current_organization.disposal_types.where(hidden: params[:hidden].to_i).with_all_includes.order("cer_codes.name")
-    unless policy(current_organization).manage?
-      @disposal_types = @disposal_types.where(hidden: false)
-    end
     authorize :disposal
   end
 
