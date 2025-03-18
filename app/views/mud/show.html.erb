@@ -1,5 +1,11 @@
 <h1>MUD <%= @year %></h1>
 
+<div class="my-2 text-center">
+  <% (2020..Date.today.year).each do |y| %>
+    <%= link_to y, mud_path(y: y), class: "btn #{(y == @year) ? "btn-success" : "btn-info"}" %>
+  <% end %>
+</div>
+
 <table class="table table-bordered text-end">
   <thead>
     <tr class="table-primary">
