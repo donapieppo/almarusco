@@ -24,22 +24,25 @@
   </div>
   <div class="col-md-8">
     <% @producer_permissions.each do |permission| %>  
-      <%= dm_card title: permission.user.cn_militar do %>  
-        <% current_organization.permissions.where(producer_id: permission.user_id).includes(:user).each do |operator_permission| %>  
-          <div class="my-1">
-            operatore: <%= operator_permission.user %>
-          <i>(fino al <%= operator_permission.expiry ? l(operator_permission.expiry) : '???' %>)</i>
-          <span class="float-end">
-            <%= link_to_delete "", operator_path(operator_permission.id) %>
-            <%= link_to_edit "", edit_operator_path(operator_permission.id) %>
-          </span>
+      <div class="dm-card">
+        <div class="dm-card-title py-1"><%= permission.user.cn_militar %></div>
+        <div class="dm-card-body py-1">
+          <% current_organization.permissions.where(producer_id: permission.user_id).includes(:user).each do |operator_permission| %>  
+            <div class="my-1">
+              <strong><%= operator_permission.user %></strong>
+              <i>(operatore fino al <%= operator_permission.expiry ? l(operator_permission.expiry) : '???' %>)</i>
+              <span class="float-end">
+                <%= link_to_delete "", operator_path(operator_permission.id) %>
+                <%= link_to_edit "", edit_operator_path(operator_permission.id) %>
+              </span>
+            </div>
+          <% end %>
+          <div class="mt-2 float-end">
+            <%= link_to dm_icon('plus', text: 'aggiungi operatore'), new_producer_operator_path(permission.user_id) %> &nbsp;  
+            <%= link_to_delete "elimina produttore", producer_path(permission) %>
           </div>
-        <% end %>
-        <div class="mt-2 float-end">
-          <%= link_to dm_icon('plus', text: 'aggiungi operatore'), new_producer_operator_path(permission.user_id) %> &nbsp;  
-          <%= link_to_delete "elimina produttore", producer_path(permission) %>
         </div>
-      <% end %>
+      </div>
     <% end %>
   </div>
 </div>
