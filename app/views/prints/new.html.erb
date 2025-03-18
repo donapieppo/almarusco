@@ -40,7 +40,7 @@
         <% @disposals.each do |disposal| %>  
           <label class="list-group-itema">
             <input type="checkbox" name="disposal_ids[]" value="<%= disposal.id %>"/>
-            <span class="badge bg-info"><%= disposal.id %></span>
+            <span class="badge bg-info font-monospace font-lg"><%= disposal.id %></span>
             <%= disposal.disposal_type %> 
             <small><%= disposal.kgs %> Kg. - <%= disposal.volume %> Litri del <%= l disposal.created_at %></small>
           </label>
