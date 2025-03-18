@@ -1,5 +1,13 @@
 <h1>Scegli la tipologia di rifiuto</h1>
 
+<div class="text-end">
+  <% if @hidden %>
+    <%= link_to dm_icon(:eye, text: 'mostra visibili', size: :xl), choose_disposal_type_disposals_path %>
+  <% else %>
+    <%= link_to dm_icon(:eye, text: 'mostra nascosti', size: :xl), choose_disposal_type_disposals_path(hidden: 1) %>
+  <% end %>
+</div>
+
 <form class="status_selector row" data-controller="disposal-type">
   <div class="col-md-4 my-1 text-center">
     <input type="radio" id="sp" name="disposalType" data-action="change->disposal-type#show_by_status" />
