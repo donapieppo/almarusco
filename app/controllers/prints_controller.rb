@@ -63,7 +63,7 @@ class PrintsController < ApplicationController
             if dt.un_code
               pdf.text dt.un_code.to_s, style: "bold", size: 12
             end
-            pdf.text dt.cer_code.to_s, style: "bold", size: 12
+            pdf.text "#{dt.cer_code} #{dt.compliance_to_s}", style: "bold", size: 12
             pdf.text dt.hp_codes_to_s + " - " + dt.adrs_to_s, size: 9
             # TODO
             # pdf.text " n.#{disposal.local_id_to_s} (#{disposal.id})", size: 10
@@ -75,7 +75,7 @@ class PrintsController < ApplicationController
           end
 
           disposal.disposal_type.pictograms.each_with_index do |pict, i|
-            if pict.filename =~ /\.png/
+            if pict.filename.match?(/\.png/)
               pdf.image open(pict.full_filename), height: 24, at: [10 + 26 * i, 35]
             else
               pdf.svg IO.read(pict.full_filename), height: 24, at: [10 + 26 * i, 35]
