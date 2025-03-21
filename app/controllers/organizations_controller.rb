@@ -35,7 +35,7 @@ class OrganizationsController < ApplicationController
   private
 
   def organization_params
-    p =  [:adminmail]
+    p = [:adminmail]
     p += [:name, :description, :code] if current_user.is_cesia?
     params[:organization].permit(p)
   end
