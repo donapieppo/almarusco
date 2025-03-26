@@ -17,7 +17,7 @@ class Organization < ApplicationRecord
   before_destroy :manual_delete
 
   def to_s
-    "#{self.code} - #{self.name}".upcase
+    "#{self.name} - #{self.description}".upcase
   end
 
   # Ritorna tutti gli utenti che sono stati in qualche modo associati ad una certa struttura in passato

@@ -4,7 +4,7 @@
   <% @disposal_descriptions.each do |item| %>
     <%= link_to item, class: "list-group-item list-group-item-action" do %>
       <strong><%= item %></strong><br/>
-      <%= item.organization.code %> &nbsp; <%= item.user %>
+      <%= item.organization.name %> &nbsp; <%= item.user %>
     <% end %>
   <% end %>
 </ul>

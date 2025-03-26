@@ -5,7 +5,7 @@
         f.input :common, 
           as: :boolean, 
           label: "Omologa di Ateneo", 
-          hint: "Se non selezionato sarà visibile solo nella struttura #{current_organization.code}", 
+          hint: "Se non selezionato sarà visibile solo nella struttura #{current_organization.name}", 
           input_html: {"data-showhide-target": "input"}
       %>
     <% end %>

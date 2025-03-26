@@ -39,7 +39,7 @@
               <tr class="table-info">
                 <th>
                   <% if current_organization_id != (current_organization_id = picking.organization_id) %>
-                    <%= link_to picking.organization.code, picking.organization, data: { turbo_frame: :modal }, class: "underline" %>
+                    <%= link_to picking.organization.name, picking.organization, data: { turbo_frame: :modal }, class: "underline" %>
                   <% end %>
                 </th>
                 <td class="<%= "bg-secondary text-white" unless picking.completed? %>">
@@ -64,7 +64,7 @@
 
       <ul class="text-end alert alert-secondary">
         <% ul_sum.each do |o, p| %>  
-          <li>Totale <%= o.code %>: <%= p %> + Iva = <strong><%= (p * 1.22).round(2) %> &euro;</strong></li>
+          <li>Totale <%= o.name %>: <%= p %> + Iva = <strong><%= (p * 1.22).round(2) %> &euro;</strong></li>
         <% end %>
       </ul>
 
