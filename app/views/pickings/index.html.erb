@@ -1,5 +1,7 @@
 <h1>Ritiri</h1>
 
+<% year = nil %>
+
 <div class="centered my-4">
   <%= link_to 'Nuovo Ritiro', new_picking_path, class: 'btn btn-primary' %>  
 </div>
@@ -12,12 +14,15 @@
   <div class="list-group" data-controller="limit-visible" data-limit-visible-substring-value="true">
     <form class="my-2">
       <input class="form-control text" 
-             placeholder="Scrivi parte del numero seriale del documento" 
+             placeholder="Scrivi parte del numero seriale del documento o dell'anno." 
              type="text" 
              data-action="input->limit-visible#update"></input>
     </form>
     <% @pickings.each do |picking| %>  
-      <div data-limit-visible-target="item" data-text="<%= picking.picking_documents.pluck(:serial_number).join(" ") %>">
+      <% if year != (year = picking.date&.year) %>
+        <h3 class="my-2"><%= year %></h3>
+      <% end %>
+      <div data-limit-visible-target="item" data-text="<%= picking.picking_documents.pluck(:serial_number).join(" ") %> <%= year %>">
         <%= render Picking::LineComponent.new(picking) %>  
       </div>
     <% end %>
