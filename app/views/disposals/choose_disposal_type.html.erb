@@ -1,27 +1,28 @@
 <h1>Scegli la tipologia di rifiuto</h1>
 
+<% if policy(current_organization).manage? %>
+  <div class="text-center mt-2 mb-4">
+    <% if @hidden > 0 %>
+      <%= link_to dm_icon(:eye, text: 'mostra visibili', size: :xl), choose_disposal_type_disposals_path, class: "" %>
+    <% else %>
+      <%= link_to dm_icon(:eye, text: 'mostra nascosti', size: :xl), choose_disposal_type_disposals_path(hidden: 1), class: "" %>
+    <% end %>
+  </div>
+<% end %>
+
 <form class="status_selector row" data-controller="disposal-type">
-  <div class="col-md-3 my-1 text-center">
+  <div class="col-md-4 my-1 text-center">
     <input type="radio" id="sp" name="disposalType" data-action="change->disposal-type#show_by_status" />
     <label for="sp">Solido pulv.</label>
   </div>
-  <div class="col-md-3 my-1 text-center">
+  <div class="col-md-4 my-1 text-center">
     <input type="radio" id="snp" name="disposalType" data-action="change->disposal-type#show_by_status" />
     <label for="snp">Solido non pulv.</label>
   </div>
-  <div class="col-md-3 my-1 text-center">
+  <div class="col-md-4 my-1 text-center">
     <input type="radio" id="liq" name="disposalType" data-action="change->disposal-type#show_by_status" />
     <label for="liq">Liquido</label>
   </div>
-  <% if policy(current_organization).manage? %>
-    <div class="col-md-3 text-center">
-      <% if @hidden > 0 %>
-        <%= link_to dm_icon(:eye, text: 'mostra visibili', size: :xl), choose_disposal_type_disposals_path, class: "" %>
-      <% else %>
-        <%= link_to dm_icon(:eye, text: 'mostra nascosti', size: :xl), choose_disposal_type_disposals_path(hidden: 1), class: "" %>
-      <% end %>
-    </div>
-  <% end %>
 </form>
 
 <div class="">
