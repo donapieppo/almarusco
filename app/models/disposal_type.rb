@@ -37,7 +37,7 @@ class DisposalType < ApplicationRecord
   end
 
   def compliance_to_s
-    compliance ? "(om: #{compliance.id})" : ""
+    compliance ? "(om: #{compliance.id_to_s})" : ""
   end
 
   def to_s

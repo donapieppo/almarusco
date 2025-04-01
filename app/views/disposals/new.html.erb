@@ -6,7 +6,7 @@
 
     <% if (compliance = @disposal_type.compliance) %>
       <div class="alert alert-info">
-      Omologa <%= compliance.id %> -
+      Omologa <%= compliance.id_to_s %> -
       <%= link_to compliance.name, compliance.url %><br/>
       <%= compliance.description %>
       </div>
