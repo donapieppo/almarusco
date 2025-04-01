@@ -12,6 +12,10 @@ class Compliance < ApplicationRecord
     name
   end
 
+  def id_to_s
+    "EE#{id}"
+  end
+
   # necessary form simple_form
   def common
     !organization_id
