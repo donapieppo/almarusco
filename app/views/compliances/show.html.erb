@@ -1,5 +1,5 @@
 <%= render DmUniboCommon::ModalComponent.new() do %>
-  <div class="bg-primary w-100 text-white text-center my-3 py-3 rounded">Omologa <%= @compliance.id %></div>
+  <div class="bg-primary w-100 text-white text-center my-3 py-3 rounded">Omologa <%= @compliance.id_to_s %></div>
   <%= @compliance.name %> - 
   <%= compliance_download(@compliance) %>
   <% unless @compliance.description.blank? %>
