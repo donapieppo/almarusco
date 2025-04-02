@@ -1,8 +1,8 @@
 <h1>Stampa Etichette</h1>
 
-<%= form_for :print, url: prints_path, html: { data: { turbo: false } } do |f| %>  
+<%= form_for :print, url: prints_path, html: {data: {turbo: false}} do |f| %>  
   <div class="row">
-    <div class="col-4">
+    <div class="col-md-4">
       <h2 class="my-2">Scegli le etichette da stampare</h2>
 
       <p class="info small">
@@ -15,7 +15,7 @@
           <tr>
             <% [1,2].each do |row| %>
               <td style="text-align: center">
-                <input type="checkbox" name="paper_boxes[]" value="<%= row %>-<%= col %>" style="transform: scale(2);" class="print_positions" />
+                <input type="checkbox" name="paper_boxes[]" checked="checked" value="<%= row %>-<%= col %>" style="transform: scale(2);" class="print_positions" />
               </td>
             <% end %>
           </tr>
@@ -23,7 +23,7 @@
       </table>
 
       <div class="centered my-2">
-        <%= link_to 'seleziona tutte', '#', onClick: "document.querySelectorAll('.print_positions').forEach((x) => x.checked = true)" %>  
+        <%= link_to 'selezione manuale', '#', onClick: "document.querySelectorAll('.print_positions').forEach((x) => x.checked = false)" %>  
       </div>
 
       <div class="alert bg-warning my-4 p-2 small">
@@ -33,16 +33,24 @@
         <%= f.submit "Crea pdf", class: "my-4" %>
       </div>
     </div>
-    <div class="col-8">
+    <div class="col-md-8">
       <h2 class="my-2">Scegli gli scarichi che vuoi stampare</h2>
 
       <div class="">
         <% @disposals.each do |disposal| %>  
-          <label class="list-group-itema">
+          <label class="">
             <input type="checkbox" name="disposal_ids[]" value="<%= disposal.id %>"/>
+
             <span class="badge bg-info font-monospace font-lg"><%= disposal.id %></span>
             <%= disposal.disposal_type %> 
             <small><%= disposal.kgs %> Kg. - <%= disposal.volume %> Litri del <%= l disposal.created_at %></small>
+            <% if disposal.units > 1 %>
+              <select name="units[<%= disposal.id %>]" class="form-select d-inline w-auto py-0 ms-2">
+                <% (1..disposal.units).each do |i| %>
+                  <option value=<%= i %>><%= i %></option>
+                <% end %>
+              </select>
+            <% end %>
           </label>
         <% end %>
       </div>

@@ -14,6 +14,8 @@ class PrintsController < ApplicationController
   end
 
   # "paper_boxes"=>["1-1", "2-2"]
+  # "disposal_ids"=>["14549", "14548"]
+  # "units"=>{"14549"=>"2", "14548"=>"2"}
   def create
     authorize :print
 
@@ -36,9 +38,11 @@ class PrintsController < ApplicationController
 
     # 96 x 51mm rettangolari
     # ["1-1", "2-2", "1-5"]
+    disposal = nil
     params["paper_boxes"].each do |rc|
       row, col = rc.split("-")
-      if (disposal = @disposals.pop)
+      disposal = next_disposal(disposal)
+      if disposal
         dt = disposal.disposal_type
         qr = RQRCode::QRCode.new(disposal_url(disposal))
         IO.binwrite("/tmp/gr_image_#{disposal.id}.png", qr.as_png(size: 240).to_s)
@@ -85,5 +89,17 @@ class PrintsController < ApplicationController
       end
     end
     send_data pdf.render, filename: "etichette.pdf", type: :pdf
+  end
+
+  private
+
+  # ritorna lo stesso se ne deve stampare più copie
+  def next_disposal(disposal)
+    if disposal && params["units"][disposal.id.to_s].to_i > 1
+      params["units"][disposal.id.to_s] = params["units"][disposal.id.to_s].to_i - 1
+      disposal
+    else
+      @disposals.pop
+    end
   end
 end
