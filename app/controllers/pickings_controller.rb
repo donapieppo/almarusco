@@ -1,4 +1,3 @@
-require "csv"
 class PickingsController < ApplicationController
   before_action :set_picking_and_check_permission, only: [:show, :edit, :update, :destroy, :new_print_request, :print_request, :deliver, :complete]
 
