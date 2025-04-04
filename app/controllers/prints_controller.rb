@@ -95,7 +95,7 @@ class PrintsController < ApplicationController
 
   # ritorna lo stesso se ne deve stampare più copie
   def next_disposal(disposal)
-    if disposal && params["units"][disposal.id.to_s].to_i > 1
+    if disposal && params["units"] && params["units"][disposal.id.to_s].to_i > 1
       params["units"][disposal.id.to_s] = params["units"][disposal.id.to_s].to_i - 1
       disposal
     else
