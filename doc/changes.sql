@@ -1,3 +1,25 @@
+UPDATE organizations set description=name;
+UPDATE organizations set name=code;
+
+CREATE TABLE `registers` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `organization_id` int(10) unsigned NOT NULL,
+  `name` varchar(255),
+  `active` BOOL default true,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_registers_organizations` FOREIGN KEY (organization_id) REFERENCES organizations(id)
+) ENGINE=InnoDB;
+
+ALTER TABLE `legal_records` ADD COLUMN `register_id` int(10) unsigned AFTER `organization_id`;
+ALTER TABLE `legal_records` ADD CONSTRAINT `fk_legal_records_registers` FOREIGN KEY (register)id) REFERENCES registers(id);
+
+ALTER TABLE `legal_records` ADD COLUMN `amended_number` int unsigned AFTER `number`;
+ALTER TABLE `legal_records` ADD INDEX (`amended_number`);
+
+DELETE FROM permissions where expiry < NOW();
+
+-- update permissions set expiry = "2025-03-01" where expiry < NOW();
+
 -- DROP TABLE `disposal_descriptions_pictograms`;
 -- DROP TABLE IF EXISTS `component_details_hazards`;
 -- DROP TABLE IF EXISTS `component_details_hp_codes`;
