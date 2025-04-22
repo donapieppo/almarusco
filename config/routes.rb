@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     end
     resources :contracts, only: [:edit, :update, :destroy]
 
+    resources :registers
     resources :labs
     resources :buildings
     resources :cer_codes
