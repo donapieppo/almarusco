@@ -10,9 +10,18 @@ class RegistersController < ApplicationController
   end
 
   def new
+    @register = current_organization.registers.new
+    authorize @register
   end
 
   def create
+    @register = current_organization.registers.new(register_params)
+    authorize @register
+    if @register.save
+      redirect_to registers_path
+    else
+      render action: :new, status: :unprocessable_entity
+    end
   end
 
   def edit
@@ -27,7 +36,7 @@ class RegistersController < ApplicationController
   private
 
   def register_params
-    params.require(:register).allow(:name, :active)
+    params.require(:register).permit(:name, :active)
   end
 
   def set_register_and_check_permission
