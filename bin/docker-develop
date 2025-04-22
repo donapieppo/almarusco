@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# docker build -t almarusco .
+
+docker run --rm \
+  --network="host" \
+  -it \
+  -p 3000:3000 \
+  -e DATABASE_URL=mysql2://rails:$ALMARUSCO_DATABASE_PASSWORD@127.0.0.1/almarusco \
+  -e RAILS_ENV=development \
+  -v ./config/master.key:/rails/config/master.key \
+  -v ./app:/rails/app \
+  almarusco:latest ./bin/dev
+
