@@ -112,6 +112,7 @@ it:
       legal_record:
         number: Numero registrazione
         date: Data registrazione
+        register: Registro
       contract:
         price: Prezzo al kg.
       disposal_description:
