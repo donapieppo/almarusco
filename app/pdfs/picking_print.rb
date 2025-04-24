@@ -44,7 +44,7 @@ class PickingPrint
   end
 
   def data_array(data)
-    res = [["CER", "Stato fisico", "Descrizione rifiuto", "Tipo di imbal.ggio", "N° e tipo di colli", "Peso (Kg)", "Classi di pericolo", {content: "ADR", width: 30}, "Classe ADR", {content: "ONU", width: 40}]]
+    res = [["CER", "Stato fisico", "Descrizione rifiuto", "Tipo di imbal.ggio", "N° e tipo di colli", "Peso (Kg)", "Classi di pericolo", {content: "ADR", width: 30}, "Classe ADR", {content: "ONU", width: 40}, {content: "N. Omologa", width: 50}]]
 
     data[:dt].each do |dt_id, values|
       disposal_type = DisposalType.find(dt_id.to_i)
@@ -61,6 +61,7 @@ class PickingPrint
       line << (disposal_type.adr? ? "si" : "")
       line << disposal_type.adrs.map(&:name).join(", ")
       line << disposal_type.un_code.to_s
+      line << disposal_type.compliance&.id_to_s
       res << line
     end
     res
