@@ -11,21 +11,25 @@
     <% end %>
   </form>
 
-  <ul class="list-group" data-controller="accordion">
-    <% @legal_records.each do |lr| %>  
-      <li class="list-group-item" data-limit-visible-target="item" data-text="<%= lr.disposal_type_id %>">
-        <button class="fw-bold w-100 d-block text-start" data-action="accordion#openContent" data-accordion-url-param="<%= lr.is_a?(LegalDownload) ? legal_download_path(lr) : legal_upload_path(lr) %>">
+  <div class="row">
+    <div class="col-4 overflow-scroll" style="height: 700px;">
+    <ul class="list-group" data-controller="accordion">
+      <% @legal_records.each do |lr| %>  
+        <%= link_to lr, class: "list-group-item list-group-item-action", data: {turbo_frame: "legal_details", text: lr.disposal_type_id, "limit-visible-target": "item"} do %> 
           <% if (lr.is_a?(LegalDownload)) %>  
             <i class="fa-solid fa-upload pe-1"></i> Scarico <%= lr %>
           <% else %>
             <i class="fa-solid fa-download pe-1"></i> Carico <%= lr %>
           <% end %>
-        </button>
-        <div class="details" id="<%= dom_id lr %>">
-        </div>
-      </li>
-    <% end %>
-  </ul>
+        <% end %>
+      <% end %>
+    </ul>
+    </div>
+    <div class="col-8 mt-0">
+      <%= turbo_frame_tag :legal_details do %>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 <div class="my-4">
