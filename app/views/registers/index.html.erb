@@ -1,9 +1,12 @@
 <h1>Registri</h1>
 
-<ul>
+<ul class="list-group my-2">
   <% @registers.each do |register| %>
-    <li><%= register %></li>
+    <li class="list-group-item"><%= register %></li>
   <% end %>
 </ul>
 
-<%= link_to "Aggiungi un registro", new_register_path, class: "btn btn-primary" %>
+<div>
+  <%= link_to "Aggiungi un registro", new_register_path, class: "btn btn-primary" %>
+</div>
+
