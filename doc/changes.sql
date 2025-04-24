@@ -11,7 +11,7 @@ CREATE TABLE `registers` (
 ) ENGINE=InnoDB;
 
 ALTER TABLE `legal_records` ADD COLUMN `register_id` int(10) unsigned AFTER `organization_id`;
-ALTER TABLE `legal_records` ADD CONSTRAINT `fk_legal_records_registers` FOREIGN KEY (register)id) REFERENCES registers(id);
+ALTER TABLE `legal_records` ADD CONSTRAINT `fk_legal_records_registers` FOREIGN KEY (register_id) REFERENCES registers(id);
 
 ALTER TABLE `legal_records` ADD COLUMN `amended_number` int unsigned AFTER `number`;
 ALTER TABLE `legal_records` ADD INDEX (`amended_number`);
@@ -82,23 +82,23 @@ DELETE FROM permissions where expiry < NOW();
 
 -- 
 
-ALTER TABLE disposals ADD COLUMN `multiple_users` bool default false after `producer_id`;
-
-DROP TABLE IF EXISTS `compliances`;
-CREATE TABLE `compliances` (
-  `id` int(10) unsigned NOT NULL,
-  `organization_id` int(10) unsigned DEFAULT NULL,
-  `name` text,
-  `description` text,
-  `year` int(2) unsigned,
-  `url` text,
-  PRIMARY KEY (`id`)
-);
-
-ALTER TABLE `disposal_types` ADD COLUMN `compliance_id` int(10) unsigned after `organization_id`;
-ALTER TABLE `disposal_types` ADD COLUMN `compliance_alert` text;
-ALTER TABLE `disposal_types` ADD COLUMN `created_at` TIMESTAMP;
-ALTER TABLE `disposal_types` ADD CONSTRAINT `fw_compliances_disposal_types` FOREIGN KEY (`compliance_id`) REFERENCES `compliances` (`id`);
+-- ALTER TABLE disposals ADD COLUMN `multiple_users` bool default false after `producer_id`;
+-- 
+-- DROP TABLE IF EXISTS `compliances`;
+-- CREATE TABLE `compliances` (
+--   `id` int(10) unsigned NOT NULL,
+--   `organization_id` int(10) unsigned DEFAULT NULL,
+--   `name` text,
+--   `description` text,
+--   `year` int(2) unsigned,
+--   `url` text,
+--   PRIMARY KEY (`id`)
+-- );
+-- 
+-- ALTER TABLE `disposal_types` ADD COLUMN `compliance_id` int(10) unsigned after `organization_id`;
+-- ALTER TABLE `disposal_types` ADD COLUMN `compliance_alert` text;
+-- ALTER TABLE `disposal_types` ADD COLUMN `created_at` TIMESTAMP;
+-- ALTER TABLE `disposal_types` ADD CONSTRAINT `fw_compliances_disposal_types` FOREIGN KEY (`compliance_id`) REFERENCES `compliances` (`id`);
 
 -- Componenti  
 -- Frasi H (CLP) 
