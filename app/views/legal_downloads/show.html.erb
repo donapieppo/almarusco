@@ -1,5 +1,14 @@
-<%= render LegalDownload::CardComponent.new(current_user, @legal_download) %>  
-
-<div class="text-center">
-  <%= link_to 'indietro', legal_records_path %>  
-</div>
+<% if params[:modal] %>
+  <%= render DmUniboCommon::ModalComponent.new(size: :xl) do %>
+    <%= render LegalDownload::CardComponent.new(current_user, @legal_download) %>  
+  <% end %>
+<% elsif turbo_frame_request? %>
+  <%= turbo_frame_tag :legal_details do %>
+    <%= render LegalDownload::CardComponent.new(current_user, @legal_download) %>
+  <% end %>
+<% else %>
+  <%= render LegalDownload::CardComponent.new(current_user, @legal_download) %>  
+  <div class="text-center">
+    <%= link_to 'indietro', legal_records_path %>  
+  </div>
+<% end %>

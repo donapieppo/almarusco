@@ -1,10 +1,11 @@
 class LegalUploadsController < LegalRecordsController
   before_action :set_disposal_type, only: [:new, :create]
   before_action :set_disposals, only: [:new, :create]
-  before_action :set_legal_upload_and_disposal_type_and_check_permission, only: [:edit, :update]
+  before_action :set_legal_upload_and_disposal_type_and_check_permission, only: [:show, :edit, :update]
 
   def new
     @legal_upload = current_organization.legal_uploads.new(disposal_type: @disposal_type, date: Date.today)
+    @registers = current_organization.registers
     authorize @legal_upload
   end
 
@@ -36,7 +37,6 @@ class LegalUploadsController < LegalRecordsController
   end
 
   def show
-    @legal_upload = current_organization.legal_uploads.find(params[:id])
     @disposals = @legal_upload.disposals
     authorize @legal_upload
   end
@@ -56,7 +56,7 @@ class LegalUploadsController < LegalRecordsController
   end
 
   def set_legal_upload_and_disposal_type_and_check_permission
-    @legal_upload = LegalUpload.find(params[:id])
+    @legal_upload = current_organization.legal_uploads.find(params[:id])
     authorize @legal_upload
     @disposal_type = @legal_upload.disposal_type
   end
