@@ -557,7 +557,7 @@ detect-libc@^1.0.3:
 
 dm_unibo_common@donapieppo/dm_unibo_common.git#master:
   version "0.1.0"
-  resolved "https://codeload.github.com/donapieppo/dm_unibo_common/tar.gz/6015a9a791e0cfa12adc17ddc68b7809a7086d8b"
+  resolved "https://codeload.github.com/donapieppo/dm_unibo_common/tar.gz/4b6ecca5fc00192e3209c55cc9052bb6bdc121d7"
   dependencies:
     "@fortawesome/fontawesome-free" "^6.4.0"
     "@hotwired/stimulus" "^3.2.2"
