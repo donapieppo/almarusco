@@ -7,7 +7,6 @@ class ApplicationController < DmUniboCommon::ApplicationController
     :set_current_organization,
     :after_current_user_and_organization,
     :set_locale
-    # :log_current_user,
 
   def after_current_user_and_organization
     if !current_user || !current_organization || !(OrganizationPolicy.new(current_user, current_organization).dispose? || current_user.nuter?)
