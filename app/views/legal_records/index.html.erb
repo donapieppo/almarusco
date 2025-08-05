@@ -13,7 +13,7 @@
 
   <div class="row">
     <div class="col-4 overflow-scroll" style="height: 700px;">
-    <ul class="list-group" data-controller="accordion">
+    <ul class="list-group mt-3" data-controller="accordion">
       <% @legal_records.each do |lr| %>  
         <%= link_to lr, class: "list-group-item list-group-item-action", data: {turbo_frame: "legal_details", text: lr.disposal_type_id, "limit-visible-target": "item"} do %> 
           <% if (lr.is_a?(LegalDownload)) %>  
