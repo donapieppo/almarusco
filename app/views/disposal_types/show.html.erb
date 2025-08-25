@@ -3,15 +3,16 @@
 <dl>
   <dt class="my-2">Elenco rifiuti <strong><%= @year %></strong></dt>
   <dd>
-    <% @disposal_type.disposals.select(:id).where("YEAR(created_at) = ?", @year).each do |disposal| %>
-      <%= link_to disposal.id, disposal_path(disposal, modal: 1), data: {turbo_frame: "modal"}, class: "d-inline-block btn btn-sm btn-secondary my-1" %>
+    <% @disposal_type.disposals.where("YEAR(created_at) = ?", @year).each do |disposal| %>
+      <%# link_to disposal.id, disposal_path(disposal, modal: 1), data: {turbo_frame: "modal"}, class: "d-inline-block btn btn-sm btn-secondary my-1" %>
+      <%= render Disposal::BadgeComponent.new(current_user, disposal) %>  
     <% end %>
   </dd>
 </dl>
 
 <% if policy(@disposal_type).edit? %>
   <%= link_to [:edit, @disposal_type] do %>
-    <button class="btn btn-primary">Modifica</button>
+    <button class="btn btn-primary">Modifica <%= @disposal_type %></button>
   <% end %>
 <% end %>
 
