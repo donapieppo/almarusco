@@ -2,7 +2,7 @@ class LegalRecord < ApplicationRecord
   belongs_to :organization
   belongs_to :disposal_type
   belongs_to :picking_document, optional: true
-  belongs_to :register
+  # belongs_to :register
   has_many :disposals, foreign_key: "legal_record_id"
 
   # FIXME

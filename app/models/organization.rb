@@ -3,7 +3,7 @@ class Organization < ApplicationRecord
 
   has_many :buildings
   has_many :disposal_types
-  has_many :registers
+  # has_many :registers
   has_many :disposals
   has_many :labs
   has_many :pickings
