@@ -11,7 +11,7 @@
   <% end %>
 
   <%= f.input :number %>
-  <%= f.input :register, collection: @registers %>  
+  <%# <%= f.input :register, collection: @registers %>
   <%= f.input :date, as: :date, html5: true %>  
   <% if @legal_upload.new_record? %>  
     <% @disposal_ids.each do |id| %>  

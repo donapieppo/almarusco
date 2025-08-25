@@ -5,7 +5,7 @@ class LegalUploadsController < LegalRecordsController
 
   def new
     @legal_upload = current_organization.legal_uploads.new(disposal_type: @disposal_type, date: Date.today)
-    @registers = current_organization.registers
+    # @registers = current_organization.registers
     authorize @legal_upload
   end
 
