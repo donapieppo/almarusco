@@ -3,7 +3,10 @@
 class Picking::LineComponent < ViewComponent::Base
   def initialize(picking)
     @picking = picking
-    @bg = if @picking.completed?
+  end
+
+  def background
+    if @picking.completed?
       "list-group-item-dark"
     elsif @picking.delivered?
       "list-group-item-warning"

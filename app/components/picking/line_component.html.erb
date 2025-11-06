@@ -1,4 +1,4 @@
-<%= link_to @picking, class: "list-group-item list-group-item-action #{@bg}" do %>  
+<%= link_to @picking, class: "list-group-item list-group-item-action #{background}" do %>  
   <div class="my-2">
     <span class="pe-3"><%= @picking.date ? l(@picking.date) : '' %></span>   
     <strong><%= @picking.supplier.to_s.upcase %></strong>
