@@ -9,21 +9,21 @@
         <%= @picking_document.kgs %> Kg.
         <%= @picking_document.volume.to_i %> L.
       </span>
-      da formulario <%= link_to @picking_document.serial_number, @picking_document, class: "underline" %>  
+      da <strong>formulario</strong> <%= link_to @picking_document.serial_number, @picking_document, class: "underline" %>  
+      relativo ai <strong>carichi</strong>
+      <% @picking_document.legal_uploads.each do |lu| %>
+        <%= link_to lu, lu, class: 'ps-1 underline' %>  
+      <% end %>
 
       <% if @picking_document.legal_download %>
-        con scarico 
+        con <strong>scarico </strong>
         <%= link_to @picking_document.legal_download, @picking_document.legal_download, class: "underline" %>
-        relativo ai carichi 
-        <% @picking_document.legal_uploads.each do |lu| %>
-          <%= link_to lu, lu, class: 'ps-1 underline' %>  
-        <% end %>
       <% elsif !@picking_document.picking.date %>
         ??? (manca data in ritiro)
       <% elsif @picking_document.disposal_type.legalizable? %>  
-        <small>(numero di registro di scarico ancora da inserire).</small>
+        <small>(numero di registro di <strong>scarico</strong> ancora da inserire).</small>
       <% else %>
-        (numero di registro di scarico non richiesto).
+        (numero di registro di <strong>scarico</strong> non richiesto).
       <% end %>
     </div>
   </div>
