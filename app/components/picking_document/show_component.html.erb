@@ -10,9 +10,12 @@
         <%= @picking_document.volume.to_i %> L.
       </span>
       da <strong>formulario</strong> <%= link_to @picking_document.serial_number, @picking_document, class: "underline" %>  
-      relativo ai <strong>carichi</strong>
-      <% @picking_document.legal_uploads.each do |lu| %>
-        <%= link_to lu, lu, class: 'ps-1 underline' %>  
+
+      <% if @legal_uploads.any? %>
+        relativo ai <strong>carichi</strong>
+        <% @picking_document.legal_uploads.each do |lu| %>
+          <%= link_to lu, lu, class: 'ps-1 underline' %>  
+        <% end %>
       <% end %>
 
       <% if @picking_document.legal_download %>
