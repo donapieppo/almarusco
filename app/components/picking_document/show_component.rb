@@ -22,5 +22,6 @@ class PickingDocument::ShowComponent < ViewComponent::Base
       @picking_document.volume == @expected_volume
 
     @picking_document_policy = PickingDocumentPolicy.new(@current_user, @picking_document)
+    @legal_uploads = @picking_document.legal_uploads
   end
 end
