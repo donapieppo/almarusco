@@ -2,6 +2,7 @@
 
 class Disposal::CardComponent < ViewComponent::Base
   include DmUniboCommon::IconHelper
+  include DmUniboCommon::LinkHelper
 
   def initialize(current_user, disposal, with_details: true, modal: false, highlight: false)
     @current_user = current_user

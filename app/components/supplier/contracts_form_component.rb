@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Supplier::ContractsFormComponent < ViewComponent::Base
-  include DmUniboCommon::IconHelper
+  include DmUniboCommon::ApplicationHelper
+  include DmUniboCommon::LinkHelper
 
   def initialize(supplier)
     @supplier = supplier
