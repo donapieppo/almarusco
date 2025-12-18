@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class DisposalType::CardComponent < ViewComponent::Base
+  include DmUniboCommon::IconHelper
+  include DmUniboCommon::LinkHelper
+
   def initialize(current_user, disposal_type, editable: true, with_details: true, with_links: true)
     @current_user = current_user
     @disposal_type = disposal_type

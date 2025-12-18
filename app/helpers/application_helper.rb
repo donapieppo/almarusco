@@ -1,5 +1,3 @@
-include DmUniboCommonHelper
-
 module ApplicationHelper
   def disposal_status_icon(disposal)
     if disposal.approved?

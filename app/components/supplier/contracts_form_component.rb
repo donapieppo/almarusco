@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Supplier::ContractsFormComponent < ViewComponent::Base
+  include DmUniboCommon::ApplicationHelper
+  include DmUniboCommon::LinkHelper
+
   def initialize(supplier)
     @supplier = supplier
     @contracts = @supplier.contracts.includes(:cer_code).order("cer_codes.name")
