@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module Almarusco
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.1
+    config.load_defaults 8.1
 
     config.hosts += ENV.fetch("ALLOWED_HOSTS", "").split(",")
 
