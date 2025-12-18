@@ -17,16 +17,16 @@
     <form class="my-2 centered disposal_cer_selector" action="#">
       <small class="text-muted">mostra solo CER</small>
       <% @disposals_cers.each do |cer_code| %>  
-        <label for="<%= dom_id(cer_code) %>" 
-               tabindex="0"
-               role="button">
-          <%= cer_code.name %>  
-        </label>
         <input type="radio" 
                id="<%= dom_id(cer_code) %>" 
                name="disposal_to_show" 
                value="c_<%= cer_code.id %>" 
                data-action="change->limit-visible#update"/>
+        <label for="<%= dom_id(cer_code) %>" 
+               tabindex="0"
+               role="button">
+          <%= cer_code.name %>  
+        </label>
       <% end %>
     </form>
   <% end %>
