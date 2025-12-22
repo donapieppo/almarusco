@@ -7,6 +7,8 @@ shared:
   header_icon:         dumpster
   no_students:         true
   lograge:             true
+  main_organization_name: "Università di casa mia"
+  main_organization_url: "https://www.example.com"
 
 development:
   omniauth_provider:   :developer
