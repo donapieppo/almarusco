@@ -2,7 +2,6 @@
 
 class Supplier::ContractsFormComponent < ViewComponent::Base
   include DmUniboCommon::ApplicationHelper
-  include DmUniboCommon::LinkHelper
 
   def initialize(supplier)
     @supplier = supplier
