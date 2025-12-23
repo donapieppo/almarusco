@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/donapieppo/dm_unibo_common.git
-  revision: cd58928884111e4483d71c8894b92715f1f76350
+  revision: 2f7887652568aafa665321a715038d32d71be290
   branch: rails8
   specs:
     dm_unibo_common (6.0.0)
@@ -138,7 +138,7 @@ GEM
       aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.3.0)
     bigdecimal (3.3.1)
-    bootsnap (1.19.0)
+    bootsnap (1.20.0)
       msgpack (~> 1.2)
     builder (3.3.0)
     capybara (3.40.0)
