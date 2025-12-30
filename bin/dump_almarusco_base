@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# take the schema from a current working db with all the standard 
+#
+
+ssh donatini.adm@railsdb-01 "mysqldump --no-data almarusco" | sed -E 's/ AUTO_INCREMENT=[0-9]+.*;/;/g;' > doc/almarusco.mysql 
+ssh donatini.adm@railsdb-01 "mysqldump almarusco un_codes" > doc/un_codes.mysql
+ssh donatini.adm@railsdb-01 "mysqldump almarusco cer_codes" > doc/cer_codes.mysql
+ssh donatini.adm@railsdb-01 "mysqldump almarusco hp_codes" > doc/hp_codes.mysql
+ssh donatini.adm@railsdb-01 "mysqldump almarusco adr_codes" > doc/adr_codes.mysql
+ssh donatini.adm@railsdb-01 "mysqldump almarusco adrs" > doc/adrs.mysql
+ssh donatini.adm@railsdb-01 "mysqldump almarusco pictograms" > doc/pictograms.mysql
+
