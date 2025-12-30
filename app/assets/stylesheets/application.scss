@@ -134,6 +134,9 @@ form.disposal_cer_selector, form.button-radio {
     @extend .btn-success;
     color: #eee !important;
   }
+  .form-check label:hover {
+    @extend .btn-outline-secondary;
+  }
 }
 
 .disposal-highlighted .dm-card-title {
