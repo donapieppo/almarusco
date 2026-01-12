@@ -1,0 +1,55 @@
+/*M!999999\- enable the sandbox mode */ 
+-- MariaDB dump 10.19  Distrib 10.6.22-MariaDB, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: almarusco
+-- ------------------------------------------------------
+-- Server version	10.6.22-MariaDB-0ubuntu0.22.04.1-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `cer_codes`
+--
+
+DROP TABLE IF EXISTS `cer_codes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cer_codes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `danger` tinyint(1) DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cer_codes`
+--
+
+LOCK TABLES `cer_codes` WRITE;
+/*!40000 ALTER TABLE `cer_codes` DISABLE KEYS */;
+INSERT INTO `cer_codes` VALUES (1,'060106','Altri acidi',1),(2,'060205','Altre basi',1),(3,'060313','Sali e loro soluzioni contenenti metalli pesanti',1),(4,'070103','Solventi organici alogenati, soluzioni di lavaggio ed acque madri',1),(5,'070104','Altri solventi organici, soluzioni di lavaggio ed acque madri. Non alogenati e solventi di recupero da HPLC',1),(6,'070110','Altri residui di filtrazione e assorbenti esauriti',1),(7,'070216','Rifiuti contenenti siliconi pericolosi',1),(8,'150110','Imballaggi contenenti residui di sostanze pericolose o contaminati da tali sostanze',1),(9,'150202','Assorbenti, materiali filtranti (inclusi filtri dell’olio non specificati altrimenti, stracci e indumenti protettivi)',1),(11,'170603','Altri materiali isolanti contenenti o costituiti da sostanze pericolose; Rotoli alti ca 1 metro di lana di roccia, priva di contaminanti addizionali in quanto era stata utilizzata per piccoli prelievi di campioni da analizzare in laboratorio',1),(12,'180103','Rifiuti che devono essere raccolti e smaltiti applicando precauzioni particolari per evitare infezioni',1),(13,'180203','Rifiuti che devono essere raccolti e smaltiti non applicando precauzioni particolari per evitare infezioni',0),(14,'160508','sostanze chimiche organiche di scarto contenenti o costituite da sostanze pericolose',1),(15,'160509','sostanze chimiche di scarto diverse da quelle di cui alle voci 160506*, 160507* e 160508*',0),(16,'130802','Altre emulsioni ',1),(17,'160507','sostanze chimiche inorganiche di scarto contenenti o costituite da sostanze pericolose ',1),(18,'060405','Rifiuti contenenti altri metalli pesanti',1),(19,'130205','oli minerali per motori, ingranaggi e lubrificazione, non clorurati',1),(21,'160114','liquidi antigelo contenenti sostanze pericolose',1),(22,'160213','Apparecchiatura fuori uso, contenente componenti pericolosi diversi da 16 02 09 e 16 02 12',1),(23,'160211','Apparecchiatura fuori uso, contenenti clorofluorocarburi, HCFC, HFC ',1),(24,'160214','Apparecchiatura fuori uso, diverse da quelle di cui alle voci da 16 02 09 a 16 02 13',0),(25,'160209','Trasformatori e condensatori contenenti PCB',1),(26,'160506','Sostanze chimiche di laboratorio contenenti o costituite da sostanze pericolose, comprese le miscele di sostanze chimiche di laboratorio',1),(27,'180109','Medicinali diversi da quelli di cui alla voce 18 01 08',0),(28,'180202','Rifiuti che devono essere raccolti e smaltiti applicando precauzioni particolari per evitare infezioni',1),(29,'180205','Sostanze chimiche pericolose o contenenti sostanze pericolose',1),(30,'180108','Medicinali citotossici e citostatici',1),(31,'200121','Tubi fluorescenti ed altri rifiuti contenenti mercurio',1),(32,'160601','Batterie al piombo',1),(33,'170503','MATERIA PERICOLOSA PER L’AMBIENTE, SOLIDA, N.A.S., 9, III, (E) RIFIUTI CONFORMI AL 2.1.3.5.5 /\nTerre e rocce contenenti sostanze pericolose.',1),(34,'200125','oli e grassi commestibili',0),(35,'070508','Altri fondi e residui di reazione',1),(36,'020108','Rifiuti agrochimici contenenti sostanze pericolose.',1),(37,'020304','Scarti inutilizzabili per il consumo o la trasformazione.',0),(38,'060404','Rifiuti contenenti mercurio',1),(39,'070101','Soluzioni acquose di lavaggio ed acque madri',1),(40,'070213','Rifiuti plastici',0),(41,'080111','Pitture e vernici di scarto contenenti solventi organici o altre sostanze pericolose.',1),(42,'180102','Parti anatomiche ed organi incluse le sacche per il plasma e le riserve di sangue (tranne 18 01 03)',0),(43,'180104','Rifiuti che non devono essere raccolti e smaltiti applicando precauzioni particolari per evitare infezioni (es. bende, ingessature, lenzuola, indumenti monouso, assorbenti igienici)',0),(44,'180106','Sostanze chimiche pericolose o contenenti sostanze pericolose',1),(45,'180107','Sostanze chimiche diverse da quelle di cui alla voce 18 01 06',0),(46,'180201','Oggetti da taglio (eccetto 180202)',0),(47,'180206','Sostanze chimiche diverse da quelle di cui alla voce 180205',1),(48,'030105',' Segatura, trucioli, residui di taglio, legno, pannelli di truciolare e piallacci diversi da quelli di cui alla voce 03 01 04',NULL),(49,'080409',' Adesivi e sigillanti di scarto',1),(50,'090101',' Soluzioni di sviluppo e attivanti a base acquosa',1),(51,'090104',' Soluzioni di fissaggio',1),(53,'100102',' Ceneri leggere di carbone',NULL),(54,'120110',' Oli sintetici per macchinari',1),(55,'120116',' Residui di materiale di sabbiatura, contenente sostanze pericolose',1),(56,'130101',' Oli per circuiti idraulici contenenti PCB',1),(57,'130703',' Altri carburanti',1),(58,'150203',' Assorbenti, materiali filtranti, stracci e indumenti protettivi diversi da quelli di cui alla voce 150202',NULL),(59,'160212',' Apparecchiature fuori uso contenenti amianto in fibre libere',1),(60,'160605',' Altre batterie ed accumulatori',NULL),(61,'160902',' Cromati, ad esempio cromato di potassio, dicromato di potassio o di sodio',1),(62,'170301',' Miscele bituminose contenenti catrame di carbone.',1),(63,'170601',' Materiali isolanti contenenti amianto',1),(64,'170903',' Altri rifiuti dell\'attività di costruzione e demolizione (compresi rifiuti misti), contenenti sostanze pericolose (cassone 200l)',1),(65,'200119',' Pesticidi',1),(66,'130208','Altri olii per motori, ingranaggi e lubrificazione',1),(67,'200307','RIFIUTI INGOMBRANTI',0),(68,'190905','Resine a scambio ionico saturate o esaurite',0),(69,'180207','Medicinali Citotossici e CITOSTATICI',1),(70,'180208','Medicinali diversi da quelli di cui alla voce 180207',0),(71,'090107','CARTA E PELLICOLE PER FOTOGRAFIA, CONTENENTI ARGENTO O COMPOSTI DELL’ARGENTO ',0),(72,'160216','Componenti rimossi da apparecchiature fuori uso, diversi da quelli di cui alla voce 16 02 15',0),(73,'200101','Carta e cartone',0);
+/*!40000 ALTER TABLE `cer_codes` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2025-12-30 12:03:20
