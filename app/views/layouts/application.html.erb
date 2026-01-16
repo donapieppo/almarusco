@@ -20,9 +20,7 @@
       <%= yield %>
     </main>
 
-    <%= render DmUniboCommon::FooterComponent.new current_user, 
-                                                  contact_mail: Rails.configuration.unibo_common.contact_mail,
-                                                  documentation_path: (current_user ? helps_path : nil) %>  
+    <%= render DmUniboCommon::FooterComponent.new(current_user, contacts_path: main_app.contacts_path) %>
     <%= render DmUniboCommon::ImpersonationComponent.new(current_user, true_user, 
                                                          who_impersonate_path: dm_unibo_common.who_impersonate_path, 
                                                          stop_impersonating_path: dm_unibo_common.stop_impersonating_path) %>
