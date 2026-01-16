@@ -18,7 +18,7 @@ class OperatorsController < ApplicationController
     end
     begin
       check_producer(@producer)
-      @user = User.syncronize(params[:upn])
+      @user = User.find_or_syncronize(params[:upn])
       @permission = current_organization.permissions.new(
         authlevel: Rails.configuration.authlevels[:operate],
         user_id: @user.id,
