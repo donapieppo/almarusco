@@ -1,0 +1,24 @@
+services:
+  db:
+    image: mariadb:12
+    volumes:
+    - /tmp/demo_almarusco_mariadb:/var/lib/mysql
+    environment:
+      MARIADB_DATABASE: almarusco_dev
+      MARIADB_USER: almarusco
+      MARIADB_PASSWORD: almarusco
+      MARIADB_ROOT_PASSWORD: root
+
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+    - ./config/unibo_common.yml:/rails/config/unibo_common.yml
+    environment:
+      RAILS_ENV: development
+      almarusco_DATABASE_PASSWORD: almarusco
+      DATABASE_URL: mysql2://almarusco:almarusco@db:3306/almarusco_dev
+    depends_on:
+      - db
+    command: ./bin/rails s -b '0.0.0.0'
