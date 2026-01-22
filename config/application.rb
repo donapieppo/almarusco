@@ -26,5 +26,7 @@ module Almarusco
 
     config.action_mailer.default_url_options = {protocol: "https"}
     config.unibo_common = config_for(:unibo_common)
+
+    config.active_storage.variant_processor = :disabled
   end
 end
