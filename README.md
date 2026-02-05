@@ -1,6 +1,6 @@
-# almarusco
-Prototipo di gestionale per i rifiuti speciali (su specifiche Unibo)
+# Almarusco
 
+Prototipo di gestionale per i rifiuti speciali (su specifiche Unibo).
 
 > Il vocabolo dialettale Róssc (immondizia, pattume), spesso italianizzato dai bolognesi in Rusco, deriva dal latino classico ruscus, che significa «pungitopo o arbusto cespuglioso», usato anticamente per fabbricare scope.
 > https://lepri.blogautore.repubblica.it/2010/04/18/rusco-di-bologna/
@@ -32,3 +32,11 @@ docker compose -f compose_demo.yaml up web
 Connettersi quindi a `(http://127.0.0.1:3000/home)[http://127.0.0.1:3000/home]` e 
 loggarsi con utente `admin.user@example.com` (senza password)
 per essere un amministratore della struttura di prova 1.
+
+> [!NOTE]
+> Per sviluppo, in modo da poter modificare il codice in app
+>
+> ```
+> docker compose -f compose_demo.yaml -f compose_demo_development_volumes.yaml up web
+> ```
+
