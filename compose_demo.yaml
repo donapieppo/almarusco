@@ -14,7 +14,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-    - ./config/unibo_common.yml:/rails/config/unibo_common.yml
+    - ./demo/unibo_common.yml:/rails/config/unibo_common.yml
+    - ./demo/almarusco.rb:/rails/config/initializers/almarusco.rb
     environment:
       RAILS_ENV: development
       almarusco_DATABASE_PASSWORD: almarusco

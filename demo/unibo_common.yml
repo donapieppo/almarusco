@@ -1,0 +1,34 @@
+shared:
+  login_method:        :allow_if_email
+  superusers:          ["admin.user@example.com"]
+  html_title:          AlmaRusco - Gestione Rifiuti Speciali - Università di Bologna
+  html_description:    Gestione Rifiuti Speciali. Università di Bologna.
+  header_title:        AlmaRusco
+  header_subtitle:     Rifiuti Speciali
+  header_icon:         dumpster
+  no_students:         true
+  lograge:             true
+  main_organization_name: "Università di casa mia"
+  main_organization_url: "https://www.example.com"
+  omniauth_provider:   :developer
+  searchable_provider: true
+  host:                locahost
+  smtp_unibo:          true
+  domain_name:         example.com
+  domain:              example.com
+  support_mail:        dipmat-gemma@example.com
+  reply_to:            dipmat-gemma@example.com
+  contact_mail:        dipmat-gemma@example.com
+  default_from:        AlmaRusco <test-mail-user@example.com>
+  message_footer:      ""
+  impersonate_admins: 
+    - username1@unibo.it
+  interceptor_mails:  
+    - username2@unibo.it
+  main_impersonations: 
+    - username2@unibo.it
+  home_description: |
+    <p>Ogni rifiuto gestito attraverso l’applicazione è registrato separatamente in funzione della sua classificazione EER (Elenco Europeo dei Rifiuti), dello stato fisico, della eventuale pericolosità HP e ADR e dei quantitativi prodotti.</p>
+    <p>L'applicazione consente: al produttore del rifiuto di stampare le etichette dei contenitori e prenotare la consegna del rifiuto presso il Deposito Temporaneo prima della Raccolta, mentre ai Responsabili di Unità  Locale /Delegati alle Operazioni di tracciare puntualmente i rifiuti in Deposito, semplificandone e velocizzandone le operazioni di gestione, diminuendo al contempo il rischio di errore.</p>
+    <p>La puntuale tracciatura facilita inoltre la rendicontazione dei rifiuti prodotti, sia ai fini della gestione interna che a quelli legati agli obblighi di legge e alla rendicontazione ambientale.</p>
+    <p>Per ottenere l'<strong>abilitazione</strong> scrivere al responsabile di UL mettendo in cc il responsabile (RDRL) chiedendo l'abilitazione e specificando la fine del ruolo.</p>
