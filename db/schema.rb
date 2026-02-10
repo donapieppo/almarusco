@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
-  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+ActiveRecord::Schema[8.1].define(version: 2025_12_17_080759) do
+  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.string "name", null: false
@@ -21,7 +21,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.bigint "byte_size", null: false
     t.string "checksum"
     t.string "content_type"
@@ -39,7 +39,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "adrs", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "adrs", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.text "description"
     t.string "name"
     t.index ["name"], name: "name"
@@ -52,7 +52,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.index ["disposal_type_id"], name: "fk_adrdt_dt"
   end
 
-  create_table "buildings", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "buildings", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.text "address"
     t.text "description"
     t.string "name", null: false
@@ -60,7 +60,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.index ["organization_id"], name: "organization_id"
   end
 
-  create_table "cer_codes", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "cer_codes", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.boolean "danger", default: false
     t.text "description"
     t.string "name", limit: 100
@@ -82,7 +82,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.integer "year", unsigned: true
   end
 
-  create_table "containers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "containers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.column "name", "enum('tanica','bidone polietilene','clinipack','fusto','big bag')"
     t.text "notes"
     t.integer "volume"
@@ -95,7 +95,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.index ["disposal_type_id"], name: "disposal_type_id"
   end
 
-  create_table "contracts", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "contracts", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.integer "cer_code_id", null: false, unsigned: true
     t.date "end_date"
     t.decimal "price", precision: 6, scale: 2, default: "0.0", unsigned: true
@@ -105,7 +105,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.index ["supplier_id"], name: "supplier_id"
   end
 
-  create_table "disposal_types", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "disposal_types", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.integer "cer_code_id", unsigned: true
     t.text "compliance_alert"
     t.integer "compliance_id", unsigned: true
@@ -137,7 +137,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.index ["pictogram_id"], name: "fk_dtp_picto"
   end
 
-  create_table "disposals", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "disposals", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.date "approved_at"
     t.date "completed_at"
     t.integer "container_id", unsigned: true
@@ -166,7 +166,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.index ["user_id"], name: "fk_disposals_users"
   end
 
-  create_table "hazards", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "hazards", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.column "category", "enum('Fisico','Salute','Ambiente')", null: false
     t.string "code", limit: 20, null: false
     t.text "phrase", null: false
@@ -178,7 +178,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.index ["name"], name: "name"
   end
 
-  create_table "labs", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "labs", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.integer "building_id", unsigned: true
     t.string "name"
     t.integer "organization_id", unsigned: true
@@ -186,7 +186,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.index ["organization_id"], name: "fk_labs_organizations"
   end
 
-  create_table "legal_records", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "legal_records", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.date "created_at"
     t.date "date"
     t.integer "disposal_type_id", null: false, unsigned: true
@@ -202,7 +202,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.index ["picking_document_id"], name: "picking_document_id"
   end
 
-  create_table "organizations", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "organizations", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.string "adminmail", limit: 200
     t.string "code"
     t.datetime "created_at", precision: nil
@@ -211,7 +211,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.datetime "updated_at", precision: nil
   end
 
-  create_table "permissions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "permissions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.integer "authlevel", unsigned: true
     t.datetime "created_at", precision: nil
     t.date "expiry"
@@ -225,7 +225,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.index ["user_id"], name: "fk_user_permission"
   end
 
-  create_table "picking_documents", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "picking_documents", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.integer "disposal_type_id", null: false, unsigned: true
     t.decimal "kgs", precision: 10, scale: 3, default: "0.0"
     t.integer "picking_id", null: false, unsigned: true
@@ -236,7 +236,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.index ["picking_id"], name: "fk_picking_document_picking"
   end
 
-  create_table "pickings", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "pickings", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.text "address"
     t.date "completed_at"
     t.text "contact"
@@ -249,12 +249,12 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.index ["supplier_id"], name: "fk_pickings_suppliers"
   end
 
-  create_table "pictograms", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "pictograms", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.string "filename"
     t.string "name"
   end
 
-  create_table "suppliers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "suppliers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.text "address"
     t.string "name"
     t.string "pi"
@@ -264,7 +264,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_130813) do
     t.text "name"
   end
 
-  create_table "users", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "users", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.string "email"
     t.integer "employee_id", unsigned: true
     t.string "gender", limit: 1
