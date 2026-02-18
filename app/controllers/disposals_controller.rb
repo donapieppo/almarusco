@@ -194,12 +194,12 @@ class DisposalsController < ApplicationController
   end
 
   def set_producer_by_admin(producer_upn)
-    if producer_upn =~ /(\w+\.\w+)/ && policy(current_organization).manage?
+    if producer_upn =~ /\w+/ && policy(current_organization).manage?
       begin
-        producer = User.find_or_syncronize("#{$1}@unibo.it")
+        producer = User.find_or_syncronize(producer_upn)
         @disposal.producer_id = producer.id
       rescue => e
-        Rails.logger.info "Error: #{e.to_s} while validating producer=#{$1}@unibo.it"
+        Rails.logger.info "Error: #{e.to_s} while validating producer_upn=#{producer_upn}"
         @disposal.errors.add(:producer_upn, :invalid, message: e.to_s)
         @disposal.errors.add(:base, :invalid, message: e.to_s)
         return false
