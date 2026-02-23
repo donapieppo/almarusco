@@ -8,8 +8,6 @@ gem "dm_unibo_common", git: "https://github.com/donapieppo/dm_unibo_common.git"
 gem "sentry-ruby"
 gem "sentry-rails"
 
-gem "puma"
-
 gem "jsbundling-rails"
 gem "cssbundling-rails", "~> 1.1"
 
