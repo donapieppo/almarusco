@@ -1,6 +1,6 @@
 # Modello Unico di Dichiarazione Ambientale
 class Mud
-  attr_reader :organization, :picked_kgs, :remainders_kgs
+  attr_reader :organization, :picked_kgs, :remainders_kgs, :remainders
 
   # @picked_kgs[cer][supplier] = 100
   # @picked_kgs[cer][supplier2] = 23
@@ -11,6 +11,7 @@ class Mud
     # picked_kgs[cer][supplier] = 0.0.
     @picked_kgs = Hash.new { |hash, key| hash[key] = Hash.new { |hash, key| hash[key] = 0.0 } }
     @remainders_kgs = Hash.new { |hash, key| hash[key] = 0.0 }
+    @remainders = Hash.new { |hash, key| hash[key] = [] }
 
     # @picked_kgs is the weight from the supplier in pickings in @year
     organization.pickings
@@ -30,6 +31,7 @@ class Mud
       .includes(disposal_type: :cer_code).each do |disposal|
       cer_code = disposal.disposal_type.cer_code
       @remainders_kgs[cer_code] += disposal.kgs
+      @remainders[cer_code] << disposal
     end
 
     # organization.disposals.where("YEAR(disposals.approved_at) = ?", @year).includes(disposal_type: :cer_code).each do |disposal|
