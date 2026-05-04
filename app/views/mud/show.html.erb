@@ -18,10 +18,10 @@
   <tbody>
     <% @mud.all_cers.each do |cer_code| %>  
       <tr>
-        <th title="<%= cer_code.description %>">
-          <%= cer_code %>
+        <th nowrap title="<%= cer_code.description %>">
+          <%= cer_code %> 
         </th>
-        <td>
+        <td nowrap>
           <% kg1 = 0.0 %>
           <% @picked_kgs[cer_code].each do |supplier, kgs| %>
             <% kgs ||= 0.0 %>
@@ -34,6 +34,13 @@
         </td>
         <td> 
           <%= kg2 = @remainders_kgs[cer_code] ? @remainders_kgs[cer_code].round(1) : 0 %> 
+          <% if @remainders[cer_code] %>
+            <div class="pe-4">
+            <% @remainders[cer_code].each do |d| %>
+              <%= render Disposal::BadgeComponent.new(current_user, d, small: true) %>
+            <% end %>
+            </div>
+          <% end %>
         </td>
         <td>
           <%= kg1 + kg2 %>
