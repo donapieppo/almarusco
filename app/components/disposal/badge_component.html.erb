@@ -1,14 +1,20 @@
-<%= link_to disposal_path(@disposal, modal: 1), 
-            class: "btn btn-outline-primary mb-3 me-1", 
-            style: "position: relative", 
-            id: dom_id(@disposal),
-            data: {turbo_frame: 'modal'} do %>  
-  <span class="badge <%= @badge_color %> p-1" style="position: absolute; top: -12px; right: -7px">
-    <small><%= @disposal.multiple_units_to_s %></small>
-    <%= @disposal.local_id_to_s %>
-  </span>
-  <span class="font-monospace">   
-    <strong><%= "#{@disposal.units}x" if @disposal.units > 1 %><%= @disposal.volume %></strong><span style="font-size: 70%"> L.</span>
-    <strong><%= @disposal.kgs %></strong><span style="font-size: 70%"> Kg.</span>
-  </span>
+<% if @small %>
+  <%= link_to @disposal.local_id_to_s, disposal_path(@disposal, modal: 1), data: {turbo_frame: "modal"}, class: "badge bg-info" %>
+<% else %>
+  <%= link_to disposal_path(@disposal, modal: 1), 
+    class: "btn btn-outline-primary mb-3 me-1", 
+    style: "position: relative", 
+    id: dom_id(@disposal),
+    data: {turbo_frame: 'modal'} do %>  
+
+    <span class="badge <%= @badge_color %> p-1" style="position: absolute; top: -12px; right: -7px">
+      <small><%= @disposal.multiple_units_to_s %></small>
+      <%= @disposal.local_id_to_s %>
+    </span>
+    <span class="font-monospace">   
+      <strong><%= "#{@disposal.units}x" if @disposal.units > 1 %><%= @disposal.volume %></strong><span style="font-size: 70%"> L.</span>
+      <strong><%= @disposal.kgs %></strong><span style="font-size: 70%"> Kg.</span>
+    </span>
+
+  <% end %>
 <% end %>
