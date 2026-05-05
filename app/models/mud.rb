@@ -14,8 +14,9 @@ class Mud
     @remainders = Hash.new { |hash, key| hash[key] = [] }
 
     # @picked_kgs is the weight from the supplier in pickings in @year
+    # RITIRI NELL'ANNO
     organization.pickings
-      .where("YEAR(pickings.date) = ?", @year)
+      .where("YEAR(pickings.delivered_at) = ?", @year)
       .includes(:supplier, picking_documents: :disposal_type).each do |picking|
       supplier = picking.supplier
       picking.picking_documents.each do |picking_document|
@@ -27,7 +28,7 @@ class Mud
     # remainders is the weight of disposals non delivered in @year
     # FIXME think about picking.date != disposal.delivered_at
     organization.disposals
-      .where("YEAR(disposals.approved_at) = ? AND YEAR(disposals.delivered_at) != ?", @year, @year)
+      .where("YEAR(disposals.approved_at) <= ? AND (disposals.delivered_at IS NULL OR YEAR(disposals.delivered_at) > ?)", @year, @year)
       .includes(disposal_type: :cer_code).each do |disposal|
       cer_code = disposal.disposal_type.cer_code
       @remainders_kgs[cer_code] += disposal.kgs
