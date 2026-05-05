@@ -1,5 +1,7 @@
 <% if @small %>
-  <%= link_to @disposal.local_id_to_s, disposal_path(@disposal, modal: 1), data: {turbo_frame: "modal"}, class: "badge bg-info" %>
+  <%= link_to disposal_path(@disposal, modal: 1), data: {turbo_frame: "modal"}, class: "badge bg-light text-dark" do %>
+    <strong><%= @disposal.kgs %></strong><span style="font-size: 70%"> Kg.</span>
+  <% end %>
 <% else %>
   <%= link_to disposal_path(@disposal, modal: 1), 
     class: "btn btn-outline-primary mb-3 me-1", 
