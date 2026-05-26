@@ -1,0 +1,31 @@
+services:
+  db:
+    image: mariadb:12
+    environment:
+      MARIADB_DATABASE: dbrails
+      MARIADB_USER: dbuser
+      MARIADB_PASSWORD: dbpwd
+      MARIADB_ROOT_PASSWORD: root
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h localhost -proot --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+  web:
+    build:
+      context: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: mysql2://dbuser:dbpwd@db:3306/dbrails
+    ports:
+      - "3000:3000"
+
+volumes:
+  mariadb_data:
+  node_modules:
