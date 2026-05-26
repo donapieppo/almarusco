@@ -11,7 +11,6 @@ LABEL org.opencontainers.image.source="https://github.com/donapieppo/almarusco"
 
 WORKDIR /rails
 
-
 ENV LANG=C.UTF-8 \
     BUNDLE_PATH=/usr/local/bundle \
     BUNDLE_JOBS=4 \
@@ -94,9 +93,7 @@ CMD ["./bin/dev"]
 FROM node-base AS build
 
 ENV RAILS_ENV=production \
-    NODE_ENV=production \
-    BUNDLE_WITHOUT=development:test \
-    BUNDLE_DEPLOYMENT=1
+    BUNDLE_WITHOUT=development:test
 
 COPY Gemfile Gemfile.lock ./
 RUN bundle config set without "development test" && \
@@ -116,3 +113,22 @@ RUN rm -rf node_modules tmp/cache
 # PRODUCTION
 FROM base AS production
 
+ENV RAILS_ENV=production \
+    NODE_ENV=production \
+    BUNDLE_WITHOUT=development:test \
+    BUNDLE_DEPLOYMENT=1
+
+COPY --from=build --chown=rails:rails /usr/local/bundle /usr/local/bundle
+COPY --from=build --chown=rails:rails /rails /rails
+
+RUN mkdir -p tmp/pids tmp/cache tmp/sockets log storage && \
+    chown -R rails:rails tmp log storage
+
+RUN mkdir -p tmp/pids tmp/cache tmp/sockets log storage && \
+    chown -R rails:rails tmp log storage
+
+USER rails
+
+ENTRYPOINT ["./docker/entrypoint.sh"]
+EXPOSE 3000
+CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
