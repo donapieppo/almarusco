@@ -29,7 +29,7 @@ docker compose -f compose.yaml -f compose.dev.yaml up web
 
 L'applicazione sarà disponibile su [http://127.0.0.1:3000/home](http://127.0.0.1:3000/home).
 
-Importazione di un dump nel database di sviluppo (`./tmp/gemma.mysql`):
+Importazione di un dump nel database di sviluppo (`./tmp/dump.mysql`):
 
 ```bash
 docker compose -f compose.yaml -f compose.dev.yaml up -d db
