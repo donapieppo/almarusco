@@ -6,6 +6,35 @@ Prototipo di gestionale per i rifiuti speciali (su specifiche Unibo).
 > https://lepri.blogautore.repubblica.it/2010/04/18/rusco-di-bologna/
 
 
+## Sviluppo locale con Docker Compose
+
+Questa configurazione è pensata per sviluppo locale:
+
+- usa il target Docker `development`
+- avvia `./bin/dev` per Rails, JavaScript e CSS in watch mode
+
+Creazione container, avvio del database e amministratore popolamento del database demo:
+
+```bash
+docker compose -f compose.yaml -f compose.dev.yaml build
+docker compose -f compose.yaml -f compose.dev.yaml up -d db
+docker compose -f compose.yaml -f compose.dev.yaml run --rm web bin/rails db:prepare
+```
+
+Avvio dell'ambiente di sviluppo:
+
+```bash
+docker compose -f compose.yaml -f compose.dev.yaml up web
+```
+
+L'applicazione sarà disponibile su [http://127.0.0.1:3000/home](http://127.0.0.1:3000/home).
+
+Importazione di un dump nel database di sviluppo (`./tmp/gemma.mysql`):
+
+```bash
+docker compose -f compose.yaml -f compose.dev.yaml up -d db
+docker compose -f compose.yaml -f compose.dev.yaml -f compose.mysql-load-data.yaml run --rm mysql-client
+```
 ## Demo locale con Docker Compose
 
 Questa sezione descrive come provare l'applicativo via Docker Compose. 
