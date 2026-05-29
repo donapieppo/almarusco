@@ -12,9 +12,9 @@ services:
     command:
       - |
         set -e
-        until mariadb -h db -u dbuser -e "SELECT 1" dbrails >/dev/null 2>&1; do
+        until mariadb -h db -u dbuser -e "SELECT 1" dbname >/dev/null 2>&1; do
           echo "Waiting for database..."
           sleep 1
         done
         echo "Loading ./tmp/dump.mysql database..."
-        mariadb -h db -u dbuser dbrails < /tmp/dump.mysql
+        mariadb -h db -u dbuser dbname < /tmp/dump.mysql
