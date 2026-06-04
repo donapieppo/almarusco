@@ -86,7 +86,7 @@ class DisposalType < ApplicationRecord
         next
       end
       if self.physical_state == dt.physical_state && self.hp_code_ids.to_set == dt.hp_code_ids.to_set
-        errors.add(:cer_code_id, "Esiste già una tipologia con gli stessi parametri CER/UN/HP/OMOLOGA e lo stesso stato nella tua UL.")
+        errors.add(:cer_code_id, "Esiste già una tipologia con gli stessi parametri EER/UN/HP/OMOLOGA e lo stesso stato nella tua UL.")
         return false
       end
     end

@@ -11,7 +11,7 @@
       </div>
       <div class="col-md-6">
         <dl>
-          <dt>CER</dt>
+          <dt>EER</dt>
           <% @lab.disposals.joins(:disposal_type).group(:disposal_type_id).each do |d| %>  
             <dd class="my-0 py-0"><%= d.disposal_type %></dd>
           <% end %>

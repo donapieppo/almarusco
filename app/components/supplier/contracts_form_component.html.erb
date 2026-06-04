@@ -3,7 +3,7 @@
     <% @contracts.each do |contract| %>  
       <li class="d-flex flex-row">
         <div class="flex-grow-1">
-          <strong title="<%= contract.cer_code.description %>">CER <%= contract.cer_code.name %></strong>
+          <strong title="<%= contract.cer_code.description %>">EER <%= contract.cer_code.name %></strong>
           prezzo <%= contract.price_to_s %><small> / kg.</small>
         </div>
         <div class="text-right">
@@ -14,10 +14,10 @@
     <% end %>
   </ul>
 <% end %>
-<%= dm_card title: "Crea nuovo contratto scgliendo il codice CER" do %>
+<%= dm_card title: "Crea nuovo contratto scgliendo il codice EER" do %>
 <div data-controller="limit-visible" data-limit-visible-substring-value="true">
   <div class="centered my-2">
-    <input class="form-control text" placeholder="Scrivi parte del codice CER" type="text" data-action="input->limit-visible#update"></input>
+    <input class="form-control text" placeholder="Scrivi parte del codice EER" type="text" data-action="input->limit-visible#update"></input>
   </div>
   <ul>
     <% @other_cer_codes.each do |cer_code| %>  

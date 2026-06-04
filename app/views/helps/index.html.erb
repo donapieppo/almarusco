@@ -16,12 +16,12 @@
 
     <p>In questo menu troverete i seguenti sottomenu:</p>
 
-    <h3><%= dmicon('trash') %> Codici CER e codici UN</h3>
+    <h3><%= dmicon('trash') %> Codici EER e codici UN</h3>
     <div class="info">
-      CER: Catalogo Europeo dei Rifiuti<br/>
+      EER: Elenco Europeo Rifiuti<br/>
       Numero UN o numero ONU: numero univoco di 4 cifre che in ADR identifica ogni sostanza (o gruppi di sostanze affini per proprietà e pericolosità)
     </div>
-    <p>Null'applicativo i codici CER e UN sono <strong>comuni a tutte le strutture</strong> e potete aggiungerne dei nuovi se necessario.</p>
+    <p>Null'applicativo i codici EER e UN sono <strong>comuni a tutte le strutture</strong> e potete aggiungerne dei nuovi se necessario.</p>
 
     <h3><%= dmicon('list') %> Tipologie di rifiuti</h3> 
     <p>Le tipologie di rifiuti sono relative alla vostra UL.</p>
@@ -110,8 +110,8 @@
     <div class="row">
       <div class="col-md-8">
         <p>Il responsabile della UL crea un nuovo ritiro (menu rifiuti->ritiro) scegliendo la ditta.</p>
-        <p>Ad ogni ditta sono associati i codici CER che tratta per cui alla creazione del ritiro a questo vengono associati
-        i rifiuti della UL con i CER trattati dalla ditta. 
+        <p>Ad ogni ditta sono associati i codici EER che tratta per cui alla creazione del ritiro a questo vengono associati
+        i rifiuti della UL con gli EER trattati dalla ditta.
         È comunque possibile aggiungere o rimuovere rifiuti dalla lista associata al ritiro.</p>
       </div>
       <div class="col-md-4">
@@ -139,4 +139,3 @@
 <%# <%= javascript_tag do %1> %>  
 <%#   <%= render partial: 'helpers', formats: ['js'] %1> %>
 <%# <% end %1> %>
-

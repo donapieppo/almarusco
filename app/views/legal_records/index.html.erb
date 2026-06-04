@@ -2,7 +2,7 @@
 
 <div data-controller="limit-visible">
   <form class="my-2 centered disposal_cer_selector">
-    <small class="text-muted">mostra solo CER</small>
+    <small class="text-muted">mostra solo EER</small>
     <% @disposal_types.each do |dt| %>  
       <input type="radio" id="<%= dt.id %>" name="disposal_to_show" value="<%= dt.id %>" data-action="change->limit-visible#update" />
       <label for="<%= dt.id %>">

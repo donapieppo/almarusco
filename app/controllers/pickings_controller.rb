@@ -92,7 +92,7 @@ class PickingsController < ApplicationController
   def data_array(volumes_and_kgs, array_headers: false)
     res = []
     if array_headers
-      res << ["CER", "Stato fisico", "Descrizione rifiuto", "Tipo di imbal.ggio", "N° e tipo di colli", "Peso (Kg)", "Caratteristiche di pericolo", "ADR", "N. ONU", "Classe ADR"]
+      res << ["EER", "Stato fisico", "Descrizione rifiuto", "Tipo di imbal.ggio", "N° e tipo di colli", "Peso (Kg)", "Caratteristiche di pericolo", "ADR", "N. ONU", "Classe ADR"]
     end
     volumes_and_kgs.each do |disposal_type, vols_and_kgs|
       volumes = vols_and_kgs[:volumes].keys.map(&:to_i).sort

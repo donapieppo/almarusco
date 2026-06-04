@@ -8,9 +8,9 @@ en:
       organization: Local Unit
       disposal_type: Tipologia
       lab: Laboratory
-      cer_code: CER code
+      cer_code: EER code
       un_code: UN code
-      cercode: CER code
+      cercode: EER code
       uncode: UN code
       picking: Picking
       picking_document: Formulario
@@ -31,7 +31,7 @@ en:
       disposal_type:
         notes: Note
         physical_state: Stato
-        cer_code: CER
+        cer_code: EER
         un_code: UN
         hp_codes: Codici HP
         adrs: ADR

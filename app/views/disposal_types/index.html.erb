@@ -13,7 +13,7 @@
 <div class="" data-controller="limit-visible">
   <% if @disposals_cers.size > 1 %>  
     <form class="my-2 centered disposal_cer_selector">
-      <small class="text-muted">mostra solo CER</small>
+      <small class="text-muted">mostra solo EER</small>
       <% @disposals_cers.each do |cer_code| %>  
         <input type="radio" 
                id="<%= dom_id(cer_code) %>" 

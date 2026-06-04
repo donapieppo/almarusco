@@ -7,7 +7,7 @@ class NewDisposalsTest < ApplicationSystemTestCase
   def operator_can_not_create_cer_code
     sign_in_as :operator
     visit new_cer_code_url(__org__: @current_organization.code)
-    assert_raise(Pundit::NotAuthorizedError) { click_on "Crea Codice CER" }
+    assert_raise(Pundit::NotAuthorizedError) { click_on "Crea Codice EER" }
   end
 
   def manager_creates_cer_code(code)
@@ -15,7 +15,7 @@ class NewDisposalsTest < ApplicationSystemTestCase
     visit new_cer_code_url(__org__: @current_organization.code)
     fill_in "Codice", with: code
     fill_in "Descrizione", with: "descrizione #{code}"
-    click_on "Crea Codice CER"
+    click_on "Crea Codice EER"
     assert_text code
   end
 
@@ -33,8 +33,8 @@ class NewDisposalsTest < ApplicationSystemTestCase
     visit new_disposal_type_url(__org__: @current_organization.code)
     # Rails.logger.info page.html.inspect
     choose "liquido", allow_label_click: true
-    choose "CER 020108", visible: false, allow_label_click: true
-    # choose "CER #{cer_code}"
+    choose "EER 020108", visible: false, allow_label_click: true
+    # choose "EER #{cer_code}"
     choose "UN #{un_code}", visible: false, allow_label_click: true
     click_on "Crea Tipologia"
     assert_text "L'operazione non è stata possibile"
@@ -44,19 +44,19 @@ class NewDisposalsTest < ApplicationSystemTestCase
     sign_in_as :manager
     visit new_disposal_type_url(__org__: @current_organization.code)
     choose "liquido", allow_label_click: true
-    choose "CER #{cer_code}", visible: false, allow_label_click: true
-    # choose "CER #{cer_code}"
+    choose "EER #{cer_code}", visible: false, allow_label_click: true
+    # choose "EER #{cer_code}"
     choose "UN #{un_code}", visible: false, allow_label_click: true
     check "tanica 10 lt."
     check "fusto 10 lt."
     click_on "Crea Tipologia"
-    assert_text "CER #{cer_code} - UN #{un_code} - (liquido)"
+    assert_text "EER #{cer_code} - UN #{un_code} - (liquido)"
   end
 
   def operator_can_create_new_disposal(cer_code, un_code, kg: nil)
     sign_in_as :operator
     visit choose_disposal_type_disposals_url(__org__: @current_organization.code)
-    click_on "CER #{cer_code} - UN #{un_code} - (liquido)"
+    click_on "EER #{cer_code} - UN #{un_code} - (liquido)"
     select Lab.first.name
     if kg
       fill_in "Peso", with: kg
@@ -87,9 +87,9 @@ class NewDisposalsTest < ApplicationSystemTestCase
     sign_in_as :manager
     visit disposals_url(__org__: @current_organization.code, uncomplete: 1)
     if present
-      assert_text "CER #{cer_code} - UN #{un_code}"
+      assert_text "EER #{cer_code} - UN #{un_code}"
     else
-      assert_no_text "CER #{cer_code} - UN #{un_code}"
+      assert_no_text "EER #{cer_code} - UN #{un_code}"
     end
   end
 
@@ -97,9 +97,9 @@ class NewDisposalsTest < ApplicationSystemTestCase
     sign_in_as :manager
     visit disposals_url(__org__: @current_organization.code, acceptable: 1)
     if present
-      assert_text "CER #{cer_code} - UN #{un_code}"
+      assert_text "EER #{cer_code} - UN #{un_code}"
     else
-      assert_no_text "CER #{cer_code} - UN #{un_code}"
+      assert_no_text "EER #{cer_code} - UN #{un_code}"
     end
   end
 

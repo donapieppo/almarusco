@@ -9,12 +9,12 @@
 </div>
 
 <div class="my-4">
-  <h2>Numero di rifiuti accettati nel <%= @year %> suddivisi per CER</h2>
+  <h2>Numero di rifiuti accettati nel <%= @year %> suddivisi per EER</h2>
   <canvas id="cers"></canvas>
 </div>
 
 <div class="my-4">
-  <h2>Costi nel <%= @year %> suddivisi per CER</h2>
+  <h2>Costi nel <%= @year %> suddivisi per EER</h2>
   <canvas id="prices"></canvas>
 </div>
 
@@ -70,7 +70,7 @@
     data: {
       labels: <%= raw CerCode.find(@cer_codes.keys).map(&:name).to_s %>,
       datasets: [{
-        label: '# di scarichi per CER',
+        label: '# di scarichi per EER',
         data: <%= raw @cer_codes.values.to_s %>,
         borderWidth: 1
       }]
@@ -91,7 +91,7 @@
     data: {
       labels: <%= raw CerCode.find(@prices.keys).map(&:name).to_s %>,
       datasets: [{
-        label: '# di scarichi per CER',
+        label: '# di scarichi per EER',
         data: <%= raw @prices.values.to_s %>,
         borderWidth: 1
       }]

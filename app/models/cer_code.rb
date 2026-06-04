@@ -6,7 +6,7 @@ class CerCode < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
   def to_s
-    "CER " + self.name + (self.danger ? "*" : "")
+    "EER " + self.name + (self.danger ? "*" : "")
   end
 
   def danger?
