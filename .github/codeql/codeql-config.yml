@@ -1,0 +1,9 @@
+name: "CodeQL config"
+
+paths-ignore:
+  - "doc/**"
+  - "node_modules/**"
+  - "app/assets/builds/**"
+  - "public/assets/**"
+  - "log/**"
+  - "tmp/**"
