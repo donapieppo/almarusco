@@ -26,10 +26,10 @@
   new Chart(disposals, {
     type: 'bar',
     data: {
-      labels: <%= raw @labels.to_s %>,
+      labels: <%= raw json_escape(@labels.to_json) %>,
       datasets: [{
         label: '# di scarichi',
-        data: <%= raw @disposals.to_s %>,
+        data: <%= raw json_escape(@disposals.to_json) %>,
         borderWidth: 1
       }]
     },
@@ -47,10 +47,10 @@
   new Chart(uls, {
     type: 'bar',
     data: {
-      labels: <%= raw Organization.find(@uls.keys).map(&:code).to_s %>,
+      labels: <%= raw json_escape(Organization.find(@uls.keys).map(&:code).to_json) %>,
       datasets: [{
         label: '# di scarichi per UL',
-        data: <%= raw @uls.values.to_s %>,
+        data: <%= raw json_escape(@uls.values.to_json) %>,
         borderWidth: 1
       }]
     },
@@ -68,10 +68,10 @@
   new Chart(cers, {
     type: 'bar',
     data: {
-      labels: <%= raw CerCode.find(@cer_codes.keys).map(&:name).to_s %>,
+      labels: <%= raw json_escape(CerCode.find(@cer_codes.keys).map(&:name).to_json) %>,
       datasets: [{
         label: '# di scarichi per EER',
-        data: <%= raw @cer_codes.values.to_s %>,
+        data: <%= raw json_escape(@cer_codes.values.to_json) %>,
         borderWidth: 1
       }]
     },
@@ -89,10 +89,10 @@
   new Chart(prices, {
     type: 'bar',
     data: {
-      labels: <%= raw CerCode.find(@prices.keys).map(&:name).to_s %>,
+      labels: <%= raw json_escape(CerCode.find(@prices.keys).map(&:name).to_json) %>,
       datasets: [{
         label: '# di scarichi per EER',
-        data: <%= raw @prices.values.to_s %>,
+        data: <%= raw json_escape(@prices.values.to_json) %>,
         borderWidth: 1
       }]
     },
