@@ -5,11 +5,13 @@ gem "dm_unibo_user_search", git: "https://github.com/donapieppo/dm_unibo_user_se
 gem "dm_unibo_common", git: "https://github.com/donapieppo/dm_unibo_common.git"
 # gem "dm_unibo_common", path: "/home/rails/gems/dm_unibo_common/"
 
+gem "puma"
+
 gem "sentry-ruby"
 gem "sentry-rails"
 
 gem "jsbundling-rails"
-gem "cssbundling-rails", "~> 1.1"
+gem "cssbundling-rails"
 
 gem "rqrcode"
 
@@ -17,8 +19,8 @@ gem "prawn"
 gem "prawn-table"
 gem "prawn-svg"
 
-gem "sprockets-rails", "=3.4.2", require: "sprockets/railtie"
-gem "omniauth-rails_csrf_protection"
+gem "sprockets-rails"
+# gem "omniauth-rails_csrf_protection"
 
 gem "aws-sdk-s3", require: false
 
@@ -32,6 +34,7 @@ group :development, :test do
   # gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
   gem "factory_bot_rails"
   gem "ruby-lsp", require: false
+  gem "standard", ">= 1.35.1", require: false
 end
 
 group :development do
