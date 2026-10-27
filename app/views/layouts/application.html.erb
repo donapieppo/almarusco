@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="it">
   <%= render DmUniboCommon::HeaderComponent.new %>
-  <body>
+  <body class="d-flex flex-column min-vh-100 bg-body-tertiary">
     <%= render partial: 'layouts/menu' %>
 
-    <main role="main" class="container">
+    <main id="content" class="container my-4 my-md-5">
       <%= render PermissionAlertComponent.new(@alert_permissions) %>  
       <%= render DmUniboCommon::PrivacyAlertComponent.new(cookies) %>  
       <%= render DmUniboCommon::BootstrapAlertComponent.new(flash) %>  
@@ -20,9 +20,9 @@
       <%= yield %>
     </main>
 
-    <%= render DmUniboCommon::FooterComponent.new(current_user, contacts_path: main_app.contacts_path) %>
-    <%= render DmUniboCommon::ImpersonationComponent.new(current_user, true_user, 
+    <%= render DmUniboCommon::ImpersonationComponent.new current_user, true_user, 
                                                          who_impersonate_path: dm_unibo_common.who_impersonate_path, 
-                                                         stop_impersonating_path: dm_unibo_common.stop_impersonating_path) %>
+                                                         stop_impersonating_path: dm_unibo_common.stop_impersonating_path %>
+    <%= render DmUniboCommon::FooterComponent.new current_user %>
   </body>
 </html>

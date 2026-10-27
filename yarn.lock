@@ -558,9 +558,9 @@ detect-libc@^2.0.3:
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-2.1.2.tgz#689c5dcdc1900ef5583a4cb9f6d7b473742074ad"
   integrity sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==
 
-dm_unibo_common@donapieppo/dm_unibo_common.git:
+dm_unibo_common@donapieppo/dm_unibo_common#istituzionale:
   version "0.1.0"
-  resolved "https://codeload.github.com/donapieppo/dm_unibo_common/tar.gz/e5c31d59914669c71eb8c59c782a6cb3bc21afef"
+  resolved "https://codeload.github.com/donapieppo/dm_unibo_common/tar.gz/834ad5bf001f224179fedaf6445936253432d4b0"
   dependencies:
     "@fortawesome/fontawesome-free" "^6.4.0"
     "@hotwired/stimulus" "^3.2.2"
