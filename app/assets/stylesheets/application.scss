@@ -1,3 +1,6 @@
+.centered {
+  @extend .text-center;
+}
 a.underline {
   text-decoration: underline;
 }
