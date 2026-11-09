@@ -1,6 +1,6 @@
 <%= render DmUniboCommon::ModalComponent.new() do %>
   <%= dm_card title: @organization do %>  
-    <%= link_to "VAI ALLA PAGINA", disposals_path("__org__": @organization.code), class: "float-end btn btn-secondary" %>
+    <%= link_to "VAI ALLA PAGINA", disposals_path("__org__": @organization.code), class: "float-end btn btn-outline-primary" %>
 
     <h2>Rifiuti</h2>
     <% if last_disposal = @organization.disposals.order(created_at: :desc).first %>  

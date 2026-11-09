@@ -10,7 +10,7 @@
       <b><%= organization.name.upcase %></b>
       <small class="px-2"><%= organization.description %></small>
       <% if count = @counts[organization.id] %>  
-        <div class="badge <%= count < 10 ? 'bg-secondary' : 'bg-success' %>"><%= count %> rifiuti</div>  
+        <div class="badge <%= count < 10 ? 'bg-warning text-dark' : 'bg-success' %>"><%= count %> rifiuti</div>  
       <% end %>
     <% end %>
   <% end %>
