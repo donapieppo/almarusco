@@ -12,9 +12,9 @@
       <%= turbo_frame_tag "modal" %>
 
       <% if current_organization %>  
-        <h2 class="centered">
+        <div class="text-center h5">
           <%= current_organization.name %> - <%= current_organization.description %>
-        </h2>
+        </div>
       <% end %>
 
       <%= yield %>
