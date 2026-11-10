@@ -581,9 +581,9 @@ dompurify@^3.2.5:
     "@types/trusted-types" "^2.0.7"
 
 electron-to-chromium@^1.5.464:
-  version "1.5.478"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.478.tgz#e1d6d5279242d2f90fa287a8343dc04ddc0c52ec"
-  integrity sha512-pftG+ma5Lm8O6/p45bhYT6StBN5ziQymaRzmCZwFl8DwWHKPPD93FdOmP1aqftcepolQYvrcyTLa17kE8Yf+jg==
+  version "1.5.479"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.479.tgz#879b8b0c0447b3d9beec2954eae77e7271844784"
+  integrity sha512-uAJdJQ7vHa4TvPfzt1TOqoRgHmav5gwmqHMPLxBH6m8Cbj5R9/z/rygTOQiZ8pe5g0ZAEogga1bP6HoKcOzx/Q==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -784,9 +784,9 @@ jsonfile@^6.0.1:
     graceful-fs "^4.1.6"
 
 lilconfig@^3.1.1:
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-3.1.4.tgz#d0b8ba64f16567774579b24a5e15e8bf997b4151"
-  integrity sha512-zJZyBmQhArDRefuWTypZxwDpFDIYmrj8ypSBvwGD5P13Y95s6DjzKgu4DVdGbeQa5PDEsAOCAPNk4X+QOR006w==
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-3.1.5.tgz#7c9342a74d602bb15c0a1ca67f2c99be056c4656"
+  integrity sha512-aRAOI9Ia43ygL4o1EOmC/sc/0OFxrm7qcQngiIyWaqVnSnz932ybJ07zyCcgMNGSDP8Yxaf88Xj1zHEXmvQ4SA==
 
 minimatch@^10.2.1:
   version "10.2.6"
