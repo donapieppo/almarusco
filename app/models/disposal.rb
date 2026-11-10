@@ -169,9 +169,9 @@ class Disposal < ApplicationRecord
 
   # FIXME check before use :-) For now see disposals_controller set_producer
   def producer_upn=(upn)
-   _producer = User.find_or_syncronize(upn)
-    if _producer
-      self.producer = _producer
+    user_producer = User.find_or_syncronize(upn)
+    if user_producer
+      self.producer = user_producer
     end
   end
 
