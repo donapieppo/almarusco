@@ -2,7 +2,7 @@
   <% if @modal %>  
     <%= render Disposal::CardTitleComponent.new(@disposal) %>  
   <% else %>
-    <%= link_to disposal_path(@disposal, modal: 1), data: { turbo_frame: :modal } do %>  
+    <%= link_to disposal_path(@disposal, modal: 1), data: {turbo_frame: :modal} do %>  
       <%= render Disposal::CardTitleComponent.new(@disposal) %>  
     <% end %>
   <% end %>
