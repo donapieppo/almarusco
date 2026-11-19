@@ -1,8 +1,6 @@
-<h1>
-  Nuovo operatore per <br/><small><%= @producer %></small>
-</h1>
+<h1>Nuovo operatore</h1>
 
-<div class="">
+<%= render DmUniboCommon::CardComponent.new(title: "Nuovo operatore per #{@producer}") do %>
   <div class="my-4">
     Inserire l'e-mail del collega abilitato a operare in nome di <strong><%= @producer %></strong> 
     e la data in cui tale abilitazione scade.
@@ -28,4 +26,4 @@
       <%= f.submit "Invia" %>  
     </div>
   <% end %>
-</div>
+<% end %>

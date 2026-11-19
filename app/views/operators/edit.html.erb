@@ -2,7 +2,7 @@
   Modifica scadenza operatore <br/><small><%= @permission.user %></small>
 </h1>
 
-<div class="mx-auto" style="max-width: 800px;">
+<%= render DmUniboCommon::CardComponent.new(title: "") do %>
   <div class="my-4">
     Modifica la data in cui deve scadere l'abilitazione di <%= @permission.user %> (<%= @permission.user.upn %>) 
     ad operare per <%= @producer %> (<%= @producer.upn %>).
@@ -12,4 +12,4 @@
     <%= f.date_field :expiry, html5: true, value: @permission.expiry, class: "form-control" %>  
     <%= f.submit "Invia", class: 'my-2' %>  
   <% end %>
-</div>
+<% end %>
