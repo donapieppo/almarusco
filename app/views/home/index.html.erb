@@ -1,11 +1,11 @@
-<h1 class="h1">
-  <%= Rails.configuration.unibo_common.header_title %> <br/>
-  <small>
-    Applicazione per la tracciabilità dei rifiuti speciali
-  </small>
-</h1>
-
 <% if current_user %>
+  <h1 class="h1">
+    <%= Rails.configuration.unibo_common.header_title %> <br/>
+    <small>
+      Applicazione per la tracciabilità dei rifiuti speciali
+    </small>
+  </h1>
+
   <h2 class="my-3 text-center">Scegli la UL su cui vuoi operare</h2>
 
   <div class="row my-4 text-center">
@@ -16,12 +16,5 @@
     <% end %>
   </div>
 <% else %>
-  <div class="text-center my-3">
-    <%= login_link_title %>
-    <%= login_link(btn: true) %>
-  </div>
+  <%= render "welcome_page" %>
 <% end %>
-
-<div class="alert alert-light my-3">
-  <%= Rails.configuration.unibo_common.home_description.html_safe %>
-</div>
