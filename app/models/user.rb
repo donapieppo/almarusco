@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include DmUniboCommon::User
+
   has_many :disposals
   has_many :disposal_descriptions
 
@@ -17,7 +18,7 @@ class User < ApplicationRecord
   end
 
   def nuter?
-    NUTER.include?(self.upn)
+    Array(Rails.configuration.unibo_common.nuters).include?(self.upn)
   end
 
   # refactor
